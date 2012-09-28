@@ -17,6 +17,11 @@
 		37B5208216157DF600941F0D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B5206216157DF500941F0D /* Cocoa.framework */; };
 		37B5208A16157DF600941F0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B5208816157DF600941F0D /* InfoPlist.strings */; };
 		37B5208D16157DF600941F0D /* SunlightTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5208C16157DF600941F0D /* SunlightTests.m */; };
+		37B5209F1615828800941F0D /* EQSTRClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5209C1615828800941F0D /* EQSTRClipView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		37B520A01615828800941F0D /* EQSTRScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5209E1615828800941F0D /* EQSTRScrollView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		37B520A91615834B00941F0D /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B520A81615834B00941F0D /* DDHotKeyCenter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		37B520AB1615837D00941F0D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B520AA1615837D00941F0D /* Carbon.framework */; };
+		37B520AD1615840100941F0D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B520AC1615840100941F0D /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +54,14 @@
 		37B5208916157DF600941F0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		37B5208B16157DF600941F0D /* SunlightTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SunlightTests.h; sourceTree = "<group>"; };
 		37B5208C16157DF600941F0D /* SunlightTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SunlightTests.m; sourceTree = "<group>"; };
+		37B5209B1615828800941F0D /* EQSTRClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EQSTRClipView.h; sourceTree = "<group>"; };
+		37B5209C1615828800941F0D /* EQSTRClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EQSTRClipView.m; sourceTree = "<group>"; };
+		37B5209D1615828800941F0D /* EQSTRScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EQSTRScrollView.h; sourceTree = "<group>"; };
+		37B5209E1615828800941F0D /* EQSTRScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EQSTRScrollView.m; sourceTree = "<group>"; };
+		37B520A71615834B00941F0D /* DDHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDHotKeyCenter.h; path = DDHotKey/DDHotKeyCenter.h; sourceTree = "<group>"; };
+		37B520A81615834B00941F0D /* DDHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDHotKeyCenter.m; path = DDHotKey/DDHotKeyCenter.m; sourceTree = "<group>"; };
+		37B520AA1615837D00941F0D /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		37B520AC1615840100941F0D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +69,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37B520AD1615840100941F0D /* QuartzCore.framework in Frameworks */,
+				37B520AB1615837D00941F0D /* Carbon.framework in Frameworks */,
 				37B5206316157DF500941F0D /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +109,8 @@
 		37B5206116157DF500941F0D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				37B520AC1615840100941F0D /* QuartzCore.framework */,
+				37B520AA1615837D00941F0D /* Carbon.framework */,
 				37B5206216157DF500941F0D /* Cocoa.framework */,
 				37B5208016157DF600941F0D /* SenTestingKit.framework */,
 				37B5206416157DF500941F0D /* Other Frameworks */,
@@ -117,6 +134,8 @@
 				37B5207416157DF500941F0D /* PSCAppDelegate.h */,
 				37B5207516157DF500941F0D /* PSCAppDelegate.m */,
 				37B5207716157DF600941F0D /* MainMenu.xib */,
+				37B520A61615833700941F0D /* DDHotKey */,
+				37B5209A1615828800941F0D /* ScrollToRefresh */,
 				37B5206916157DF500941F0D /* Supporting Files */,
 			);
 			path = Sunlight;
@@ -151,6 +170,27 @@
 				37B5208816157DF600941F0D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		37B5209A1615828800941F0D /* ScrollToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				37B5209B1615828800941F0D /* EQSTRClipView.h */,
+				37B5209C1615828800941F0D /* EQSTRClipView.m */,
+				37B5209D1615828800941F0D /* EQSTRScrollView.h */,
+				37B5209E1615828800941F0D /* EQSTRScrollView.m */,
+			);
+			name = ScrollToRefresh;
+			path = ScrollToRefresh/ScrollToRefresh/src;
+			sourceTree = "<group>";
+		};
+		37B520A61615833700941F0D /* DDHotKey */ = {
+			isa = PBXGroup;
+			children = (
+				37B520A71615834B00941F0D /* DDHotKeyCenter.h */,
+				37B520A81615834B00941F0D /* DDHotKeyCenter.m */,
+			);
+			name = DDHotKey;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +304,9 @@
 			files = (
 				37B5206F16157DF500941F0D /* main.m in Sources */,
 				37B5207616157DF500941F0D /* PSCAppDelegate.m in Sources */,
+				37B5209F1615828800941F0D /* EQSTRClipView.m in Sources */,
+				37B520A01615828800941F0D /* EQSTRScrollView.m in Sources */,
+				37B520A91615834B00941F0D /* DDHotKeyCenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +490,7 @@
 				37B5209216157DF600941F0D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		37B5209316157DF600941F0D /* Build configuration list for PBXNativeTarget "SunlightTests" */ = {
 			isa = XCConfigurationList;
@@ -455,6 +499,7 @@
 				37B5209516157DF600941F0D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

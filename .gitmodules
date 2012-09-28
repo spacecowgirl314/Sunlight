@@ -1,0 +1,6 @@
+[submodule "Sunlight/DDHotKey"]
+	path = Sunlight/DDHotKey
+	url = git://github.com/davedelong/DDHotKey.git
+[submodule "Sunlight/ScrollToRefresh"]
+	path = Sunlight/ScrollToRefresh
+	url = git://github.com/alexzielenski/ScrollToRefresh.git
