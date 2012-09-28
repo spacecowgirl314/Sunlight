@@ -7,9 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "EQSTRScrollView.h"
 
 @interface PSCAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet EQSTRScrollView *appScrollView;
+@property (assign) IBOutlet NSTableView *appTableView;
 
 @end

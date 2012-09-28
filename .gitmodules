@@ -4,3 +4,6 @@
 [submodule "Sunlight/ScrollToRefresh"]
 	path = Sunlight/ScrollToRefresh
 	url = git://github.com/alexzielenski/ScrollToRefresh.git
+[submodule "Sunlight/appnetkit"]
+	path = Sunlight/appnetkit
+	url = git://github.com/brentdax/appnetkit.git
