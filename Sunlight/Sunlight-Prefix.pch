@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'Sunlight' target in the 'Sunlight' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+#endif

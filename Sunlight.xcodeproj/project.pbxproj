@@ -1,0 +1,462 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		37B5206316157DF500941F0D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B5206216157DF500941F0D /* Cocoa.framework */; };
+		37B5206D16157DF500941F0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B5206B16157DF500941F0D /* InfoPlist.strings */; };
+		37B5206F16157DF500941F0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5206E16157DF500941F0D /* main.m */; };
+		37B5207316157DF500941F0D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 37B5207116157DF500941F0D /* Credits.rtf */; };
+		37B5207616157DF500941F0D /* PSCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5207516157DF500941F0D /* PSCAppDelegate.m */; };
+		37B5207916157DF600941F0D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37B5207716157DF600941F0D /* MainMenu.xib */; };
+		37B5208116157DF600941F0D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B5208016157DF600941F0D /* SenTestingKit.framework */; };
+		37B5208216157DF600941F0D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B5206216157DF500941F0D /* Cocoa.framework */; };
+		37B5208A16157DF600941F0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B5208816157DF600941F0D /* InfoPlist.strings */; };
+		37B5208D16157DF600941F0D /* SunlightTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5208C16157DF600941F0D /* SunlightTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		37B5208316157DF600941F0D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37B5205516157DF500941F0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37B5205D16157DF500941F0D;
+			remoteInfo = Sunlight;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		37B5205E16157DF500941F0D /* Sunlight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sunlight.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		37B5206216157DF500941F0D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		37B5206516157DF500941F0D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		37B5206616157DF500941F0D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		37B5206716157DF500941F0D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		37B5206A16157DF500941F0D /* Sunlight-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sunlight-Info.plist"; sourceTree = "<group>"; };
+		37B5206C16157DF500941F0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		37B5206E16157DF500941F0D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		37B5207016157DF500941F0D /* Sunlight-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sunlight-Prefix.pch"; sourceTree = "<group>"; };
+		37B5207216157DF500941F0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		37B5207416157DF500941F0D /* PSCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSCAppDelegate.h; sourceTree = "<group>"; };
+		37B5207516157DF500941F0D /* PSCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSCAppDelegate.m; sourceTree = "<group>"; };
+		37B5207816157DF600941F0D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		37B5207F16157DF600941F0D /* SunlightTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SunlightTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		37B5208016157DF600941F0D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		37B5208716157DF600941F0D /* SunlightTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SunlightTests-Info.plist"; sourceTree = "<group>"; };
+		37B5208916157DF600941F0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		37B5208B16157DF600941F0D /* SunlightTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SunlightTests.h; sourceTree = "<group>"; };
+		37B5208C16157DF600941F0D /* SunlightTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SunlightTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		37B5205B16157DF500941F0D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37B5206316157DF500941F0D /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37B5207B16157DF600941F0D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37B5208116157DF600941F0D /* SenTestingKit.framework in Frameworks */,
+				37B5208216157DF600941F0D /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		37B5205316157DF500941F0D = {
+			isa = PBXGroup;
+			children = (
+				37B5206816157DF500941F0D /* Sunlight */,
+				37B5208516157DF600941F0D /* SunlightTests */,
+				37B5206116157DF500941F0D /* Frameworks */,
+				37B5205F16157DF500941F0D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		37B5205F16157DF500941F0D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				37B5205E16157DF500941F0D /* Sunlight.app */,
+				37B5207F16157DF600941F0D /* SunlightTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		37B5206116157DF500941F0D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				37B5206216157DF500941F0D /* Cocoa.framework */,
+				37B5208016157DF600941F0D /* SenTestingKit.framework */,
+				37B5206416157DF500941F0D /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		37B5206416157DF500941F0D /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				37B5206516157DF500941F0D /* AppKit.framework */,
+				37B5206616157DF500941F0D /* CoreData.framework */,
+				37B5206716157DF500941F0D /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		37B5206816157DF500941F0D /* Sunlight */ = {
+			isa = PBXGroup;
+			children = (
+				37B5207416157DF500941F0D /* PSCAppDelegate.h */,
+				37B5207516157DF500941F0D /* PSCAppDelegate.m */,
+				37B5207716157DF600941F0D /* MainMenu.xib */,
+				37B5206916157DF500941F0D /* Supporting Files */,
+			);
+			path = Sunlight;
+			sourceTree = "<group>";
+		};
+		37B5206916157DF500941F0D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				37B5206A16157DF500941F0D /* Sunlight-Info.plist */,
+				37B5206B16157DF500941F0D /* InfoPlist.strings */,
+				37B5206E16157DF500941F0D /* main.m */,
+				37B5207016157DF500941F0D /* Sunlight-Prefix.pch */,
+				37B5207116157DF500941F0D /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		37B5208516157DF600941F0D /* SunlightTests */ = {
+			isa = PBXGroup;
+			children = (
+				37B5208B16157DF600941F0D /* SunlightTests.h */,
+				37B5208C16157DF600941F0D /* SunlightTests.m */,
+				37B5208616157DF600941F0D /* Supporting Files */,
+			);
+			path = SunlightTests;
+			sourceTree = "<group>";
+		};
+		37B5208616157DF600941F0D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				37B5208716157DF600941F0D /* SunlightTests-Info.plist */,
+				37B5208816157DF600941F0D /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		37B5205D16157DF500941F0D /* Sunlight */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37B5209016157DF600941F0D /* Build configuration list for PBXNativeTarget "Sunlight" */;
+			buildPhases = (
+				37B5205A16157DF500941F0D /* Sources */,
+				37B5205B16157DF500941F0D /* Frameworks */,
+				37B5205C16157DF500941F0D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Sunlight;
+			productName = Sunlight;
+			productReference = 37B5205E16157DF500941F0D /* Sunlight.app */;
+			productType = "com.apple.product-type.application";
+		};
+		37B5207E16157DF600941F0D /* SunlightTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37B5209316157DF600941F0D /* Build configuration list for PBXNativeTarget "SunlightTests" */;
+			buildPhases = (
+				37B5207A16157DF600941F0D /* Sources */,
+				37B5207B16157DF600941F0D /* Frameworks */,
+				37B5207C16157DF600941F0D /* Resources */,
+				37B5207D16157DF600941F0D /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				37B5208416157DF600941F0D /* PBXTargetDependency */,
+			);
+			name = SunlightTests;
+			productName = SunlightTests;
+			productReference = 37B5207F16157DF600941F0D /* SunlightTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		37B5205516157DF500941F0D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = PSC;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Phantom Sun Creative, Ltd.";
+			};
+			buildConfigurationList = 37B5205816157DF500941F0D /* Build configuration list for PBXProject "Sunlight" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 37B5205316157DF500941F0D;
+			productRefGroup = 37B5205F16157DF500941F0D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				37B5205D16157DF500941F0D /* Sunlight */,
+				37B5207E16157DF600941F0D /* SunlightTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		37B5205C16157DF500941F0D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37B5206D16157DF500941F0D /* InfoPlist.strings in Resources */,
+				37B5207316157DF500941F0D /* Credits.rtf in Resources */,
+				37B5207916157DF600941F0D /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37B5207C16157DF600941F0D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37B5208A16157DF600941F0D /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		37B5207D16157DF600941F0D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		37B5205A16157DF500941F0D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37B5206F16157DF500941F0D /* main.m in Sources */,
+				37B5207616157DF500941F0D /* PSCAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37B5207A16157DF600941F0D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37B5208D16157DF600941F0D /* SunlightTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		37B5208416157DF600941F0D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37B5205D16157DF500941F0D /* Sunlight */;
+			targetProxy = 37B5208316157DF600941F0D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		37B5206B16157DF500941F0D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				37B5206C16157DF500941F0D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		37B5207116157DF500941F0D /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				37B5207216157DF500941F0D /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		37B5207716157DF600941F0D /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				37B5207816157DF600941F0D /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		37B5208816157DF600941F0D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				37B5208916157DF600941F0D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		37B5208E16157DF600941F0D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		37B5208F16157DF600941F0D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		37B5209116157DF600941F0D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sunlight/Sunlight-Prefix.pch";
+				INFOPLIST_FILE = "Sunlight/Sunlight-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		37B5209216157DF600941F0D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sunlight/Sunlight-Prefix.pch";
+				INFOPLIST_FILE = "Sunlight/Sunlight-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		37B5209416157DF600941F0D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Sunlight.app/Contents/MacOS/Sunlight";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sunlight/Sunlight-Prefix.pch";
+				INFOPLIST_FILE = "SunlightTests/SunlightTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		37B5209516157DF600941F0D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Sunlight.app/Contents/MacOS/Sunlight";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sunlight/Sunlight-Prefix.pch";
+				INFOPLIST_FILE = "SunlightTests/SunlightTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		37B5205816157DF500941F0D /* Build configuration list for PBXProject "Sunlight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37B5208E16157DF600941F0D /* Debug */,
+				37B5208F16157DF600941F0D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37B5209016157DF600941F0D /* Build configuration list for PBXNativeTarget "Sunlight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37B5209116157DF600941F0D /* Debug */,
+				37B5209216157DF600941F0D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		37B5209316157DF600941F0D /* Build configuration list for PBXNativeTarget "SunlightTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37B5209416157DF600941F0D /* Debug */,
+				37B5209516157DF600941F0D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 37B5205516157DF500941F0D /* Project object */;
+}
