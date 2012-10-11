@@ -10,6 +10,3 @@
 [submodule "Sunlight/INAppStoreWindow"]
 	path = Sunlight/INAppStoreWindow
 	url = git://github.com/indragiek/INAppStoreWindow.git
-[submodule "Sunlight/objc-appdotnet"]
-	path = Sunlight/objc-appdotnet
-	url = git://github.com/akashkgarg/objc-appdotnet.git
