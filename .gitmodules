@@ -7,3 +7,9 @@
 [submodule "Sunlight/appnetkit"]
 	path = Sunlight/appnetkit
 	url = git://github.com/brentdax/appnetkit.git
+[submodule "Sunlight/INAppStoreWindow"]
+	path = Sunlight/INAppStoreWindow
+	url = git://github.com/indragiek/INAppStoreWindow.git
+[submodule "Sunlight/objc-appdotnet"]
+	path = Sunlight/objc-appdotnet
+	url = git://github.com/akashkgarg/objc-appdotnet.git

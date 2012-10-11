@@ -8,10 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import "EQSTRScrollView.h"
+#import "AppNetKit.h"
+#import "INAppStoreWindow.h"
 
-@interface PSCAppDelegate : NSObject <NSApplicationDelegate>
+@interface PSCAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate> {
+	NSArray *postsArray;
+}
 
-@property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet INAppStoreWindow *window;
 @property (assign) IBOutlet EQSTRScrollView *appScrollView;
 @property (assign) IBOutlet NSTableView *appTableView;
 
