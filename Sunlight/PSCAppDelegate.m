@@ -12,21 +12,21 @@
 @implementation PSCAppDelegate
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification {
-	[[self window] setAlphaValue:0.0];
-	[[self window] orderOut:nil];
+	//[[self window] setAlphaValue:0.0];
+	//[[self window] orderOut:nil];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	// Register 
 	//[self addOutput:@"Attempting to register hotkey for example 1"];
-	DDHotKeyCenter * c = [[DDHotKeyCenter alloc] init];
-	if (![c registerHotKeyWithKeyCode:0 modifierFlags:NSAlternateKeyMask target:self action:@selector(hotkeyWithEvent:) object:nil]) {
+	//DDHotKeyCenter * c = [[DDHotKeyCenter alloc] init];
+	/*if (![c registerHotKeyWithKeyCode:0 modifierFlags:NSAlternateKeyMask target:self action:@selector(hotkeyWithEvent:) object:nil]) {
 		//[self addOutput:@"Unable to register hotkey for example 1"];
 	} else {
 		//[self addOutput:@"Registered hotkey for example 1"];
 		//[self addOutput:[NSString stringWithFormat:@"Registered: %@", [c registeredHotKeys]]];
-	}
+	}*/
 	// start window off by not being seen
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
