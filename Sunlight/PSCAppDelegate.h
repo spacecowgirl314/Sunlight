@@ -18,5 +18,6 @@
 @property (assign) IBOutlet INAppStoreWindow *window;
 @property (assign) IBOutlet EQSTRScrollView *appScrollView;
 @property (assign) IBOutlet NSTableView *appTableView;
+@property (nonatomic) NSString *authToken;
 
 @end

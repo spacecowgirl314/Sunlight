@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3733B8F4162678950098E6A1 /* PSCPostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B8F3162678950098E6A1 /* PSCPostCell.m */; };
+		3733B8F4162678950098E6A1 /* PSCPostCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B8F3162678950098E6A1 /* PSCPostCellView.m */; };
 		3733B997162694B30098E6A1 /* ANAccessTokenInformationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B936162694B30098E6A1 /* ANAccessTokenInformationRequest.m */; };
 		3733B998162694B30098E6A1 /* ANAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B938162694B30098E6A1 /* ANAnnotation.m */; };
 		3733B999162694B30098E6A1 /* ANAuthenticatedRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B93A162694B30098E6A1 /* ANAuthenticatedRequest.m */; };
@@ -56,6 +56,8 @@
 		3733B9C4162694B30098E6A1 /* NSDictionary+Parameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B993162694B30098E6A1 /* NSDictionary+Parameters.m */; };
 		3733B9C5162694B30098E6A1 /* NSString+AppNetExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B995162694B30098E6A1 /* NSString+AppNetExtensions.m */; };
 		3733B9F41626A3780098E6A1 /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B9CA1626A3780098E6A1 /* INAppStoreWindow.m */; };
+		37AD27BA1627A8D4008E58BF /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AD27B91627A8D4008E58BF /* Quartz.framework */; };
+		37AD27C01627F59F008E58BF /* Sunlight.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 37AD27BF1627F59F008E58BF /* Sunlight.iconset */; };
 		37B5206316157DF500941F0D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B5206216157DF500941F0D /* Cocoa.framework */; };
 		37B5206D16157DF500941F0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B5206B16157DF500941F0D /* InfoPlist.strings */; };
 		37B5206F16157DF500941F0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5206E16157DF500941F0D /* main.m */; };
@@ -85,8 +87,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3733B8F2162678950098E6A1 /* PSCPostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCPostCell.h; sourceTree = "<group>"; };
-		3733B8F3162678950098E6A1 /* PSCPostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCPostCell.m; sourceTree = "<group>"; };
+		3733B8F2162678950098E6A1 /* PSCPostCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCPostCellView.h; sourceTree = "<group>"; };
+		3733B8F3162678950098E6A1 /* PSCPostCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCPostCellView.m; sourceTree = "<group>"; };
 		3733B935162694B30098E6A1 /* ANAccessTokenInformationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAccessTokenInformationRequest.h; sourceTree = "<group>"; };
 		3733B936162694B30098E6A1 /* ANAccessTokenInformationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAccessTokenInformationRequest.m; sourceTree = "<group>"; };
 		3733B937162694B30098E6A1 /* ANAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAnnotation.h; sourceTree = "<group>"; };
@@ -186,6 +188,8 @@
 		3733B995162694B30098E6A1 /* NSString+AppNetExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AppNetExtensions.m"; sourceTree = "<group>"; };
 		3733B9C91626A3780098E6A1 /* INAppStoreWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAppStoreWindow.h; sourceTree = "<group>"; };
 		3733B9CA1626A3780098E6A1 /* INAppStoreWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INAppStoreWindow.m; sourceTree = "<group>"; };
+		37AD27B91627A8D4008E58BF /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		37AD27BF1627F59F008E58BF /* Sunlight.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Sunlight.iconset; sourceTree = SOURCE_ROOT; };
 		37B5205E16157DF500941F0D /* Sunlight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sunlight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B5206216157DF500941F0D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		37B5206516157DF500941F0D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -222,6 +226,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37AD27BA1627A8D4008E58BF /* Quartz.framework in Frameworks */,
 				37B520AD1615840100941F0D /* QuartzCore.framework in Frameworks */,
 				37B520AB1615837D00941F0D /* Carbon.framework in Frameworks */,
 				37B5206316157DF500941F0D /* Cocoa.framework in Frameworks */,
@@ -375,6 +380,7 @@
 		37B5206116157DF500941F0D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				37AD27B91627A8D4008E58BF /* Quartz.framework */,
 				37B520AC1615840100941F0D /* QuartzCore.framework */,
 				37B520AA1615837D00941F0D /* Carbon.framework */,
 				37B5206216157DF500941F0D /* Cocoa.framework */,
@@ -399,8 +405,8 @@
 			children = (
 				37B5207416157DF500941F0D /* PSCAppDelegate.h */,
 				37B5207516157DF500941F0D /* PSCAppDelegate.m */,
-				3733B8F2162678950098E6A1 /* PSCPostCell.h */,
-				3733B8F3162678950098E6A1 /* PSCPostCell.m */,
+				3733B8F2162678950098E6A1 /* PSCPostCellView.h */,
+				3733B8F3162678950098E6A1 /* PSCPostCellView.m */,
 				37B5214916159CDE00941F0D /* PSCHUDWindow.h */,
 				37B5214A16159CDE00941F0D /* PSCHUDWindow.m */,
 				37B5207716157DF600941F0D /* MainMenu.xib */,
@@ -416,6 +422,7 @@
 		37B5206916157DF500941F0D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				37AD27BF1627F59F008E58BF /* Sunlight.iconset */,
 				37B5206A16157DF500941F0D /* Sunlight-Info.plist */,
 				37B5206B16157DF500941F0D /* InfoPlist.strings */,
 				37B5206E16157DF500941F0D /* main.m */,
@@ -540,6 +547,7 @@
 				37B5206D16157DF500941F0D /* InfoPlist.strings in Resources */,
 				37B5207316157DF500941F0D /* Credits.rtf in Resources */,
 				37B5207916157DF600941F0D /* MainMenu.xib in Resources */,
+				37AD27C01627F59F008E58BF /* Sunlight.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,7 +588,7 @@
 				37B520A01615828800941F0D /* EQSTRScrollView.m in Sources */,
 				37B520A91615834B00941F0D /* DDHotKeyCenter.m in Sources */,
 				37B5214B16159CDE00941F0D /* PSCHUDWindow.m in Sources */,
-				3733B8F4162678950098E6A1 /* PSCPostCell.m in Sources */,
+				3733B8F4162678950098E6A1 /* PSCPostCellView.m in Sources */,
 				3733B997162694B30098E6A1 /* ANAccessTokenInformationRequest.m in Sources */,
 				3733B998162694B30098E6A1 /* ANAnnotation.m in Sources */,
 				3733B999162694B30098E6A1 /* ANAuthenticatedRequest.m in Sources */,
