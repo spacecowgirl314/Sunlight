@@ -12,6 +12,7 @@
 #import <Quartz/Quartz.h>
 
 @implementation PSCAppDelegate
+@synthesize postController;
 @synthesize authToken = _authToken;
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification {
@@ -109,14 +110,6 @@
 	 }
 	 }];*/
 	
-	/*ANDraft *newDraft = [ANDraft new];
-	 [newDraft setText:@"Even more progress on my OS X ADN client. http://cl.ly/image/2b3h2x0X4712"];
-	 [newDraft createPostViaSession:ANSession.defaultSession completion:^(ANResponse * response, ANPost * post, NSError * error) {
-	 if(!post) {
-	 //[self doSomethingWithError:error];
-	 }
-	 }];*/
-	
 	// Get the latest posts in the user's incoming post stream...
 	[ANSession.defaultSession postsInStreamWithCompletion:^(ANResponse * response, NSArray * posts, NSError * error) {
 		if(!posts) {
@@ -142,6 +135,18 @@
 		 }
 		 }];*/
 	}];
+}
+
+#pragma mark - Posting
+
+- (IBAction)openNewPost:(id)sender {
+	if (!self.postController) {
+		PSCNewPostWindowController *pC = [[PSCNewPostWindowController alloc] init];
+		self.postController =  pC;
+	}
+	
+	[self.postController showWindow:self];
+	//[self.postController processResults:[questionField stringValue]];
 }
 
 #pragma mark - Authentication and URL handling
@@ -196,6 +201,9 @@
 - (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
     PSCPostCellView *result = [tableView makeViewWithIdentifier:[tableColumn identifier] owner:nil];
+	
+	// clear out the old image first. prevent temporary flickering due to no caching
+	[[result avatarView] setImage:nil];
     
 	ANPost *post = [postsArray objectAtIndex:row];
 	ANUser *user = [post user];

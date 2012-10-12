@@ -58,6 +58,8 @@
 		3733B9F41626A3780098E6A1 /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B9CA1626A3780098E6A1 /* INAppStoreWindow.m */; };
 		37AD27BA1627A8D4008E58BF /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AD27B91627A8D4008E58BF /* Quartz.framework */; };
 		37AD27C01627F59F008E58BF /* Sunlight.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 37AD27BF1627F59F008E58BF /* Sunlight.iconset */; };
+		37AD27CC16280A30008E58BF /* PSCNewPostWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AD27CA16280A2F008E58BF /* PSCNewPostWindowController.m */; };
+		37AD27CD16280A30008E58BF /* PSCNewPostWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37AD27CB16280A2F008E58BF /* PSCNewPostWindowController.xib */; };
 		37B5206316157DF500941F0D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B5206216157DF500941F0D /* Cocoa.framework */; };
 		37B5206D16157DF500941F0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B5206B16157DF500941F0D /* InfoPlist.strings */; };
 		37B5206F16157DF500941F0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5206E16157DF500941F0D /* main.m */; };
@@ -190,6 +192,9 @@
 		3733B9CA1626A3780098E6A1 /* INAppStoreWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INAppStoreWindow.m; sourceTree = "<group>"; };
 		37AD27B91627A8D4008E58BF /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		37AD27BF1627F59F008E58BF /* Sunlight.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Sunlight.iconset; sourceTree = SOURCE_ROOT; };
+		37AD27C916280A2F008E58BF /* PSCNewPostWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCNewPostWindowController.h; sourceTree = "<group>"; };
+		37AD27CA16280A2F008E58BF /* PSCNewPostWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCNewPostWindowController.m; sourceTree = "<group>"; };
+		37AD27CB16280A2F008E58BF /* PSCNewPostWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCNewPostWindowController.xib; sourceTree = "<group>"; };
 		37B5205E16157DF500941F0D /* Sunlight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sunlight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B5206216157DF500941F0D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		37B5206516157DF500941F0D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -407,6 +412,9 @@
 				37B5207516157DF500941F0D /* PSCAppDelegate.m */,
 				3733B8F2162678950098E6A1 /* PSCPostCellView.h */,
 				3733B8F3162678950098E6A1 /* PSCPostCellView.m */,
+				37AD27C916280A2F008E58BF /* PSCNewPostWindowController.h */,
+				37AD27CA16280A2F008E58BF /* PSCNewPostWindowController.m */,
+				37AD27CB16280A2F008E58BF /* PSCNewPostWindowController.xib */,
 				37B5214916159CDE00941F0D /* PSCHUDWindow.h */,
 				37B5214A16159CDE00941F0D /* PSCHUDWindow.m */,
 				37B5207716157DF600941F0D /* MainMenu.xib */,
@@ -548,6 +556,7 @@
 				37B5207316157DF500941F0D /* Credits.rtf in Resources */,
 				37B5207916157DF600941F0D /* MainMenu.xib in Resources */,
 				37AD27C01627F59F008E58BF /* Sunlight.iconset in Resources */,
+				37AD27CD16280A30008E58BF /* PSCNewPostWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,6 +646,7 @@
 				3733B9C4162694B30098E6A1 /* NSDictionary+Parameters.m in Sources */,
 				3733B9C5162694B30098E6A1 /* NSString+AppNetExtensions.m in Sources */,
 				3733B9F41626A3780098E6A1 /* INAppStoreWindow.m in Sources */,
+				37AD27CC16280A30008E58BF /* PSCNewPostWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -750,11 +760,13 @@
 		37B5209116157DF600941F0D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sunlight/Sunlight-Prefix.pch";
 				INFOPLIST_FILE = "Sunlight/Sunlight-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -762,11 +774,13 @@
 		37B5209216157DF600941F0D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sunlight/Sunlight-Prefix.pch";
 				INFOPLIST_FILE = "Sunlight/Sunlight-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
