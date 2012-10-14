@@ -24,5 +24,7 @@
 @property (retain, nonatomic) PSCNewPostController *postController;
 
 - (IBAction)openReplyPost:(id)sender;
+- (IBAction)starPost:(id)sender;
+- (IBAction)repostPost:(id)sender;
 
 @end
