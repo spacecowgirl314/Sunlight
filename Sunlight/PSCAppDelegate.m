@@ -10,6 +10,7 @@
 #import "PSCPostCellView.h"
 #import "DDHotKeyCenter.h"
 #import <Quartz/Quartz.h>
+#import <AutoHyperlinks/AutoHyperlinks.h>
 
 @implementation PSCAppDelegate
 @synthesize postController;
@@ -227,12 +228,23 @@
 		}];
 	}
 	
+	//[[result postField] setAllowsEditingTextAttributes: YES];
+    //[[result postField] setSelectable: YES];
+	
 	// set contents of post
 	if ([post text]!=nil) {
-		[[result postField] setStringValue:[post text]];
+		AHHyperlinkScanner *postScanner = [[AHHyperlinkScanner alloc] initWithString:[post text] usingStrictChecking:NO];
+		[[result postView] setString:@""];
+		NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
+		[attributedString insertAttributedString:[postScanner linkifiedString] atIndex:0];
+		[[result postView] setFont:[NSFont fontWithName:@"Avenir Book" size:13.0f]];
+		// temporarily set the text view editable so we can insert our attributed string with links
+		[[result postView] setEditable:YES];
+		[[result postView] insertText:attributedString];
+		[[result postView] setEditable:NO];
 	}
 	else {
-		[[result postField] setStringValue:@"Deleted Post"];
+		[[result postView] setString:@"Deleted Post"];
 	}
 	
     return result;

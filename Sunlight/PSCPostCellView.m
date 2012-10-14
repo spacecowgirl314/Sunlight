@@ -9,7 +9,7 @@
 #import "PSCPostCellView.h"
 
 @implementation PSCPostCellView
-@synthesize postField;
+@synthesize postView;
 @synthesize userField;
 @synthesize avatarView;
 

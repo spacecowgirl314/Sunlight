@@ -10,3 +10,6 @@
 [submodule "Sunlight/INAppStoreWindow"]
 	path = Sunlight/INAppStoreWindow
 	url = git://github.com/indragiek/INAppStoreWindow.git
+[submodule "Sunlight/AutoHyperlinks.framework"]
+	path = Sunlight/AutoHyperlinks.framework
+	url = git://github.com/ByteProject/AutoHyperlinks.framework.git

@@ -82,6 +82,7 @@
 		else {
 			NSLog(@"Post succeeded!");
 			[postTextField setStringValue:@""];
+			[self close];
 		}
 	}];
 }

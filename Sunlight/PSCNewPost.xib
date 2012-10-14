@@ -63,12 +63,13 @@
 							<object class="NSTextFieldCell" key="NSCell" id="1013553463">
 								<int key="NSCellFlags">337641473</int>
 								<int key="NSCellFlags2">4489216</int>
-								<string key="NSContents">Multiline Label</string>
+								<string key="NSContents"/>
 								<object class="NSFont" key="NSSupport">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">13</double>
 									<int key="NSfFlags">16</int>
 								</object>
+								<string key="NSPlaceholderString">Type your message.</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="449514047"/>
 								<object class="NSColor" key="NSBackgroundColor" id="64037441">

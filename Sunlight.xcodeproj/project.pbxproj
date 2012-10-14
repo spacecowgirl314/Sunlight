@@ -56,6 +56,11 @@
 		3733B9C4162694B30098E6A1 /* NSDictionary+Parameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B993162694B30098E6A1 /* NSDictionary+Parameters.m */; };
 		3733B9C5162694B30098E6A1 /* NSString+AppNetExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B995162694B30098E6A1 /* NSString+AppNetExtensions.m */; };
 		3733B9F41626A3780098E6A1 /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B9CA1626A3780098E6A1 /* INAppStoreWindow.m */; };
+		37A66322162AAB0600010161 /* AutoHyperlinks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A66320162AAAEF00010161 /* AutoHyperlinks.framework */; };
+		37A66329162AAD7A00010161 /* AutoHyperlinks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A66328162AAD7A00010161 /* AutoHyperlinks.framework */; };
+		37A6632A162AAD8600010161 /* AutoHyperlinks.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 37A66328162AAD7A00010161 /* AutoHyperlinks.framework */; };
+		37A66337162AC33D00010161 /* NSScrollViewScrollKiller.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */; };
+		37A6633A162AC50800010161 /* PSCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A66339162AC50800010161 /* PSCTextView.m */; };
 		37AD27BA1627A8D4008E58BF /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AD27B91627A8D4008E58BF /* Quartz.framework */; };
 		37AD27C01627F59F008E58BF /* Sunlight.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 37AD27BF1627F59F008E58BF /* Sunlight.iconset */; };
 		37AD27CC16280A30008E58BF /* PSCNewPostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AD27CA16280A2F008E58BF /* PSCNewPostController.m */; };
@@ -79,6 +84,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		37A6631F162AAAEF00010161 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37A66318162AAAEF00010161 /* AutoHyperlinks.framework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = AutoHyperlinks.framework;
+		};
 		37B5208316157DF600941F0D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 37B5205516157DF500941F0D /* Project object */;
@@ -87,6 +99,19 @@
 			remoteInfo = Sunlight;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		37A66323162AAB2000010161 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				37A6632A162AAD8600010161 /* AutoHyperlinks.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3733B8F2162678950098E6A1 /* PSCPostCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCPostCellView.h; sourceTree = "<group>"; };
@@ -191,6 +216,12 @@
 		3733B9C91626A3780098E6A1 /* INAppStoreWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAppStoreWindow.h; sourceTree = "<group>"; };
 		3733B9CA1626A3780098E6A1 /* INAppStoreWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INAppStoreWindow.m; sourceTree = "<group>"; };
 		3795FE671628C02F0091B6CD /* Sunlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Sunlight.entitlements; sourceTree = "<group>"; };
+		37A66318162AAAEF00010161 /* AutoHyperlinks.framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AutoHyperlinks.framework.xcodeproj; path = AutoHyperlinks.framework/AutoHyperlinks.framework.xcodeproj; sourceTree = "<group>"; };
+		37A66328162AAD7A00010161 /* AutoHyperlinks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AutoHyperlinks.framework; path = ../repos/CocoaTentClient/AutoHyperlinks.framework; sourceTree = "<group>"; };
+		37A66335162AC33D00010161 /* NSScrollViewScrollKiller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSScrollViewScrollKiller.h; sourceTree = "<group>"; };
+		37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSScrollViewScrollKiller.m; sourceTree = "<group>"; };
+		37A66338162AC50800010161 /* PSCTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCTextView.h; sourceTree = "<group>"; };
+		37A66339162AC50800010161 /* PSCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCTextView.m; sourceTree = "<group>"; };
 		37AD27B91627A8D4008E58BF /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		37AD27BF1627F59F008E58BF /* Sunlight.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Sunlight.iconset; sourceTree = SOURCE_ROOT; };
 		37AD27C916280A2F008E58BF /* PSCNewPostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCNewPostController.h; sourceTree = "<group>"; };
@@ -232,10 +263,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37A66322162AAB0600010161 /* AutoHyperlinks.framework in Frameworks */,
 				37AD27BA1627A8D4008E58BF /* Quartz.framework in Frameworks */,
 				37B520AD1615840100941F0D /* QuartzCore.framework in Frameworks */,
 				37B520AB1615837D00941F0D /* Carbon.framework in Frameworks */,
 				37B5206316157DF500941F0D /* Cocoa.framework in Frameworks */,
+				37A66329162AAD7A00010161 /* AutoHyperlinks.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +397,23 @@
 			path = INAppStoreWindow;
 			sourceTree = "<group>";
 		};
+		37A66319162AAAEF00010161 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				37A66320162AAAEF00010161 /* AutoHyperlinks.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		37A6633B162AC6A800010161 /* Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				37A66338162AC50800010161 /* PSCTextView.h */,
+				37A66339162AC50800010161 /* PSCTextView.m */,
+			);
+			name = Subclasses;
+			sourceTree = "<group>";
+		};
 		37B5205316157DF500941F0D = {
 			isa = PBXGroup;
 			children = (
@@ -386,6 +436,7 @@
 		37B5206116157DF500941F0D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				37A66328162AAD7A00010161 /* AutoHyperlinks.framework */,
 				37AD27B91627A8D4008E58BF /* Quartz.framework */,
 				37B520AC1615840100941F0D /* QuartzCore.framework */,
 				37B520AA1615837D00941F0D /* Carbon.framework */,
@@ -420,10 +471,14 @@
 				37B5214916159CDE00941F0D /* PSCHUDWindow.h */,
 				37B5214A16159CDE00941F0D /* PSCHUDWindow.m */,
 				37B5207716157DF600941F0D /* MainMenu.xib */,
+				37A66335162AC33D00010161 /* NSScrollViewScrollKiller.h */,
+				37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */,
+				37A6633B162AC6A800010161 /* Subclasses */,
 				3733B9C71626A3780098E6A1 /* INAppStoreWindow */,
 				3733B934162694B20098E6A1 /* appnetkit */,
 				37B520A61615833700941F0D /* DDHotKey */,
 				37B5209A1615828800941F0D /* ScrollToRefresh */,
+				37A66318162AAAEF00010161 /* AutoHyperlinks.framework.xcodeproj */,
 				37B5206916157DF500941F0D /* Supporting Files */,
 			);
 			path = Sunlight;
@@ -492,6 +547,7 @@
 				37B5205A16157DF500941F0D /* Sources */,
 				37B5205B16157DF500941F0D /* Frameworks */,
 				37B5205C16157DF500941F0D /* Resources */,
+				37A66323162AAB2000010161 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -541,6 +597,12 @@
 			mainGroup = 37B5205316157DF500941F0D;
 			productRefGroup = 37B5205F16157DF500941F0D /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 37A66319162AAAEF00010161 /* Products */;
+					ProjectRef = 37A66318162AAAEF00010161 /* AutoHyperlinks.framework.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				37B5205D16157DF500941F0D /* Sunlight */,
@@ -548,6 +610,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		37A66320162AAAEF00010161 /* AutoHyperlinks.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AutoHyperlinks.framework;
+			remoteRef = 37A6631F162AAAEF00010161 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		37B5205C16157DF500941F0D /* Resources */ = {
@@ -649,6 +721,8 @@
 				3733B9C5162694B30098E6A1 /* NSString+AppNetExtensions.m in Sources */,
 				3733B9F41626A3780098E6A1 /* INAppStoreWindow.m in Sources */,
 				37AD27CC16280A30008E58BF /* PSCNewPostController.m in Sources */,
+				37A66337162AC33D00010161 /* NSScrollViewScrollKiller.m in Sources */,
+				37A6633A162AC50800010161 /* PSCTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,9 +836,14 @@
 		37B5209116157DF600941F0D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = Sunlight/Sunlight.entitlements;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Sunlight/AutoHyperlinks.framework/Source\"",
+					"\"$(SRCROOT)/../repos/CocoaTentClient\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sunlight/Sunlight-Prefix.pch";
 				INFOPLIST_FILE = "Sunlight/Sunlight-Info.plist";
@@ -777,9 +856,14 @@
 		37B5209216157DF600941F0D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = Sunlight/Sunlight.entitlements;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Sunlight/AutoHyperlinks.framework/Source\"",
+					"\"$(SRCROOT)/../repos/CocoaTentClient\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sunlight/Sunlight-Prefix.pch";
 				INFOPLIST_FILE = "Sunlight/Sunlight-Info.plist";

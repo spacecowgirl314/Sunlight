@@ -11,12 +11,12 @@
 
 @interface PSCPostCellView : NSTableCellView {
 	ANPost *post;
-	IBOutlet NSTextField *postField;
+	IBOutlet NSTextView *postView;
 	IBOutlet NSTextField *userField;
 	IBOutlet NSImageView *avatarView;
 }
 
-@property IBOutlet NSTextField *postField;
+@property IBOutlet NSTextView *postView;
 @property IBOutlet NSTextField *userField;
 @property IBOutlet NSImageView *avatarView;
 
