@@ -14,13 +14,23 @@
 	ANPost *post;
 	IBOutlet NSTextView *postView;
 	IBOutlet NSTextField *userField;
+	IBOutlet NSTextField *postCreationField;
 	IBOutlet NSImageView *avatarView;
+	IBOutlet NSButton *replyButton;
+	IBOutlet NSButton *starButton;
+	IBOutlet NSButton *repostButton;
+	NSTrackingArea *trackingArea;
+	NSTimer *fadeTimer;
 }
 
 @property ANPost *post;
 @property IBOutlet NSTextView *postView;
 @property IBOutlet NSTextField *userField;
+@property IBOutlet NSTextField *postCreationField;
 @property IBOutlet NSImageView *avatarView;
+@property IBOutlet NSButton *replyButton;
+@property IBOutlet NSButton *starButton;
+@property IBOutlet NSButton *repostButton;
 @property (retain, nonatomic) PSCNewPostController *postController;
 
 - (IBAction)openReplyPost:(id)sender;

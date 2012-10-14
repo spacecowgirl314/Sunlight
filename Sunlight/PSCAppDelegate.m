@@ -218,6 +218,11 @@
 	// set real name
 	[[result userField] setStringValue:[user name]];
 	
+	// prevents buttons from requeued cells from being unhidden
+	[[result replyButton] setHidden:YES];
+	[[result starButton] setHidden:YES];
+	[[result repostButton] setHidden:YES];
+	
 	// adjust for retina... this is really weird
 	if ([[self window] backingScaleFactor] == 2.0) {
 		[[user avatarImage] imageAtSize:[[result avatarView] convertSizeToBacking:[result avatarView].frame.size] completion:^(NSImage *image, NSError *error) {
@@ -233,10 +238,6 @@
 	//[[result postField] setAllowsEditingTextAttributes: YES];
     //[[result postField] setSelectable: YES];
 	
-	// reset alpha value for deleted posts.
-	// eventually deleted posts will be ignored and removed from a mutable timeline that could also have mutes
-	[result setAlphaValue:1.0f];
-	
 	// set contents of post
 	if ([post text]!=nil) {
 		AHHyperlinkScanner *postScanner = [[AHHyperlinkScanner alloc] initWithString:[post text] usingStrictChecking:NO];
@@ -251,7 +252,6 @@
 	}
 	else {
 		[[result postView] setString:@"[Post deleted]"];
-		[result setAlphaValue:0.5f];
 	}
 	
     return result;
