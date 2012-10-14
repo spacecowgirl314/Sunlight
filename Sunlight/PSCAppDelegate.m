@@ -141,7 +141,7 @@
 
 - (IBAction)openNewPost:(id)sender {
 	if (!self.postController) {
-		PSCNewPostWindowController *pC = [[PSCNewPostWindowController alloc] init];
+		PSCNewPostController *pC = [[PSCNewPostController alloc] init];
 		self.postController =  pC;
 	}
 	
@@ -152,12 +152,10 @@
 #pragma mark - Authentication and URL handling
 
 - (void)authenticate {
-	NSString *urlString = [NSString stringWithFormat:
-						   @"https://alpha.app.net/oauth/authenticate?client_id=KXWTJNJeyw5fGQDmfAAcecepf7tp6eEY" \
-						   "&response_type=token" \
-						   "&redirect_uri=sunlight://api-key/" \
-						   "&scope=stream"];
-	NSURL *url = [NSURL URLWithString:urlString];
+	ANAuthenticator *authenticator = [ANAuthenticator new];
+	[authenticator setClientID:@"KXWTJNJeyw5fGQDmfAAcecepf7tp6eEY"];
+	[authenticator setRedirectURL:[NSURL URLWithString:@"sunlight://api-key/"]];
+	NSURL *url = [authenticator URLToAuthorizeForScopes:@[ANScopeStream, ANScopeEmail, ANScopeWritePost, ANScopeFollow, ANScopeMessages]];
 	[[NSWorkspace sharedWorkspace] openURL:url];
 }
 
@@ -202,6 +200,12 @@
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
     PSCPostCellView *result = [tableView makeViewWithIdentifier:[tableColumn identifier] owner:nil];
 	
+	// round edges
+	[[result avatarView] setWantsLayer:YES];
+	[[[result avatarView] layer] setMasksToBounds:YES];
+	[[[result avatarView] layer] setCornerRadius:5.0];
+	[[[result avatarView] layer] setBorderWidth:1.0f];
+	
 	// clear out the old image first. prevent temporary flickering due to no caching
 	[[result avatarView] setImage:nil];
     
@@ -210,9 +214,6 @@
 	
 	// set real name
 	[[result userField] setStringValue:[user name]];
-	
-	// round edges
-	[[[result avatarView] layer] setCornerRadius:2.0];
 	
 	// adjust for retina... this is really weird
 	if ([[self window] backingScaleFactor] == 2.0) {

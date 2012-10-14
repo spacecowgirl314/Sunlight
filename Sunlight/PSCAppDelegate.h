@@ -10,7 +10,7 @@
 #import "EQSTRScrollView.h"
 #import "AppNetKit.h"
 #import "INAppStoreWindow.h"
-#import "PSCNewPostWindowController.h"
+#import "PSCNewPostController.h"
 
 @interface PSCAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate> {
 	NSArray *postsArray;
@@ -19,7 +19,7 @@
 @property (assign) IBOutlet INAppStoreWindow *window;
 @property (assign) IBOutlet EQSTRScrollView *appScrollView;
 @property (assign) IBOutlet NSTableView *appTableView;
-@property (retain, nonatomic) PSCNewPostWindowController *postController;
+@property (retain, nonatomic) PSCNewPostController *postController;
 @property (nonatomic) NSString *authToken;
 
 @end
