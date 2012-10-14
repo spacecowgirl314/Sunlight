@@ -107,6 +107,8 @@
 - (void)draftReply:(ANPost*)post {
 	replyPost = [post draftReply];
 	[postTextField setStringValue:[replyPost text]];
+	// adjust character count
+	[self textDidChange:nil];
 }
 
 @end

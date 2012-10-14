@@ -8,6 +8,8 @@
 
 #import "NSTimer+Blocks.h"
 
+// from http://cocoadays.blogspot.com/2010/08/nstimer-blocks-2.html
+
 @implementation NSTimer (Blocks)
 
 + (void)executeBlock__:(NSTimer*)timer
