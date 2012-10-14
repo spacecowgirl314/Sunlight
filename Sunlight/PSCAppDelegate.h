@@ -21,5 +21,6 @@
 @property (assign) IBOutlet NSTableView *appTableView;
 @property (retain, nonatomic) PSCNewPostController *postController;
 @property (nonatomic) NSString *authToken;
+@property (assign) ANPost *replyPost;
 
 @end

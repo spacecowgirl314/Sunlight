@@ -9,8 +9,20 @@
 #import "PSCPostCellView.h"
 
 @implementation PSCPostCellView
+@synthesize post;
 @synthesize postView;
 @synthesize userField;
 @synthesize avatarView;
+
+- (IBAction)openReplyPost:(id)sender {
+	if (!self.postController) {
+		PSCNewPostController *pC = [[PSCNewPostController alloc] init];
+		self.postController =  pC;
+	}
+	
+	[self.postController draftReply:post];
+	[self.postController showWindow:self];
+	//[self.postController processResults:[questionField stringValue]];
+}
 
 @end

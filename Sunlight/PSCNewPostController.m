@@ -7,7 +7,6 @@
 //
 
 #import "PSCNewPostController.h"
-#import "AppNetKit.h"
 
 @interface PSCNewPostController ()
 
@@ -72,19 +71,42 @@
 }
 
 - (IBAction)post:(id)sender {
-	ANDraft *newDraft = [ANDraft new];
-	[newDraft setText:[postTextField stringValue]];
-	[newDraft createPostViaSession:ANSession.defaultSession completion:^(ANResponse * response, ANPost * post, NSError * error) {
-		if(!post) {
-			NSLog(@"There was an error posting.");
-			//[self doSomethingWithError:error];
-		}
-		else {
-			NSLog(@"Post succeeded!");
-			[postTextField setStringValue:@""];
-			[self close];
-		}
-	}];
+	if (replyPost==nil) {
+		ANDraft *newDraft = [ANDraft new];
+		[newDraft setText:[postTextField stringValue]];
+		[newDraft createPostViaSession:ANSession.defaultSession completion:^(ANResponse * response, ANPost * post, NSError * error) {
+			if(!post) {
+				NSLog(@"There was an error posting.");
+				//[self doSomethingWithError:error];
+			}
+			else {
+				NSLog(@"Post succeeded!");
+				[postTextField setStringValue:@""];
+				[self close];
+			}
+		}];
+	}
+	else {
+		// And post it.
+		[replyPost setText:[postTextField stringValue]];
+		[replyPost createPostViaSession:ANSession.defaultSession completion:^(ANResponse * response, ANPost * post, NSError * error) {
+			if(!post) {
+				NSLog(@"There was an error posting the reply.");
+				//[self doSomethingWithError:error];
+			}
+			else {
+				// reset the reply post and close upon success
+				NSLog(@"Reply succeeded!");
+				replyPost = nil;
+				[self close];
+			}
+		}];
+	}
+}
+
+- (void)draftReply:(ANPost*)post {
+	replyPost = [post draftReply];
+	[postTextField setStringValue:[replyPost text]];
 }
 
 @end

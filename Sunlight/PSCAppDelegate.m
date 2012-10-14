@@ -212,6 +212,8 @@
     
 	ANPost *post = [postsArray objectAtIndex:row];
 	ANUser *user = [post user];
+	// send post to the cell view
+	[result setPost:post];
 	
 	// set real name
 	[[result userField] setStringValue:[user name]];
@@ -231,6 +233,10 @@
 	//[[result postField] setAllowsEditingTextAttributes: YES];
     //[[result postField] setSelectable: YES];
 	
+	// reset alpha value for deleted posts.
+	// eventually deleted posts will be ignored and removed from a mutable timeline that could also have mutes
+	[result setAlphaValue:1.0f];
+	
 	// set contents of post
 	if ([post text]!=nil) {
 		AHHyperlinkScanner *postScanner = [[AHHyperlinkScanner alloc] initWithString:[post text] usingStrictChecking:NO];
@@ -244,7 +250,8 @@
 		[[result postView] setEditable:NO];
 	}
 	else {
-		[[result postView] setString:@"Deleted Post"];
+		[[result postView] setString:@"[Post deleted]"];
+		[result setAlphaValue:0.5f];
 	}
 	
     return result;

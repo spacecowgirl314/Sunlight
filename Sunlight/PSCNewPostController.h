@@ -8,15 +8,19 @@
 
 #import <Cocoa/Cocoa.h>
 #import "INAppStoreWindow.h"
+#import "AppNetKit.h"
 
 @interface PSCNewPostController: NSWindowController {
 	IBOutlet NSTextField *postTextField;
 	IBOutlet NSTextField *charactersLeftLabel;
 	IBOutlet NSButton *postButton;
+	ANDraft *replyPost;
 }
 
 @property IBOutlet NSTextField *postTextField;
 @property IBOutlet NSTextField *charactersLeftLabel;
 @property IBOutlet NSButton *postButton;
+
+- (void)draftReply:(ANPost*)post;
 
 @end
