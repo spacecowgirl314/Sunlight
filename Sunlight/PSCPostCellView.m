@@ -12,6 +12,7 @@
 
 @implementation PSCPostCellView
 @synthesize post;
+@synthesize postScrollView;
 @synthesize postView;
 @synthesize userField;
 @synthesize postCreationField;

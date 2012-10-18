@@ -34,11 +34,17 @@
     self.window.hideTitleBarInFullScreen = YES;
     self.window.centerFullScreenButton = YES;
     self.window.titleBarHeight = 40.0;
-	
+		
 	// do nothing until loaded
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
 		[[self appScrollView] stopLoading];
 	}];
+	
+	[[NSNotificationCenter defaultCenter]
+	 addObserver: self
+	 selector: @selector(windowDidResize:)
+	 name: NSWindowDidResizeNotification
+	 object: self.window];
 	
 	// self.titleView is a an IBOutlet to an NSView that has been configured in IB with everything you want in the title bar
 	/*self.titleView.frame = self.window.titleBarView.bounds;
@@ -120,7 +126,7 @@
 		
 		// Grab the most recent post.
 		ANPost * latestPost = posts[0];
-		NSLog(@"post:%@ count:%ld", [latestPost text], [posts count]);
+		//NSLog(@"post:%@ count:%ld", [latestPost text], [posts count]);
 		
 		postsArray = posts;
 		[[self appTableView] reloadData];
@@ -191,6 +197,12 @@
 	return _authToken;
 }
 
+- (void)windowDidResize:(NSNotification*)aNotification {
+	for (int i = 0; i < [postsArray count]; i++) {
+		[self.appTableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndex:i]];
+	}
+}
+
 #pragma mark - NSTableView Delegates
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
@@ -253,6 +265,15 @@
 	else {
 		[[result postView] setString:@"[Post deleted]"];
 	}
+	//NSLog(@"height %f, height %f", [[result postView] frame].size.height, [[result postScrollView] contentSize].height);
+	
+	//float heightDifference = [[result postView] frame].size.height - [[result postScrollView] contentSize].height;
+	
+	//NSLog(@"difference: %f", heightDifference);
+	
+	//rowHeight = [[result postView] frame].size.height;
+	
+	//[tableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndex:row]];
 	
     return result;
 }
@@ -260,6 +281,50 @@
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex {
     //[tableView deselectRowAtIndexPath:rowIndex animated:YES];
     return YES;
+}
+
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
+	NSLog(@"row:%ld", row);
+	ANPost *post = [postsArray objectAtIndex:row];
+	
+	NSFont* font=[NSFont fontWithName:@"Avenir Book" size:13.0f];
+	//NSDictionary *attributes = @{NSFontAttributeName : font, NSParagraphStyleAttributeName : [NSParagraphStyle defaultParagraphStyle]};
+	//NSRect rect =[[post text] boundingRectWithSize:[[result postView] frame].size options:nil attributes:attributes];
+	
+	NSTextStorage *textStorage;
+	if ([post text]!=nil) {
+		textStorage = [[NSTextStorage alloc]
+								  initWithString:[post text]];
+	}
+	else {
+		textStorage = [[NSTextStorage alloc]
+					   initWithString:@"[Post deleted]"];
+	}
+	
+	NSLog(@"wdith:%f", [[self window] frame].size.width);
+	NSTextContainer *textContainer = [[NSTextContainer alloc]
+									  initWithContainerSize: NSMakeSize([[self window] frame].size.width-125, FLT_MAX)]; //[[self window] frame].size.width-68-2
+	NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+	
+	[layoutManager addTextContainer:textContainer];
+	[textStorage addLayoutManager:layoutManager];
+	
+	[textStorage addAttribute:NSFontAttributeName value:font
+						range:NSMakeRange(0, [textStorage length])];
+	[textContainer setLineFragmentPadding:0.0];
+	
+	[layoutManager glyphRangeForTextContainer:textContainer];
+	NSLog(@"height:%f", [layoutManager
+						 usedRectForTextContainer:textContainer].size.height);
+	
+	if ([layoutManager
+		 usedRectForTextContainer:textContainer].size.height+28 < 98) {
+		return 8+52+5;
+	}
+	else {
+		return [layoutManager
+				usedRectForTextContainer:textContainer].size.height+28; //28
+	}
 }
 
 #pragma mark -

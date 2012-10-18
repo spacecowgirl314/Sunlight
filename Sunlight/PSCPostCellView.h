@@ -12,6 +12,7 @@
 
 @interface PSCPostCellView : NSTableCellView {
 	ANPost *post;
+	IBOutlet NSScrollView *postScrollView;
 	IBOutlet NSTextView *postView;
 	IBOutlet NSTextField *userField;
 	IBOutlet NSTextField *postCreationField;
@@ -24,6 +25,7 @@
 }
 
 @property ANPost *post;
+@property IBOutlet NSScrollView *postScrollView;
 @property IBOutlet NSTextView *postView;
 @property IBOutlet NSTextField *userField;
 @property IBOutlet NSTextField *postCreationField;
