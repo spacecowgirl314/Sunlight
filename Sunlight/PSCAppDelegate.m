@@ -165,10 +165,9 @@
 
 - (void)checkForMentions {
 	[ANSession.defaultSession postsMentioningUserWithID:ANMeUserID betweenID:ANMeUserID andID:ANMeUserID completion:^(ANResponse *response, NSArray *posts, NSError *error) {
+		ANResourceID lastMention = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastMention"];
 		for (ANPost *mention in posts) {
-			//NSLog(@"mention: %@ %lli", [mention text], [mention originalID]);
-			
-			ANResourceID lastMention = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastMention"];
+			//NSLog(@"this id: %llu > last id: %llu", [mention originalID], lastMention);
 			if ([mention originalID] && ([mention originalID]  > lastMention)) {
 				//NSString *postURLString = [NSString stringWithFormat:@"https://alpha.app.net/%@/post/%@", username, postId];
 				if (![mention isDeleted]) {
@@ -176,10 +175,10 @@
 					[self showMention:mention];
 				}
 				NSLog(@"[%llu] Mentioned by %@: %@", [mention originalID], [[mention user] username], [mention text]);
-				// save the lastMention
-				[[NSUserDefaults standardUserDefaults] setInteger:[mention originalID] forKey:@"lastMention"];
 			}
 		}
+		// save the lastMention
+		[[NSUserDefaults standardUserDefaults] setInteger:[[posts objectAtIndex:0] originalID] forKey:@"lastMention"];
 	}];
 }
 

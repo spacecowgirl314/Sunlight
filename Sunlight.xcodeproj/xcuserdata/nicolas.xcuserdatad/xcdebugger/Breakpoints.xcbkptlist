@@ -8,25 +8,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Sunlight/PSCAppDelegate.m"
-         timestampString = "372323071.26521"
+         timestampString = "372323847.896913"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "312"
-         endingLineNumber = "312"
+         startingLineNumber = "315"
+         endingLineNumber = "315"
          landmarkName = "-tableView:viewForTableColumn:row:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Sunlight/PSCAppDelegate.m"
-         timestampString = "372322767.191503"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "167"
-         endingLineNumber = "167"
-         landmarkName = "-checkForMentions"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
