@@ -23,7 +23,14 @@
 
 - (void)awakeFromNib {
 	[self updateTrackingArea];
+	[self setAcceptsTouchEvents:YES];
+	[self becomeFirstResponder];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResize) name:NSViewFrameDidChangeNotification object:self];
+}
+
+- (BOOL) acceptsFirstResponder
+{
+	return YES;
 }
 
 // Necessary for when the view is resized
@@ -85,6 +92,14 @@
 	[self.postController draftReply:post];
 	[self.postController showWindow:self];
 	//[self.postController processResults:[questionField stringValue]];
+	
+	// get replies
+	[post replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
+		if ([posts count]!=0) {
+			ANPost *reply = [posts objectAtIndex:0];
+			NSLog(@"reply: %@", [reply text]);
+		}
+	}];
 }
 
 - (IBAction)starPost:(id)sender {
@@ -118,6 +133,45 @@
 			NSLog(@"Post was deleted successfully.");
 		}
 	}];
+}
+
+- (void)mouseDown:(NSEvent *)theEvent {
+    NSLog(@"mouseDown event detected!");
+}
+
+- (void)swipeWithEvent:(NSEvent *)event {
+	int swipeColorValue;
+	const int SwipeLeftGreen = 0;
+	const int SwipeRightBlue = 1;
+	const int SwipeUpRed = 2;
+	const int SwipeDownYellow = 3;
+	
+    CGFloat x = [event deltaX];
+    CGFloat y = [event deltaY];
+    if (x != 0) {
+        swipeColorValue = (x > 0)  ? SwipeLeftGreen : SwipeRightBlue;
+    }
+    if (y != 0) {
+        swipeColorValue = (y > 0)  ? SwipeUpRed : SwipeDownYellow;
+    }
+    NSString *direction;
+    switch (swipeColorValue) {
+        case SwipeLeftGreen:
+            direction = @"left";
+            break;
+        case SwipeRightBlue:
+            direction = @"right";
+            break;
+        case SwipeUpRed:
+            direction = @"up";
+            break;
+        case SwipeDownYellow:
+        default:
+            direction = @"down";
+            break;
+    }
+    [postCreationField setStringValue:[NSString stringWithFormat:@"Swipe %@", direction]];
+    [self setNeedsDisplay:YES];
 }
 
 @end

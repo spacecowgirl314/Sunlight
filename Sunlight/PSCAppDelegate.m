@@ -68,6 +68,11 @@
 	} else {
 		[self authenticate];
 	}
+	
+	
+	// check and then setup notifications
+	[self checkForMentions];
+	NSTimer *mentionsTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(checkForMentions) userInfo:nil repeats:YES];
 }
 
 - (void)prepare {
@@ -154,6 +159,62 @@
 	
 	[self.postController showWindow:self];
 	//[self.postController processResults:[questionField stringValue]];
+}
+
+#pragma mark - Mentions Notifications
+
+- (void)checkForMentions {
+	[ANSession.defaultSession postsMentioningUserWithID:ANMeUserID betweenID:ANMeUserID andID:ANMeUserID completion:^(ANResponse *response, NSArray *posts, NSError *error) {
+		for (ANPost *mention in posts) {
+			//NSLog(@"mention: %@ %lli", [mention text], [mention originalID]);
+			
+			ANResourceID lastMention = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastMention"];
+			if ([mention originalID] && ([mention originalID]  > lastMention)) {
+				//NSString *postURLString = [NSString stringWithFormat:@"https://alpha.app.net/%@/post/%@", username, postId];
+				if (![mention isDeleted]) {
+					// Deleted posts seem to have nil text
+					[self showMention:mention];
+				}
+				NSLog(@"[%llu] Mentioned by %@: %@", [mention originalID], [[mention user] username], [mention text]);
+				// save the lastMention
+				[[NSUserDefaults standardUserDefaults] setInteger:[mention originalID] forKey:@"lastMention"];
+			}
+		}
+	}];
+}
+
+- (void) showMention: (ANPost*)mention
+{
+	NSUserNotification *notification = [[NSUserNotification alloc] init];
+	notification.title = [NSString stringWithFormat: @"%@ mentioned you", [[mention user] name]];
+	notification.informativeText = [mention text];
+	notification.actionButtonTitle = @"Reply";
+	notification.userInfo = nil; //@{ @"post" : @0 };
+	notification.hasActionButton = YES;
+	[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+}
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
+{
+	[center removeDeliveredNotification:notification];
+	switch (notification.activationType) {
+		case NSUserNotificationActivationTypeActionButtonClicked:
+			NSLog(@"Reply Button was clicked -> quick reply");
+			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:notification.userInfo[@"url"]]];
+			break;
+		case NSUserNotificationActivationTypeContentsClicked:
+			NSLog(@"Notification body was clicked -> redirect to item");
+			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:notification.userInfo[@"url"]]];
+			break;
+		default:
+			NSLog(@"Notfiication appears to have been dismissed!");
+			break;
+	}
+}
+
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification
+{
+	return !notification.isPresented;
 }
 
 #pragma mark - Authentication and URL handling
@@ -284,12 +345,8 @@
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-	NSLog(@"row:%ld", row);
+	//NSLog(@"row:%ld", row);
 	ANPost *post = [postsArray objectAtIndex:row];
-	
-	NSFont* font=[NSFont fontWithName:@"Avenir Book" size:13.0f];
-	//NSDictionary *attributes = @{NSFontAttributeName : font, NSParagraphStyleAttributeName : [NSParagraphStyle defaultParagraphStyle]};
-	//NSRect rect =[[post text] boundingRectWithSize:[[result postView] frame].size options:nil attributes:attributes];
 	
 	NSTextStorage *textStorage;
 	if ([post text]!=nil) {
@@ -301,7 +358,7 @@
 					   initWithString:@"[Post deleted]"];
 	}
 	
-	NSLog(@"wdith:%f", [[self window] frame].size.width);
+	//NSLog(@"wdith:%f", [[self window] frame].size.width);
 	NSTextContainer *textContainer = [[NSTextContainer alloc]
 									  initWithContainerSize: NSMakeSize([[self window] frame].size.width-125, FLT_MAX)]; //[[self window] frame].size.width-68-2
 	NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
@@ -309,13 +366,15 @@
 	[layoutManager addTextContainer:textContainer];
 	[textStorage addLayoutManager:layoutManager];
 	
+	NSFont *font = [NSFont fontWithName:@"Avenir Book" size:13.0f];
+	
 	[textStorage addAttribute:NSFontAttributeName value:font
 						range:NSMakeRange(0, [textStorage length])];
 	[textContainer setLineFragmentPadding:0.0];
 	
 	[layoutManager glyphRangeForTextContainer:textContainer];
-	NSLog(@"height:%f", [layoutManager
-						 usedRectForTextContainer:textContainer].size.height);
+	/*NSLog(@"height:%f", [layoutManager
+						 usedRectForTextContainer:textContainer].size.height);*/
 	
 	if ([layoutManager
 		 usedRectForTextContainer:textContainer].size.height+28 < 98) {
