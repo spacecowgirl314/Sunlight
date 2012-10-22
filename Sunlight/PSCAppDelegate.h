@@ -17,6 +17,7 @@
 }
 
 @property (assign) IBOutlet INAppStoreWindow *window;
+@property (assign) IBOutlet NSView *titleView;
 @property (assign) IBOutlet EQSTRScrollView *appScrollView;
 @property (assign) IBOutlet NSTableView *appTableView;
 @property (retain, nonatomic) PSCNewPostController *postController;
