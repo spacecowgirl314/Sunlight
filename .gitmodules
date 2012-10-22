@@ -13,3 +13,6 @@
 [submodule "Sunlight/AutoHyperlinks.framework"]
 	path = Sunlight/AutoHyperlinks.framework
 	url = git://github.com/ByteProject/AutoHyperlinks.framework.git
+[submodule "Sunlight/nsdate-helper"]
+	path = Sunlight/nsdate-helper
+	url = git://github.com/billymeltdown/nsdate-helper.git

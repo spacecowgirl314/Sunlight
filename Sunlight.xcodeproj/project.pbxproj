@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3733B8F4162678950098E6A1 /* PSCPostCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B8F3162678950098E6A1 /* PSCPostCellView.m */; };
 		3733B9F41626A3780098E6A1 /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B9CA1626A3780098E6A1 /* INAppStoreWindow.m */; };
+		37570B4B1635C51300B1D9FE /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 37570B491635C51300B1D9FE /* NSDate+Helper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3765B1EC162AEAA7000B3523 /* NSTimer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 3765B1EB162AEAA7000B3523 /* NSTimer+Blocks.m */; };
 		379A8E711635484E005F5540 /* fav.png in Resources */ = {isa = PBXBuildFile; fileRef = 379A8E6B1635484E005F5540 /* fav.png */; };
 		379A8E721635484E005F5540 /* fav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 379A8E6C1635484E005F5540 /* fav@2x.png */; };
@@ -131,6 +132,8 @@
 		3733B8F3162678950098E6A1 /* PSCPostCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCPostCellView.m; sourceTree = "<group>"; };
 		3733B9C91626A3780098E6A1 /* INAppStoreWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAppStoreWindow.h; sourceTree = "<group>"; };
 		3733B9CA1626A3780098E6A1 /* INAppStoreWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INAppStoreWindow.m; sourceTree = "<group>"; };
+		37570B481635C51300B1D9FE /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
+		37570B491635C51300B1D9FE /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		3765B1EA162AEAA7000B3523 /* NSTimer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Blocks.h"; sourceTree = "<group>"; };
 		3765B1EB162AEAA7000B3523 /* NSTimer+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Blocks.m"; sourceTree = "<group>"; };
 		3795FE671628C02F0091B6CD /* Sunlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Sunlight.entitlements; sourceTree = "<group>"; };
@@ -324,6 +327,15 @@
 				3733B9CA1626A3780098E6A1 /* INAppStoreWindow.m */,
 			);
 			path = INAppStoreWindow;
+			sourceTree = "<group>";
+		};
+		37570B471635C51300B1D9FE /* nsdate-helper */ = {
+			isa = PBXGroup;
+			children = (
+				37570B481635C51300B1D9FE /* NSDate+Helper.h */,
+				37570B491635C51300B1D9FE /* NSDate+Helper.m */,
+			);
+			path = "nsdate-helper";
 			sourceTree = "<group>";
 		};
 		3765B1E9162AEA90000B3523 /* Categories */ = {
@@ -545,6 +557,7 @@
 				37A6633E162AD93C00010161 /* appnetkit */,
 				37B520A61615833700941F0D /* DDHotKey */,
 				37B5209A1615828800941F0D /* ScrollToRefresh */,
+				37570B471635C51300B1D9FE /* nsdate-helper */,
 				37A66318162AAAEF00010161 /* AutoHyperlinks.framework.xcodeproj */,
 				37B5206916157DF500941F0D /* Supporting Files */,
 			);
@@ -803,6 +816,7 @@
 				37A663DB162AD93D00010161 /* NSString+AppNetExtensions.m in Sources */,
 				37A663E2162AE6E900010161 /* NSView+Fade.m in Sources */,
 				3765B1EC162AEAA7000B3523 /* NSTimer+Blocks.m in Sources */,
+				37570B4B1635C51300B1D9FE /* NSDate+Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

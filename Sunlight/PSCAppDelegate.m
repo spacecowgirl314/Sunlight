@@ -9,6 +9,7 @@
 #import "PSCAppDelegate.h"
 #import "PSCPostCellView.h"
 #import "DDHotKeyCenter.h"
+#import "NSDate+Helper.h"
 #import <Quartz/Quartz.h>
 #import <AutoHyperlinks/AutoHyperlinks.h>
 
@@ -300,6 +301,9 @@
 	[[result replyButton] setHidden:YES];
 	[[result starButton] setHidden:YES];
 	[[result repostButton] setHidden:YES];
+	
+	// set creation date
+	[[result postCreationField] setStringValue:[NSDate stringForDisplayFromDate:[post createdAt]]];
 	
 	// adjust for retina... this is really weird
 	if ([[self window] backingScaleFactor] == 2.0) {
