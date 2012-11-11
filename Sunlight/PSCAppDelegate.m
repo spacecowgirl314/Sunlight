@@ -9,7 +9,7 @@
 #import "PSCAppDelegate.h"
 #import "PSCPostCellView.h"
 #import "DDHotKeyCenter.h"
-#import "NSDate+Helper.h"
+#import "NSDate+TimeAgo.h"
 #import <Quartz/Quartz.h>
 #import <AutoHyperlinks/AutoHyperlinks.h>
 
@@ -280,12 +280,6 @@
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
     PSCPostCellView *result = [tableView makeViewWithIdentifier:[tableColumn identifier] owner:nil];
 	
-	// round edges
-	[[result avatarView] setWantsLayer:YES];
-	[[[result avatarView] layer] setMasksToBounds:YES];
-	[[[result avatarView] layer] setCornerRadius:5.0];
-	[[[result avatarView] layer] setBorderWidth:1.0f];
-	
 	// clear out the old image first. prevent temporary flickering due to no caching
 	[[result avatarView] setImage:nil];
     
@@ -303,7 +297,7 @@
 	[[result repostButton] setHidden:YES];
 	
 	// set creation date
-	[[result postCreationField] setStringValue:[NSDate stringForDisplayFromDate:[post createdAt]]];
+	[[result postCreationField] setStringValue:[[post createdAt] timeAgo]];
 	
 	// adjust for retina... this is really weird
 	if ([[self window] backingScaleFactor] == 2.0) {
@@ -358,7 +352,7 @@
 	ANPost *post = [postsArray objectAtIndex:row];
 	
 	NSTextStorage *textStorage;
-	if ([post text]!=nil) {
+	if (![post isDeleted]) {
 		textStorage = [[NSTextStorage alloc]
 								  initWithString:[post text]];
 	}
@@ -369,7 +363,7 @@
 	
 	//NSLog(@"wdith:%f", [[self window] frame].size.width);
 	NSTextContainer *textContainer = [[NSTextContainer alloc]
-									  initWithContainerSize: NSMakeSize([[self window] frame].size.width-125, FLT_MAX)]; //[[self window] frame].size.width-68-2
+									  initWithContainerSize: NSMakeSize([[self window] frame].size.width-68-2, FLT_MAX)]; //[[self window] frame].size.width-68-2 //[[self window] frame].size.width-125
 	NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
 	
 	[layoutManager addTextContainer:textContainer];
