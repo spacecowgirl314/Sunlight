@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
 		<string key="IBDocument.SystemVersion">12C3006</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2844</string>
+			<string key="NS.object.0">3084</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBNSLayoutConstraint</string>
@@ -1491,6 +1491,7 @@
 									<string key="NSFrame">{{274, 12}, {53, 19}}</string>
 									<reference key="NSSuperview" ref="85946936"/>
 									<reference key="NSWindow"/>
+									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:9</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="273490029">
@@ -2063,6 +2064,7 @@
 						<string key="NSFrame">{{254, 10}, {39, 19}}</string>
 						<reference key="NSSuperview" ref="804317596"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="481273304">
@@ -2908,7 +2910,7 @@
 													<int key="NSvFlags">2322</int>
 													<string key="NSFrameSize">{258, 66}</string>
 													<reference key="NSSuperview" ref="64937524"/>
-													<reference key="NSNextKeyView" ref="247100872"/>
+													<reference key="NSNextKeyView" ref="122634487"/>
 													<string key="NSReuseIdentifierKey">_NS:13</string>
 													<object class="NSTextContainer" key="NSTextContainer" id="766902062">
 														<object class="NSLayoutManager" key="NSLayoutManager">
@@ -3169,7 +3171,7 @@ wGw</bytes>
 									</array>
 									<string key="NSFrame">{{68, -1}, {258, 66}}</string>
 									<reference key="NSSuperview" ref="836439753"/>
-									<reference key="NSNextKeyView" ref="64937524"/>
+									<reference key="NSNextKeyView" ref="247100872"/>
 									<string key="NSReuseIdentifierKey">_NS:9</string>
 									<int key="NSsFlags">133120</int>
 									<reference key="NSVScroller" ref="247100872"/>
@@ -7057,7 +7059,6 @@ wGw</bytes>
 					<reference ref="186137043"/>
 				</array>
 				<string key="671.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="681.CustomClassName">PSCRoundedImageView</string>
 				<array class="NSMutableArray" key="681.IBNSViewMetadataConstraints">
 					<reference ref="504278342"/>
 					<reference ref="577704943"/>
@@ -7280,6 +7281,17 @@ wGw</bytes>
 				<object class="IBPartialClassDescription">
 					<string key="className">PSCAppDelegate</string>
 					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">openNewPost:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">openNewPost:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">openNewPost:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="appScrollView">EQSTRScrollView</string>
 						<string key="appTableView">NSTableView</string>
@@ -7378,14 +7390,6 @@ wGw</bytes>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/PSCPostCellView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PSCRoundedImageView</string>
-					<string key="superclassName">NSImageView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/PSCRoundedImageView.h</string>
 					</object>
 				</object>
 			</array>

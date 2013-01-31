@@ -97,6 +97,7 @@
 		37B5214B16159CDE00941F0D /* PSCHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5214A16159CDE00941F0D /* PSCHUDWindow.m */; };
 		37BD018B164F97BB00D0936E /* NSDateTimeAgo.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37BD0183164F97BB00D0936E /* NSDateTimeAgo.strings */; };
 		37BD018C164F97BB00D0936E /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BD0189164F97BB00D0936E /* NSDate+TimeAgo.m */; };
+		37E7F04D16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -299,6 +300,8 @@
 		37BD0187164F97BB00D0936E /* zh_Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_Hans; path = zh_Hans.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
 		37BD0188164F97BB00D0936E /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
 		37BD0189164F97BB00D0936E /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
+		37E7F04B16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NS(Attributed)String+Geometrics.h"; sourceTree = "<group>"; };
+		37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NS(Attributed)String+Geometrics.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +343,8 @@
 		3765B1E9162AEA90000B3523 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				37E7F04B16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.h */,
+				37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */,
 				3765B1EA162AEAA7000B3523 /* NSTimer+Blocks.h */,
 				3765B1EB162AEAA7000B3523 /* NSTimer+Blocks.m */,
 				37A663E0162AE6E800010161 /* NSView+Fade.h */,
@@ -841,6 +846,7 @@
 				3765B1EC162AEAA7000B3523 /* NSTimer+Blocks.m in Sources */,
 				37570B4F1635E1AF00B1D9FE /* PSCRoundedImageView.m in Sources */,
 				37BD018C164F97BB00D0936E /* NSDate+TimeAgo.m in Sources */,
+				37E7F04D16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

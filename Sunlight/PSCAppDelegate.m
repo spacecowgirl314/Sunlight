@@ -12,6 +12,7 @@
 #import "NSDate+TimeAgo.h"
 #import <Quartz/Quartz.h>
 #import <AutoHyperlinks/AutoHyperlinks.h>
+#import "NS(Attributed)String+Geometrics.h"
 
 @implementation PSCAppDelegate
 @synthesize postController;
@@ -30,44 +31,37 @@
 													   andSelector:@selector(receivedURL:withReplyEvent:)
 													 forEventClass:kInternetEventClass
 														andEventID:kAEGetURL];
-	
 	self.window.trafficLightButtonsLeftMargin = 7.0;
     self.window.fullScreenButtonRightMargin = 7.0;
     self.window.hideTitleBarInFullScreen = YES;
     self.window.centerFullScreenButton = YES;
     self.window.titleBarHeight = 40.0;
-	
 	// self.titleView is a an IBOutlet to an NSView that has been configured in IB with everything you want in the title bar
 	self.titleView.frame = self.window.titleBarView.bounds;
 	self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 	[self.window.titleBarView addSubview:self.titleView];
-	
 	// do nothing until loaded
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
 		[[self appScrollView] stopLoading];
 	}];
-	
 	[[NSNotificationCenter defaultCenter]
 	 addObserver: self
 	 selector: @selector(windowDidResize:)
 	 name: NSWindowDidResizeNotification
 	 object: self.window];
-	
 	// self.titleView is a an IBOutlet to an NSView that has been configured in IB with everything you want in the title bar
 	/*self.titleView.frame = self.window.titleBarView.bounds;
-	self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-	[self.window.titleBarView addSubview:self.titleView];*/
-	
-	// Register 
+	 self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+	 [self.window.titleBarView addSubview:self.titleView];*/
+	// Register
 	//[self addOutput:@"Attempting to register hotkey for example 1"];
 	//DDHotKeyCenter * c = [[DDHotKeyCenter alloc] init];
 	/*if (![c registerHotKeyWithKeyCode:0 modifierFlags:NSAlternateKeyMask target:self action:@selector(hotkeyWithEvent:) object:nil]) {
-		//[self addOutput:@"Unable to register hotkey for example 1"];
-	} else {
-		//[self addOutput:@"Registered hotkey for example 1"];
-		//[self addOutput:[NSString stringWithFormat:@"Registered: %@", [c registeredHotKeys]]];
-	}*/
-	
+	 //[self addOutput:@"Unable to register hotkey for example 1"];
+	 } else {
+	 //[self addOutput:@"Registered hotkey for example 1"];
+	 //[self addOutput:[NSString stringWithFormat:@"Registered: %@", [c registeredHotKeys]]];
+	 }*/
 	// Check the presence of the API key.
 	if ([self.authToken length]) {
 		//[self checkToken];
@@ -75,8 +69,6 @@
 	} else {
 		[self authenticate];
 	}
-	
-	
 	// check and then setup notifications
 	[self checkForMentions];
 	NSTimer *mentionsTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(checkForMentions) userInfo:nil repeats:YES];
@@ -84,7 +76,6 @@
 
 - (void)prepare {
 	ANSession.defaultSession.accessToken = self.authToken;
-	
 	// start window off by not being seen
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
@@ -95,32 +86,26 @@
 					//[self doSomethingWithError:error];
 					return;
 				}
-				
 				// Grab the most recent post.
 				ANPost * latestPost = posts[0];
 				NSLog(@"post:%@ count:%ld", [latestPost text], [posts count]);
-				
 				postsArray = posts;
 				[[self appTableView] reloadData];
-				
 				// Compose a reply...
 				ANDraft * newPost = [latestPost draftReply];
 				newPost.text = @"test"; //[newPost.text appendString:@"Me too!"];  // The default text includes an @mention
-				
 				// And post it.
 				/*[newPost createPostViaSession:ANSession.defaultSession completion:^(ANResponse * response, ANPost * post, NSError * error) {
 				 if(!post) {
 				 //[self doSomethingWithError:error];
 				 }
 				 }];*/
-				
 				dispatch_async(dispatch_get_main_queue(), ^{
 					[[self appScrollView] stopLoading];
 				});
 			}];
 		});
 	}];
-	
 	/*[engine writePost:@"Hello, World! #testing" replyToPostWithID:-1 annotations:nil links:nil block:^(ADNPost *post, NSError *error) {
 	 if (error) {
 	 //[self requestFailed:error];
@@ -128,25 +113,20 @@
 	 //[self receivedPost:post];
 	 }
 	 }];*/
-	
 	// Get the latest posts in the user's incoming post stream...
 	[ANSession.defaultSession postsInStreamWithCompletion:^(ANResponse * response, NSArray * posts, NSError * error) {
 		if(!posts) {
 			//[self doSomethingWithError:error];
 			return;
 		}
-		
 		// Grab the most recent post.
 		ANPost * latestPost = posts[0];
 		//NSLog(@"post:%@ count:%ld", [latestPost text], [posts count]);
-		
 		postsArray = posts;
 		[[self appTableView] reloadData];
-		
 		// Compose a reply...
 		ANDraft * newPost = [latestPost draftReply];
 		newPost.text = @"test"; //[newPost.text appendString:@"Me too!"];  // The default text includes an @mention
-		
 		// And post it.
 		/*[newPost createPostViaSession:ANSession.defaultSession completion:^(ANResponse * response, ANPost * post, NSError * error) {
 		 if(!post) {
@@ -163,7 +143,6 @@
 		PSCNewPostController *pC = [[PSCNewPostController alloc] init];
 		self.postController =  pC;
 	}
-	
 	[self.postController showWindow:self];
 	//[self.postController processResults:[questionField stringValue]];
 }
@@ -276,10 +255,30 @@
 	return [postsArray count];
 }
 
+- (NSImage*)roundCorners:(NSImage *)image scale:(int)doubling
+{
+	NSImage *existingImage = image;
+	NSSize existingSize = [existingImage size];
+	NSSize newSize = NSMakeSize(existingSize.height, existingSize.width);
+	NSImage *composedImage = [[NSImage alloc] initWithSize:newSize];
+	[composedImage lockFocus];
+	[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+	NSRect imageFrame = NSRectFromCGRect(CGRectMake(0, 0, 52*doubling, 52*doubling));
+	NSBezierPath *clipPath = [NSBezierPath bezierPathWithRoundedRect:imageFrame xRadius:27*doubling yRadius:27*doubling];
+	[clipPath setWindingRule:NSEvenOddWindingRule];
+	[clipPath addClip];
+	[image drawAtPoint:NSZeroPoint fromRect:NSMakeRect(0, 0, newSize.width, newSize.height) operation:NSCompositeSourceOver fraction:1];
+	NSColor *strokeColor = [NSColor blackColor];
+    [strokeColor set];
+    [NSBezierPath setDefaultLineWidth:2.0];
+    [[NSBezierPath bezierPathWithRoundedRect:imageFrame xRadius:27*doubling yRadius:27*doubling] stroke];
+	[composedImage unlockFocus];
+	return composedImage;
+}
+
 - (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
     PSCPostCellView *result = [tableView makeViewWithIdentifier:[tableColumn identifier] owner:nil];
-	
 	// clear out the old image first. prevent temporary flickering due to no caching
 	[[result avatarView] setImage:nil];
     
@@ -287,33 +286,31 @@
 	ANUser *user = [post user];
 	// send post to the cell view
 	[result setPost:post];
-	
 	// set real name
 	[[result userField] setStringValue:[user name]];
-	
 	// prevents buttons from requeued cells from being unhidden
 	[[result replyButton] setHidden:YES];
 	[[result starButton] setHidden:YES];
 	[[result repostButton] setHidden:YES];
-	
 	// set creation date
 	[[result postCreationField] setStringValue:[[post createdAt] timeAgo]];
-	
 	// adjust for retina... this is really weird
 	if ([[self window] backingScaleFactor] == 2.0) {
 		[[user avatarImage] imageAtSize:[[result avatarView] convertSizeToBacking:[result avatarView].frame.size] completion:^(NSImage *image, NSError *error) {
-			[[result avatarView] setImage:image];
+			[[result avatarView] setImage:[self roundCorners:image scale:2]];
 		}];
 	}
 	else {
 		[[user avatarImage] imageAtSize:[result avatarView].frame.size completion:^(NSImage *image, NSError *error) {
-			[[result avatarView] setImage:image];
+			[[result avatarView] setImage:[self roundCorners:image scale:1]];
 		}];
 	}
-	
+	/*[[result avatarView] setWantsLayer: YES]; // edit: enable the layer for the view. Thanks omz
+	 [result avatarView].layer.borderWidth = 0.0;
+	 [result avatarView].layer.cornerRadius = 27.0;
+	 [result avatarView].layer.masksToBounds = YES;*/
 	//[[result postField] setAllowsEditingTextAttributes: YES];
     //[[result postField] setSelectable: YES];
-	
 	// set contents of post
 	if ([post text]!=nil) {
 		AHHyperlinkScanner *postScanner = [[AHHyperlinkScanner alloc] initWithString:[post text] usingStrictChecking:NO];
@@ -330,15 +327,10 @@
 		[[result postView] setString:@"[Post deleted]"];
 	}
 	//NSLog(@"height %f, height %f", [[result postView] frame].size.height, [[result postScrollView] contentSize].height);
-	
 	//float heightDifference = [[result postView] frame].size.height - [[result postScrollView] contentSize].height;
-	
 	//NSLog(@"difference: %f", heightDifference);
-	
 	//rowHeight = [[result postView] frame].size.height;
-	
 	//[tableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndex:row]];
-	
     return result;
 }
 
@@ -350,42 +342,17 @@
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
 	//NSLog(@"row:%ld", row);
 	ANPost *post = [postsArray objectAtIndex:row];
-	
-	NSTextStorage *textStorage;
-	if (![post isDeleted]) {
-		textStorage = [[NSTextStorage alloc]
-								  initWithString:[post text]];
-	}
-	else {
-		textStorage = [[NSTextStorage alloc]
-					   initWithString:@"[Post deleted]"];
-	}
-	
-	//NSLog(@"wdith:%f", [[self window] frame].size.width);
-	NSTextContainer *textContainer = [[NSTextContainer alloc]
-									  initWithContainerSize: NSMakeSize([[self window] frame].size.width-68-2, FLT_MAX)]; //[[self window] frame].size.width-68-2 //[[self window] frame].size.width-125
-	NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
-	
-	[layoutManager addTextContainer:textContainer];
-	[textStorage addLayoutManager:layoutManager];
-	
 	NSFont *font = [NSFont fontWithName:@"Avenir Book" size:13.0f];
-	
-	[textStorage addAttribute:NSFontAttributeName value:font
-						range:NSMakeRange(0, [textStorage length])];
-	[textContainer setLineFragmentPadding:0.0];
-	
-	[layoutManager glyphRangeForTextContainer:textContainer];
-	/*NSLog(@"height:%f", [layoutManager
-						 usedRectForTextContainer:textContainer].size.height);*/
-	
-	if ([layoutManager
-		 usedRectForTextContainer:textContainer].size.height+28 < 98) {
-		return 8+52+5;
+	float height = [[post text] heightForWidth:[[self window] frame].size.width-69-2 font:font];
+	int spaceToTop=28;
+	int padding=10;
+	int minimumViewHeight = 93;
+	if (height+spaceToTop<minimumViewHeight)
+	{
+		return minimumViewHeight;
 	}
 	else {
-		return [layoutManager
-				usedRectForTextContainer:textContainer].size.height+28; //28
+		return height+spaceToTop+padding;
 	}
 }
 
