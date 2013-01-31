@@ -11,7 +11,7 @@
 #import "DDHotKeyCenter.h"
 #import "NSDate+TimeAgo.h"
 #import <Quartz/Quartz.h>
-#import <AutoHyperlinks/AutoHyperlinks.h>
+#import "AutoHyperlinks.framework/Source/AutoHyperlinks.h"
 #import "NS(Attributed)String+Geometrics.h"
 
 @implementation PSCAppDelegate
