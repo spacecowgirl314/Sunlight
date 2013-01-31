@@ -13,3 +13,6 @@
 [submodule "Sunlight/NSDate-TimeAgo"]
 	path = Sunlight/NSDate-TimeAgo
 	url = git://github.com/kevinlawler/NSDate-TimeAgo.git
+[submodule "Sunlight/appnetkit"]
+	path = Sunlight/appnetkit
+	url = git@github.com:PhantomSunCreative/appnetkit.git
