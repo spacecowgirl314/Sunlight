@@ -346,7 +346,7 @@
 	float height = [[post text] heightForWidth:[[self window] frame].size.width-69-2 font:font];
 	int spaceToTop=28;
 	int padding=10;
-	int minimumViewHeight = 93;
+	int minimumViewHeight = 70;
 	if (height+spaceToTop<minimumViewHeight)
 	{
 		return minimumViewHeight;
