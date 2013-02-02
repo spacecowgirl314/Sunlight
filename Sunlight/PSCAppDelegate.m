@@ -335,8 +335,8 @@
 }
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex {
-    //[tableView deselectRowAtIndexPath:rowIndex animated:YES];
-    return YES;
+    //[aTableView deselectRow:rowIndex];
+    return NO;
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {

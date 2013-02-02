@@ -28,7 +28,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResize) name:NSViewFrameDidChangeNotification object:self];
 }
 
-- (BOOL) acceptsFirstResponder
+- (BOOL)acceptsFirstResponder
 {
 	return YES;
 }
@@ -137,41 +137,6 @@
 
 - (void)mouseDown:(NSEvent *)theEvent {
     NSLog(@"mouseDown event detected!");
-}
-
-- (void)swipeWithEvent:(NSEvent *)event {
-	int swipeColorValue;
-	const int SwipeLeftGreen = 0;
-	const int SwipeRightBlue = 1;
-	const int SwipeUpRed = 2;
-	const int SwipeDownYellow = 3;
-	
-    CGFloat x = [event deltaX];
-    CGFloat y = [event deltaY];
-    if (x != 0) {
-        swipeColorValue = (x > 0)  ? SwipeLeftGreen : SwipeRightBlue;
-    }
-    if (y != 0) {
-        swipeColorValue = (y > 0)  ? SwipeUpRed : SwipeDownYellow;
-    }
-    NSString *direction;
-    switch (swipeColorValue) {
-        case SwipeLeftGreen:
-            direction = @"left";
-            break;
-        case SwipeRightBlue:
-            direction = @"right";
-            break;
-        case SwipeUpRed:
-            direction = @"up";
-            break;
-        case SwipeDownYellow:
-        default:
-            direction = @"down";
-            break;
-    }
-    [postCreationField setStringValue:[NSString stringWithFormat:@"Swipe %@", direction]];
-    [self setNeedsDisplay:YES];
 }
 
 @end

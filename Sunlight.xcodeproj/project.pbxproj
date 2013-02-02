@@ -109,6 +109,7 @@
 		37BD018B164F97BB00D0936E /* NSDateTimeAgo.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37BD0183164F97BB00D0936E /* NSDateTimeAgo.strings */; };
 		37BD018C164F97BB00D0936E /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BD0189164F97BB00D0936E /* NSDate+TimeAgo.m */; };
 		37E7F04D16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		37EEA9C516BB7DC200E3C56E /* PSCSwipeableScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -337,6 +338,8 @@
 		37BD0189164F97BB00D0936E /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
 		37E7F04B16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NS(Attributed)String+Geometrics.h"; sourceTree = "<group>"; };
 		37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NS(Attributed)String+Geometrics.m"; sourceTree = "<group>"; };
+		37EEA9C316BB7DC200E3C56E /* PSCSwipeableScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCSwipeableScrollView.h; sourceTree = "<group>"; };
+		37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCSwipeableScrollView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -609,6 +612,8 @@
 				37B5207516157DF500941F0D /* PSCAppDelegate.m */,
 				3733B8F2162678950098E6A1 /* PSCPostCellView.h */,
 				3733B8F3162678950098E6A1 /* PSCPostCellView.m */,
+				37EEA9C316BB7DC200E3C56E /* PSCSwipeableScrollView.h */,
+				37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */,
 				37AD27C916280A2F008E58BF /* PSCNewPostController.h */,
 				37AD27CA16280A2F008E58BF /* PSCNewPostController.m */,
 				37AD27CB16280A2F008E58BF /* PSCNewPost.xib */,
@@ -917,6 +922,7 @@
 				373036F816BA6EA500F69545 /* NSDictionary+Parameters.m in Sources */,
 				373036F916BA6EA500F69545 /* NSObject+AssociatedObject.m in Sources */,
 				373036FA16BA6EA500F69545 /* NSString+AppNetExtensions.m in Sources */,
+				37EEA9C516BB7DC200E3C56E /* PSCSwipeableScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
