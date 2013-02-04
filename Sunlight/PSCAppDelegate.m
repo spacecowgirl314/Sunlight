@@ -382,11 +382,11 @@
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
 	//NSLog(@"row:%ld", row);
 	ANPost *post = [postsArray objectAtIndex:row];
-	NSFont *font = [NSFont fontWithName:@"Avenir Book" size:13.0f];
-	float height = [[post text] heightForWidth:[[self window] frame].size.width-69-2 font:font];
+	NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
+	float height = [[post text] heightForWidth:[[self window] frame].size.width-68-2 font:font];
 	int spaceToTop=28;
 	int padding=10;
-	int minimumViewHeight = 70;
+	int minimumViewHeight = 72;
 	if (height+spaceToTop<minimumViewHeight)
 	{
 		return minimumViewHeight;
