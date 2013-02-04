@@ -59,7 +59,7 @@
 	[self updateTrackingArea];
 }
 
-- (void) mouseEntered:(NSEvent*)theEvent {
+/*- (void) mouseEntered:(NSEvent*)theEvent {
     // Mouse entered tracking area.
 	//NSLog(@"<%p>%s:", self, __PRETTY_FUNCTION__);
 	if([fadeTimer isValid])
@@ -81,7 +81,7 @@
 	[starButton setHidden:YES withFade:YES blocking:NO];
 	[repostButton setHidden:YES withFade:YES blocking:NO];
 	[postCreationField setHidden:NO withFade:YES blocking:NO];
-}
+}*/
 
 - (IBAction)openReplyPost:(id)sender {
 	if (!self.postController) {

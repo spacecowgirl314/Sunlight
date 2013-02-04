@@ -339,7 +339,7 @@
 	[[result repostButton] setHidden:YES];
 	// set creation date
 	[[result postCreationField] setStringValue:[[post createdAt] timeAgo]];
-	// not adjusting for retina... defaulting to it. was really weird before	
+	// download avatar image and store in a dictionary
 	if ([avatarImages objectForKey:[user username]])
 	{
 		[[result avatarView] setImage:[avatarImages objectForKey:[user username]]];
@@ -351,32 +351,13 @@
 			[[result avatarView] setImage:maskedImage];
 		}];
 	}
-	//if ([[self window] backingScaleFactor] == 2.0) {
-		
-		/*[[user avatarImage] imageAtSize:[[result avatarView] convertSizeToBacking:[result avatarView].frame.size] completion:^(NSImage *image, NSError *error) {
-			[[result avatarView] setImage:[self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]]];
-		}];*/
-	//}
-	/*else {
-		[[user avatarImage] imageAtSize:[result avatarView].frame.size completion:^(NSImage *image, NSError *error) {
-			NSImage *maskedImage = [self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
-			[avatarImages setValue:maskedImage forKey:[user username]];
-			[[result avatarView] setImage:maskedImage];
-		}];
-	}*/
-	/*[[result avatarView] setWantsLayer: YES]; // edit: enable the layer for the view. Thanks omz
-	 [result avatarView].layer.borderWidth = 0.0;
-	 [result avatarView].layer.cornerRadius = 27.0;
-	 [result avatarView].layer.masksToBounds = YES;*/
-	//[[result postField] setAllowsEditingTextAttributes: YES];
-    //[[result postField] setSelectable: YES];
 	// set contents of post
 	if ([post text]!=nil) {
 		AHHyperlinkScanner *postScanner = [[AHHyperlinkScanner alloc] initWithString:[post text] usingStrictChecking:NO];
 		[[result postView] setString:@""];
 		NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
 		[attributedString insertAttributedString:[postScanner linkifiedString] atIndex:0];
-		[[result postView] setFont:[NSFont fontWithName:@"Avenir Book" size:13.0f]];
+		[[result postView] setFont:[NSFont fontWithName:@"Helvetica Neue" size:13.0f]];
 		// temporarily set the text view editable so we can insert our attributed string with links
 		[[result postView] setEditable:YES];
 		[[result postView] insertText:attributedString];
