@@ -44,6 +44,7 @@
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
 		[[self appScrollView] stopLoading];
 	}];
+	avatarImages = [NSMutableDictionary new];
 	[[NSNotificationCenter defaultCenter]
 	 addObserver: self
 	 selector: @selector(windowDidResize:)
@@ -338,17 +339,31 @@
 	[[result repostButton] setHidden:YES];
 	// set creation date
 	[[result postCreationField] setStringValue:[[post createdAt] timeAgo]];
-	// adjust for retina... this is really weird
-	if ([[self window] backingScaleFactor] == 2.0) {
-		[[user avatarImage] imageAtSize:[[result avatarView] convertSizeToBacking:[result avatarView].frame.size] completion:^(NSImage *image, NSError *error) {
-			[[result avatarView] setImage:[self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]]];
-		}];
+	// not adjusting for retina... defaulting to it. was really weird before	
+	if ([avatarImages objectForKey:[user username]])
+	{
+		[[result avatarView] setImage:[avatarImages objectForKey:[user username]]];
 	}
 	else {
-		[[user avatarImage] imageAtSize:[result avatarView].frame.size completion:^(NSImage *image, NSError *error) {
-			[[result avatarView] setImage:[self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]]];
+		[[user avatarImage] imageAtSize:[[result avatarView] convertSizeToBacking:[result avatarView].frame.size] completion:^(NSImage *image, NSError *error) {
+			NSImage *maskedImage = [self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+			[avatarImages setValue:maskedImage forKey:[user username]];
+			[[result avatarView] setImage:maskedImage];
 		}];
 	}
+	//if ([[self window] backingScaleFactor] == 2.0) {
+		
+		/*[[user avatarImage] imageAtSize:[[result avatarView] convertSizeToBacking:[result avatarView].frame.size] completion:^(NSImage *image, NSError *error) {
+			[[result avatarView] setImage:[self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]]];
+		}];*/
+	//}
+	/*else {
+		[[user avatarImage] imageAtSize:[result avatarView].frame.size completion:^(NSImage *image, NSError *error) {
+			NSImage *maskedImage = [self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+			[avatarImages setValue:maskedImage forKey:[user username]];
+			[[result avatarView] setImage:maskedImage];
+		}];
+	}*/
 	/*[[result avatarView] setWantsLayer: YES]; // edit: enable the layer for the view. Thanks omz
 	 [result avatarView].layer.borderWidth = 0.0;
 	 [result avatarView].layer.cornerRadius = 27.0;
