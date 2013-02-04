@@ -276,6 +276,50 @@
 	return composedImage;
 }
 
+- (CGImageRef)nsImageToCGImageRef:(NSImage*)image;
+{
+    NSData * imageData = [image TIFFRepresentation];
+    CGImageRef imageRef;
+    if(!imageData) return nil;
+    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
+    imageRef = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
+    return imageRef;
+}
+
+- (NSImage*)imageFromCGImageRef:(CGImageRef)image
+{
+    NSRect imageRect = NSMakeRect(0.0, 0.0, 0.0, 0.0);
+    CGContextRef imageContext = nil;
+    NSImage* newImage = nil; // Get the image dimensions.
+    imageRect.size.height = CGImageGetHeight(image);
+    imageRect.size.width = CGImageGetWidth(image);
+	
+    // Create a new image to receive the Quartz image data.
+    newImage = [[NSImage alloc] initWithSize:imageRect.size];
+    [newImage lockFocus];
+	
+    // Get the Quartz context and draw.
+    imageContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
+    CGContextDrawImage(imageContext, *(CGRect*)&imageRect, image); [newImage unlockFocus];
+    return newImage;
+}
+
+- (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage {
+	
+	CGImageRef maskRef = [self nsImageToCGImageRef:maskImage];
+	
+	CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
+										CGImageGetHeight(maskRef),
+										CGImageGetBitsPerComponent(maskRef),
+										CGImageGetBitsPerPixel(maskRef),
+										CGImageGetBytesPerRow(maskRef),
+										CGImageGetDataProvider(maskRef), NULL, false);
+	
+	CGImageRef masked = CGImageCreateWithMask([self nsImageToCGImageRef:image], mask);
+	return [self imageFromCGImageRef:masked];
+	
+}
+
 - (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
     PSCPostCellView *result = [tableView makeViewWithIdentifier:[tableColumn identifier] owner:nil];
@@ -297,12 +341,12 @@
 	// adjust for retina... this is really weird
 	if ([[self window] backingScaleFactor] == 2.0) {
 		[[user avatarImage] imageAtSize:[[result avatarView] convertSizeToBacking:[result avatarView].frame.size] completion:^(NSImage *image, NSError *error) {
-			[[result avatarView] setImage:[self roundCorners:image scale:2]];
+			[[result avatarView] setImage:[self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]]];
 		}];
 	}
 	else {
 		[[user avatarImage] imageAtSize:[result avatarView].frame.size completion:^(NSImage *image, NSError *error) {
-			[[result avatarView] setImage:[self roundCorners:image scale:1]];
+			[[result avatarView] setImage:[self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]]];
 		}];
 	}
 	/*[[result avatarView] setWantsLayer: YES]; // edit: enable the layer for the view. Thanks omz
