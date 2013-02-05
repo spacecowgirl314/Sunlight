@@ -391,9 +391,9 @@
 	ANPost *post = [postsArray objectAtIndex:row];
 	NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
 	float height = [[post text] heightForWidth:[[self window] frame].size.width-68-2 font:font];
-	int spaceToTop=28;
+	int spaceToTop=18;
 	int padding=10;
-	int minimumViewHeight = 118; // 118, actually 139 though
+	int minimumViewHeight = 108; // 118, actually 139 though
 	int spaceToBottom=46;
 	if (height+spaceToTop+spaceToBottom<minimumViewHeight)
 	{

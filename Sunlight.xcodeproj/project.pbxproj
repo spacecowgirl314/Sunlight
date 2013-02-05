@@ -135,6 +135,8 @@
 		37B5214B16159CDE00941F0D /* PSCHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5214A16159CDE00941F0D /* PSCHUDWindow.m */; };
 		37E7F04D16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37EEA9C516BB7DC200E3C56E /* PSCSwipeableScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */; };
+		7064ECFF16C1B6A000F0D5DA /* shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7064ECFD16C1B6A000F0D5DA /* shadow.png */; };
+		7064ED0016C1B6A000F0D5DA /* shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7064ECFE16C1B6A000F0D5DA /* shadow@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -387,6 +389,8 @@
 		37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NS(Attributed)String+Geometrics.m"; sourceTree = "<group>"; };
 		37EEA9C316BB7DC200E3C56E /* PSCSwipeableScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCSwipeableScrollView.h; sourceTree = "<group>"; };
 		37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCSwipeableScrollView.m; sourceTree = "<group>"; };
+		7064ECFD16C1B6A000F0D5DA /* shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow.png; sourceTree = "<group>"; };
+		7064ECFE16C1B6A000F0D5DA /* shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shadow@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -589,6 +593,8 @@
 		379A8E6A16354843005F5540 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7064ECFD16C1B6A000F0D5DA /* shadow.png */,
+				7064ECFE16C1B6A000F0D5DA /* shadow@2x.png */,
 				371D970416C067A2009BCDB1 /* avatar-mask.png */,
 				371D970516C067A2009BCDB1 /* avatar-mask@2x.png */,
 				371D970616C067A2009BCDB1 /* avatar-overlay.png */,
@@ -899,6 +905,8 @@
 				3738A94116C0E20D0031F803 /* timeline-time@2x.png in Resources */,
 				3781509516C0EA4D0015956E /* Localizable.strings in Resources */,
 				3781509616C0EA4D0015956E /* Localizable_full.strings in Resources */,
+				7064ECFF16C1B6A000F0D5DA /* shadow.png in Resources */,
+				7064ED0016C1B6A000F0D5DA /* shadow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
