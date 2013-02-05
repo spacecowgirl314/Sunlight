@@ -9,7 +9,7 @@
 #import "PSCAppDelegate.h"
 #import "PSCPostCellView.h"
 #import "DDHotKeyCenter.h"
-#import "NSDate+TimeAgo.h"
+#import "NSDate+HumanizedTime.h"
 #import <Quartz/Quartz.h>
 #import "AutoHyperlinks.framework/Source/AutoHyperlinks.h"
 #import "NS(Attributed)String+Geometrics.h"
@@ -239,7 +239,7 @@
 - (NSString*) authToken {
 	if (!_authToken) {
 		_authToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"api_key"];
-		NSLog(@"Read API Key %@", _authToken);
+		//NSLog(@"Read API Key %@", _authToken);
 	}
 	return _authToken;
 }
@@ -334,11 +334,11 @@
 	// set real name
 	[[result userField] setStringValue:[user name]];
 	// prevents buttons from requeued cells from being unhidden
-	[[result replyButton] setHidden:YES];
+	/*[[result replyButton] setHidden:YES];
 	[[result starButton] setHidden:YES];
-	[[result repostButton] setHidden:YES];
+	[[result repostButton] setHidden:YES];*/
 	// set creation date
-	[[result postCreationField] setStringValue:[[post createdAt] timeAgo]];
+	[[result postCreationField] setStringValue:[[post createdAt] stringWithHumanizedTimeDifference:NSDateHumanizedSuffixNone withFullString:NO]];
 	// download avatar image and store in a dictionary
 	if ([avatarImages objectForKey:[user username]])
 	{
@@ -362,6 +362,13 @@
 		[[result postView] setEditable:YES];
 		[[result postView] insertText:attributedString];
 		[[result postView] setEditable:NO];
+		// set height of the post text view
+		NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
+		float height = [[post text] heightForWidth:[[self window] frame].size.width-68-2 font:font];
+		NSLog(@"text height:%f", height);
+		//result.postView.frame = CGRectZero;
+		//[result.postView setVerticallyResizable:YES];
+		result.postScrollView.frame = CGRectMake(result.postView.frame.origin.x, result.postView.frame.origin.y, result.postView.frame.size.width, height);
 	}
 	else {
 		[[result postView] setString:@"[Post deleted]"];
@@ -386,13 +393,14 @@
 	float height = [[post text] heightForWidth:[[self window] frame].size.width-68-2 font:font];
 	int spaceToTop=28;
 	int padding=10;
-	int minimumViewHeight = 72;
-	if (height+spaceToTop<minimumViewHeight)
+	int minimumViewHeight = 118; // 118, actually 139 though
+	int spaceToBottom=46;
+	if (height+spaceToTop+spaceToBottom<minimumViewHeight)
 	{
 		return minimumViewHeight;
 	}
 	else {
-		return height+spaceToTop+padding;
+		return height+spaceToTop+spaceToBottom+padding;
 	}
 }
 
