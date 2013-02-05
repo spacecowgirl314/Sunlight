@@ -139,4 +139,9 @@
     NSLog(@"mouseDown event detected!");
 }
 
+- (void)drawRect:(NSRect)dirtyRect {
+	[[NSColor colorWithDeviceRed:0.929 green:0.929 blue:0.929 alpha:1.0] set]; // Sets current drawing color.
+	NSRectFill(self.bounds);
+}
+
 @end
