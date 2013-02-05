@@ -10,9 +10,9 @@
 [submodule "Sunlight/AutoHyperlinks.framework"]
 	path = Sunlight/AutoHyperlinks.framework
 	url = git://github.com/ByteProject/AutoHyperlinks.framework.git
-[submodule "Sunlight/NSDate-TimeAgo"]
-	path = Sunlight/NSDate-TimeAgo
-	url = git://github.com/kevinlawler/NSDate-TimeAgo.git
 [submodule "Sunlight/appnetkit"]
 	path = Sunlight/appnetkit
 	url = git@github.com:PhantomSunCreative/appnetkit.git
+[submodule "Sunlight/SEHumanizedTimeDiff"]
+	path = Sunlight/SEHumanizedTimeDiff
+	url = git://github.com/sarperdag/SEHumanizedTimeDiff.git
