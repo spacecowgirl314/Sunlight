@@ -109,8 +109,8 @@
 		3781509516C0EA4D0015956E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3781508F16C0EA4D0015956E /* Localizable.strings */; };
 		3781509616C0EA4D0015956E /* Localizable_full.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3781509116C0EA4D0015956E /* Localizable_full.strings */; };
 		3781509716C0EA4D0015956E /* NSDate+HumanizedTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3781509416C0EA4D0015956E /* NSDate+HumanizedTime.m */; };
+		378150A116C0F2290015956E /* PSCGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 378150A016C0F2290015956E /* PSCGradientView.m */; };
 		37A66337162AC33D00010161 /* NSScrollViewScrollKiller.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */; };
-		37A6633A162AC50800010161 /* PSCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A66339162AC50800010161 /* PSCTextView.m */; };
 		37A6633D162AD8F600010161 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A6633C162AD8F600010161 /* CoreLocation.framework */; };
 		37A663E2162AE6E900010161 /* NSView+Fade.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A663E1162AE6E800010161 /* NSView+Fade.m */; };
 		37AD27BA1627A8D4008E58BF /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AD27B91627A8D4008E58BF /* Quartz.framework */; };
@@ -339,13 +339,13 @@
 		3781509216C0EA4D0015956E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable_full.strings; sourceTree = "<group>"; };
 		3781509316C0EA4D0015956E /* NSDate+HumanizedTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+HumanizedTime.h"; sourceTree = "<group>"; };
 		3781509416C0EA4D0015956E /* NSDate+HumanizedTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HumanizedTime.m"; sourceTree = "<group>"; };
+		3781509F16C0F2290015956E /* PSCGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCGradientView.h; sourceTree = "<group>"; };
+		378150A016C0F2290015956E /* PSCGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCGradientView.m; sourceTree = "<group>"; };
 		3795FE671628C02F0091B6CD /* Sunlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Sunlight.entitlements; sourceTree = "<group>"; };
 		37A66318162AAAEF00010161 /* AutoHyperlinks.framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AutoHyperlinks.framework.xcodeproj; path = AutoHyperlinks.framework/AutoHyperlinks.framework.xcodeproj; sourceTree = "<group>"; };
 		37A66328162AAD7A00010161 /* AutoHyperlinks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AutoHyperlinks.framework; path = ../repos/CocoaTentClient/AutoHyperlinks.framework; sourceTree = "<group>"; };
 		37A66335162AC33D00010161 /* NSScrollViewScrollKiller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSScrollViewScrollKiller.h; sourceTree = "<group>"; };
 		37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSScrollViewScrollKiller.m; sourceTree = "<group>"; };
-		37A66338162AC50800010161 /* PSCTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCTextView.h; sourceTree = "<group>"; };
-		37A66339162AC50800010161 /* PSCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCTextView.m; sourceTree = "<group>"; };
 		37A6633C162AD8F600010161 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		37A663E0162AE6E800010161 /* NSView+Fade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+Fade.h"; sourceTree = "<group>"; };
 		37A663E1162AE6E800010161 /* NSView+Fade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+Fade.m"; sourceTree = "<group>"; };
@@ -634,8 +634,8 @@
 		37A6633B162AC6A800010161 /* Subclasses */ = {
 			isa = PBXGroup;
 			children = (
-				37A66338162AC50800010161 /* PSCTextView.h */,
-				37A66339162AC50800010161 /* PSCTextView.m */,
+				3781509F16C0F2290015956E /* PSCGradientView.h */,
+				378150A016C0F2290015956E /* PSCGradientView.m */,
 				37A66335162AC33D00010161 /* NSScrollViewScrollKiller.h */,
 				37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */,
 				37570B4D1635E1AF00B1D9FE /* PSCRoundedImageView.h */,
@@ -943,7 +943,6 @@
 				3733B9F41626A3780098E6A1 /* INAppStoreWindow.m in Sources */,
 				37AD27CC16280A30008E58BF /* PSCNewPostController.m in Sources */,
 				37A66337162AC33D00010161 /* NSScrollViewScrollKiller.m in Sources */,
-				37A6633A162AC50800010161 /* PSCTextView.m in Sources */,
 				37A663E2162AE6E900010161 /* NSView+Fade.m in Sources */,
 				3765B1EC162AEAA7000B3523 /* NSTimer+Blocks.m in Sources */,
 				37570B4F1635E1AF00B1D9FE /* PSCRoundedImageView.m in Sources */,
@@ -1013,6 +1012,7 @@
 				373036FA16BA6EA500F69545 /* NSString+AppNetExtensions.m in Sources */,
 				37EEA9C516BB7DC200E3C56E /* PSCSwipeableScrollView.m in Sources */,
 				3781509716C0EA4D0015956E /* NSDate+HumanizedTime.m in Sources */,
+				378150A116C0F2290015956E /* PSCGradientView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

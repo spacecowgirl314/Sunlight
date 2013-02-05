@@ -365,7 +365,7 @@
 		// set height of the post text view
 		NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
 		float height = [[post text] heightForWidth:[[self window] frame].size.width-68-2 font:font];
-		NSLog(@"text height:%f", height);
+		//NSLog(@"text height:%f", height);
 		//result.postView.frame = CGRectZero;
 		//[result.postView setVerticallyResizable:YES];
 		result.postScrollView.frame = CGRectMake(result.postView.frame.origin.x, result.postView.frame.origin.y, result.postView.frame.size.width, height);
