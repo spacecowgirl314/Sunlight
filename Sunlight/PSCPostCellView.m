@@ -112,29 +112,58 @@
 }
 
 - (IBAction)starPost:(id)sender {
-	[post starWithCompletion:^(ANResponse *response, ANPost *starredPost, NSError *error) {
-		if (!starredPost) {
-			NSLog(@"There was an error starring the post.");
-		}
-		else {
-			NSLog(@"Starring was successful.");
-			[starButton setImage:[NSImage imageNamed:@"star-highlight"]];
-			[starButton setTextColor:[NSColor colorWithDeviceRed:0.894 green:0.541 blue:0.082 alpha:1.0]];
-		}
-	}];
+	if (![post youStarred]) {
+		[post starWithCompletion:^(ANResponse *response, ANPost *starredPost, NSError *error) {
+			if (!starredPost) {
+				NSLog(@"There was an error starring the post.");
+			}
+			else {
+				NSLog(@"Starring was successful.");
+				[starButton setImage:[NSImage imageNamed:@"star-highlight"]];
+				[starButton setTextColor:[NSColor colorWithDeviceRed:0.894 green:0.541 blue:0.082 alpha:1.0]];
+			}
+		}];
+	}
+	else {
+		[post unstarWithCompletion:^(ANResponse *response, ANPost *starredPost, NSError *error) {
+			if (!starredPost) {
+				NSLog(@"There was an error starring the post.");
+			}
+			else {
+				NSLog(@"Unstarring was successful.");
+				[starButton setImage:[NSImage imageNamed:@"timeline-star"]];
+				[starButton setTextColor:[self defaultButtonColor]];
+			}
+		}];
+	}
 }
 
 - (IBAction)repostPost:(id)sender {
-	[post repostWithCompletion:^(ANResponse *response, ANPost *repostPost, NSError *error) {
-		if (!repostPost) {
-			NSLog(@"There was an error reposting the post.");
-		}
-		else {
-			NSLog(@"Reposting was successful.");
-			[repostButton setImage:[NSImage imageNamed:@"repost-highlight"]];
-			[repostButton setTextColor:[NSColor colorWithDeviceRed:0.118 green:0.722 blue:0.106 alpha:1.0]];
-		}
-	}];
+	// keep in mind posts that have been starred but haven't been reloaded for the post status
+	if (![post youReposted]) {
+		[post repostWithCompletion:^(ANResponse *response, ANPost *repostPost, NSError *error) {
+			if (!repostPost) {
+				NSLog(@"There was an error reposting the post.");
+			}
+			else {
+				NSLog(@"Reposting was successful.");
+				[repostButton setImage:[NSImage imageNamed:@"repost-highlight"]];
+				[repostButton setTextColor:[NSColor colorWithDeviceRed:0.118 green:0.722 blue:0.106 alpha:1.0]];
+			}
+		}];
+	}
+	else {
+		[post unrepostWithCompletion:^(ANResponse *response, ANPost *repostPost, NSError *error) {
+			if (!repostPost) {
+				NSLog(@"There was an error reposting the post.");
+			}
+			else {
+				NSLog(@"Unreposting was successful.");
+				[repostButton setImage:[NSImage imageNamed:@"timeline-repost"]];
+				[repostButton setTextColor:[self defaultButtonColor]];
+			}
+		}];
+	}
 }
 
 - (IBAction)deletePost:(id)sender {
