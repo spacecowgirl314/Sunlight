@@ -357,8 +357,7 @@
 		[[result postView] setFont:[NSFont fontWithName:@"Helvetica Neue" size:13.0f]];
 		// temporarily set the text view editable so we can insert our attributed string with links
 		[[result postView] setEditable:YES];
-		NSAttributedString *stylizedText = [self stylizeStatusString:[post text]];
-		[[result postView] insertText:stylizedText];
+		[[result postView] insertText:[self stylizeStatusString:[post text]]];
 		[[result postView] setEditable:NO];
 		// set height of the post text view
 		NSFont *font = [NSFont fontWithName:@"Helvetica Neue Bold" size:13.0f];
@@ -441,6 +440,10 @@
 	NSLog(@"%@", [NSString stringWithFormat:@"Hotkey event: %@", hkEvent]);
 }
 
+/*
+ Special thanks to Mike Rundle for this. 
+ http://flyosity.com/mac-os-x/clickable-tweet-links-hashtags-usernames-in-a-custom-nstextview.php
+ */
 -(NSAttributedString*)stylizeStatusString:(NSString*)string {
 	// Building up our attributed string
 	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:string];
