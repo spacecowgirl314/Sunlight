@@ -75,6 +75,12 @@
 	NSTimer *mentionsTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(checkForMentions) userInfo:nil repeats:YES];
 }
 
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
+{
+	[self.window makeKeyAndOrderFront:self];
+	return YES;
+}
+
 - (void)prepare {
 	ANSession.defaultSession.accessToken = self.authToken;
 	// start window off by not being seen
