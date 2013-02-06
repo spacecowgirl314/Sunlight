@@ -14,6 +14,7 @@
 #import "NS(Attributed)String+Geometrics.h"
 #import "RegexKitLite.h"
 #import "NSButton+TextColor.h"
+#import "PSCMemoryCache.h"
 
 @implementation PSCAppDelegate
 @synthesize postController;
@@ -45,7 +46,6 @@
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
 		[[self appScrollView] stopLoading];
 	}];
-	avatarImages = [NSMutableDictionary new];
 	[[NSNotificationCenter defaultCenter]
 	 addObserver: self
 	 selector: @selector(windowDidResize:)
@@ -96,7 +96,7 @@
 				}
 				// Grab the most recent post.
 				ANPost * latestPost = posts[0];
-				NSLog(@"post:%@ count:%ld", [latestPost text], [posts count]);
+				//NSLog(@"post:%@ count:%ld", [latestPost text], [posts count]);
 				postsArray = posts;
 				[[self appTableView] reloadData];
 				// Compose a reply...
@@ -151,14 +151,20 @@
 		PSCNewPostController *pC = [[PSCNewPostController alloc] init];
 		self.postController =  pC;
 	}
-	[self.postController showWindow:self];
 	[ANSession.defaultSession userWithID:ANMeUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
-		[[user avatarImage] imageAtSize:CGSizeMake(52*2, 52*2) completion:^(NSImage *image, NSError *error) {
-			NSImage *maskedImage = [self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
-			[avatarImages setValue:maskedImage forKey:[user username]];
-			[[self.postController avatarView] setImage:maskedImage];
-		}];
+		if ([[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]])
+		{
+			[[self.postController avatarView] setImage:[[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]]];
+		}
+		else {
+			[[user avatarImage] imageAtSize:CGSizeMake(52*2, 52*2) completion:^(NSImage *image, NSError *error) {
+				NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+				[[PSCMemoryCache sharedMemory].avatarImages setValue:maskedImage forKey:[user username]];
+				[[self.postController avatarView] setImage:maskedImage];
+			}];
+		}
 	}];
+	[self.postController showWindow:self];
 	//[self.postController processResults:[questionField stringValue]];
 }
 
@@ -291,50 +297,6 @@
 	return composedImage;
 }
 
-- (CGImageRef)nsImageToCGImageRef:(NSImage*)image;
-{
-    NSData * imageData = [image TIFFRepresentation];
-    CGImageRef imageRef;
-    if(!imageData) return nil;
-    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
-    imageRef = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
-    return imageRef;
-}
-
-- (NSImage*)imageFromCGImageRef:(CGImageRef)image
-{
-    NSRect imageRect = NSMakeRect(0.0, 0.0, 0.0, 0.0);
-    CGContextRef imageContext = nil;
-    NSImage* newImage = nil; // Get the image dimensions.
-    imageRect.size.height = CGImageGetHeight(image);
-    imageRect.size.width = CGImageGetWidth(image);
-	
-    // Create a new image to receive the Quartz image data.
-    newImage = [[NSImage alloc] initWithSize:imageRect.size];
-    [newImage lockFocus];
-	
-    // Get the Quartz context and draw.
-    imageContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
-    CGContextDrawImage(imageContext, *(CGRect*)&imageRect, image); [newImage unlockFocus];
-    return newImage;
-}
-
-- (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage {
-	
-	CGImageRef maskRef = [self nsImageToCGImageRef:maskImage];
-	
-	CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
-										CGImageGetHeight(maskRef),
-										CGImageGetBitsPerComponent(maskRef),
-										CGImageGetBitsPerPixel(maskRef),
-										CGImageGetBytesPerRow(maskRef),
-										CGImageGetDataProvider(maskRef), NULL, false);
-	
-	CGImageRef masked = CGImageCreateWithMask([self nsImageToCGImageRef:image], mask);
-	return [self imageFromCGImageRef:masked];
-	
-}
-
 - (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
     PSCPostCellView *result = [tableView makeViewWithIdentifier:[tableColumn identifier] owner:nil];
@@ -375,14 +337,14 @@
 	NSAttributedString *postCreationAttributedString = [[NSAttributedString alloc] initWithString:postCreationString attributes:@{NSShadowAttributeName:[self theShadow]}];
 	[[result postCreationField] setAttributedStringValue:postCreationAttributedString];
 	// download avatar image and store in a dictionary
-	if ([avatarImages objectForKey:[user username]])
+	if ([[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]])
 	{
-		[[result avatarView] setImage:[avatarImages objectForKey:[user username]]];
+		[[result avatarView] setImage:[[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]]];
 	}
 	else {
 		[[user avatarImage] imageAtSize:[[result avatarView] convertSizeToBacking:[result avatarView].frame.size] completion:^(NSImage *image, NSError *error) {
-			NSImage *maskedImage = [self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
-			[avatarImages setValue:maskedImage forKey:[user username]];
+			NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+			[[PSCMemoryCache sharedMemory].avatarImages setValue:maskedImage forKey:[user username]];
 			[[result avatarView] setImage:maskedImage];
 		}];
 	}

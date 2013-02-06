@@ -9,6 +9,7 @@
 #import "PSCPostCellView.h"
 #import "NSView+Fade.h"
 #import "NSButton+TextColor.h"
+#import "PSCMemoryCache.h"
 
 @implementation PSCPostCellView
 @synthesize post;
@@ -143,21 +144,27 @@
 	}
 	
 	[self.postController draftReply:post];
-	[self.postController showWindow:self];
 	[ANSession.defaultSession userWithID:ANMeUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
-		[[user avatarImage] imageAtSize:CGSizeMake(52*2, 52*2) completion:^(NSImage *image, NSError *error) {
-			NSImage *maskedImage = [self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
-			//[avatarImages setValue:maskedImage forKey:[user username]];
-			[[self.postController avatarView] setImage:maskedImage];
-		}];
+		if ([[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]])
+		{
+			[[self.postController avatarView] setImage:[[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]]];
+		}
+		else {
+			[[user avatarImage] imageAtSize:CGSizeMake(52*2, 52*2) completion:^(NSImage *image, NSError *error) {
+				NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+				[[PSCMemoryCache sharedMemory].avatarImages setValue:maskedImage forKey:[user username]];
+				[[self.postController avatarView] setImage:maskedImage];
+			}];
+		}
 	}];
+	[self.postController showWindow:self];
 	//[self.postController processResults:[questionField stringValue]];
 	
 	// get replies
 	[post replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
 		if ([posts count]!=0) {
 			ANPost *reply = [posts objectAtIndex:0];
-			NSLog(@"reply: %@", [reply text]);
+			//NSLog(@"reply: %@", [reply text]);
 		}
 	}];
 }

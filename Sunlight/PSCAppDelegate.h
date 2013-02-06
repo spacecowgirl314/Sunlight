@@ -14,7 +14,6 @@
 
 @interface PSCAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate> {
 	NSArray *postsArray;
-	NSMutableDictionary *avatarImages;
 }
 
 @property (assign) IBOutlet INAppStoreWindow *window;
