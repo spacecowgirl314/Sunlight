@@ -383,7 +383,7 @@
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
 	//NSLog(@"row:%ld", row);
 	ANPost *post = [postsArray objectAtIndex:row];
-	NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
+	NSFont *font = [NSFont fontWithName:@"Helvetica Neue Medium" size:13.0f];
 	float height = [[post text] heightForWidth:[[self window] frame].size.width-70-2 font:font];
 	int spaceToTop=18;
 	int padding=10;
@@ -515,7 +515,9 @@
 // and hashtags out of tweets. Getting the escaping just right is a pain in the ass, so be forewarned.
 
 - (NSArray *)scanStringForLinks:(NSString *)string {
-	return [string componentsMatchedByRegex:@"\\b(([\\w-]+://?|www[.])[^\\s()<>]+(?:\\([\\w\\d]+\\)|([^[:punct:]\\s]|/)))"];
+	return [string componentsMatchedByRegex:@"(http(s)?://)?([\\w-]+\\.)+[\\w-]+(/[\\w- ;,./?%&=]*)?"];
+	// gruber's crappy regex \\b(([\\w-]+://?|www[.])[^\\s()<>]+(?:\\([\\w\\d]+\\)|([^[:punct:]\\s]|/)))
+	// (http(s)?://)?([\\w-]+\\.)+[\\w-]+(/[\\w- ;,./?%&=]*)? works without http
 }
 
 - (NSArray *)scanStringForUsernames:(NSString *)string {

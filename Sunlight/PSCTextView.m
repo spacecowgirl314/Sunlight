@@ -30,10 +30,20 @@
 		// Depending on what they clicked we could open a URL or perhaps pop open a profile HUD
 		// if they clicked on a username. For now, we'll just throw it out to the log.
 		if( [attributes objectForKey:@"LinkMatch"] != nil ) {
-			NSURL *statusLink = [NSURL URLWithString:[attributes objectForKey:@"LinkMatch"]];
+			NSString *URLString = [attributes objectForKey:@"LinkMatch"];
+			NSURL *statusLink;// = [NSURL URLWithString:URLString];
+			//NSURL *myURL;
+			if ([URLString hasPrefix:@"http://"]) {
+				statusLink = [NSURL URLWithString:URLString];
+			} else {
+				NSString *rer = [NSString stringWithFormat:@"http://%@", URLString];
+				statusLink = [NSURL URLWithString:rer];
+				//rer = URLbox.text;
+				//NSLog(@"updated textbox");
+			}
 			[[NSWorkspace sharedWorkspace] openURL:statusLink];
 			// Remember what object we stashed in this attribute? Oh yeah, it's a URL string. Boo ya!
-			NSLog( @"LinkMatch: %@", [attributes objectForKey:@"LinkMatch"] );
+			NSLog( @"LinkMatch: '%@'", [attributes objectForKey:@"LinkMatch"] );
 			
 		}
 		
