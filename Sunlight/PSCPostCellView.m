@@ -9,6 +9,7 @@
 #import "PSCPostCellView.h"
 #import "NSView+Fade.h"
 #import "NSButton+TextColor.h"
+#import "PSCMemoryCache.h"
 
 @implementation PSCPostCellView
 @synthesize post;
@@ -92,6 +93,50 @@
 	[postCreationField setHidden:NO withFade:YES blocking:NO];
 }*/
 
+- (NSImage*)imageFromCGImageRef:(CGImageRef)image
+{
+    NSRect imageRect = NSMakeRect(0.0, 0.0, 0.0, 0.0);
+    CGContextRef imageContext = nil;
+    NSImage* newImage = nil; // Get the image dimensions.
+    imageRect.size.height = CGImageGetHeight(image);
+    imageRect.size.width = CGImageGetWidth(image);
+	
+    // Create a new image to receive the Quartz image data.
+    newImage = [[NSImage alloc] initWithSize:imageRect.size];
+    [newImage lockFocus];
+	
+    // Get the Quartz context and draw.
+    imageContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
+    CGContextDrawImage(imageContext, *(CGRect*)&imageRect, image); [newImage unlockFocus];
+    return newImage;
+}
+
+- (CGImageRef)nsImageToCGImageRef:(NSImage*)image;
+{
+    NSData * imageData = [image TIFFRepresentation];
+    CGImageRef imageRef;
+    if(!imageData) return nil;
+    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
+    imageRef = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
+    return imageRef;
+}
+
+- (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage {
+	
+	CGImageRef maskRef = [self nsImageToCGImageRef:maskImage];
+	
+	CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
+										CGImageGetHeight(maskRef),
+										CGImageGetBitsPerComponent(maskRef),
+										CGImageGetBitsPerPixel(maskRef),
+										CGImageGetBytesPerRow(maskRef),
+										CGImageGetDataProvider(maskRef), NULL, false);
+	
+	CGImageRef masked = CGImageCreateWithMask([self nsImageToCGImageRef:image], mask);
+	return [self imageFromCGImageRef:masked];
+	
+}
+
 - (IBAction)openReplyPost:(id)sender {
 	if (!self.postController) {
 		PSCNewPostController *pC = [[PSCNewPostController alloc] init];
@@ -99,6 +144,19 @@
 	}
 	
 	[self.postController draftReply:post];
+	[ANSession.defaultSession userWithID:ANMeUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
+		if ([[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]])
+		{
+			[[self.postController avatarView] setImage:[[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]]];
+		}
+		else {
+			[[user avatarImage] imageAtSize:CGSizeMake(52*2, 52*2) completion:^(NSImage *image, NSError *error) {
+				NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+				[[PSCMemoryCache sharedMemory].avatarImages setValue:maskedImage forKey:[user username]];
+				[[self.postController avatarView] setImage:maskedImage];
+			}];
+		}
+	}];
 	[self.postController showWindow:self];
 	//[self.postController processResults:[questionField stringValue]];
 	
@@ -106,7 +164,7 @@
 	[post replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
 		if ([posts count]!=0) {
 			ANPost *reply = [posts objectAtIndex:0];
-			NSLog(@"reply: %@", [reply text]);
+			//NSLog(@"reply: %@", [reply text]);
 		}
 	}];
 }
