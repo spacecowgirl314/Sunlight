@@ -152,6 +152,13 @@
 		self.postController =  pC;
 	}
 	[self.postController showWindow:self];
+	[ANSession.defaultSession userWithID:ANMeUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
+		[[user avatarImage] imageAtSize:CGSizeMake(52*2, 52*2) completion:^(NSImage *image, NSError *error) {
+			NSImage *maskedImage = [self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+			[avatarImages setValue:maskedImage forKey:[user username]];
+			[[self.postController avatarView] setImage:maskedImage];
+		}];
+	}];
 	//[self.postController processResults:[questionField stringValue]];
 }
 

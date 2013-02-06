@@ -15,20 +15,23 @@
 @interface PSCNewPostController: NSWindowController {
 	IBOutlet NSTextField *postTextField;
 	IBOutlet NSTextField *charactersLeftLabel;
-	IBOutlet PSCGradientButton *postButton;
-	IBOutlet PSCGradientButton *cancelButton;
+	IBOutlet NSButton *postButton;
+	IBOutlet NSButton *cancelButton;
 	IBOutlet PSCGradientView *bottomGradientView;
 	IBOutlet PSCGradientView *topGradientView;
+	IBOutlet NSImageView *avatarView;
 	ANDraft *replyPost;
 }
 
 @property IBOutlet NSTextField *postTextField;
 @property IBOutlet NSTextField *charactersLeftLabel;
-@property IBOutlet PSCGradientButton *postButton;
-@property IBOutlet PSCGradientButton *cancelButton;
+@property IBOutlet NSButton *postButton;
+@property IBOutlet NSButton *cancelButton;
 @property IBOutlet PSCGradientView *bottomGradientView;
 @property IBOutlet PSCGradientView *topGradientView;
+@property IBOutlet NSImageView *avatarView;
 
 - (void)draftReply:(ANPost*)post;
+- (IBAction)pressCancel:(id)sender;
 
 @end

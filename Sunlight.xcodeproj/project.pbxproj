@@ -110,6 +110,14 @@
 		378602F016C22C58003256B9 /* PSCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 378602EF16C22C58003256B9 /* PSCTextView.m */; };
 		378602F916C23F57003256B9 /* NSButton+TextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 378602F816C23F57003256B9 /* NSButton+TextColor.m */; };
 		378602FF16C266F5003256B9 /* PSCGradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 378602FE16C266F5003256B9 /* PSCGradientButton.m */; };
+		3786030816C26D9D003256B9 /* cancel-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3786030016C26D9D003256B9 /* cancel-button-pressed.png */; };
+		3786030916C26D9D003256B9 /* cancel-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3786030116C26D9D003256B9 /* cancel-button-pressed@2x.png */; };
+		3786030A16C26D9D003256B9 /* cancel-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3786030216C26D9D003256B9 /* cancel-button.png */; };
+		3786030B16C26D9D003256B9 /* cancel-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3786030316C26D9D003256B9 /* cancel-button@2x.png */; };
+		3786030C16C26D9D003256B9 /* post-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3786030416C26D9D003256B9 /* post-button-pressed.png */; };
+		3786030D16C26D9D003256B9 /* post-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3786030516C26D9D003256B9 /* post-button-pressed@2x.png */; };
+		3786030E16C26D9D003256B9 /* post-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3786030616C26D9D003256B9 /* post-button.png */; };
+		3786030F16C26D9D003256B9 /* post-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3786030716C26D9D003256B9 /* post-button@2x.png */; };
 		37A66337162AC33D00010161 /* NSScrollViewScrollKiller.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */; };
 		37A6633D162AD8F600010161 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A6633C162AD8F600010161 /* CoreLocation.framework */; };
 		37A663E2162AE6E900010161 /* NSView+Fade.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A663E1162AE6E800010161 /* NSView+Fade.m */; };
@@ -346,6 +354,14 @@
 		378602F816C23F57003256B9 /* NSButton+TextColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+TextColor.m"; sourceTree = "<group>"; };
 		378602FD16C266F5003256B9 /* PSCGradientButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCGradientButton.h; sourceTree = "<group>"; };
 		378602FE16C266F5003256B9 /* PSCGradientButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCGradientButton.m; sourceTree = "<group>"; };
+		3786030016C26D9D003256B9 /* cancel-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel-button-pressed.png"; sourceTree = "<group>"; };
+		3786030116C26D9D003256B9 /* cancel-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel-button-pressed@2x.png"; sourceTree = "<group>"; };
+		3786030216C26D9D003256B9 /* cancel-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel-button.png"; sourceTree = "<group>"; };
+		3786030316C26D9D003256B9 /* cancel-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel-button@2x.png"; sourceTree = "<group>"; };
+		3786030416C26D9D003256B9 /* post-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "post-button-pressed.png"; sourceTree = "<group>"; };
+		3786030516C26D9D003256B9 /* post-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "post-button-pressed@2x.png"; sourceTree = "<group>"; };
+		3786030616C26D9D003256B9 /* post-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "post-button.png"; sourceTree = "<group>"; };
+		3786030716C26D9D003256B9 /* post-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "post-button@2x.png"; sourceTree = "<group>"; };
 		3795FE671628C02F0091B6CD /* Sunlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Sunlight.entitlements; sourceTree = "<group>"; };
 		37A66328162AAD7A00010161 /* AutoHyperlinks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AutoHyperlinks.framework; path = ../repos/CocoaTentClient/AutoHyperlinks.framework; sourceTree = "<group>"; };
 		37A66335162AC33D00010161 /* NSScrollViewScrollKiller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSScrollViewScrollKiller.h; sourceTree = "<group>"; };
@@ -637,6 +653,14 @@
 				3738A92B16C0E20D0031F803 /* timeline-star@2x.png */,
 				3738A92C16C0E20D0031F803 /* timeline-time.png */,
 				3738A92D16C0E20D0031F803 /* timeline-time@2x.png */,
+				3786030016C26D9D003256B9 /* cancel-button-pressed.png */,
+				3786030116C26D9D003256B9 /* cancel-button-pressed@2x.png */,
+				3786030216C26D9D003256B9 /* cancel-button.png */,
+				3786030316C26D9D003256B9 /* cancel-button@2x.png */,
+				3786030416C26D9D003256B9 /* post-button-pressed.png */,
+				3786030516C26D9D003256B9 /* post-button-pressed@2x.png */,
+				3786030616C26D9D003256B9 /* post-button.png */,
+				3786030716C26D9D003256B9 /* post-button@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -905,6 +929,14 @@
 				701751A416C25340004BD1C6 /* star-highlight.png in Resources */,
 				701751A516C25340004BD1C6 /* repost-highlight.png in Resources */,
 				701751A616C25340004BD1C6 /* repost-highlight@2x.png in Resources */,
+				3786030816C26D9D003256B9 /* cancel-button-pressed.png in Resources */,
+				3786030916C26D9D003256B9 /* cancel-button-pressed@2x.png in Resources */,
+				3786030A16C26D9D003256B9 /* cancel-button.png in Resources */,
+				3786030B16C26D9D003256B9 /* cancel-button@2x.png in Resources */,
+				3786030C16C26D9D003256B9 /* post-button-pressed.png in Resources */,
+				3786030D16C26D9D003256B9 /* post-button-pressed@2x.png in Resources */,
+				3786030E16C26D9D003256B9 /* post-button.png in Resources */,
+				3786030F16C26D9D003256B9 /* post-button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

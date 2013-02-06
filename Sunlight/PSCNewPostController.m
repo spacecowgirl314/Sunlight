@@ -15,7 +15,8 @@
 @implementation PSCNewPostController
 @synthesize postTextField, charactersLeftLabel;
 @synthesize postButton, bottomGradientView;
-@synthesize topGradientView;
+@synthesize topGradientView, cancelButton;
+@synthesize avatarView;
 
 -(id)init
 {
@@ -29,7 +30,7 @@
     _window.fullScreenButtonRightMargin = 7.0;
     _window.hideTitleBarInFullScreen = YES;
     _window.centerFullScreenButton = YES;
-    _window.titleBarHeight = 40.0;
+    _window.titleBarHeight = 20.0;
 	
 	return self;
 }
@@ -60,12 +61,17 @@
 	[topGradientView setStartingColor:topColor];
 	[topGradientView setEndingColor:bottomColor];
 	
-	topColor = [NSColor colorWithDeviceRed:0.435 green:0.635 blue:0.878 alpha:1.0];
+	/*topColor = [NSColor colorWithDeviceRed:0.435 green:0.635 blue:0.878 alpha:1.0];
 	bottomColor = [NSColor colorWithDeviceRed:0.141 green:0.357 blue:0.741 alpha:1.0];
 	[postButton setStartingColor:topColor];
-	[postButton setEndingColor:bottomColor];
+	[postButton setEndingColor:bottomColor];*/
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSControlTextDidChangeNotification object:postTextField];
+}
+
+- (IBAction)pressCancel:(id)sender {
+	[postTextField setStringValue:@""];
+	[[self window] close];
 }
 
 // This is called every time we type in postTextField
