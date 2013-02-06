@@ -36,8 +36,7 @@
 			if ([URLString hasPrefix:@"http://"]) {
 				statusLink = [NSURL URLWithString:URLString];
 			}
-            
-            if ([URLString hasPrefix:@"https://"]) {
+            else if ([URLString hasPrefix:@"https://"]) {
                 statusLink = [NSURL URLWithString:URLString];
                 
             } else {
