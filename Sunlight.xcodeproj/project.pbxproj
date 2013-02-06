@@ -109,6 +109,7 @@
 		378602ED16C225BD003256B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 378602EC16C225BD003256B9 /* libicucore.dylib */; };
 		378602F016C22C58003256B9 /* PSCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 378602EF16C22C58003256B9 /* PSCTextView.m */; };
 		378602F916C23F57003256B9 /* NSButton+TextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 378602F816C23F57003256B9 /* NSButton+TextColor.m */; };
+		378602FF16C266F5003256B9 /* PSCGradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 378602FE16C266F5003256B9 /* PSCGradientButton.m */; };
 		37A66337162AC33D00010161 /* NSScrollViewScrollKiller.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */; };
 		37A6633D162AD8F600010161 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A6633C162AD8F600010161 /* CoreLocation.framework */; };
 		37A663E2162AE6E900010161 /* NSView+Fade.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A663E1162AE6E800010161 /* NSView+Fade.m */; };
@@ -343,6 +344,8 @@
 		378602EF16C22C58003256B9 /* PSCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCTextView.m; sourceTree = "<group>"; };
 		378602F716C23F57003256B9 /* NSButton+TextColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSButton+TextColor.h"; sourceTree = "<group>"; };
 		378602F816C23F57003256B9 /* NSButton+TextColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+TextColor.m"; sourceTree = "<group>"; };
+		378602FD16C266F5003256B9 /* PSCGradientButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCGradientButton.h; sourceTree = "<group>"; };
+		378602FE16C266F5003256B9 /* PSCGradientButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCGradientButton.m; sourceTree = "<group>"; };
 		3795FE671628C02F0091B6CD /* Sunlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Sunlight.entitlements; sourceTree = "<group>"; };
 		37A66328162AAD7A00010161 /* AutoHyperlinks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AutoHyperlinks.framework; path = ../repos/CocoaTentClient/AutoHyperlinks.framework; sourceTree = "<group>"; };
 		37A66335162AC33D00010161 /* NSScrollViewScrollKiller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSScrollViewScrollKiller.h; sourceTree = "<group>"; };
@@ -643,6 +646,8 @@
 			children = (
 				3781509F16C0F2290015956E /* PSCGradientView.h */,
 				378150A016C0F2290015956E /* PSCGradientView.m */,
+				378602FD16C266F5003256B9 /* PSCGradientButton.h */,
+				378602FE16C266F5003256B9 /* PSCGradientButton.m */,
 				37A66335162AC33D00010161 /* NSScrollViewScrollKiller.h */,
 				37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */,
 				37570B4D1635E1AF00B1D9FE /* PSCRoundedImageView.h */,
@@ -1016,6 +1021,7 @@
 				378602EB16C22254003256B9 /* RegexKitLite.m in Sources */,
 				378602F016C22C58003256B9 /* PSCTextView.m in Sources */,
 				378602F916C23F57003256B9 /* NSButton+TextColor.m in Sources */,
+				378602FF16C266F5003256B9 /* PSCGradientButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

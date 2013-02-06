@@ -9,17 +9,25 @@
 #import <Cocoa/Cocoa.h>
 #import "INAppStoreWindow.h"
 #import "AppNetKit.h"
+#import "PSCGradientView.h"
+#import "PSCGradientButton.h"
 
 @interface PSCNewPostController: NSWindowController {
 	IBOutlet NSTextField *postTextField;
 	IBOutlet NSTextField *charactersLeftLabel;
-	IBOutlet NSButton *postButton;
+	IBOutlet PSCGradientButton *postButton;
+	IBOutlet PSCGradientButton *cancelButton;
+	IBOutlet PSCGradientView *bottomGradientView;
+	IBOutlet PSCGradientView *topGradientView;
 	ANDraft *replyPost;
 }
 
 @property IBOutlet NSTextField *postTextField;
 @property IBOutlet NSTextField *charactersLeftLabel;
-@property IBOutlet NSButton *postButton;
+@property IBOutlet PSCGradientButton *postButton;
+@property IBOutlet PSCGradientButton *cancelButton;
+@property IBOutlet PSCGradientView *bottomGradientView;
+@property IBOutlet PSCGradientView *topGradientView;
 
 - (void)draftReply:(ANPost*)post;
 
