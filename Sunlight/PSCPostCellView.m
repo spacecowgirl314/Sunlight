@@ -92,6 +92,50 @@
 	[postCreationField setHidden:NO withFade:YES blocking:NO];
 }*/
 
+- (NSImage*)imageFromCGImageRef:(CGImageRef)image
+{
+    NSRect imageRect = NSMakeRect(0.0, 0.0, 0.0, 0.0);
+    CGContextRef imageContext = nil;
+    NSImage* newImage = nil; // Get the image dimensions.
+    imageRect.size.height = CGImageGetHeight(image);
+    imageRect.size.width = CGImageGetWidth(image);
+	
+    // Create a new image to receive the Quartz image data.
+    newImage = [[NSImage alloc] initWithSize:imageRect.size];
+    [newImage lockFocus];
+	
+    // Get the Quartz context and draw.
+    imageContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
+    CGContextDrawImage(imageContext, *(CGRect*)&imageRect, image); [newImage unlockFocus];
+    return newImage;
+}
+
+- (CGImageRef)nsImageToCGImageRef:(NSImage*)image;
+{
+    NSData * imageData = [image TIFFRepresentation];
+    CGImageRef imageRef;
+    if(!imageData) return nil;
+    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
+    imageRef = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
+    return imageRef;
+}
+
+- (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage {
+	
+	CGImageRef maskRef = [self nsImageToCGImageRef:maskImage];
+	
+	CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
+										CGImageGetHeight(maskRef),
+										CGImageGetBitsPerComponent(maskRef),
+										CGImageGetBitsPerPixel(maskRef),
+										CGImageGetBytesPerRow(maskRef),
+										CGImageGetDataProvider(maskRef), NULL, false);
+	
+	CGImageRef masked = CGImageCreateWithMask([self nsImageToCGImageRef:image], mask);
+	return [self imageFromCGImageRef:masked];
+	
+}
+
 - (IBAction)openReplyPost:(id)sender {
 	if (!self.postController) {
 		PSCNewPostController *pC = [[PSCNewPostController alloc] init];
@@ -100,6 +144,13 @@
 	
 	[self.postController draftReply:post];
 	[self.postController showWindow:self];
+	[ANSession.defaultSession userWithID:ANMeUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
+		[[user avatarImage] imageAtSize:CGSizeMake(52*2, 52*2) completion:^(NSImage *image, NSError *error) {
+			NSImage *maskedImage = [self maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+			//[avatarImages setValue:maskedImage forKey:[user username]];
+			[[self.postController avatarView] setImage:maskedImage];
+		}];
+	}];
 	//[self.postController processResults:[questionField stringValue]];
 	
 	// get replies
