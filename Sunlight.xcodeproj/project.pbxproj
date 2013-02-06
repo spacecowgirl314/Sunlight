@@ -78,8 +78,6 @@
 		373036F816BA6EA500F69545 /* NSDictionary+Parameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 373036B616BA6EA500F69545 /* NSDictionary+Parameters.m */; };
 		373036F916BA6EA500F69545 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 373036B816BA6EA500F69545 /* NSObject+AssociatedObject.m */; };
 		373036FA16BA6EA500F69545 /* NSString+AppNetExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 373036BA16BA6EA500F69545 /* NSString+AppNetExtensions.m */; };
-		373036FC16BA70BC00F69545 /* AutoHyperlinks.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 37A66320162AAAEF00010161 /* AutoHyperlinks.framework */; };
-		373036FE16BA70C500F69545 /* AutoHyperlinks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A66320162AAAEF00010161 /* AutoHyperlinks.framework */; };
 		3733B8F4162678950098E6A1 /* PSCPostCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B8F3162678950098E6A1 /* PSCPostCellView.m */; };
 		3733B9F41626A3780098E6A1 /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733B9CA1626A3780098E6A1 /* INAppStoreWindow.m */; };
 		3738A91716C0E14B0031F803 /* divide-line.png in Resources */ = {isa = PBXBuildFile; fileRef = 3738A91516C0E14B0031F803 /* divide-line.png */; };
@@ -110,6 +108,9 @@
 		3781509616C0EA4D0015956E /* Localizable_full.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3781509116C0EA4D0015956E /* Localizable_full.strings */; };
 		3781509716C0EA4D0015956E /* NSDate+HumanizedTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3781509416C0EA4D0015956E /* NSDate+HumanizedTime.m */; };
 		378150A116C0F2290015956E /* PSCGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 378150A016C0F2290015956E /* PSCGradientView.m */; };
+		378602EB16C22254003256B9 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 378602EA16C22254003256B9 /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		378602ED16C225BD003256B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 378602EC16C225BD003256B9 /* libicucore.dylib */; };
+		378602F016C22C58003256B9 /* PSCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 378602EF16C22C58003256B9 /* PSCTextView.m */; };
 		37A66337162AC33D00010161 /* NSScrollViewScrollKiller.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */; };
 		37A6633D162AD8F600010161 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A6633C162AD8F600010161 /* CoreLocation.framework */; };
 		37A663E2162AE6E900010161 /* NSView+Fade.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A663E1162AE6E800010161 /* NSView+Fade.m */; };
@@ -140,13 +141,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		37A6631F162AAAEF00010161 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 37A66318162AAAEF00010161 /* AutoHyperlinks.framework.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
-			remoteInfo = AutoHyperlinks.framework;
-		};
 		37B5208316157DF600941F0D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 37B5205516157DF500941F0D /* Project object */;
@@ -163,7 +157,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				373036FC16BA70BC00F69545 /* AutoHyperlinks.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,8 +336,12 @@
 		3781509416C0EA4D0015956E /* NSDate+HumanizedTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HumanizedTime.m"; sourceTree = "<group>"; };
 		3781509F16C0F2290015956E /* PSCGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCGradientView.h; sourceTree = "<group>"; };
 		378150A016C0F2290015956E /* PSCGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCGradientView.m; sourceTree = "<group>"; };
+		378602E916C22254003256B9 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
+		378602EA16C22254003256B9 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+		378602EC16C225BD003256B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		378602EE16C22C57003256B9 /* PSCTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCTextView.h; sourceTree = "<group>"; };
+		378602EF16C22C58003256B9 /* PSCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCTextView.m; sourceTree = "<group>"; };
 		3795FE671628C02F0091B6CD /* Sunlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Sunlight.entitlements; sourceTree = "<group>"; };
-		37A66318162AAAEF00010161 /* AutoHyperlinks.framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AutoHyperlinks.framework.xcodeproj; path = AutoHyperlinks.framework/AutoHyperlinks.framework.xcodeproj; sourceTree = "<group>"; };
 		37A66328162AAD7A00010161 /* AutoHyperlinks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AutoHyperlinks.framework; path = ../repos/CocoaTentClient/AutoHyperlinks.framework; sourceTree = "<group>"; };
 		37A66335162AC33D00010161 /* NSScrollViewScrollKiller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSScrollViewScrollKiller.h; sourceTree = "<group>"; };
 		37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSScrollViewScrollKiller.m; sourceTree = "<group>"; };
@@ -398,7 +395,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				373036FE16BA70C500F69545 /* AutoHyperlinks.framework in Frameworks */,
+				378602ED16C225BD003256B9 /* libicucore.dylib in Frameworks */,
 				37A6633D162AD8F600010161 /* CoreLocation.framework in Frameworks */,
 				37AD27BA1627A8D4008E58BF /* Quartz.framework in Frameworks */,
 				37B520AD1615840100941F0D /* QuartzCore.framework in Frameworks */,
@@ -629,14 +626,6 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
-		37A66319162AAAEF00010161 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				37A66320162AAAEF00010161 /* AutoHyperlinks.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		37A6633B162AC6A800010161 /* Subclasses */ = {
 			isa = PBXGroup;
 			children = (
@@ -672,6 +661,7 @@
 		37B5206116157DF500941F0D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				378602EC16C225BD003256B9 /* libicucore.dylib */,
 				37A66328162AAD7A00010161 /* AutoHyperlinks.framework */,
 				37A6633C162AD8F600010161 /* CoreLocation.framework */,
 				37AD27B91627A8D4008E58BF /* Quartz.framework */,
@@ -706,9 +696,13 @@
 				37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */,
 				37AD27C916280A2F008E58BF /* PSCNewPostController.h */,
 				37AD27CA16280A2F008E58BF /* PSCNewPostController.m */,
+				378602EE16C22C57003256B9 /* PSCTextView.h */,
+				378602EF16C22C58003256B9 /* PSCTextView.m */,
 				37AD27CB16280A2F008E58BF /* PSCNewPost.xib */,
 				37B5214916159CDE00941F0D /* PSCHUDWindow.h */,
 				37B5214A16159CDE00941F0D /* PSCHUDWindow.m */,
+				378602E916C22254003256B9 /* RegexKitLite.h */,
+				378602EA16C22254003256B9 /* RegexKitLite.m */,
 				37B5207716157DF600941F0D /* MainMenu.xib */,
 				3765B1E9162AEA90000B3523 /* Categories */,
 				37A6633B162AC6A800010161 /* Subclasses */,
@@ -716,7 +710,6 @@
 				3730363916BA6EA500F69545 /* appnetkit */,
 				37B520A61615833700941F0D /* DDHotKey */,
 				37B5209A1615828800941F0D /* ScrollToRefresh */,
-				37A66318162AAAEF00010161 /* AutoHyperlinks.framework.xcodeproj */,
 				37B5206916157DF500941F0D /* Supporting Files */,
 			);
 			path = Sunlight;
@@ -839,12 +832,6 @@
 			mainGroup = 37B5205316157DF500941F0D;
 			productRefGroup = 37B5205F16157DF500941F0D /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 37A66319162AAAEF00010161 /* Products */;
-					ProjectRef = 37A66318162AAAEF00010161 /* AutoHyperlinks.framework.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				37B5205D16157DF500941F0D /* Sunlight */,
@@ -852,16 +839,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		37A66320162AAAEF00010161 /* AutoHyperlinks.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AutoHyperlinks.framework;
-			remoteRef = 37A6631F162AAAEF00010161 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		37B5205C16157DF500941F0D /* Resources */ = {
@@ -1021,6 +998,8 @@
 				37EEA9C516BB7DC200E3C56E /* PSCSwipeableScrollView.m in Sources */,
 				3781509716C0EA4D0015956E /* NSDate+HumanizedTime.m in Sources */,
 				378150A116C0F2290015956E /* PSCGradientView.m in Sources */,
+				378602EB16C22254003256B9 /* RegexKitLite.m in Sources */,
+				378602F016C22C58003256B9 /* PSCTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

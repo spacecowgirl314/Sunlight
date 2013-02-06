@@ -11,8 +11,8 @@
 #import "DDHotKeyCenter.h"
 #import "NSDate+HumanizedTime.h"
 #import <Quartz/Quartz.h>
-#import "AutoHyperlinks.framework/Source/AutoHyperlinks.h"
 #import "NS(Attributed)String+Geometrics.h"
+#import "RegexKitLite.h"
 
 @implementation PSCAppDelegate
 @synthesize postController;
@@ -353,17 +353,15 @@
 	}
 	// set contents of post
 	if ([post text]!=nil) {
-		AHHyperlinkScanner *postScanner = [[AHHyperlinkScanner alloc] initWithString:[post text] usingStrictChecking:NO];
 		[[result postView] setString:@""];
-		NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
-		[attributedString insertAttributedString:[postScanner linkifiedString] atIndex:0];
 		[[result postView] setFont:[NSFont fontWithName:@"Helvetica Neue" size:13.0f]];
 		// temporarily set the text view editable so we can insert our attributed string with links
 		[[result postView] setEditable:YES];
-		[[result postView] insertText:attributedString];
+		NSAttributedString *stylizedText = [self stylizeStatusString:[post text]];
+		[[result postView] insertText:stylizedText];
 		[[result postView] setEditable:NO];
 		// set height of the post text view
-		NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
+		NSFont *font = [NSFont fontWithName:@"Helvetica Neue Bold" size:13.0f];
 		float height = [[post text] heightForWidth:[[self window] frame].size.width-68-2 font:font];
 		//NSLog(@"text height:%f", height);
 		//result.postView.frame = CGRectZero;
@@ -389,7 +387,7 @@
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
 	//NSLog(@"row:%ld", row);
 	ANPost *post = [postsArray objectAtIndex:row];
-	NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
+	NSFont *font = [NSFont fontWithName:@"Helvetica Neue Bold" size:13.0f];
 	float height = [[post text] heightForWidth:[[self window] frame].size.width-70-2 font:font];
 	int spaceToTop=18;
 	int padding=10;
@@ -441,6 +439,90 @@
 	//[_window orderFront:nil];
 	NSLog(@"%@",[NSString stringWithFormat:@"Firing -[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd)]);
 	NSLog(@"%@", [NSString stringWithFormat:@"Hotkey event: %@", hkEvent]);
+}
+
+-(NSAttributedString*)stylizeStatusString:(NSString*)string {
+	// Building up our attributed string
+	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:string];
+	[attributedStatusString addAttribute:NSForegroundColorAttributeName value:[NSColor colorWithDeviceRed:0.251 green:0.251 blue:0.251 alpha:1.0] range:NSMakeRange(0, [string length])];
+	
+	// Defining our paragraph style for the tweet text. Starting with the shadow to make the text
+	// appear inset against the gray background.
+	NSShadow *textShadow = [[NSShadow alloc] init];
+	[textShadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:.8]];
+	[textShadow setShadowBlurRadius:0];
+	[textShadow setShadowOffset:NSMakeSize(0, -1)];
+	[attributedStatusString addAttribute:NSShadowAttributeName value:textShadow range:NSMakeRange(0, [string length])];
+
+	// Generate arrays of our interesting items. Links, usernames, hashtags.
+	NSArray *linkMatches = [self scanStringForLinks:string];
+	NSArray *usernameMatches = [self scanStringForUsernames:string];
+	NSArray *hashtagMatches = [self scanStringForHashtags:string];
+	
+	// Iterate across the string matches from our regular expressions, find the range
+	// of each match, add new attributes to that range
+	for (NSString *linkMatchedString in linkMatches) {
+		NSRange range = [string rangeOfString:linkMatchedString];
+		if( range.location != NSNotFound ) {
+			// Add custom attribute of LinkMatch to indicate where our URLs are found. Could be blue
+			// or any other color.
+			NSDictionary *linkAttr = [[NSDictionary alloc] initWithObjectsAndKeys:
+									  [NSCursor pointingHandCursor], NSCursorAttributeName,
+									  [NSColor colorWithDeviceRed:0.329 green:0.431 blue:0.522 alpha:1.0], NSForegroundColorAttributeName,
+									  [NSFont boldSystemFontOfSize:14.0], NSFontAttributeName,
+									  linkMatchedString, @"LinkMatch",
+									  nil];
+			[attributedStatusString addAttributes:linkAttr range:range];
+		}
+	}
+	
+	for (NSString *usernameMatchedString in usernameMatches) {
+		NSRange range = [string rangeOfString:usernameMatchedString];
+		if( range.location != NSNotFound ) {
+			// Add custom attribute of UsernameMatch to indicate where our usernames are found
+			NSDictionary *linkAttr2 = [[NSDictionary alloc] initWithObjectsAndKeys:
+									   [NSColor colorWithDeviceRed:0.329 green:0.431 blue:0.522 alpha:1.0], NSForegroundColorAttributeName,
+									   [NSCursor pointingHandCursor], NSCursorAttributeName,
+									   [NSFont fontWithName:@"Helvetica Neue Bold" size:13], NSFontAttributeName,
+									   usernameMatchedString, @"UsernameMatch",
+									   nil];
+			[attributedStatusString addAttributes:linkAttr2 range:range];
+		}
+	}
+	
+	for (NSString *hashtagMatchedString in hashtagMatches) {
+		NSRange range = [string rangeOfString:hashtagMatchedString];
+		if( range.location != NSNotFound ) {
+			// Add custom attribute of HashtagMatch to indicate where our hashtags are found
+			NSDictionary *linkAttr3 = [[NSDictionary alloc] initWithObjectsAndKeys:
+									   [NSColor colorWithDeviceRed:0.639 green:0.639 blue:0.639 alpha:1.0], NSForegroundColorAttributeName,
+									   [NSCursor pointingHandCursor], NSCursorAttributeName,
+									   [NSFont fontWithName:@"Helvetica Neue Bold" size:13], NSFontAttributeName,
+									   hashtagMatchedString, @"HashtagMatch",
+									   nil];
+			[attributedStatusString addAttributes:linkAttr3 range:range];
+		}
+	}
+	
+	return attributedStatusString;
+}
+
+#pragma mark -
+#pragma mark String parsing
+
+// These regular expressions aren't the greatest. There are much better ones out there to parse URLs, @usernames
+// and hashtags out of tweets. Getting the escaping just right is a pain in the ass, so be forewarned.
+
+- (NSArray *)scanStringForLinks:(NSString *)string {
+	return [string componentsMatchedByRegex:@"\\b(([\\w-]+://?|www[.])[^\\s()<>]+(?:\\([\\w\\d]+\\)|([^[:punct:]\\s]|/)))"];
+}
+
+- (NSArray *)scanStringForUsernames:(NSString *)string {
+	return [string componentsMatchedByRegex:@"@{1}([-A-Za-z0-9_]{2,})"];
+}
+
+- (NSArray *)scanStringForHashtags:(NSString *)string {
+	return [string componentsMatchedByRegex:@"[\\s]{1,}#{1}([^\\s]{2,})"];
 }
 
 @end
