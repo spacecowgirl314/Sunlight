@@ -13,6 +13,7 @@
 #import <Quartz/Quartz.h>
 #import "NS(Attributed)String+Geometrics.h"
 #import "RegexKitLite.h"
+#import "NSButton+TextColor.h"
 
 @implementation PSCAppDelegate
 @synthesize postController;
@@ -175,7 +176,7 @@
 	}];
 }
 
-- (void) showMention: (ANPost*)mention
+- (void)showMention:(ANPost*)mention
 {
 	NSUserNotification *notification = [[NSUserNotification alloc] init];
 	notification.title = [NSString stringWithFormat: @"%@ mentioned you", [[mention user] name]];
@@ -339,10 +340,23 @@
 	[result setPost:post];
 	// set real name
 	[[result userField] setStringValue:[user name]];
-	// prevents buttons from requeued cells from being unhidden
-	/*[[result replyButton] setHidden:YES];
-	[[result starButton] setHidden:YES];
-	[[result repostButton] setHidden:YES];*/
+	// set action button's status, have we starred something?
+	if ([post youStarred]) {
+		[[result starButton] setImage:[NSImage imageNamed:@"star-highlight"]];
+		[[result starButton] setTextColor:[NSColor colorWithDeviceRed:0.894 green:0.541 blue:0.082 alpha:1.0]];
+	}
+	else {
+		[[result starButton] setImage:[NSImage imageNamed:@"timeline-star"]];
+		[[result starButton] setTextColor:[result defaultButtonColor]];
+	}
+	if ([post youReposted]) {
+		[[result repostButton] setImage:[NSImage imageNamed:@"repost-highlight"]];
+		[[result repostButton] setTextColor:[NSColor colorWithDeviceRed:0.118 green:0.722 blue:0.106 alpha:1.0]];
+	}
+	else {
+		[[result repostButton] setImage:[NSImage imageNamed:@"timeline-repost"]];
+		[[result repostButton] setTextColor:[result defaultButtonColor]];
+	}
 	// set creation date
 	NSString *postCreationString = [[post createdAt] stringWithHumanizedTimeDifference:NSDateHumanizedSuffixNone withFullString:NO];
 	NSAttributedString *postCreationAttributedString = [[NSAttributedString alloc] initWithString:postCreationString attributes:@{NSShadowAttributeName:[self theShadow]}];

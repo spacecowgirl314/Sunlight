@@ -27,11 +27,14 @@
 	[self setAcceptsTouchEvents:YES];
 	[self becomeFirstResponder];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResize) name:NSViewFrameDidChangeNotification object:self];
-	NSColor *buttonTextColor = [NSColor colorWithDeviceRed:0.643 green:0.643 blue:0.643 alpha:1.0];
-	[replyButton setTextColor:buttonTextColor];
-	[muteButton setTextColor:buttonTextColor];
-	[repostButton setTextColor:buttonTextColor];
-	[starButton setTextColor:buttonTextColor];
+	[replyButton setTextColor:[self defaultButtonColor]];
+	[muteButton setTextColor:[self defaultButtonColor]];
+	[repostButton setTextColor:[self defaultButtonColor]];
+	[starButton setTextColor:[self defaultButtonColor]];
+}
+
+- (NSColor*)defaultButtonColor {
+	return [NSColor colorWithDeviceRed:0.643 green:0.643 blue:0.643 alpha:1.0];
 }
 
 - (BOOL)acceptsFirstResponder
@@ -115,6 +118,8 @@
 		}
 		else {
 			NSLog(@"Starring was successful.");
+			[starButton setImage:[NSImage imageNamed:@"star-highlight"]];
+			[starButton setTextColor:[NSColor colorWithDeviceRed:0.894 green:0.541 blue:0.082 alpha:1.0]];
 		}
 	}];
 }
@@ -126,6 +131,8 @@
 		}
 		else {
 			NSLog(@"Reposting was successful.");
+			[repostButton setImage:[NSImage imageNamed:@"repost-highlight"]];
+			[repostButton setTextColor:[NSColor colorWithDeviceRed:0.118 green:0.722 blue:0.106 alpha:1.0]];
 		}
 	}];
 }
