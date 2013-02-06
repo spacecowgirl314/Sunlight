@@ -35,7 +35,12 @@
 			//NSURL *myURL;
 			if ([URLString hasPrefix:@"http://"]) {
 				statusLink = [NSURL URLWithString:URLString];
-			} else {
+			}
+            
+            if ([URLString hasPrefix:@"https://"]) {
+                statusLink = [NSURL URLWithString:URLString];
+                
+            } else {
 				NSString *rer = [NSString stringWithFormat:@"http://%@", URLString];
 				statusLink = [NSURL URLWithString:rer];
 				//rer = URLbox.text;
