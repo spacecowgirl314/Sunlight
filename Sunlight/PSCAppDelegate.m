@@ -357,6 +357,12 @@
 		[[result repostButton] setImage:[NSImage imageNamed:@"timeline-repost"]];
 		[[result repostButton] setTextColor:[result defaultButtonColor]];
 	}
+	if ([post numberOfReplies]>0) {
+		[[result conversationImageView] setHidden:NO];
+	}
+	else {
+		[[result conversationImageView] setHidden:YES];
+	}
 	// set creation date
 	NSString *postCreationString = [[post createdAt] stringWithHumanizedTimeDifference:NSDateHumanizedSuffixNone withFullString:NO];
 	NSAttributedString *postCreationAttributedString = [[NSAttributedString alloc] initWithString:postCreationString attributes:@{NSShadowAttributeName:[self theShadow]}];
