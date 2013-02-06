@@ -338,7 +338,9 @@
 	[[result starButton] setHidden:YES];
 	[[result repostButton] setHidden:YES];*/
 	// set creation date
-	[[result postCreationField] setStringValue:[[post createdAt] stringWithHumanizedTimeDifference:NSDateHumanizedSuffixNone withFullString:NO]];
+	NSString *postCreationString = [[post createdAt] stringWithHumanizedTimeDifference:NSDateHumanizedSuffixNone withFullString:NO];
+	NSAttributedString *postCreationAttributedString = [[NSAttributedString alloc] initWithString:postCreationString attributes:@{NSShadowAttributeName:[self theShadow]}];
+	[[result postCreationField] setAttributedStringValue:postCreationAttributedString];
 	// download avatar image and store in a dictionary
 	if ([avatarImages objectForKey:[user username]])
 	{
@@ -386,7 +388,7 @@
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
 	//NSLog(@"row:%ld", row);
 	ANPost *post = [postsArray objectAtIndex:row];
-	NSFont *font = [NSFont fontWithName:@"Helvetica Neue Bold" size:13.0f];
+	NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
 	float height = [[post text] heightForWidth:[[self window] frame].size.width-70-2 font:font];
 	int spaceToTop=18;
 	int padding=10;
@@ -440,6 +442,14 @@
 	NSLog(@"%@", [NSString stringWithFormat:@"Hotkey event: %@", hkEvent]);
 }
 
+- (NSShadow*)theShadow {
+	NSShadow *textShadow = [[NSShadow alloc] init];
+	[textShadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:.8]];
+	[textShadow setShadowBlurRadius:0];
+	[textShadow setShadowOffset:NSMakeSize(0, -1)];
+	return textShadow;
+}
+
 /*
  Special thanks to Mike Rundle for this. 
  http://flyosity.com/mac-os-x/clickable-tweet-links-hashtags-usernames-in-a-custom-nstextview.php
@@ -448,19 +458,12 @@
 	// Building up our attributed string
 	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:string];
 	[attributedStatusString addAttribute:NSForegroundColorAttributeName value:[NSColor colorWithDeviceRed:0.251 green:0.251 blue:0.251 alpha:1.0] range:NSMakeRange(0, [string length])];
-	
-	// Defining our paragraph style for the tweet text. Starting with the shadow to make the text
-	// appear inset against the gray background.
-	NSShadow *textShadow = [[NSShadow alloc] init];
-	[textShadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:.8]];
-	[textShadow setShadowBlurRadius:0];
-	[textShadow setShadowOffset:NSMakeSize(0, -1)];
-	[attributedStatusString addAttribute:NSShadowAttributeName value:textShadow range:NSMakeRange(0, [string length])];
 
 	// Generate arrays of our interesting items. Links, usernames, hashtags.
 	NSArray *linkMatches = [self scanStringForLinks:string];
 	NSArray *usernameMatches = [self scanStringForUsernames:string];
 	NSArray *hashtagMatches = [self scanStringForHashtags:string];
+	[attributedStatusString addAttribute:NSShadowAttributeName value:[self theShadow] range:NSMakeRange(0, [string length])];
 	
 	// Iterate across the string matches from our regular expressions, find the range
 	// of each match, add new attributes to that range
@@ -472,7 +475,7 @@
 			NSDictionary *linkAttr = [[NSDictionary alloc] initWithObjectsAndKeys:
 									  [NSCursor pointingHandCursor], NSCursorAttributeName,
 									  [NSColor colorWithDeviceRed:0.329 green:0.431 blue:0.522 alpha:1.0], NSForegroundColorAttributeName,
-									  [NSFont boldSystemFontOfSize:14.0], NSFontAttributeName,
+									   [NSFont fontWithName:@"Helvetica Neue Medium" size:13], NSFontAttributeName,
 									  linkMatchedString, @"LinkMatch",
 									  nil];
 			[attributedStatusString addAttributes:linkAttr range:range];
@@ -486,7 +489,7 @@
 			NSDictionary *linkAttr2 = [[NSDictionary alloc] initWithObjectsAndKeys:
 									   [NSColor colorWithDeviceRed:0.329 green:0.431 blue:0.522 alpha:1.0], NSForegroundColorAttributeName,
 									   [NSCursor pointingHandCursor], NSCursorAttributeName,
-									   [NSFont fontWithName:@"Helvetica Neue Bold" size:13], NSFontAttributeName,
+									   [NSFont fontWithName:@"Helvetica Neue Medium" size:13], NSFontAttributeName,
 									   usernameMatchedString, @"UsernameMatch",
 									   nil];
 			[attributedStatusString addAttributes:linkAttr2 range:range];
@@ -500,7 +503,7 @@
 			NSDictionary *linkAttr3 = [[NSDictionary alloc] initWithObjectsAndKeys:
 									   [NSColor colorWithDeviceRed:0.639 green:0.639 blue:0.639 alpha:1.0], NSForegroundColorAttributeName,
 									   [NSCursor pointingHandCursor], NSCursorAttributeName,
-									   [NSFont fontWithName:@"Helvetica Neue Bold" size:13], NSFontAttributeName,
+									   [NSFont fontWithName:@"Helvetica Neue Medium" size:13], NSFontAttributeName,
 									   hashtagMatchedString, @"HashtagMatch",
 									   nil];
 			[attributedStatusString addAttributes:linkAttr3 range:range];

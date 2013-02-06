@@ -31,8 +31,9 @@
 @property IBOutlet NSTextField *postCreationField;
 @property IBOutlet NSImageView *avatarView;
 @property IBOutlet NSButton *replyButton;
-@property IBOutlet NSButton *starButton;
+@property IBOutlet NSButton *muteButton;
 @property IBOutlet NSButton *repostButton;
+@property IBOutlet NSButton *starButton;
 @property (retain, nonatomic) PSCNewPostController *postController;
 
 - (IBAction)openReplyPost:(id)sender;

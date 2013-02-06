@@ -8,7 +8,7 @@
 
 #import "PSCPostCellView.h"
 #import "NSView+Fade.h"
-#import "NSTimer+Blocks.h"
+#import "NSButton+TextColor.h"
 
 @implementation PSCPostCellView
 @synthesize post;
@@ -18,14 +18,20 @@
 @synthesize postCreationField;
 @synthesize avatarView;
 @synthesize replyButton;
-@synthesize starButton;
+@synthesize muteButton;
 @synthesize repostButton;
+@synthesize starButton;
 
 - (void)awakeFromNib {
 	[self updateTrackingArea];
 	[self setAcceptsTouchEvents:YES];
 	[self becomeFirstResponder];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResize) name:NSViewFrameDidChangeNotification object:self];
+	NSColor *buttonTextColor = [NSColor colorWithDeviceRed:0.643 green:0.643 blue:0.643 alpha:1.0];
+	[replyButton setTextColor:buttonTextColor];
+	[muteButton setTextColor:buttonTextColor];
+	[repostButton setTextColor:buttonTextColor];
+	[starButton setTextColor:buttonTextColor];
 }
 
 - (BOOL)acceptsFirstResponder

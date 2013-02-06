@@ -101,7 +101,6 @@
 		3738A94016C0E20D0031F803 /* timeline-time.png in Resources */ = {isa = PBXBuildFile; fileRef = 3738A92C16C0E20D0031F803 /* timeline-time.png */; };
 		3738A94116C0E20D0031F803 /* timeline-time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3738A92D16C0E20D0031F803 /* timeline-time@2x.png */; };
 		37570B4F1635E1AF00B1D9FE /* PSCRoundedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37570B4E1635E1AF00B1D9FE /* PSCRoundedImageView.m */; };
-		3765B1EC162AEAA7000B3523 /* NSTimer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 3765B1EB162AEAA7000B3523 /* NSTimer+Blocks.m */; };
 		3781509516C0EA4D0015956E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3781508F16C0EA4D0015956E /* Localizable.strings */; };
 		3781509616C0EA4D0015956E /* Localizable_full.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3781509116C0EA4D0015956E /* Localizable_full.strings */; };
 		3781509716C0EA4D0015956E /* NSDate+HumanizedTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3781509416C0EA4D0015956E /* NSDate+HumanizedTime.m */; };
@@ -109,6 +108,7 @@
 		378602EB16C22254003256B9 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 378602EA16C22254003256B9 /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		378602ED16C225BD003256B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 378602EC16C225BD003256B9 /* libicucore.dylib */; };
 		378602F016C22C58003256B9 /* PSCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 378602EF16C22C58003256B9 /* PSCTextView.m */; };
+		378602F916C23F57003256B9 /* NSButton+TextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 378602F816C23F57003256B9 /* NSButton+TextColor.m */; };
 		37A66337162AC33D00010161 /* NSScrollViewScrollKiller.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */; };
 		37A6633D162AD8F600010161 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A6633C162AD8F600010161 /* CoreLocation.framework */; };
 		37A663E2162AE6E900010161 /* NSView+Fade.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A663E1162AE6E800010161 /* NSView+Fade.m */; };
@@ -326,8 +326,6 @@
 		3738A92D16C0E20D0031F803 /* timeline-time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline-time@2x.png"; sourceTree = "<group>"; };
 		37570B4D1635E1AF00B1D9FE /* PSCRoundedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCRoundedImageView.h; sourceTree = "<group>"; };
 		37570B4E1635E1AF00B1D9FE /* PSCRoundedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCRoundedImageView.m; sourceTree = "<group>"; };
-		3765B1EA162AEAA7000B3523 /* NSTimer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Blocks.h"; sourceTree = "<group>"; };
-		3765B1EB162AEAA7000B3523 /* NSTimer+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Blocks.m"; sourceTree = "<group>"; };
 		3781509016C0EA4D0015956E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3781509216C0EA4D0015956E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable_full.strings; sourceTree = "<group>"; };
 		3781509316C0EA4D0015956E /* NSDate+HumanizedTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+HumanizedTime.h"; sourceTree = "<group>"; };
@@ -339,6 +337,8 @@
 		378602EC16C225BD003256B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		378602EE16C22C57003256B9 /* PSCTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCTextView.h; sourceTree = "<group>"; };
 		378602EF16C22C58003256B9 /* PSCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCTextView.m; sourceTree = "<group>"; };
+		378602F716C23F57003256B9 /* NSButton+TextColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSButton+TextColor.h"; sourceTree = "<group>"; };
+		378602F816C23F57003256B9 /* NSButton+TextColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+TextColor.m"; sourceTree = "<group>"; };
 		3795FE671628C02F0091B6CD /* Sunlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Sunlight.entitlements; sourceTree = "<group>"; };
 		37A66328162AAD7A00010161 /* AutoHyperlinks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AutoHyperlinks.framework; path = ../repos/CocoaTentClient/AutoHyperlinks.framework; sourceTree = "<group>"; };
 		37A66335162AC33D00010161 /* NSScrollViewScrollKiller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSScrollViewScrollKiller.h; sourceTree = "<group>"; };
@@ -565,10 +565,10 @@
 			isa = PBXGroup;
 			children = (
 				3781508E16C0EA4D0015956E /* SEHumanizedTime */,
+				378602F716C23F57003256B9 /* NSButton+TextColor.h */,
+				378602F816C23F57003256B9 /* NSButton+TextColor.m */,
 				37E7F04B16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.h */,
 				37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */,
-				3765B1EA162AEAA7000B3523 /* NSTimer+Blocks.h */,
-				3765B1EB162AEAA7000B3523 /* NSTimer+Blocks.m */,
 				37A663E0162AE6E800010161 /* NSView+Fade.h */,
 				37A663E1162AE6E800010161 /* NSView+Fade.m */,
 			);
@@ -929,7 +929,6 @@
 				37AD27CC16280A30008E58BF /* PSCNewPostController.m in Sources */,
 				37A66337162AC33D00010161 /* NSScrollViewScrollKiller.m in Sources */,
 				37A663E2162AE6E900010161 /* NSView+Fade.m in Sources */,
-				3765B1EC162AEAA7000B3523 /* NSTimer+Blocks.m in Sources */,
 				37570B4F1635E1AF00B1D9FE /* PSCRoundedImageView.m in Sources */,
 				37E7F04D16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m in Sources */,
 				373036BC16BA6EA500F69545 /* _ANIdentifiedResourceSet.m in Sources */,
@@ -1000,6 +999,7 @@
 				378150A116C0F2290015956E /* PSCGradientView.m in Sources */,
 				378602EB16C22254003256B9 /* RegexKitLite.m in Sources */,
 				378602F016C22C58003256B9 /* PSCTextView.m in Sources */,
+				378602F916C23F57003256B9 /* NSButton+TextColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
