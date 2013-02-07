@@ -40,6 +40,7 @@
     self.window.centerFullScreenButton = YES;
     self.window.centerTrafficLightButtons = NO;
     self.window.titleBarHeight = 60.0;
+    self.window.baselineSeparatorColor = [NSColor colorWithDeviceRed:0.624 green:0.624 blue:0.624 alpha:1.0];
 	// self.titleView is a an IBOutlet to an NSView that has been configured in IB with everything you want in the title bar
 	self.titleView.frame = self.window.titleBarView.bounds;
 	self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -54,8 +55,9 @@
 	 selector: @selector(windowDidResize:)
 	 name: NSWindowDidResizeNotification
 	 object: self.window];
-	[[self topShadow] setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.2f]];
+	[[self topShadow] setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f]];
 	[[self topShadow] setEndingColor:[NSColor clearColor]];
+    [[self topShadow] setAngle:270];
 	// self.titleView is a an IBOutlet to an NSView that has been configured in IB with everything you want in the title bar
 	/*self.titleView.frame = self.window.titleBarView.bounds;
 	 self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
