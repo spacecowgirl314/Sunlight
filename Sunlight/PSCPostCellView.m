@@ -318,6 +318,7 @@
 - (void)showRepost {
 	[[self repostImageView] setHidden:NO];
 	[[self repostedUserButton] setHidden:NO];
+	[[self repostedUserButton] addCursorRect:[[self repostedUserButton] bounds] cursor:[NSCursor pointingHandCursor]];
 }
 
 @end

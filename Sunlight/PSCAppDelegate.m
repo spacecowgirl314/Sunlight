@@ -306,7 +306,7 @@
 	ANPost *post = [postsArray objectAtIndex:row];
 	ANUser *user = [post user];
 	if ([post repostOf]) {
-		NSLog(@"this is a repost");
+		//NSLog(@"this is a repost");
 		ANUser *userReposting = user;
 		user = [[post repostOf] user];
 		post = [post repostOf];
@@ -317,7 +317,7 @@
 		[[result repostedUserButton] setAttributedTitle:repostedByAttributedString];
 	}
 	else {
-		NSLog(@"this is not a repost");
+		//NSLog(@"this is not a repost");
 		[result hideRepost];
 	}
 	// send post to the cell view
