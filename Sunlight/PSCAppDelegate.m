@@ -398,7 +398,7 @@
 		
 	}
 	NSFont *font = [NSFont fontWithName:@"Helvetica Neue Medium" size:13.0f];
-	float height = [[post text] heightForWidth:[[self window] frame].size.width-60-2 font:font];
+	float height = [[post text] heightForWidth:[[self window] frame].size.width-70-2 font:font];
 	int spaceToTop=18;
 	int padding=10;
 	int minimumViewHeight = 108; // 118, actually 139 though
@@ -486,8 +486,8 @@
 			NSDictionary *linkAttr = [[NSDictionary alloc] initWithObjectsAndKeys:
 									  [NSCursor pointingHandCursor], NSCursorAttributeName,
 									  [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
-									   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
 									  linkMatchedString, @"LinkMatch",
+									   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
 									  nil];
 			[attributedStatusString addAttributes:linkAttr range:range];
 		}
@@ -500,8 +500,8 @@
 			NSDictionary *linkAttr2 = [[NSDictionary alloc] initWithObjectsAndKeys:
 									   [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
 									   [NSCursor pointingHandCursor], NSCursorAttributeName,
-									   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
 									   usernameMatchedString, @"UsernameMatch",
+									   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
 									   nil];
 			[attributedStatusString addAttributes:linkAttr2 range:range];
 		}
@@ -514,8 +514,8 @@
 			NSDictionary *linkAttr3 = [[NSDictionary alloc] initWithObjectsAndKeys:
 									   [NSColor colorWithDeviceRed:0.639 green:0.639 blue:0.639 alpha:1.0], NSForegroundColorAttributeName,
 									   [NSCursor pointingHandCursor], NSCursorAttributeName,
-									   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
 									   hashtagMatchedString, @"HashtagMatch",
+									   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
 									   nil];
 			[attributedStatusString addAttributes:linkAttr3 range:range];
 		}
