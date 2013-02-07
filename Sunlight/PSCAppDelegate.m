@@ -398,7 +398,7 @@
 		
 	}
 	NSFont *font = [NSFont fontWithName:@"Helvetica Neue Medium" size:13.0f];
-	float height = [[post text] heightForWidth:[[self window] frame].size.width-70-2 font:font];
+	float height = [[post text] heightForWidth:[[self window] frame].size.width-60-2 font:font];
 	int spaceToTop=18;
 	int padding=10;
 	int minimumViewHeight = 108; // 118, actually 139 though
@@ -474,6 +474,7 @@
 	NSArray *usernameMatches = [self scanStringForUsernames:string];
 	NSArray *hashtagMatches = [self scanStringForHashtags:string];
 	[attributedStatusString addAttribute:NSShadowAttributeName value:[self theShadow] range:NSMakeRange(0, [string length])];
+    
 	
 	// Iterate across the string matches from our regular expressions, find the range
 	// of each match, add new attributes to that range
@@ -484,8 +485,8 @@
 			// or any other color.
 			NSDictionary *linkAttr = [[NSDictionary alloc] initWithObjectsAndKeys:
 									  [NSCursor pointingHandCursor], NSCursorAttributeName,
-									  [NSColor colorWithDeviceRed:0.329 green:0.431 blue:0.522 alpha:1.0], NSForegroundColorAttributeName,
-									   [NSFont fontWithName:@"Helvetica Neue Medium" size:13], NSFontAttributeName,
+									  [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
+									   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
 									  linkMatchedString, @"LinkMatch",
 									  nil];
 			[attributedStatusString addAttributes:linkAttr range:range];
@@ -497,9 +498,9 @@
 		if( range.location != NSNotFound ) {
 			// Add custom attribute of UsernameMatch to indicate where our usernames are found
 			NSDictionary *linkAttr2 = [[NSDictionary alloc] initWithObjectsAndKeys:
-									   [NSColor colorWithDeviceRed:0.329 green:0.431 blue:0.522 alpha:1.0], NSForegroundColorAttributeName,
+									   [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
 									   [NSCursor pointingHandCursor], NSCursorAttributeName,
-									   [NSFont fontWithName:@"Helvetica Neue Medium" size:13], NSFontAttributeName,
+									   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
 									   usernameMatchedString, @"UsernameMatch",
 									   nil];
 			[attributedStatusString addAttributes:linkAttr2 range:range];
@@ -513,7 +514,7 @@
 			NSDictionary *linkAttr3 = [[NSDictionary alloc] initWithObjectsAndKeys:
 									   [NSColor colorWithDeviceRed:0.639 green:0.639 blue:0.639 alpha:1.0], NSForegroundColorAttributeName,
 									   [NSCursor pointingHandCursor], NSCursorAttributeName,
-									   [NSFont fontWithName:@"Helvetica Neue Medium" size:13], NSFontAttributeName,
+									   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
 									   hashtagMatchedString, @"HashtagMatch",
 									   nil];
 			[attributedStatusString addAttributes:linkAttr3 range:range];
