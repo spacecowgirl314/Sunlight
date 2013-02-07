@@ -49,5 +49,6 @@
 - (NSColor*)defaultButtonColor;
 - (void)hideRepost;
 - (void)showRepost;
++ (instancetype)viewFromNib;
 
 @end

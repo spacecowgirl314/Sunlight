@@ -15,6 +15,8 @@
 		371D971116C06CC4009BCDB1 /* avatar-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970F16C06CC4009BCDB1 /* avatar-overlay@2x.png */; };
 		371D971516C07B5A009BCDB1 /* new.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D971316C07B5A009BCDB1 /* new.png */; };
 		371D971616C07B5A009BCDB1 /* new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D971416C07B5A009BCDB1 /* new@2x.png */; };
+		37240F0C16C389CB0002A64B /* PSCThumbnailKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 37240F0B16C389CB0002A64B /* PSCThumbnailKit.m */; };
+		37240F0E16C396280002A64B /* PSCPostCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37240F0D16C396280002A64B /* PSCPostCellView.xib */; };
 		373036BC16BA6EA500F69545 /* _ANIdentifiedResourceSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3730363B16BA6EA500F69545 /* _ANIdentifiedResourceSet.m */; };
 		373036BD16BA6EA500F69545 /* ANAccessTokenInformationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3730363D16BA6EA500F69545 /* ANAccessTokenInformationRequest.m */; };
 		373036BE16BA6EA500F69545 /* ANAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3730363F16BA6EA500F69545 /* ANAnnotation.m */; };
@@ -189,6 +191,9 @@
 		371D970F16C06CC4009BCDB1 /* avatar-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-overlay@2x.png"; sourceTree = "<group>"; };
 		371D971316C07B5A009BCDB1 /* new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new.png; sourceTree = "<group>"; };
 		371D971416C07B5A009BCDB1 /* new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new@2x.png"; sourceTree = "<group>"; };
+		37240F0A16C389CB0002A64B /* PSCThumbnailKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCThumbnailKit.h; sourceTree = "<group>"; };
+		37240F0B16C389CB0002A64B /* PSCThumbnailKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCThumbnailKit.m; sourceTree = "<group>"; };
+		37240F0D16C396280002A64B /* PSCPostCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCPostCellView.xib; sourceTree = "<group>"; };
 		3730363A16BA6EA500F69545 /* _ANIdentifiedResourceSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ANIdentifiedResourceSet.h; sourceTree = "<group>"; };
 		3730363B16BA6EA500F69545 /* _ANIdentifiedResourceSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ANIdentifiedResourceSet.m; sourceTree = "<group>"; };
 		3730363C16BA6EA500F69545 /* ANAccessTokenInformationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAccessTokenInformationRequest.h; sourceTree = "<group>"; };
@@ -748,10 +753,13 @@
 				3795FE671628C02F0091B6CD /* Sunlight.entitlements */,
 				37B5207416157DF500941F0D /* PSCAppDelegate.h */,
 				37B5207516157DF500941F0D /* PSCAppDelegate.m */,
+				37240F0A16C389CB0002A64B /* PSCThumbnailKit.h */,
+				37240F0B16C389CB0002A64B /* PSCThumbnailKit.m */,
 				3786031016C27CD1003256B9 /* PSCMemoryCache.h */,
 				3786031116C27CD2003256B9 /* PSCMemoryCache.m */,
 				3733B8F2162678950098E6A1 /* PSCPostCellView.h */,
 				3733B8F3162678950098E6A1 /* PSCPostCellView.m */,
+				37240F0D16C396280002A64B /* PSCPostCellView.xib */,
 				37EEA9C316BB7DC200E3C56E /* PSCSwipeableScrollView.h */,
 				37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */,
 				37AD27C916280A2F008E58BF /* PSCNewPostController.h */,
@@ -958,6 +966,7 @@
 				374B85A016C323DE00E254D4 /* arrow@2x.png in Resources */,
 				703E16C716C3485D00E21C03 /* reposted-indicator.png in Resources */,
 				703E16C816C3485D00E21C03 /* reposted-indicator@2x.png in Resources */,
+				37240F0E16C396280002A64B /* PSCPostCellView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1076,6 +1085,7 @@
 				378602F916C23F57003256B9 /* NSButton+TextColor.m in Sources */,
 				378602FF16C266F5003256B9 /* PSCGradientButton.m in Sources */,
 				3786031216C27CD3003256B9 /* PSCMemoryCache.m in Sources */,
+				37240F0C16C389CB0002A64B /* PSCThumbnailKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

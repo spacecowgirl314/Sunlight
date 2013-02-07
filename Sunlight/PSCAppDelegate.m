@@ -46,6 +46,7 @@
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
 		[[self appScrollView] stopLoading];
 	}];
+	[[self appTableView] registerNib:[[NSNib alloc] initWithNibNamed:@"PSCPostCellView" bundle:nil] forIdentifier:@"PostCell"];
 	[[NSNotificationCenter defaultCenter]
 	 addObserver: self
 	 selector: @selector(windowDidResize:)
@@ -299,7 +300,7 @@
 
 - (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
-    PSCPostCellView *result = [tableView makeViewWithIdentifier:[tableColumn identifier] owner:nil];
+    PSCPostCellView *result = [tableView makeViewWithIdentifier:@"PostCell" owner:nil]; //[PSCPostCellView viewFromNib]; // [tableColumn identifier]
 	// clear out the old image first. prevent temporary flickering due to no caching
 	[[result avatarView] setImage:nil];
     
