@@ -11,6 +11,7 @@
 #import "AppNetKit.h"
 #import "INAppStoreWindow.h"
 #import "PSCNewPostController.h"
+#import "PSCGradientView.h"
 
 @interface PSCAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate> {
 	NSArray *postsArray;
@@ -21,6 +22,7 @@
 @property (assign) IBOutlet EQSTRScrollView *appScrollView;
 @property (assign) IBOutlet NSTableView *appTableView;
 @property (retain, nonatomic) PSCNewPostController *postController;
+@property IBOutlet PSCGradientView *topShadow;
 @property (nonatomic) NSString *authToken;
 @property (assign) ANPost *replyPost;
 

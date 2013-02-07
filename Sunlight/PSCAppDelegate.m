@@ -54,6 +54,8 @@
 	 selector: @selector(windowDidResize:)
 	 name: NSWindowDidResizeNotification
 	 object: self.window];
+	[[self topShadow] setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.2f]];
+	[[self topShadow] setEndingColor:[NSColor clearColor]];
 	// self.titleView is a an IBOutlet to an NSView that has been configured in IB with everything you want in the title bar
 	/*self.titleView.frame = self.window.titleBarView.bounds;
 	 self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
