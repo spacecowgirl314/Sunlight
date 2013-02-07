@@ -22,6 +22,8 @@
 @synthesize muteButton;
 @synthesize repostButton;
 @synthesize starButton;
+@synthesize repostImageView;
+@synthesize repostedUserButton;
 
 - (void)awakeFromNib {
 	[self updateTrackingArea];
@@ -34,6 +36,66 @@
 	[starButton setTextColor:[self defaultButtonColor]];
 }
 
+- (IBAction)viewRepostUser:(id)sender
+{
+	NSRange range = NSMakeRange(0, [[repostedUserButton attributedTitle] length]);
+	NSDictionary *attributes = [[repostedUserButton attributedTitle] attributesAtIndex:0 effectiveRange:&range];
+	
+	if( [attributes objectForKey:@"UsernameMatch"] != nil ) {
+		NSLog( @"UsernameMatch: %@", [attributes objectForKey:@"UsernameMatch"] );
+	}
+}
+
+- (BOOL)wantsScrollEventsForSwipeTrackingOnAxis:(NSEventGestureAxis)axis {
+	return (axis == NSEventGestureAxisHorizontal) ? YES : NO; }
+
+// semi-working swipe detection, needs to filter out scrolling up and down
+/*- (void)scrollWheel:(NSEvent *)event
+{
+	if([event phase] == NSEventPhaseBegan)
+	{
+		scrollDeltaX = [event deltaX];
+		NSLog(@"x delta:%f", scrollDeltaX);
+		scrollDeltaY = [event deltaY];
+	}
+    if([event phase] == NSEventPhaseEnded)
+    {
+		int swipeColorValue;
+		const int SwipeLeft = 0;
+		const int SwipeRight = 1;
+		const int SwipeUp = 2;
+		const int SwipeDown = 3;
+		
+		CGFloat x = scrollDeltaX; //[event deltaX];
+		CGFloat y = scrollDeltaY; //[event deltaY];
+		//NSLog(@"x delta:%f", x);
+		if (x != 0) {
+			swipeColorValue = (x < 0)  ? SwipeLeft : SwipeRight;
+		}
+		if (y != 0) {
+			swipeColorValue = (y > 0)  ? SwipeUp : SwipeDown;
+		}
+		NSString *direction;
+		switch (swipeColorValue) {
+			case SwipeLeft:
+				direction = @"left";
+				break;
+			case SwipeRight:
+				direction = @"right";
+				break;
+			case SwipeUp:
+				direction = @"up";
+				break;
+			case SwipeDown:
+			default:
+				direction = @"down";
+				break;
+		}
+		NSLog(@"Swipe %@", direction);
+    }
+    [super scrollWheel:event];
+}*/
+
 - (NSColor*)defaultButtonColor {
 	return [NSColor colorWithDeviceRed:0.643 green:0.643 blue:0.643 alpha:1.0];
 }
@@ -41,6 +103,10 @@
 - (BOOL)acceptsFirstResponder
 {
 	return YES;
+}
+
+- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent {
+    return YES;
 }
 
 // Necessary for when the view is resized
@@ -242,6 +308,16 @@
 - (void)drawRect:(NSRect)dirtyRect {
 	[[NSColor colorWithDeviceRed:0.941 green:0.941 blue:0.941 alpha:1.0] set]; // Sets current drawing color.
 	NSRectFill(self.bounds);
+}
+
+- (void)hideRepost {
+	[[self repostImageView] setHidden:YES];
+	[[self repostedUserButton] setHidden:YES];
+}
+
+- (void)showRepost {
+	[[self repostImageView] setHidden:NO];
+	[[self repostedUserButton] setHidden:NO];
 }
 
 @end

@@ -307,11 +307,18 @@
 	ANUser *user = [post user];
 	if ([post repostOf]) {
 		NSLog(@"this is a repost");
+		ANUser *userReposting = user;
 		user = [[post repostOf] user];
 		post = [post repostOf];
+		[result showRepost];
+		NSString *repostByString = [[NSString alloc] initWithFormat:@"Reposted by %@", [userReposting name]];
+		NSMutableAttributedString *repostedByAttributedString = [[NSMutableAttributedString alloc] initWithString:repostByString attributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13], NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.643 green:0.643 blue:0.643 alpha:1.0], @"UsernameMatch":[userReposting username]}];
+		[repostedByAttributedString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue Medium" size:13], NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.302 green:0.302 blue:0.302 alpha:1.0]} range:[repostByString rangeOfString:[userReposting name]]];
+		[[result repostedUserButton] setAttributedTitle:repostedByAttributedString];
 	}
 	else {
 		NSLog(@"this is not a repost");
+		[result hideRepost];
 	}
 	// send post to the cell view
 	[result setPost:post];
@@ -358,28 +365,17 @@
 	}
 	// set contents of post
 	if ([post text]!=nil) {
-		[[result postView] setString:@""];
-		[[result postView] setFont:[NSFont fontWithName:@"Helvetica Neue" size:13.0f]];
-		// temporarily set the text view editable so we can insert our attributed string with links
-		[[result postView] setEditable:YES];
-		[[result postView] insertText:[self stylizeStatusString:[post text]]];
+		[[[result postView] textStorage] setAttributedString:[self stylizeStatusString:[post text]]];
 		[[result postView] setEditable:NO];
 		// set height of the post text view
 		NSFont *font = [NSFont fontWithName:@"Helvetica Neue Bold" size:13.0f];
 		float height = [[post text] heightForWidth:[[self window] frame].size.width-68-2 font:font];
 		//NSLog(@"text height:%f", height);
-		//result.postView.frame = CGRectZero;
-		//[result.postView setVerticallyResizable:YES];
 		result.postScrollView.frame = CGRectMake(result.postView.frame.origin.x, result.postView.frame.origin.y, result.postView.frame.size.width, height);
 	}
 	else {
 		[[result postView] setString:@"[Post deleted]"];
 	}
-	//NSLog(@"height %f, height %f", [[result postView] frame].size.height, [[result postScrollView] contentSize].height);
-	//float heightDifference = [[result postView] frame].size.height - [[result postScrollView] contentSize].height;
-	//NSLog(@"difference: %f", heightDifference);
-	//rowHeight = [[result postView] frame].size.height;
-	//[tableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndex:row]];
     return result;
 }
 
@@ -391,18 +387,22 @@
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
 	//NSLog(@"row:%ld", row);
 	ANPost *post = [postsArray objectAtIndex:row];
+	if ([post repostOf]) {
+		
+	}
 	NSFont *font = [NSFont fontWithName:@"Helvetica Neue Medium" size:13.0f];
 	float height = [[post text] heightForWidth:[[self window] frame].size.width-70-2 font:font];
 	int spaceToTop=18;
 	int padding=10;
 	int minimumViewHeight = 108; // 118, actually 139 though
 	int spaceToBottom=46;
+	int extraRepostSpace = ([post repostOf]) ? 19 : 0;
 	if (height+spaceToTop+spaceToBottom<minimumViewHeight)
 	{
-		return minimumViewHeight;
+		return minimumViewHeight+extraRepostSpace;
 	}
 	else {
-		return height+spaceToTop+spaceToBottom+padding;
+		return height+spaceToTop+spaceToBottom+padding+extraRepostSpace;
 	}
 }
 
@@ -460,7 +460,7 @@
 -(NSAttributedString*)stylizeStatusString:(NSString*)string {
 	// Building up our attributed string
 	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:string];
-	[attributedStatusString addAttribute:NSForegroundColorAttributeName value:[NSColor colorWithDeviceRed:0.251 green:0.251 blue:0.251 alpha:1.0] range:NSMakeRange(0, [string length])];
+	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13.0f],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.251 green:0.251 blue:0.251 alpha:1.0]} range:NSMakeRange(0, [string length])];
 
 	// Generate arrays of our interesting items. Links, usernames, hashtags.
 	NSArray *linkMatches = [self scanStringForLinks:string];

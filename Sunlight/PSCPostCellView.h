@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "AppNetKit.h"
 #import "PSCNewPostController.h"
+#import "PSCTextField.h"
 
 @interface PSCPostCellView : NSTableCellView {
 	ANPost *post;
@@ -20,8 +21,12 @@
 	IBOutlet NSButton *replyButton;
 	IBOutlet NSButton *starButton;
 	IBOutlet NSButton *repostButton;
+	IBOutlet NSImageView *repostImageView;
+	IBOutlet NSButton *repostedUserButton;
 	NSTrackingArea *trackingArea;
 	NSTimer *fadeTimer;
+	/*CGFloat scrollDeltaX;
+	CGFloat scrollDeltaY;*/
 }
 
 @property ANPost *post;
@@ -35,11 +40,15 @@
 @property IBOutlet NSButton *muteButton;
 @property IBOutlet NSButton *repostButton;
 @property IBOutlet NSButton *starButton;
+@property IBOutlet NSImageView *repostImageView;
+@property IBOutlet NSButton *repostedUserButton;
 @property (retain, nonatomic) PSCNewPostController *postController;
 
 - (IBAction)openReplyPost:(id)sender;
 - (IBAction)starPost:(id)sender;
 - (IBAction)repostPost:(id)sender;
 - (NSColor*)defaultButtonColor;
+- (void)hideRepost;
+- (void)showRepost;
 
 @end
