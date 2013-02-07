@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "AppNetKit.h"
 #import "PSCNewPostController.h"
-#import "PSCTextField.h"
 
 @interface PSCPostCellView : NSTableCellView {
 	ANPost *post;
