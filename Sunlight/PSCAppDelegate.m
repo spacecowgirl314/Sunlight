@@ -305,6 +305,14 @@
     
 	ANPost *post = [postsArray objectAtIndex:row];
 	ANUser *user = [post user];
+	if ([post repostOf]) {
+		NSLog(@"this is a repost");
+		user = [[post repostOf] user];
+		post = [post repostOf];
+	}
+	else {
+		NSLog(@"this is not a repost");
+	}
 	// send post to the cell view
 	[result setPost:post];
 	// set real name
