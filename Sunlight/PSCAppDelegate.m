@@ -19,6 +19,7 @@
 
 @implementation PSCAppDelegate
 @synthesize postController;
+@synthesize loginController;
 @synthesize titleView;
 @synthesize authToken = _authToken;
 @synthesize streamButton;
@@ -120,6 +121,16 @@
 
 - (IBAction)switchToMessages:(id)sender {
 	NSLog(@"Switched to messages.");
+}
+
+#pragma mark Login
+
+- (IBAction)openLogin:(id)sender {
+	if (!self.loginController) {
+		PSCLoginController *pL = [[PSCLoginController alloc] init];
+		self.loginController =  pL;
+	}
+	[self.loginController showWindow:self];
 }
 
 - (void)prepare {

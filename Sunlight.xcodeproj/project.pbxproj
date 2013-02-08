@@ -150,6 +150,8 @@
 		37EEA9C516BB7DC200E3C56E /* PSCSwipeableScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */; };
 		37F1864616C4A8D500E682E2 /* PSCButtonCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F1864516C4A8D500E682E2 /* PSCButtonCollection.m */; };
 		37F1864A16C4A9C000E682E2 /* PSCButtonCollectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F1864916C4A9BF00E682E2 /* PSCButtonCollectionButton.m */; };
+		700110CA16C4CA6A00ECB894 /* PSCLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 700110C916C4CA6900ECB894 /* PSCLoginController.m */; };
+		700110CC16C4CAC300ECB894 /* PSCLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 700110CB16C4CAC300ECB894 /* PSCLogin.xib */; };
 		701751A316C25340004BD1C6 /* star-highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7017519F16C25340004BD1C6 /* star-highlight@2x.png */; };
 		701751A416C25340004BD1C6 /* star-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 701751A016C25340004BD1C6 /* star-highlight.png */; };
 		701751A516C25340004BD1C6 /* repost-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 701751A116C25340004BD1C6 /* repost-highlight.png */; };
@@ -449,6 +451,9 @@
 		37F1864516C4A8D500E682E2 /* PSCButtonCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCButtonCollection.m; sourceTree = "<group>"; };
 		37F1864816C4A9BF00E682E2 /* PSCButtonCollectionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCButtonCollectionButton.h; sourceTree = "<group>"; };
 		37F1864916C4A9BF00E682E2 /* PSCButtonCollectionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCButtonCollectionButton.m; sourceTree = "<group>"; };
+		700110C816C4C9EC00ECB894 /* PSCLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSCLoginController.h; path = ../PSCLoginController.h; sourceTree = "<group>"; };
+		700110C916C4CA6900ECB894 /* PSCLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCLoginController.m; sourceTree = "<group>"; };
+		700110CB16C4CAC300ECB894 /* PSCLogin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCLogin.xib; sourceTree = "<group>"; };
 		7017519F16C25340004BD1C6 /* star-highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-highlight@2x.png"; sourceTree = "<group>"; };
 		701751A016C25340004BD1C6 /* star-highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-highlight.png"; sourceTree = "<group>"; };
 		701751A116C25340004BD1C6 /* repost-highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repost-highlight.png"; sourceTree = "<group>"; };
@@ -825,6 +830,9 @@
 			isa = PBXGroup;
 			children = (
 				3795FE671628C02F0091B6CD /* Sunlight.entitlements */,
+				700110C816C4C9EC00ECB894 /* PSCLoginController.h */,
+				700110C916C4CA6900ECB894 /* PSCLoginController.m */,
+				700110CB16C4CAC300ECB894 /* PSCLogin.xib */,
 				37B5207416157DF500941F0D /* PSCAppDelegate.h */,
 				37B5207516157DF500941F0D /* PSCAppDelegate.m */,
 				3733B8F2162678950098E6A1 /* PSCPostCellView.h */,
@@ -1073,6 +1081,7 @@
 				70E90A0D16C4B09500E91598 /* title-user-highlight@2x.png in Resources */,
 				70E90A0E16C4B09500E91598 /* title-user.png in Resources */,
 				70E90A0F16C4B09500E91598 /* title-user@2x.png in Resources */,
+				700110CC16C4CAC300ECB894 /* PSCLogin.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1194,6 +1203,7 @@
 				37240F0C16C389CB0002A64B /* PSCThumbnailKit.m in Sources */,
 				37F1864616C4A8D500E682E2 /* PSCButtonCollection.m in Sources */,
 				37F1864A16C4A9C000E682E2 /* PSCButtonCollectionButton.m in Sources */,
+				700110CA16C4CA6A00ECB894 /* PSCLoginController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

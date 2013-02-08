@@ -14,6 +14,7 @@
 #import "PSCGradientView.h"
 #import "PSCButtonCollection.h"
 #import "PSCButtonCollectionButton.h"
+#import "PSCLoginController.h"
 
 @interface PSCAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate> {
 	NSArray *postsArray;
@@ -25,6 +26,7 @@
 @property (assign) IBOutlet EQSTRScrollView *appScrollView;
 @property (assign) IBOutlet NSTableView *appTableView;
 @property (retain, nonatomic) PSCNewPostController *postController;
+@property (retain, nonatomic) PSCLoginController *loginController;
 @property IBOutlet PSCButtonCollectionButton *streamButton;
 @property IBOutlet PSCButtonCollectionButton *mentionsButton;
 @property IBOutlet PSCButtonCollectionButton *starsButton;
