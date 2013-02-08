@@ -14,6 +14,7 @@
 	NSColor *startingColor;
 	NSColor *endingColor;
 	int angle;
+	NSPoint initialLocation;
 }
 
 // Define the variables as properties
