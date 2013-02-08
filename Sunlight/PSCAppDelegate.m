@@ -74,6 +74,7 @@
 	[profileButton setSelectedButtonImage:[NSImage imageNamed:@"title-user-highlight"]];
 	[messagesButton setSelectedButtonImage:[NSImage imageNamed:@"title-inbox-highlight"]];
 	[streamButton selectButton];
+    
 	// Register
 	//[self addOutput:@"Attempting to register hotkey for example 1"];
 	//DDHotKeyCenter * c = [[DDHotKeyCenter alloc] init];
@@ -144,6 +145,15 @@
 - (void)loadStream:(BOOL)reload {
 	NSArray *streamPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];
     [titleTextField setStringValue:[[NSString alloc] initWithFormat:@"My Stream"]];
+    NSShadow * shadow = [[NSShadow alloc] init];
+    [shadow setShadowBlurRadius:5.0];
+    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
+    NSShadow * shadowNo = [[NSShadow alloc] init];
+    [shadowNo setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.0]];
+    [streamButton setShadow:shadow];
+    [profileButton setShadow:shadowNo];
+    [mentionsButton setShadow:shadowNo];
+    [starsButton setShadow:shadowNo];
 	void (^reloadPosts)() = ^() {
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
@@ -189,6 +199,15 @@
 - (void)loadMentions:(BOOL)reload {
 	NSArray *mentionsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]];
     [titleTextField setStringValue:[[NSString alloc] initWithFormat:@"Mentions"]];
+    NSShadow * shadow = [[NSShadow alloc] init];
+    [shadow setShadowBlurRadius:5.0];
+    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
+    NSShadow * shadowNo = [[NSShadow alloc] init];
+    [shadowNo setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.0]];
+    [mentionsButton setShadow:shadow];
+    [streamButton setShadow:shadowNo];
+    [profileButton setShadow:shadowNo];
+    [starsButton setShadow:shadowNo];
 	void (^reloadPosts)() = ^() {
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
@@ -228,6 +247,15 @@
 - (void)loadStars:(BOOL)reload {
 	NSArray *starsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]];
     [titleTextField setStringValue:[[NSString alloc] initWithFormat:@"Starred"]];
+    NSShadow * shadow = [[NSShadow alloc] init];
+    [shadow setShadowBlurRadius:5.0];
+    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
+    NSShadow * shadowNo = [[NSShadow alloc] init];
+    [shadowNo setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.0]];
+    [starsButton setShadow:shadow];
+    [streamButton setShadow:shadowNo];
+    [mentionsButton setShadow:shadowNo];
+    [profileButton setShadow:shadowNo];
 	void (^reloadPosts)() = ^() {
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
@@ -267,6 +295,15 @@
 - (void)loadProfile:(BOOL)reload {
 	NSArray *profilePosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
     [titleTextField setStringValue:[[NSString alloc] initWithFormat:@"My Profile"]];
+    NSShadow * shadow = [[NSShadow alloc] init];
+    [shadow setShadowBlurRadius:5.0];
+    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
+    NSShadow * shadowNo = [[NSShadow alloc] init];
+    [shadowNo setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.0]];
+    [profileButton setShadow:shadow];
+    [streamButton setShadow:shadowNo];
+    [mentionsButton setShadow:shadowNo];
+    [starsButton setShadow:shadowNo];
 	void (^reloadPosts)() = ^() {
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
