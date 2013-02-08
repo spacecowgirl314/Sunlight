@@ -66,11 +66,12 @@
     [[self topShadow] setAngle:270];
 	// setup buttons
 	buttonCollection = [[PSCButtonCollection alloc] initWithButtons:@[streamButton, mentionsButton, starsButton, profileButton, messagesButton]];
-	[streamButton setSelectedButtonImage:nil];
-	[mentionsButton setSelectedButtonImage:nil];
-	[starsButton setSelectedButtonImage:nil];
-	[profileButton setSelectedButtonImage:nil];
-	[messagesButton setSelectedButtonImage:nil];
+	[streamButton setSelectedButtonImage:[NSImage imageNamed:@"title-stream-highlight"]];
+	[mentionsButton setSelectedButtonImage:[NSImage imageNamed:@"title-mentions-highlight"]];
+	[starsButton setSelectedButtonImage:[NSImage imageNamed:@"title-star-highlight"]];
+	[profileButton setSelectedButtonImage:[NSImage imageNamed:@"title-user-highlight"]];
+	[messagesButton setSelectedButtonImage:[NSImage imageNamed:@"title-inbox-highlight"]];
+	[streamButton selectButton];
 	// self.titleView is a an IBOutlet to an NSView that has been configured in IB with everything you want in the title bar
 	/*self.titleView.frame = self.window.titleBarView.bounds;
 	 self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -104,55 +105,142 @@
 
 - (IBAction)switchToStream:(id)sender {
 	NSLog(@"Switched to stream.");
+	currentStream = PSCStream;
+	[self loadStream];
 }
 
 - (IBAction)switchToMentions:(id)sender {
 	NSLog(@"Switched to mentions.");
+	currentStream = PSCMentions;
+	[self loadMentions];
 }
 
 - (IBAction)switchToStars:(id)sender {
 	NSLog(@"Switched to stars.");
+	currentStream = PSCStars;
+	[self loadStars];
 }
 
 - (IBAction)switchToProfile:(id)sender {
 	NSLog(@"Switched to profile.");
+	currentStream = PSCProfile;
+	[self loadProfile];
 }
 
 - (IBAction)switchToMessages:(id)sender {
 	NSLog(@"Switched to messages.");
+	currentStream = PSCMessages;
+	[self loadMessages];
+}
+
+- (void)loadStream {
+	[[[self appScrollView] verticalScroller] setFloatValue:1.0];
+	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+	dispatch_async(queue,^{
+		// Get the latest posts in the user's incoming post stream...
+		[ANSession.defaultSession postsInStreamWithCompletion:^(ANResponse * response, NSArray * posts, NSError * error) {
+			if(!posts) {
+				//[self doSomethingWithError:error];
+				return;
+			}
+			postsArray = posts;
+			[[self appTableView] reloadData];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[[self appScrollView] stopLoading];
+			});
+		}];
+	});
+}
+
+- (void)loadMentions {
+	[[[self appScrollView] verticalScroller] setFloatValue:1.0];
+	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+	dispatch_async(queue,^{
+		// Get the latest posts in the user's incoming post stream...
+		[ANSession.defaultSession postsMentioningUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse *response, NSArray *posts, NSError *error) {
+			if(!posts) {
+				//[self doSomethingWithError:error];
+				return;
+			}
+			postsArray = posts;
+			[[self appTableView] reloadData];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[[self appScrollView] stopLoading];
+			});
+		}];
+	});
+}
+
+- (void)loadStars {
+	[[[self appScrollView] verticalScroller] setFloatValue:1.0];
+	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+	dispatch_async(queue,^{
+		// Get the latest posts in the user's incoming post stream...
+		[ANSession.defaultSession postsStarredByUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+			if(!posts) {
+				//[self doSomethingWithError:error];
+				return;
+			}
+			postsArray = posts;
+			[[self appTableView] reloadData];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[[self appScrollView] stopLoading];
+			});
+		}];
+	});
+}
+
+- (void)loadProfile {
+	[[[self appScrollView] verticalScroller] setFloatValue:1.0];
+	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+	dispatch_async(queue,^{
+		// Get the latest posts in the user's incoming post stream...
+		[ANSession.defaultSession postsForUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+			if(!posts) {
+				//[self doSomethingWithError:error];
+				return;
+			}
+			postsArray = posts;
+			[[self appTableView] reloadData];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[[self appScrollView] stopLoading];
+			});
+		}];
+	});
+}
+
+- (void)loadMessages {
+	
 }
 
 - (void)prepare {
 	ANSession.defaultSession.accessToken = self.authToken;
+	currentStream = PSCStream;
 	// start window off by not being seen
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
-		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
-		dispatch_async(queue,^{
-			// Get the latest posts in the user's incoming post stream...
-			[ANSession.defaultSession postsInStreamWithCompletion:^(ANResponse * response, NSArray * posts, NSError * error) {
-				if(!posts) {
-					//[self doSomethingWithError:error];
-					return;
-				}
-				// Grab the most recent post.
-				ANPost * latestPost = posts[0];
-				//NSLog(@"post:%@ count:%ld", [latestPost text], [posts count]);
-				postsArray = posts;
-				[[self appTableView] reloadData];
-				// Compose a reply...
-				ANDraft * newPost = [latestPost draftReply];
-				newPost.text = @"test"; //[newPost.text appendString:@"Me too!"];  // The default text includes an @mention
-				// And post it.
-				/*[newPost createPostViaSession:ANSession.defaultSession completion:^(ANResponse * response, ANPost * post, NSError * error) {
-				 if(!post) {
-				 //[self doSomethingWithError:error];
-				 }
-				 }];*/
-				dispatch_async(dispatch_get_main_queue(), ^{
-					[[self appScrollView] stopLoading];
-				});
-			}];
-		});
+		switch (currentStream)
+		{
+			case PSCStream: {
+				[self loadStream];
+				break;
+			}
+			case PSCMentions: {
+				[self loadMentions];
+				break;
+			}
+			case PSCStars: {
+				[self loadStars];
+				break;
+			}
+			case PSCProfile: {
+				[self loadProfile];
+				break;
+			}
+			case PSCMessages: {
+				[self loadMessages];
+				break;
+			}
+		}
 	}];
 	/*[engine writePost:@"Hello, World! #testing" replyToPostWithID:-1 annotations:nil links:nil block:^(ADNPost *post, NSError *error) {
 	 if (error) {
@@ -162,26 +250,31 @@
 	 }
 	 }];*/
 	// Get the latest posts in the user's incoming post stream...
-	[ANSession.defaultSession postsInStreamWithCompletion:^(ANResponse * response, NSArray * posts, NSError * error) {
-		if(!posts) {
-			//[self doSomethingWithError:error];
-			return;
+	switch (currentStream)
+	{
+		case PSCStream: {
+			[self performSelector:@selector(loadStream) withObject:nil afterDelay:0.0];
+			//[self loadStream];
+			break;
 		}
-		// Grab the most recent post.
-		ANPost * latestPost = posts[0];
-		//NSLog(@"post:%@ count:%ld", [latestPost text], [posts count]);
-		postsArray = posts;
-		[[self appTableView] reloadData];
-		// Compose a reply...
-		ANDraft * newPost = [latestPost draftReply];
-		newPost.text = @"test"; //[newPost.text appendString:@"Me too!"];  // The default text includes an @mention
-		// And post it.
-		/*[newPost createPostViaSession:ANSession.defaultSession completion:^(ANResponse * response, ANPost * post, NSError * error) {
-		 if(!post) {
-		 //[self doSomethingWithError:error];
-		 }
-		 }];*/
-	}];
+		case PSCMentions: {
+			[self performSelector:@selector(loadMentions) withObject:nil afterDelay:0.0];
+			//[self loadMentions];
+			break;
+		}
+		case PSCStars: {
+			[self loadStars];
+			break;
+		}
+		case PSCProfile: {
+			[self loadProfile];
+			break;
+		}
+		case PSCMessages: {
+			[self loadMessages];
+			break;
+		}
+	}
 }
 
 #pragma mark - Posting

@@ -16,4 +16,6 @@
 @property BOOL isEnabled;
 @property PSCButtonCollection *buttonCollection;
 
+- (void)selectButton;
+
 @end
