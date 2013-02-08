@@ -24,9 +24,9 @@ typedef enum {
 } PSCStreamType;
 
 @interface PSCAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate> {
-	NSArray *postsArray;
 	PSCButtonCollection *buttonCollection;
 	PSCStreamType currentStream;
+	NSArray *postsArray;
 }
 
 @property (assign) IBOutlet INAppStoreWindow *window;

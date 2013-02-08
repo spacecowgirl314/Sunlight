@@ -106,110 +106,193 @@
 - (IBAction)switchToStream:(id)sender {
 	NSLog(@"Switched to stream.");
 	currentStream = PSCStream;
-	[self loadStream];
+	[self loadStream:NO];
 }
 
 - (IBAction)switchToMentions:(id)sender {
 	NSLog(@"Switched to mentions.");
 	currentStream = PSCMentions;
-	[self loadMentions];
+	[self loadMentions:NO];
 }
 
 - (IBAction)switchToStars:(id)sender {
 	NSLog(@"Switched to stars.");
 	currentStream = PSCStars;
-	[self loadStars];
+	[self loadStars:NO];
 }
 
 - (IBAction)switchToProfile:(id)sender {
 	NSLog(@"Switched to profile.");
 	currentStream = PSCProfile;
-	[self loadProfile];
+	[self loadProfile:NO];
 }
 
 - (IBAction)switchToMessages:(id)sender {
 	NSLog(@"Switched to messages.");
 	currentStream = PSCMessages;
-	[self loadMessages];
+	[self loadMessages:NO];
 }
 
-- (void)loadStream {
-	[[[self appScrollView] verticalScroller] setFloatValue:1.0];
-	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
-	dispatch_async(queue,^{
-		// Get the latest posts in the user's incoming post stream...
-		[ANSession.defaultSession postsInStreamWithCompletion:^(ANResponse * response, NSArray * posts, NSError * error) {
-			if(!posts) {
-				//[self doSomethingWithError:error];
-				return;
-			}
-			postsArray = posts;
+- (void)loadStream:(BOOL)reload {
+	NSArray *streamPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];
+	void (^reloadPosts)() = ^() {
+		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
+		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+		dispatch_async(queue,^{
+			[ANSession.defaultSession postsInStreamWithCompletion:^(ANResponse * response, NSArray * posts, NSError * error) {
+				if(!posts) {
+					//[self doSomethingWithError:error];
+					return;
+				}
+				// save posts to memory
+				[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];
+				// theoretical test for loading more posts
+				/*ANPost *post =  [posts objectAtIndex:[posts count]];
+				 ANResourceID *resourceID = [post ID];
+				 [ANSession.defaultSession postsInStreamBetweenID:nil andID:resourceID completion:^(ANResponse *response, NSArray *posts, NSError *error) {
+				 
+				 }];*/
+				postsArray = posts;
+				[[self appTableView] reloadData];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[[self appScrollView] stopLoading];
+				});
+			}];
+		});
+	};
+	if (streamPosts) {
+		if (!reload) {
+			postsArray = streamPosts;
+			// scroll to the top and reload or start animating in the cells
+			[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 			[[self appTableView] reloadData];
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[[self appScrollView] stopLoading];
-			});
-		}];
-	});
+		}
+		else {
+			reloadPosts();
+		}
+	}
+	else
+	{
+		reloadPosts();
+	}
 }
 
-- (void)loadMentions {
-	[[[self appScrollView] verticalScroller] setFloatValue:1.0];
-	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
-	dispatch_async(queue,^{
-		// Get the latest posts in the user's incoming post stream...
-		[ANSession.defaultSession postsMentioningUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse *response, NSArray *posts, NSError *error) {
-			if(!posts) {
-				//[self doSomethingWithError:error];
-				return;
-			}
-			postsArray = posts;
+- (void)loadMentions:(BOOL)reload {
+	NSArray *mentionsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]];
+	void (^reloadPosts)() = ^() {
+		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
+		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+		dispatch_async(queue,^{
+			[ANSession.defaultSession postsMentioningUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse *response, NSArray *posts, NSError *error) {
+				if(!posts) {
+					//[self doSomethingWithError:error];
+					return;
+				}
+				// save posts to memory
+				[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]];
+				postsArray = posts;
+				[[self appTableView] reloadData];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[[self appScrollView] stopLoading];
+				});
+			}];
+		});
+	};
+	if (mentionsPosts) {
+		if (!reload) {
+			postsArray = mentionsPosts;
+			// scroll to the top and reload or start animating in the cells
+			[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 			[[self appTableView] reloadData];
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[[self appScrollView] stopLoading];
-			});
-		}];
-	});
+		}
+		else {
+			reloadPosts();
+		}
+	}
+	else
+	{
+		reloadPosts();
+	}
 }
 
-- (void)loadStars {
-	[[[self appScrollView] verticalScroller] setFloatValue:1.0];
-	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
-	dispatch_async(queue,^{
-		// Get the latest posts in the user's incoming post stream...
-		[ANSession.defaultSession postsStarredByUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
-			if(!posts) {
-				//[self doSomethingWithError:error];
-				return;
-			}
-			postsArray = posts;
+- (void)loadStars:(BOOL)reload {
+	NSArray *starsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]];
+	void (^reloadPosts)() = ^() {
+		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
+		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+		dispatch_async(queue,^{
+			[ANSession.defaultSession postsStarredByUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+				if(!posts) {
+					//[self doSomethingWithError:error];
+					return;
+				}
+				// save posts to memory
+				[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]];
+				postsArray = posts;
+				[[self appTableView] reloadData];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[[self appScrollView] stopLoading];
+				});
+			}];
+		});
+	};
+	if (starsPosts) {
+		if (!reload) {
+			postsArray = starsPosts;
+			// scroll to the top and reload or start animating in the cells
+			[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 			[[self appTableView] reloadData];
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[[self appScrollView] stopLoading];
-			});
-		}];
-	});
+		}
+		else {
+			reloadPosts();
+		}
+	}
+	else
+	{
+		reloadPosts();
+	}
 }
 
-- (void)loadProfile {
-	[[[self appScrollView] verticalScroller] setFloatValue:1.0];
-	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
-	dispatch_async(queue,^{
-		// Get the latest posts in the user's incoming post stream...
-		[ANSession.defaultSession postsForUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
-			if(!posts) {
-				//[self doSomethingWithError:error];
-				return;
-			}
-			postsArray = posts;
+- (void)loadProfile:(BOOL)reload {
+	NSArray *profilePosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
+	void (^reloadPosts)() = ^() {
+		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
+		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+		dispatch_async(queue,^{
+			// Get the latest posts in the user's incoming post stream...
+			[ANSession.defaultSession postsForUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+				if(!posts) {
+					//[self doSomethingWithError:error];
+					return;
+				}
+				// save posts to memory
+				[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
+				postsArray = posts;
+				[[self appTableView] reloadData];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[[self appScrollView] stopLoading];
+				});
+			}];
+		});
+	};
+	if (profilePosts) {
+		if (!reload) {
+			postsArray = profilePosts;
+			// scroll to the top and reload or start animating in the cells
+			[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 			[[self appTableView] reloadData];
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[[self appScrollView] stopLoading];
-			});
-		}];
-	});
+		}
+		else {
+			reloadPosts();
+		}
+	}
+	else
+	{
+		reloadPosts();
+	}
 }
 
-- (void)loadMessages {
+- (void)loadMessages:(BOOL)reload {
 	
 }
 
@@ -220,24 +303,29 @@
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
 		switch (currentStream)
 		{
-			case PSCStream: {
-				[self loadStream];
+			case PSCStream:
+			{
+				[self loadStream:YES];
 				break;
 			}
-			case PSCMentions: {
-				[self loadMentions];
+			case PSCMentions:
+			{
+				[self loadMentions:YES];
 				break;
 			}
-			case PSCStars: {
-				[self loadStars];
+			case PSCStars:
+			{
+				[self loadStars:YES];
 				break;
 			}
-			case PSCProfile: {
-				[self loadProfile];
+			case PSCProfile:
+			{
+				[self loadProfile:YES];
 				break;
 			}
-			case PSCMessages: {
-				[self loadMessages];
+			case PSCMessages:
+			{
+				[self loadMessages:YES];
 				break;
 			}
 		}
@@ -252,26 +340,34 @@
 	// Get the latest posts in the user's incoming post stream...
 	switch (currentStream)
 	{
-		case PSCStream: {
-			[self performSelector:@selector(loadStream) withObject:nil afterDelay:0.0];
+		case PSCStream:
+		{
+			[self performSelector:@selector(loadStream:) withObject:NO afterDelay:0.0];
 			//[self loadStream];
 			break;
 		}
-		case PSCMentions: {
-			[self performSelector:@selector(loadMentions) withObject:nil afterDelay:0.0];
+		case PSCMentions:
+		{
+			[self performSelector:@selector(loadMentions:) withObject:NO afterDelay:0.0];
 			//[self loadMentions];
 			break;
 		}
-		case PSCStars: {
-			[self loadStars];
+		case PSCStars:
+		{
+			[self performSelector:@selector(loadStars:) withObject:NO afterDelay:0.0];
+			//[self loadStars:NO];
 			break;
 		}
-		case PSCProfile: {
-			[self loadProfile];
+		case PSCProfile:
+		{
+			[self performSelector:@selector(loadProfile:) withObject:NO afterDelay:0.0];
+			//[self loadProfile:NO];
 			break;
 		}
-		case PSCMessages: {
-			[self loadMessages];
+		case PSCMessages:
+		{
+			[self performSelector:@selector(loadMessages:) withObject:NO afterDelay:0.0];
+			//[self loadMessages:NO];
 			break;
 		}
 	}

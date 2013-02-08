@@ -10,9 +10,11 @@
 
 @interface PSCMemoryCache : NSObject {
 	NSMutableDictionary *avatarImages;
+	NSMutableDictionary *streamsDictionary;
 }
 
 @property NSMutableDictionary *avatarImages;
+@property NSMutableDictionary *streamsDictionary;
 
 + (instancetype)sharedMemory;
 - (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage;
