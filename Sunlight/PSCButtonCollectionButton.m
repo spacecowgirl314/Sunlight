@@ -18,19 +18,34 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code here.
+        defaultButtonImage = self.image;
     }
     
     return self;
 }
 
-- (void)drawRect:(NSRect)dirtyRect
-{
-    // Drawing code here.
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	self = [super initWithCoder:aDecoder];
+	if (self) {
+		defaultButtonImage = self.image;
+	}
+	return self;
 }
 
-- (void)mouseUp:(NSEvent *)theEvent
-{
+// manual button selection
+- (void)selectButton {
+	[self setImage:selectedButtonImage];
+	// disable other buttons
+	for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
+		if (![self isEqualTo:button]) {
+			[button setImage:button.defaultButtonImage];
+			[button setIsEnabled:NO];
+		}
+	}
+	isEnabled = YES;
+}
+
+- (BOOL)sendAction:(SEL)theAction to:(id)theTarget {
 	if (!isEnabled) {
 		[self setImage:selectedButtonImage];
 		for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
@@ -39,8 +54,13 @@
 				[button setIsEnabled:NO];
 			}
 		}
-		[super mouseUp:theEvent];
+		// send our action that was set
+		[super sendAction:theAction to:theTarget];
 		isEnabled = YES;
+		return YES;
+	}
+	else {
+		return NO;
 	}
 }
 

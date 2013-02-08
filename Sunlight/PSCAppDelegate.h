@@ -16,9 +16,18 @@
 #import "PSCButtonCollectionButton.h"
 #import "PSCLoginController.h"
 
+typedef enum {
+    PSCStream,
+    PSCMentions,
+    PSCStars,
+	PSCProfile,
+	PSCMessages
+} PSCStreamType;
+
 @interface PSCAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate> {
-	NSArray *postsArray;
 	PSCButtonCollection *buttonCollection;
+	PSCStreamType currentStream;
+	NSArray *postsArray;
 }
 
 @property (assign) IBOutlet INAppStoreWindow *window;

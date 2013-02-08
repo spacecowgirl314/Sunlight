@@ -10,11 +10,13 @@
 
 @implementation PSCMemoryCache
 @synthesize avatarImages;
+@synthesize streamsDictionary;
 
 - (id)init {
 	if (self==[super init])
 	{
 		avatarImages = [NSMutableDictionary new];
+		streamsDictionary = [NSMutableDictionary new];
 	}
 	return self;
 }
