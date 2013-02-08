@@ -17,7 +17,10 @@
 
 @property (assign) IBOutlet NSView *titleView;
 @property IBOutlet NSButton *cancelButton;
+@property IBOutlet NSTextField *usernameTextField;
+@property IBOutlet NSTextField *passwordTextField;
 
 - (IBAction)pressCancel:(id)sender;
+- (IBAction)signIn:(id)sender;
 
 @end

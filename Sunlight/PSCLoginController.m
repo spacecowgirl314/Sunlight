@@ -15,10 +15,8 @@
 @implementation PSCLoginController
 @synthesize cancelButton;
 @synthesize titleView;
-
--(BOOL)mouseDownCanMoveWindow{
-    return YES;
-}
+@synthesize usernameTextField;
+@synthesize passwordTextField;
 
 -(id)init
 {
@@ -70,7 +68,13 @@
 }
 
 - (IBAction)pressCancel:(id)sender {
-	[[self window] close];
+	[NSApp close];
+	//[[self window] close];
+}
+
+- (IBAction)signIn:(id)sender
+{
+	
 }
 
 @end
