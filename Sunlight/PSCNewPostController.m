@@ -17,6 +17,7 @@
 @synthesize postButton, bottomGradientView;
 @synthesize topGradientView, cancelButton;
 @synthesize avatarView;
+@synthesize titleView;
 
 -(id)init
 {
@@ -25,12 +26,18 @@
 	}
 	
 	// Setup INAppStoreWindow custom window styling
-	INAppStoreWindow *_window = (INAppStoreWindow *)[self window];
-	_window.trafficLightButtonsLeftMargin = 7.0;
-    _window.fullScreenButtonRightMargin = 7.0;
-    _window.hideTitleBarInFullScreen = YES;
-    _window.centerFullScreenButton = YES;
-    _window.titleBarHeight = 20.0;
+	INAppStoreWindow *window = (INAppStoreWindow *)[self window];
+	window.trafficLightButtonsLeftMargin = 7.0;
+    window.fullScreenButtonRightMargin = 7.0;
+    window.hideTitleBarInFullScreen = YES;
+    window.centerFullScreenButton = YES;
+    window.titleBarHeight = 5.0;
+    window.centerTrafficLightButtons = NO;
+    window.titleBarStartColor = [NSColor colorWithDeviceRed:0.98 green:0.98 blue:0.98 alpha:1.0];
+    window.titleBarEndColor = [NSColor colorWithDeviceRed:0.98 green:0.98 blue:0.98 alpha:1.0];
+    window.inactiveTitleBarStartColor = [NSColor colorWithDeviceRed:0.98 green:0.98 blue:0.98 alpha:1.0];
+    window.inactiveTitleBarEndColor = [NSColor colorWithDeviceRed:0.98 green:0.98 blue:0.98 alpha:1.0];
+    window.showsBaselineSeparator = NO;
 	
 	return self;
 }

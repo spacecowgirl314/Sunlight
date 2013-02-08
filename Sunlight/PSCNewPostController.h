@@ -30,6 +30,7 @@
 @property IBOutlet PSCGradientView *bottomGradientView;
 @property IBOutlet PSCGradientView *topGradientView;
 @property IBOutlet NSImageView *avatarView;
+@property (assign) IBOutlet NSView *titleView;
 
 - (void)draftReply:(ANPost*)post;
 - (IBAction)pressCancel:(id)sender;
