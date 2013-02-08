@@ -304,7 +304,7 @@
 }
 
 - (void)loadMessages:(BOOL)reload {
-	
+	// API docs here http://developers.app.net/docs/basics/messaging/
 }
 
 - (void)prepare {
