@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12C54</string>
+		<string key="IBDocument.SystemVersion">12C3006</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
@@ -1480,7 +1480,6 @@
 							<string key="NSFrame">{{0, 539}, {360, 3}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">PSCGradientView</string>
 						</object>
@@ -1502,7 +1501,7 @@
 				<string key="NSClassName">NSFontManager</string>
 			</object>
 			<object class="NSCustomView" id="866487953">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="562225793">
@@ -1510,7 +1509,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{1, -1}, {75, 32}}</string>
 						<reference key="NSSuperview" ref="866487953"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="296031616"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1535,8 +1533,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{256, -1}, {71, 32}}</string>
 						<reference key="NSSuperview" ref="866487953"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="851547287">
@@ -1560,7 +1556,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{0, 30}, {328, 66}}</string>
 						<reference key="NSSuperview" ref="866487953"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="562225793"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
@@ -1593,14 +1588,12 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{328, 96}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="649865732"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="1006657562">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSTextField" id="302097505">
@@ -1608,8 +1601,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{199, 6}, {49, 17}}</string>
 						<reference key="NSSuperview" ref="1006657562"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="1040885163">
@@ -1637,7 +1628,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{199, 20}, {13, 17}}</string>
 						<reference key="NSSuperview" ref="1006657562"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="302097505"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1658,7 +1648,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{134, 6}, {63, 17}}</string>
 						<reference key="NSSuperview" ref="1006657562"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1014085153"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1679,7 +1668,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{134, 20}, {21, 17}}</string>
 						<reference key="NSSuperview" ref="1006657562"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="678693654"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1700,7 +1688,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{70, 6}, {62, 17}}</string>
 						<reference key="NSSuperview" ref="1006657562"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="969968107"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1721,7 +1708,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{70, 20}, {21, 17}}</string>
 						<reference key="NSSuperview" ref="1006657562"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="659902678"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1742,7 +1728,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{20, 6}, {39, 17}}</string>
 						<reference key="NSSuperview" ref="1006657562"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="582580299"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1763,7 +1748,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{20, 20}, {21, 17}}</string>
 						<reference key="NSSuperview" ref="1006657562"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="725378402"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1784,7 +1768,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{79, 36}, {230, 34}}</string>
 						<reference key="NSSuperview" ref="1006657562"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="108306503"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
@@ -1811,7 +1794,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{82, 70}, {47, 17}}</string>
 						<reference key="NSSuperview" ref="1006657562"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="596587792"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1840,7 +1822,6 @@
 						</set>
 						<string key="NSFrame">{{17, 53}, {60, 60}}</string>
 						<reference key="NSSuperview" ref="1006657562"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="587990647"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1869,7 +1850,6 @@
 						</set>
 						<string key="NSFrameSize">{326, 130}</string>
 						<reference key="NSSuperview" ref="1006657562"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1023591872"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1887,8 +1867,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{326, 130}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="953644187"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="NSClassName">NSView</string>
@@ -1903,7 +1881,6 @@
 						<string key="NSFrame">{{258, 10}, {23, 21}}</string>
 						<reference key="NSSuperview" ref="804317596"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="536239672">
@@ -2114,7 +2091,6 @@
 						<string key="NSFrame">{{87, 295}, {50, 23}}</string>
 						<reference key="NSSuperview" ref="127497787"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="44060172">
@@ -2969,6 +2945,86 @@
 						<reference key="destination" ref="310312293"/>
 					</object>
 					<int key="connectionID">3602</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">mentionsButton</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="939226793"/>
+					</object>
+					<int key="connectionID">3870</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">messagesButton</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="950085444"/>
+					</object>
+					<int key="connectionID">3871</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">profileButton</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="6237701"/>
+					</object>
+					<int key="connectionID">3872</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">starsButton</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="845348163"/>
+					</object>
+					<int key="connectionID">3873</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">streamButton</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="169136285"/>
+					</object>
+					<int key="connectionID">3874</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">switchToMentions:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="939226793"/>
+					</object>
+					<int key="connectionID">3875</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">switchToMessages:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="950085444"/>
+					</object>
+					<int key="connectionID">3876</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">switchToProfile:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="6237701"/>
+					</object>
+					<int key="connectionID">3877</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">switchToStars:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="845348163"/>
+					</object>
+					<int key="connectionID">3878</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">switchToStream:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="169136285"/>
+					</object>
+					<int key="connectionID">3879</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -5990,11 +6046,6 @@
 						<reference key="parent" ref="804317596"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">3831</int>
-						<reference key="object" ref="835289583"/>
-						<reference key="parent" ref="804317596"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">3832</int>
 						<reference key="object" ref="352406053"/>
 						<reference key="parent" ref="456308900"/>
@@ -6005,13 +6056,18 @@
 						<reference key="parent" ref="804317596"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">3835</int>
-						<reference key="object" ref="888960923"/>
+						<int key="objectID">3836</int>
+						<reference key="object" ref="18968506"/>
 						<reference key="parent" ref="804317596"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">3836</int>
-						<reference key="object" ref="18968506"/>
+						<int key="objectID">3831</int>
+						<reference key="object" ref="835289583"/>
+						<reference key="parent" ref="804317596"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">3835</int>
+						<reference key="object" ref="888960923"/>
 						<reference key="parent" ref="804317596"/>
 					</object>
 				</array>
@@ -6169,19 +6225,24 @@
 				<string key="3581.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3621.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3631.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="3644.CustomClassName">PSCButtonCollectionButton</string>
 				<boolean value="NO" key="3644.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="3644.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3645.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3658.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="3661.CustomClassName">PSCButtonCollectionButton</string>
 				<boolean value="NO" key="3661.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="3661.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3662.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="3672.CustomClassName">PSCButtonCollectionButton</string>
 				<boolean value="NO" key="3672.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="3672.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3673.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="3681.CustomClassName">PSCButtonCollectionButton</string>
 				<boolean value="NO" key="3681.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="3681.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3682.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="3688.CustomClassName">PSCButtonCollectionButton</string>
 				<boolean value="NO" key="3688.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="3688.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3689.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6454,7 +6515,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">3836</int>
+			<int key="maxID">3879</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6485,9 +6546,48 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">PSCAppDelegate</string>
 					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="openNewPost:">id</string>
+						<string key="switchToMentions:">id</string>
+						<string key="switchToMessages:">id</string>
+						<string key="switchToProfile:">id</string>
+						<string key="switchToStars:">id</string>
+						<string key="switchToStream:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="openNewPost:">
+							<string key="name">openNewPost:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchToMentions:">
+							<string key="name">switchToMentions:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchToMessages:">
+							<string key="name">switchToMessages:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchToProfile:">
+							<string key="name">switchToProfile:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchToStars:">
+							<string key="name">switchToStars:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchToStream:">
+							<string key="name">switchToStream:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="appScrollView">EQSTRScrollView</string>
 						<string key="appTableView">NSTableView</string>
+						<string key="mentionsButton">PSCButtonCollectionButton</string>
+						<string key="messagesButton">PSCButtonCollectionButton</string>
+						<string key="profileButton">PSCButtonCollectionButton</string>
+						<string key="starsButton">PSCButtonCollectionButton</string>
+						<string key="streamButton">PSCButtonCollectionButton</string>
 						<string key="titleView">NSView</string>
 						<string key="topShadow">PSCGradientView</string>
 						<string key="window">INAppStoreWindow</string>
@@ -6500,6 +6600,26 @@
 						<object class="IBToOneOutletInfo" key="appTableView">
 							<string key="name">appTableView</string>
 							<string key="candidateClassName">NSTableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mentionsButton">
+							<string key="name">mentionsButton</string>
+							<string key="candidateClassName">PSCButtonCollectionButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="messagesButton">
+							<string key="name">messagesButton</string>
+							<string key="candidateClassName">PSCButtonCollectionButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="profileButton">
+							<string key="name">profileButton</string>
+							<string key="candidateClassName">PSCButtonCollectionButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="starsButton">
+							<string key="name">starsButton</string>
+							<string key="candidateClassName">PSCButtonCollectionButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="streamButton">
+							<string key="name">streamButton</string>
+							<string key="candidateClassName">PSCButtonCollectionButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="titleView">
 							<string key="name">titleView</string>
@@ -6517,6 +6637,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/PSCAppDelegate.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PSCButtonCollectionButton</string>
+					<string key="superclassName">NSButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/PSCButtonCollectionButton.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

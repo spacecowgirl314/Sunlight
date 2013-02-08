@@ -12,9 +12,12 @@
 #import "INAppStoreWindow.h"
 #import "PSCNewPostController.h"
 #import "PSCGradientView.h"
+#import "PSCButtonCollection.h"
+#import "PSCButtonCollectionButton.h"
 
 @interface PSCAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate> {
 	NSArray *postsArray;
+	PSCButtonCollection *buttonCollection;
 }
 
 @property (assign) IBOutlet INAppStoreWindow *window;
@@ -22,6 +25,11 @@
 @property (assign) IBOutlet EQSTRScrollView *appScrollView;
 @property (assign) IBOutlet NSTableView *appTableView;
 @property (retain, nonatomic) PSCNewPostController *postController;
+@property IBOutlet PSCButtonCollectionButton *streamButton;
+@property IBOutlet PSCButtonCollectionButton *mentionsButton;
+@property IBOutlet PSCButtonCollectionButton *starsButton;
+@property IBOutlet PSCButtonCollectionButton *profileButton;
+@property IBOutlet PSCButtonCollectionButton *messagesButton;
 @property IBOutlet PSCGradientView *topShadow;
 @property (nonatomic) NSString *authToken;
 @property (assign) ANPost *replyPost;

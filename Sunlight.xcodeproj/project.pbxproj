@@ -148,6 +148,8 @@
 		37B5214B16159CDE00941F0D /* PSCHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5214A16159CDE00941F0D /* PSCHUDWindow.m */; };
 		37E7F04D16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37EEA9C516BB7DC200E3C56E /* PSCSwipeableScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */; };
+		37F1864616C4A8D500E682E2 /* PSCButtonCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F1864516C4A8D500E682E2 /* PSCButtonCollection.m */; };
+		37F1864A16C4A9C000E682E2 /* PSCButtonCollectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F1864916C4A9BF00E682E2 /* PSCButtonCollectionButton.m */; };
 		701751A316C25340004BD1C6 /* star-highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7017519F16C25340004BD1C6 /* star-highlight@2x.png */; };
 		701751A416C25340004BD1C6 /* star-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 701751A016C25340004BD1C6 /* star-highlight.png */; };
 		701751A516C25340004BD1C6 /* repost-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 701751A116C25340004BD1C6 /* repost-highlight.png */; };
@@ -433,6 +435,10 @@
 		37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NS(Attributed)String+Geometrics.m"; sourceTree = "<group>"; };
 		37EEA9C316BB7DC200E3C56E /* PSCSwipeableScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCSwipeableScrollView.h; sourceTree = "<group>"; };
 		37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCSwipeableScrollView.m; sourceTree = "<group>"; };
+		37F1864416C4A8D500E682E2 /* PSCButtonCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCButtonCollection.h; sourceTree = "<group>"; };
+		37F1864516C4A8D500E682E2 /* PSCButtonCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCButtonCollection.m; sourceTree = "<group>"; };
+		37F1864816C4A9BF00E682E2 /* PSCButtonCollectionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCButtonCollectionButton.h; sourceTree = "<group>"; };
+		37F1864916C4A9BF00E682E2 /* PSCButtonCollectionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCButtonCollectionButton.m; sourceTree = "<group>"; };
 		7017519F16C25340004BD1C6 /* star-highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-highlight@2x.png"; sourceTree = "<group>"; };
 		701751A016C25340004BD1C6 /* star-highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-highlight.png"; sourceTree = "<group>"; };
 		701751A116C25340004BD1C6 /* repost-highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repost-highlight.png"; sourceTree = "<group>"; };
@@ -724,6 +730,8 @@
 		37A6633B162AC6A800010161 /* Subclasses */ = {
 			isa = PBXGroup;
 			children = (
+				37F1864816C4A9BF00E682E2 /* PSCButtonCollectionButton.h */,
+				37F1864916C4A9BF00E682E2 /* PSCButtonCollectionButton.m */,
 				378602EE16C22C57003256B9 /* PSCTextView.h */,
 				378602EF16C22C58003256B9 /* PSCTextView.m */,
 				3781509F16C0F2290015956E /* PSCGradientView.h */,
@@ -789,10 +797,6 @@
 				3795FE671628C02F0091B6CD /* Sunlight.entitlements */,
 				37B5207416157DF500941F0D /* PSCAppDelegate.h */,
 				37B5207516157DF500941F0D /* PSCAppDelegate.m */,
-				37240F0A16C389CB0002A64B /* PSCThumbnailKit.h */,
-				37240F0B16C389CB0002A64B /* PSCThumbnailKit.m */,
-				3786031016C27CD1003256B9 /* PSCMemoryCache.h */,
-				3786031116C27CD2003256B9 /* PSCMemoryCache.m */,
 				3733B8F2162678950098E6A1 /* PSCPostCellView.h */,
 				3733B8F3162678950098E6A1 /* PSCPostCellView.m */,
 				37240F0D16C396280002A64B /* PSCPostCellView.xib */,
@@ -806,6 +810,7 @@
 				378602E916C22254003256B9 /* RegexKitLite.h */,
 				378602EA16C22254003256B9 /* RegexKitLite.m */,
 				37B5207716157DF600941F0D /* MainMenu.xib */,
+				37F1864716C4A96900E682E2 /* Orginal Objects */,
 				3765B1E9162AEA90000B3523 /* Categories */,
 				37A6633B162AC6A800010161 /* Subclasses */,
 				3733B9C71626A3780098E6A1 /* INAppStoreWindow */,
@@ -869,6 +874,19 @@
 				37B520A81615834B00941F0D /* DDHotKeyCenter.m */,
 			);
 			name = DDHotKey;
+			sourceTree = "<group>";
+		};
+		37F1864716C4A96900E682E2 /* Orginal Objects */ = {
+			isa = PBXGroup;
+			children = (
+				37240F0A16C389CB0002A64B /* PSCThumbnailKit.h */,
+				37240F0B16C389CB0002A64B /* PSCThumbnailKit.m */,
+				3786031016C27CD1003256B9 /* PSCMemoryCache.h */,
+				3786031116C27CD2003256B9 /* PSCMemoryCache.m */,
+				37F1864416C4A8D500E682E2 /* PSCButtonCollection.h */,
+				37F1864516C4A8D500E682E2 /* PSCButtonCollection.m */,
+			);
+			name = "Orginal Objects";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1134,6 +1152,8 @@
 				378602FF16C266F5003256B9 /* PSCGradientButton.m in Sources */,
 				3786031216C27CD3003256B9 /* PSCMemoryCache.m in Sources */,
 				37240F0C16C389CB0002A64B /* PSCThumbnailKit.m in Sources */,
+				37F1864616C4A8D500E682E2 /* PSCButtonCollection.m in Sources */,
+				37F1864A16C4A9C000E682E2 /* PSCButtonCollectionButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

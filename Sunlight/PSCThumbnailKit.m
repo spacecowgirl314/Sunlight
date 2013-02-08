@@ -11,7 +11,7 @@
 
 @implementation PSCThumbnailKit
 
-- (void)initWithMediaString:(NSString*)mediaString {
+- (id)initWithMediaString:(NSString*)mediaString {
 	// our site array regexes
 	NSArray *youtubeRegexArray = [mediaString componentsMatchedByRegex:@"(?<=v=)[a-zA-Z0-9-_]+(?=&)|(?<=[0-9]/)[^&\n]+|(?<=v=)[^&\n]+"];
 	// run through our arrays to see if any of them have items
@@ -20,6 +20,8 @@
 	}
 	//https://github.com/collective/collective.oembed/blob/master/collective/oembed/endpoints.py
 	//
+	
+	return self;
 }
 
 @end

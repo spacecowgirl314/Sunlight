@@ -15,11 +15,17 @@
 #import "RegexKitLite.h"
 #import "NSButton+TextColor.h"
 #import "PSCMemoryCache.h"
+#import "PSCButtonCollection.h"
 
 @implementation PSCAppDelegate
 @synthesize postController;
 @synthesize titleView;
 @synthesize authToken = _authToken;
+@synthesize streamButton;
+@synthesize mentionsButton;
+@synthesize starsButton;
+@synthesize profileButton;
+@synthesize messagesButton;
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification {
 	//[[self window] setAlphaValue:0.0];
@@ -58,6 +64,13 @@
 	[[self topShadow] setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f]];
 	[[self topShadow] setEndingColor:[NSColor clearColor]];
     [[self topShadow] setAngle:270];
+	// setup buttons
+	buttonCollection = [[PSCButtonCollection alloc] initWithButtons:@[streamButton, mentionsButton, starsButton, profileButton, messagesButton]];
+	[streamButton setSelectedButtonImage:nil];
+	[mentionsButton setSelectedButtonImage:nil];
+	[starsButton setSelectedButtonImage:nil];
+	[profileButton setSelectedButtonImage:nil];
+	[messagesButton setSelectedButtonImage:nil];
 	// self.titleView is a an IBOutlet to an NSView that has been configured in IB with everything you want in the title bar
 	/*self.titleView.frame = self.window.titleBarView.bounds;
 	 self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -87,6 +100,26 @@
 {
 	[self.window makeKeyAndOrderFront:self];
 	return YES;
+}
+
+- (IBAction)switchToStream:(id)sender {
+	NSLog(@"Switched to stream.");
+}
+
+- (IBAction)switchToMentions:(id)sender {
+	NSLog(@"Switched to mentions.");
+}
+
+- (IBAction)switchToStars:(id)sender {
+	NSLog(@"Switched to stars.");
+}
+
+- (IBAction)switchToProfile:(id)sender {
+	NSLog(@"Switched to profile.");
+}
+
+- (IBAction)switchToMessages:(id)sender {
+	NSLog(@"Switched to messages.");
 }
 
 - (void)prepare {
