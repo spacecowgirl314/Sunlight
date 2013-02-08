@@ -68,7 +68,7 @@
 }
 
 - (IBAction)pressCancel:(id)sender {
-	[NSApp close];
+	[self close];
 	//[[self window] close];
 }
 
