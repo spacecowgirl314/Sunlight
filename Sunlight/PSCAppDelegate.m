@@ -148,10 +148,12 @@
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
     [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
-    [streamButton setShadow:shadow];
-    [profileButton setShadow:nil];
-    [mentionsButton setShadow:nil];
-    [starsButton setShadow:nil];
+	[streamButton setShadow:shadow];
+	for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
+		if (![button isEqual:streamButton]) {
+			[button setShadow:nil];
+		}
+	}
 	void (^reloadPosts)() = ^() {
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
@@ -201,9 +203,11 @@
     [shadow setShadowBlurRadius:5.0];
     [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
     [mentionsButton setShadow:shadow];
-    [streamButton setShadow:nil];
-    [profileButton setShadow:nil];
-    [starsButton setShadow:nil];
+	for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
+		if (![button isEqual:mentionsButton]) {
+			[button setShadow:nil];
+		}
+	}
 	void (^reloadPosts)() = ^() {
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
@@ -247,9 +251,11 @@
     [shadow setShadowBlurRadius:5.0];
     [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
     [starsButton setShadow:shadow];
-    [streamButton setShadow:nil];
-    [mentionsButton setShadow:nil];
-    [profileButton setShadow:nil];
+	for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
+		if (![button isEqual:starsButton]) {
+			[button setShadow:nil];
+		}
+	}
 	void (^reloadPosts)() = ^() {
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
@@ -293,9 +299,11 @@
     [shadow setShadowBlurRadius:5.0];
     [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
     [profileButton setShadow:shadow];
-    [streamButton setShadow:nil];
-    [mentionsButton setShadow:nil];
-    [starsButton setShadow:nil];
+    for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
+		if (![button isEqual:profileButton]) {
+			[button setShadow:nil];
+		}
+	}
 	void (^reloadPosts)() = ^() {
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
@@ -335,6 +343,15 @@
 
 - (void)loadMessages:(BOOL)reload {
 	// API docs here http://developers.app.net/docs/basics/messaging/
+	NSShadow * shadow = [[NSShadow alloc] init];
+    [shadow setShadowBlurRadius:5.0];
+    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
+    [messagesButton setShadow:shadow];
+    for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
+		if (![button isEqual:messagesButton]) {
+			[button setShadow:nil];
+		}
+	}
 }
 
 - (void)prepare {
