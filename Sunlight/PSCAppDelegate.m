@@ -27,6 +27,7 @@
 @synthesize starsButton;
 @synthesize profileButton;
 @synthesize messagesButton;
+@synthesize titleTextField;
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification {
 	//[[self window] setAlphaValue:0.0];
@@ -73,10 +74,6 @@
 	[profileButton setSelectedButtonImage:[NSImage imageNamed:@"title-user-highlight"]];
 	[messagesButton setSelectedButtonImage:[NSImage imageNamed:@"title-inbox-highlight"]];
 	[streamButton selectButton];
-	// self.titleView is a an IBOutlet to an NSView that has been configured in IB with everything you want in the title bar
-	/*self.titleView.frame = self.window.titleBarView.bounds;
-	 self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-	 [self.window.titleBarView addSubview:self.titleView];*/
 	// Register
 	//[self addOutput:@"Attempting to register hotkey for example 1"];
 	//DDHotKeyCenter * c = [[DDHotKeyCenter alloc] init];
@@ -146,6 +143,7 @@
 
 - (void)loadStream:(BOOL)reload {
 	NSArray *streamPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];
+    [titleTextField setStringValue:[[NSString alloc] initWithFormat:@"My Stream"]];
 	void (^reloadPosts)() = ^() {
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
@@ -190,6 +188,7 @@
 
 - (void)loadMentions:(BOOL)reload {
 	NSArray *mentionsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]];
+    [titleTextField setStringValue:[[NSString alloc] initWithFormat:@"Mentions"]];
 	void (^reloadPosts)() = ^() {
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
@@ -228,6 +227,7 @@
 
 - (void)loadStars:(BOOL)reload {
 	NSArray *starsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]];
+    [titleTextField setStringValue:[[NSString alloc] initWithFormat:@"Starred"]];
 	void (^reloadPosts)() = ^() {
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
@@ -266,6 +266,7 @@
 
 - (void)loadProfile:(BOOL)reload {
 	NSArray *profilePosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
+    [titleTextField setStringValue:[[NSString alloc] initWithFormat:@"My Profile"]];
 	void (^reloadPosts)() = ^() {
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);

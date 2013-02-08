@@ -28,6 +28,7 @@ typedef enum {
 	PSCButtonCollection *buttonCollection;
 	PSCStreamType currentStream;
 	NSArray *postsArray;
+    IBOutlet NSTextField *titleTextField;
 }
 
 @property (assign) IBOutlet INAppStoreWindow *window;
@@ -42,6 +43,7 @@ typedef enum {
 @property IBOutlet PSCButtonCollectionButton *profileButton;
 @property IBOutlet PSCButtonCollectionButton *messagesButton;
 @property IBOutlet PSCGradientView *topShadow;
+@property IBOutlet NSTextField *titleTextField;
 @property (nonatomic) NSString *authToken;
 @property (assign) ANPost *replyPost;
 
