@@ -16,6 +16,10 @@
 @synthesize cancelButton;
 @synthesize titleView;
 
+-(BOOL)mouseDownCanMoveWindow{
+    return YES;
+}
+
 -(id)init
 {
 	if (![super initWithWindowNibName:@"PSCLogin"]) {
@@ -42,6 +46,7 @@
     [window.titleBarView addSubview:titleView];
 	
 	return self;
+    
 }
 
 - (id)initWithWindow:(NSWindow *)window
