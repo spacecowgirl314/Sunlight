@@ -11,10 +11,10 @@
 #import "AppNetKit.h"
 #import "INAppStoreWindow.h"
 #import "PSCNewPostController.h"
+#import "PSCLoginController.h"
 #import "PSCGradientView.h"
 #import "PSCButtonCollection.h"
 #import "PSCButtonCollectionButton.h"
-#import "PSCLoginController.h"
 
 typedef enum {
     PSCStream,
