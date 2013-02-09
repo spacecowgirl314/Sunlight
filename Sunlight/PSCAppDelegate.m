@@ -16,6 +16,7 @@
 #import "NSButton+TextColor.h"
 #import "PSCMemoryCache.h"
 #import "PSCButtonCollection.h"
+#import "PSCSwipeableScrollView.h"
 
 @implementation PSCAppDelegate
 @synthesize postController;
@@ -74,6 +75,7 @@
 	[profileButton setSelectedButtonImage:[NSImage imageNamed:@"title-user-highlight"]];
 	[messagesButton setSelectedButtonImage:[NSImage imageNamed:@"title-inbox-highlight"]];
 	[streamButton selectButton];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHashtag:) name:@"Hashtag" object:nil];
     
 	// Register
 	//[self addOutput:@"Attempting to register hotkey for example 1"];
@@ -142,9 +144,56 @@
 	[self loadMessages:NO];
 }
 
-- (void)loadHashtag:(NSString*)hashtag {
+- (void)loadHashtag:(NSNotification*)theNotification{
+	// setup copy view
+	NSString *tag = [[theNotification object] substringFromIndex:2];
+	NSLog(@"tag:%@", tag);
+	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+	dispatch_async(queue,^{
+		[ANSession.defaultSession postsWithTag:tag completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+			if(!posts) {
+				//[self doSomethingWithError:error];
+				return;
+			}
+			// save posts to memory
+			//[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];
+			// theoretical test for loading more posts
+			/*ANPost *post =  [posts objectAtIndex:[posts count]];
+			 ANResourceID *resourceID = [post ID];
+			 [ANSession.defaultSession postsInStreamBetweenID:nil andID:resourceID completion:^(ANResponse *response, NSArray *posts, NSError *error) {
+			 
+			 }];*/
+			postsArray = posts;
+			[[self appTableView] reloadData];
+			/*dispatch_async(dispatch_get_main_queue(), ^{
+				[[self appScrollView] stopLoading];
+			});*/
+		}];
+	});
+	/*PSCSwipeableScrollView *newScrollView = [[PSCSwipeableScrollView alloc] initWithFrame:[self appScrollView].frame];
+	NSTableView *newTableView = [[NSTableView alloc] initWithFrame:[self appScrollView].frame];
+	[newTableView registerNib:[[NSNib alloc] initWithNibNamed:@"PSCPostCellView" bundle:nil] forIdentifier:@"PostCell"];
+	//[newScrollView addSubview:newTableView];
+	NSTableColumn * column1 = [[NSTableColumn alloc] initWithIdentifier:@"Col1"];
+	[column1 setWidth:360];
+	// generally you want to add at least one column to the table view.
+	[newTableView addTableColumn:column1];
+	[newTableView setDelegate:self];
+	[newTableView setDataSource:self];
+	[newTableView reloadData];
+	[newScrollView setDocumentView:newTableView];
+	[newScrollView setHasVerticalScroller:YES];
+	[[[self window] contentView] addSubview:newScrollView positioned:NSWindowBelow relativeTo:[self appScrollView]];
+	NSRect endFrame = NSMakeRect([self appScrollView].frame.origin.x, [self appScrollView].frame.origin.y, [self appScrollView].frame.size.width, [self appScrollView].frame.size.height);
+	
+	NSRect exitFrame = NSMakeRect(-[self appScrollView].frame.size.height, [self appScrollView].bounds.origin.y, [self appScrollView].frame.size.width, [self appScrollView].frame.size.height);
 	[NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:0.3f];
+    [[NSAnimationContext currentContext] setDuration:0.5f];
+	[newScrollView setFrame:endFrame];
+	[[[self appScrollView] animator] setFrame:exitFrame];
+	[NSAnimationContext endGrouping];
+	self.appScrollView = newScrollView;
+	self.appTableView = newTableView;*/
 }
 
 - (void)loadStream:(BOOL)reload {

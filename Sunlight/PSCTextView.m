@@ -57,6 +57,7 @@
 		
 		if( [attributes objectForKey:@"HashtagMatch"] != nil ) {
 			NSLog( @"HashtagMatch: %@", [attributes objectForKey:@"HashtagMatch"] );
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"Hashtag" object:[attributes objectForKey:@"HashtagMatch"]];
 		}
 		
 	}
