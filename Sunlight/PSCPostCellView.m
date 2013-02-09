@@ -244,6 +244,7 @@
 			else {
 				NSLog(@"Starring was successful.");
 				[starButton setImage:[NSImage imageNamed:@"star-highlight"]];
+                [starButton setAlternateImage:[NSImage imageNamed:@"star-highlight-pressed"]];
                 [starButton setTitle:@"Starred"];
 				[starButton setTextColor:[NSColor colorWithDeviceRed:0.894 green:0.541 blue:0.082 alpha:1.0]];
 			}
@@ -274,6 +275,7 @@
 			else {
 				NSLog(@"Reposting was successful.");
 				[repostButton setImage:[NSImage imageNamed:@"repost-highlight"]];
+                [repostButton setAlternateImage:[NSImage imageNamed:@"repost-highlight-pressed"]];
                 [repostButton setTitle:@"Reposted"];
 				[repostButton setTextColor:[NSColor colorWithDeviceRed:0.118 green:0.722 blue:0.106 alpha:1.0]];
 			}

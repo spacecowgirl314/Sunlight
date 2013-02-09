@@ -668,6 +668,7 @@
 	// set action button's status, have we starred something?
 	if ([post youStarred]) {
 		[[result starButton] setImage:[NSImage imageNamed:@"star-highlight"]];
+        [[result starButton] setAlternateImage:[NSImage imageNamed:@"star-highlight-pressed"]];
         [[result starButton] setTitle:@"Starred"];
 		[[result starButton] setTextColor:[NSColor colorWithDeviceRed:0.894 green:0.541 blue:0.082 alpha:1.0]];
 	}
@@ -678,6 +679,7 @@
 	}
 	if ([post youReposted]) {
 		[[result repostButton] setImage:[NSImage imageNamed:@"repost-highlight"]];
+        [[result repostButton] setAlternateImage:[NSImage imageNamed:@"repost-highlight-pressed"]];
         [[result repostButton] setTitle:@"Reposted"];
         [[result repostButton] setTextColor:[NSColor colorWithDeviceRed:0.118 green:0.722 blue:0.106 alpha:1.0]];
 	}
