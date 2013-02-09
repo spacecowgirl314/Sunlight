@@ -741,7 +741,7 @@
 	float height = [[post text] heightForWidth:[[self window] frame].size.width-61-2 font:font]; // 61 was previously 70
 	int spaceToTop=15; // 15 was 18
 	int padding=10;
-	int minimumViewHeight = 108; // 118, actually 139 though //105 was previously 108
+	int minimumViewHeight = 105; // 118, actually 139 though //105 was previously 108
 	int spaceToBottom=45; // 45 was previous 46
 	int extraRepostSpace = ([post repostOf]) ? 19 : 0;
 	if (height+spaceToTop+spaceToBottom<minimumViewHeight)
