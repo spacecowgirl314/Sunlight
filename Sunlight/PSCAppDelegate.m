@@ -591,8 +591,7 @@
 
 - (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
-    PSCPostCellView *result = [tableView makeViewWithIdentifier:@"PostCell" owner:nil];
-	//[PSCPostCellView viewFromNib]; // [tableColumn identifier]
+    PSCPostCellView *result = [tableView makeViewWithIdentifier:@"PostCell" owner:nil]; //[PSCPostCellView viewFromNib]; // [tableColumn identifier]
 	// clear out the old image first. prevent temporary flickering due to no caching
 	[[result avatarView] setImage:nil];
     
@@ -605,7 +604,7 @@
 		post = [post repostOf];
 		[result showRepost];
 		NSString *repostByString = [[NSString alloc] initWithFormat:@"Reposted by %@", [userReposting name]];
-		NSMutableAttributedString *repostedByAttributedString = [[NSMutableAttributedString alloc] initWithString:repostByString attributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13], NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.643 green:0.643 blue:0.643 alpha:1.0], @"UsernameMatch":[userReposting username]}];
+		NSMutableAttributedString *repostedByAttributedString = [[NSMutableAttributedString alloc] initWithString:repostByString attributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13], NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.500 green:0.500 blue:0.500 alpha:1.0], @"UsernameMatch":[userReposting username]}];
 		[repostedByAttributedString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue Medium" size:13], NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.302 green:0.302 blue:0.302 alpha:1.0]} range:[repostByString rangeOfString:[userReposting name]]];
 		[[result repostedUserButton] setAttributedTitle:repostedByAttributedString];
 	}
@@ -657,17 +656,17 @@
 		}];
 	}
 	// set contents of post
-	if (![post isDeleted]) {
+	if ([post text]!=nil) {
 		[[[result postView] textStorage] setAttributedString:[self stylizeStatusString:[post text]]];
+		[[result postView] setEditable:NO];
 		// set height of the post text view
-		NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
-		float height = [[post text] heightForWidth:[[self window] frame].size.width-70-2 font:font];
+		NSFont *font = [NSFont fontWithName:@"Helvetica Neue Bold" size:13.0f];
+		float height = [[post text] heightForWidth:[[self window] frame].size.width-68-2 font:font];
 		//NSLog(@"text height:%f", height);
 		result.postScrollView.frame = CGRectMake(result.postView.frame.origin.x, result.postView.frame.origin.y, result.postView.frame.size.width, height);
 	}
 	else {
-		[[[result postView] textStorage] setAttributedString:[self stylizeStatusString:@"[Post deleted]"]];
-		//[[result postView] setString:@"[Post deleted]"];
+		[[result postView] setString:@"[Post deleted]"];
 	}
     return result;
 }
@@ -683,12 +682,12 @@
 	if ([post repostOf]) {
 		
 	}
-	NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
-	float height = [[post text] heightForWidth:[[self window] frame].size.width-70-2 font:font]; // 61 was previously 70
-	int spaceToTop=18;
+	NSFont *font = [NSFont fontWithName:@"Helvetica Neue Medium" size:13.0f];
+	float height = [[post text] heightForWidth:[[self window] frame].size.width-61-2 font:font]; // 61 was previously 70
+	int spaceToTop=15; // 15 was 18
 	int padding=10;
-	int minimumViewHeight = 105; // 118, actually 139 though //105 was previously 108
-	int spaceToBottom=46;
+	int minimumViewHeight = 108; // 118, actually 139 though //105 was previously 108
+	int spaceToBottom=45; // 45 was previous 46
 	int extraRepostSpace = ([post repostOf]) ? 19 : 0;
 	if (height+spaceToTop+spaceToBottom<minimumViewHeight)
 	{
