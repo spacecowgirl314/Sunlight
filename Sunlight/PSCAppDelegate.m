@@ -604,7 +604,7 @@
 		post = [post repostOf];
 		[result showRepost];
 		NSString *repostByString = [[NSString alloc] initWithFormat:@"Reposted by %@", [userReposting name]];
-		NSMutableAttributedString *repostedByAttributedString = [[NSMutableAttributedString alloc] initWithString:repostByString attributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13], NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.643 green:0.643 blue:0.643 alpha:1.0], @"UsernameMatch":[userReposting username]}];
+		NSMutableAttributedString *repostedByAttributedString = [[NSMutableAttributedString alloc] initWithString:repostByString attributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13], NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.500 green:0.500 blue:0.500 alpha:1.0], @"UsernameMatch":[userReposting username]}];
 		[repostedByAttributedString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue Medium" size:13], NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.302 green:0.302 blue:0.302 alpha:1.0]} range:[repostByString rangeOfString:[userReposting name]]];
 		[[result repostedUserButton] setAttributedTitle:repostedByAttributedString];
 	}
@@ -684,10 +684,10 @@
 	}
 	NSFont *font = [NSFont fontWithName:@"Helvetica Neue Medium" size:13.0f];
 	float height = [[post text] heightForWidth:[[self window] frame].size.width-61-2 font:font]; // 61 was previously 70
-	int spaceToTop=18;
+	int spaceToTop=15; // 15 was 18
 	int padding=10;
-	int minimumViewHeight = 105; // 118, actually 139 though //105 was previously 108
-	int spaceToBottom=46;
+	int minimumViewHeight = 108; // 118, actually 139 though //105 was previously 108
+	int spaceToBottom=45; // 45 was previous 46
 	int extraRepostSpace = ([post repostOf]) ? 19 : 0;
 	if (height+spaceToTop+spaceToBottom<minimumViewHeight)
 	{
