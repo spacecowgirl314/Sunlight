@@ -22,6 +22,7 @@
 	IBOutlet NSButton *repostButton;
 	IBOutlet NSImageView *repostImageView;
 	IBOutlet NSButton *repostedUserButton;
+    IBOutlet NSButton *deleteButton;
 	NSTrackingArea *trackingArea;
 	NSTimer *fadeTimer;
 	/*CGFloat scrollDeltaX;
@@ -41,6 +42,7 @@
 @property IBOutlet NSButton *starButton;
 @property IBOutlet NSImageView *repostImageView;
 @property IBOutlet NSButton *repostedUserButton;
+@property IBOutlet NSButton *deleteButton;
 @property (retain, nonatomic) PSCNewPostController *postController;
 
 - (IBAction)openReplyPost:(id)sender;
@@ -50,6 +52,7 @@
 - (NSColor*)defaultButtonColor;
 - (void)hideRepost;
 - (void)showRepost;
+- (void)hideDeletedPost;
 + (instancetype)viewFromNib;
 
 @end

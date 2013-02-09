@@ -24,6 +24,7 @@
 @synthesize starButton;
 @synthesize repostImageView;
 @synthesize repostedUserButton;
+@synthesize deleteButton;
 
 - (void)awakeFromNib {
 	//[self updateTrackingArea];
@@ -34,6 +35,7 @@
 	[muteButton setTextColor:[self defaultButtonColor]];
 	[repostButton setTextColor:[self defaultButtonColor]];
 	[starButton setTextColor:[self defaultButtonColor]];
+    [deleteButton setTextColor:[self defaultButtonColor]];
 }
 
 - (IBAction)viewRepostUser:(id)sender
@@ -297,6 +299,7 @@
 }
 
 - (IBAction)deletePost:(id)sender {
+    
 	[post deleteWithCompletion:^(ANResponse *response, ANPost *deletedPost, NSError *error) {
 		if (!deletedPost) {
 			NSLog(@"There was an error deleting the post.");
@@ -327,6 +330,10 @@
 - (void)drawRect:(NSRect)dirtyRect {
 	[[NSColor colorWithDeviceRed:0.941 green:0.941 blue:0.941 alpha:1.0] set]; // Sets current drawing color.
 	NSRectFill(self.bounds);
+}
+
+- (void)hideDeletedPost {
+    
 }
 
 - (void)hideRepost {

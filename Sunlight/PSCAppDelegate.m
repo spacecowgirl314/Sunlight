@@ -661,6 +661,14 @@
 		//NSLog(@"this is not a repost");
 		[result hideRepost];
 	}
+    
+    if ([post isDeleted]) {
+        [result hideDeletedPost];
+    }
+    else {
+        nil;
+    }
+    
 	// send post to the cell view
 	[result setPost:post];
 	// set real name
@@ -723,6 +731,7 @@
 	else {
 		[[result postView] setString:@"[Post deleted]"];
 	}
+    
     return result;
 }
 
