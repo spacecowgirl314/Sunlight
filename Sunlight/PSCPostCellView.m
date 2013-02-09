@@ -26,10 +26,10 @@
 @synthesize repostedUserButton;
 
 - (void)awakeFromNib {
-	[self updateTrackingArea];
+	//[self updateTrackingArea];
 	[self setAcceptsTouchEvents:YES];
 	[self becomeFirstResponder];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResize) name:NSViewFrameDidChangeNotification object:self];
+	//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResize) name:NSViewFrameDidChangeNotification object:self];
 	[replyButton setTextColor:[self defaultButtonColor]];
 	[muteButton setTextColor:[self defaultButtonColor]];
 	[repostButton setTextColor:[self defaultButtonColor]];
@@ -110,30 +110,30 @@
 }
 
 // Necessary for when the view is resized
--(void)updateTrackingArea {
+/*-(void)updateTrackingArea {
 	// Allow for controls to disappear when mouse isn't in window.
 	if (trackingArea!=nil) {
 		[self removeTrackingArea:trackingArea];
 	}
 	NSTrackingAreaOptions trackingOptions =
-	NSTrackingMouseEnteredAndExited|NSTrackingMouseMoved|NSTrackingActiveAlways;
+	NSTrackingMouseEnteredAndExited|NSTrackingMouseMoved|NSTrackingActiveAlways;*/
 	/*NSTrackingArea *myTrackingArea = [[NSTrackingArea alloc]
 	 initWithRect: [imageView bounds] // in our case track the entire view
 	 options: trackingOptions
 	 owner: self
 	 userInfo: nil];*/
-	trackingArea = [[NSTrackingArea alloc]
+	/*trackingArea = [[NSTrackingArea alloc]
 					  initWithRect: [self bounds] // in our case track the entire view
 					  options: trackingOptions
 					  owner: self
 					  userInfo: nil];
 	[self addTrackingArea: trackingArea];
-}
+}*/
 
-- (void)didResize {
+/*- (void)didResize {
 	//NSLog(@"Resizing...");
 	[self updateTrackingArea];
-}
+}*/
 
 /*- (void) mouseEntered:(NSEvent*)theEvent {
     // Mouse entered tracking area.
@@ -297,6 +297,19 @@
 		}
 		else {
 			NSLog(@"Post was deleted successfully.");
+		}
+	}];
+}
+
+- (IBAction)muteUser:(id)sender {
+	[ANSession.defaultSession muteUserWithID:[post user] completion:^(ANResponse *response, ANUser *user, NSError *error) {
+		if (!user) {
+			NSLog(@"There was an error muting the user.");
+		}
+		else {
+			NSLog(@"User was muted successfully.");
+			//[muteButton setImage:[NSImage imageNamed:]];
+			[muteButton setTextColor:[self defaultButtonColor]];
 		}
 	}];
 }

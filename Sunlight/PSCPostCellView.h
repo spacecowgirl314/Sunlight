@@ -46,6 +46,7 @@
 - (IBAction)openReplyPost:(id)sender;
 - (IBAction)starPost:(id)sender;
 - (IBAction)repostPost:(id)sender;
+- (IBAction)muteUser:(id)sender;
 - (NSColor*)defaultButtonColor;
 - (void)hideRepost;
 - (void)showRepost;

@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12C54</string>
+		<string key="IBDocument.SystemVersion">12C3006</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
@@ -220,7 +220,7 @@
 										<string key="NSFrameSize">{288, 66}</string>
 										<reference key="NSSuperview" ref="41427505"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="525209338"/>
+										<reference key="NSNextKeyView" ref="1042207625"/>
 										<string key="NSReuseIdentifierKey">_NS:13</string>
 										<object class="NSTextContainer" key="NSTextContainer" id="317913247">
 											<object class="NSLayoutManager" key="NSLayoutManager">
@@ -357,7 +357,7 @@
 						<string key="NSFrame">{{70, 45}, {288, 66}}</string>
 						<reference key="NSSuperview" ref="606671869"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1042207625"/>
+						<reference key="NSNextKeyView" ref="41427505"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="NSsFlags">133120</int>
 						<reference key="NSVScroller" ref="1042207625"/>
@@ -817,6 +817,14 @@
 						<reference key="destination" ref="622133623"/>
 					</object>
 					<int key="connectionID">108</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">muteUser:</string>
+						<reference key="source" ref="606671869"/>
+						<reference key="destination" ref="622133623"/>
+					</object>
+					<int key="connectionID">309</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2460,7 +2468,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">308</int>
+			<int key="maxID">309</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2492,11 +2500,22 @@
 					<string key="className">PSCPostCellView</string>
 					<string key="superclassName">NSTableCellView</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="deletePost:">id</string>
+						<string key="muteUser:">id</string>
 						<string key="openReplyPost:">id</string>
 						<string key="repostPost:">id</string>
 						<string key="starPost:">id</string>
+						<string key="viewRepostUser:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="deletePost:">
+							<string key="name">deletePost:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="muteUser:">
+							<string key="name">muteUser:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="openReplyPost:">
 							<string key="name">openReplyPost:</string>
 							<string key="candidateClassName">id</string>
@@ -2507,6 +2526,10 @@
 						</object>
 						<object class="IBActionInfo" key="starPost:">
 							<string key="name">starPost:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="viewRepostUser:">
+							<string key="name">viewRepostUser:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
