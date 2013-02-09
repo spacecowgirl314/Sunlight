@@ -10,6 +10,7 @@
 
 @implementation PSCButtonCollectionButton
 @synthesize defaultButtonImage;
+@synthesize defaultAlternateButtonImage;
 @synthesize selectedButtonImage;
 @synthesize isEnabled;
 @synthesize buttonCollection;
@@ -28,6 +29,7 @@
 	self = [super initWithCoder:aDecoder];
 	if (self) {
 		defaultButtonImage = self.image;
+		defaultAlternateButtonImage = self.alternateImage;
 	}
 	return self;
 }
@@ -35,10 +37,13 @@
 // manual button selection
 - (void)selectButton {
 	[self setImage:selectedButtonImage];
+	// remove the pressed state image
+	[self setAlternateImage:nil];
 	// disable other buttons
 	for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
 		if (![self isEqualTo:button]) {
 			[button setImage:button.defaultButtonImage];
+			[button setAlternateImage:button.defaultAlternateButtonImage];
 			[button setIsEnabled:NO];
 		}
 	}
@@ -48,9 +53,12 @@
 - (BOOL)sendAction:(SEL)theAction to:(id)theTarget {
 	if (!isEnabled) {
 		[self setImage:selectedButtonImage];
+		// remove the pressed state image
+		[self setAlternateImage:nil];
 		for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
 			if (![self isEqualTo:button]) {
 				[button setImage:button.defaultButtonImage];
+				[button setAlternateImage:button.defaultAlternateButtonImage];
 				[button setIsEnabled:NO];
 			}
 		}

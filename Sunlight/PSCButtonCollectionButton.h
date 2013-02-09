@@ -12,6 +12,7 @@
 @interface PSCButtonCollectionButton : NSButton
 
 @property NSImage *defaultButtonImage;
+@property NSImage *defaultAlternateButtonImage;
 @property NSImage *selectedButtonImage;
 @property BOOL isEnabled;
 @property PSCButtonCollection *buttonCollection;
