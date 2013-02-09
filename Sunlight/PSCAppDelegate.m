@@ -142,6 +142,11 @@
 	[self loadMessages:NO];
 }
 
+- (void)loadHashtag:(NSString*)hashtag {
+	[NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setDuration:0.3f];
+}
+
 - (void)loadStream:(BOOL)reload {
 	NSArray *streamPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];
     [titleTextField setStringValue:@"My Stream"];

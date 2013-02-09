@@ -52,7 +52,7 @@
 
 - (BOOL)sendAction:(SEL)theAction to:(id)theTarget {
 	if (!isEnabled) {
-		[self setImage:selectedButtonImage];
+		/*[self setImage:selectedButtonImage];
 		// remove the pressed state image
 		[self setAlternateImage:selectedButtonImage];
 		for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
@@ -61,10 +61,11 @@
 				[button setAlternateImage:button.defaultAlternateButtonImage];
 				[button setIsEnabled:NO];
 			}
-		}
+		}*/
+		[self selectButton];
 		// send our action that was set
 		[super sendAction:theAction to:theTarget];
-		isEnabled = YES;
+		//isEnabled = YES;
 		return YES;
 	}
 	else {
