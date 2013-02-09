@@ -591,7 +591,8 @@
 
 - (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
-    PSCPostCellView *result = [tableView makeViewWithIdentifier:@"PostCell" owner:nil]; //[PSCPostCellView viewFromNib]; // [tableColumn identifier]
+    PSCPostCellView *result = [tableView makeViewWithIdentifier:@"PostCell" owner:nil];
+	//[PSCPostCellView viewFromNib]; // [tableColumn identifier]
 	// clear out the old image first. prevent temporary flickering due to no caching
 	[[result avatarView] setImage:nil];
     
@@ -656,17 +657,17 @@
 		}];
 	}
 	// set contents of post
-	if ([post text]!=nil) {
+	if (![post isDeleted]) {
 		[[[result postView] textStorage] setAttributedString:[self stylizeStatusString:[post text]]];
-		[[result postView] setEditable:NO];
 		// set height of the post text view
-		NSFont *font = [NSFont fontWithName:@"Helvetica Neue Bold" size:13.0f];
-		float height = [[post text] heightForWidth:[[self window] frame].size.width-68-2 font:font];
+		NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
+		float height = [[post text] heightForWidth:[[self window] frame].size.width-70-2 font:font];
 		//NSLog(@"text height:%f", height);
 		result.postScrollView.frame = CGRectMake(result.postView.frame.origin.x, result.postView.frame.origin.y, result.postView.frame.size.width, height);
 	}
 	else {
-		[[result postView] setString:@"[Post deleted]"];
+		[[[result postView] textStorage] setAttributedString:[self stylizeStatusString:@"[Post deleted]"]];
+		//[[result postView] setString:@"[Post deleted]"];
 	}
     return result;
 }
@@ -682,8 +683,8 @@
 	if ([post repostOf]) {
 		
 	}
-	NSFont *font = [NSFont fontWithName:@"Helvetica Neue Medium" size:13.0f];
-	float height = [[post text] heightForWidth:[[self window] frame].size.width-61-2 font:font]; // 61 was previously 70
+	NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
+	float height = [[post text] heightForWidth:[[self window] frame].size.width-70-2 font:font]; // 61 was previously 70
 	int spaceToTop=18;
 	int padding=10;
 	int minimumViewHeight = 105; // 118, actually 139 though //105 was previously 108
