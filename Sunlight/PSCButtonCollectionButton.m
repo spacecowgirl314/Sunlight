@@ -38,7 +38,7 @@
 - (void)selectButton {
 	[self setImage:selectedButtonImage];
 	// remove the pressed state image
-	[self setAlternateImage:nil];
+	[self setAlternateImage:selectedButtonImage];
 	// disable other buttons
 	for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
 		if (![self isEqualTo:button]) {
@@ -54,7 +54,7 @@
 	if (!isEnabled) {
 		[self setImage:selectedButtonImage];
 		// remove the pressed state image
-		[self setAlternateImage:nil];
+		[self setAlternateImage:selectedButtonImage];
 		for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
 			if (![self isEqualTo:button]) {
 				[button setImage:button.defaultButtonImage];
