@@ -668,18 +668,22 @@
 	// set action button's status, have we starred something?
 	if ([post youStarred]) {
 		[[result starButton] setImage:[NSImage imageNamed:@"star-highlight"]];
+        [[result starButton] setTitle:@"Starred"];
 		[[result starButton] setTextColor:[NSColor colorWithDeviceRed:0.894 green:0.541 blue:0.082 alpha:1.0]];
 	}
 	else {
 		[[result starButton] setImage:[NSImage imageNamed:@"timeline-star"]];
+        [[result starButton] setTitle:@"Star"];
 		[[result starButton] setTextColor:[result defaultButtonColor]];
 	}
 	if ([post youReposted]) {
 		[[result repostButton] setImage:[NSImage imageNamed:@"repost-highlight"]];
-		[[result repostButton] setTextColor:[NSColor colorWithDeviceRed:0.118 green:0.722 blue:0.106 alpha:1.0]];
+        [[result repostButton] setTitle:@"Reposted"];
+        [[result repostButton] setTextColor:[NSColor colorWithDeviceRed:0.118 green:0.722 blue:0.106 alpha:1.0]];
 	}
 	else {
 		[[result repostButton] setImage:[NSImage imageNamed:@"timeline-repost"]];
+        [[result repostButton] setTitle:@"Repost"];
 		[[result repostButton] setTextColor:[result defaultButtonColor]];
 	}
 	if ([post numberOfReplies]>0) {
@@ -710,7 +714,7 @@
 		[[result postView] setEditable:NO];
 		// set height of the post text view
 		NSFont *font = [NSFont fontWithName:@"Helvetica Neue Bold" size:13.0f];
-		float height = [[post text] heightForWidth:[[self window] frame].size.width-68-2 font:font];
+		float height = [[post text] heightForWidth:[[self window] frame].size.width font:font];
 		//NSLog(@"text height:%f", height);
 		result.postScrollView.frame = CGRectMake(result.postView.frame.origin.x, result.postView.frame.origin.y, result.postView.frame.size.width, height);
 	}

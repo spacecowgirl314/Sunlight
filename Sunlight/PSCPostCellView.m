@@ -244,6 +244,7 @@
 			else {
 				NSLog(@"Starring was successful.");
 				[starButton setImage:[NSImage imageNamed:@"star-highlight"]];
+                [starButton setTitle:@"Starred"];
 				[starButton setTextColor:[NSColor colorWithDeviceRed:0.894 green:0.541 blue:0.082 alpha:1.0]];
 			}
 		}];
@@ -256,6 +257,7 @@
 			else {
 				NSLog(@"Unstarring was successful.");
 				[starButton setImage:[NSImage imageNamed:@"timeline-star"]];
+                [starButton setTitle:@"Star"];
 				[starButton setTextColor:[self defaultButtonColor]];
 			}
 		}];
@@ -272,6 +274,7 @@
 			else {
 				NSLog(@"Reposting was successful.");
 				[repostButton setImage:[NSImage imageNamed:@"repost-highlight"]];
+                [repostButton setTitle:@"Reposted"];
 				[repostButton setTextColor:[NSColor colorWithDeviceRed:0.118 green:0.722 blue:0.106 alpha:1.0]];
 			}
 		}];
@@ -284,6 +287,7 @@
 			else {
 				NSLog(@"Unreposting was successful.");
 				[repostButton setImage:[NSImage imageNamed:@"timeline-repost"]];
+                [repostButton setTitle:@"Repost"];
 				[repostButton setTextColor:[self defaultButtonColor]];
 			}
 		}];

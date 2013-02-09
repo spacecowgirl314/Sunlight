@@ -1,9 +1,6 @@
 [submodule "Sunlight/DDHotKey"]
 	path = Sunlight/DDHotKey
 	url = git://github.com/davedelong/DDHotKey.git
-[submodule "Sunlight/ScrollToRefresh"]
-	path = Sunlight/ScrollToRefresh
-	url = git://github.com/alexzielenski/ScrollToRefresh.git
 [submodule "Sunlight/INAppStoreWindow"]
 	path = Sunlight/INAppStoreWindow
 	url = git://github.com/indragiek/INAppStoreWindow.git
@@ -16,3 +13,6 @@
 [submodule "Sunlight/SEHumanizedTimeDiff"]
 	path = Sunlight/SEHumanizedTimeDiff
 	url = git://github.com/sarperdag/SEHumanizedTimeDiff.git
+[submodule "Sunlight/ScrollToRefresh"]
+	path = Sunlight/ScrollToRefresh
+	url = git@github.com:PhantomSunCreative/ScrollToRefresh.git
