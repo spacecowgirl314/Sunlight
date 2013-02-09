@@ -302,12 +302,12 @@
 }
 
 - (IBAction)muteUser:(id)sender {
-	[ANSession.defaultSession muteUserWithID:[post user] completion:^(ANResponse *response, ANUser *user, NSError *error) {
+	[ANSession.defaultSession muteUserWithID:[[post user] ID] completion:^(ANResponse *response, ANUser *user, NSError *error) {
 		if (!user) {
 			NSLog(@"There was an error muting the user.");
 		}
 		else {
-			NSLog(@"User was muted successfully.");
+			NSLog(@"%@ was muted successfully.", [user username]);
 			//[muteButton setImage:[NSImage imageNamed:]];
 			[muteButton setTextColor:[self defaultButtonColor]];
 		}
