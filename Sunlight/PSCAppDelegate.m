@@ -646,6 +646,12 @@
     
 	ANPost *post = [postsArray objectAtIndex:row];
 	ANUser *user = [post user];
+    if(!ANMeUserID) {
+        [[result deleteButton] setHidden:YES];
+    }
+    else {
+        [[result deleteButton] setHidden:NO];
+    }
 	if ([post repostOf]) {
 		//NSLog(@"this is a repost");
 		ANUser *userReposting = user;
