@@ -156,7 +156,11 @@
 	dispatch_async(queue,^{
 		[ANSession.defaultSession postsWithTag:tag completion:^(ANResponse * response, NSArray * posts, NSError * error) {
 			if(!posts) {
-				//[self doSomethingWithError:error];
+				postsArray = posts;
+				[[self appTableView] reloadData];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[[self appScrollView] stopLoading];
+				});
 				return;
 			}
 			// save posts to memory
@@ -217,8 +221,17 @@
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
 			[ANSession.defaultSession postsInStreamWithCompletion:^(ANResponse * response, NSArray * posts, NSError * error) {
+				NSLog(@"response:%@", [response errorMessage]);
+				if ([error code]==-1004) {
+					NSLog(@"ADN appears to be down.");
+				}
+				if (error) {
+					NSLog(@"error:%@", [error description]);
+				}
 				if(!posts) {
-					//[self doSomethingWithError:error];
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[[self appScrollView] stopLoading];
+					});
 					return;
 				}
 				// save posts to memory
@@ -272,7 +285,9 @@
 		dispatch_async(queue,^{
 			[ANSession.defaultSession postsMentioningUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse *response, NSArray *posts, NSError *error) {
 				if(!posts) {
-					//[self doSomethingWithError:error];
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[[self appScrollView] stopLoading];
+					});
 					return;
 				}
 				// save posts to memory
@@ -320,7 +335,9 @@
 		dispatch_async(queue,^{
 			[ANSession.defaultSession postsStarredByUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
 				if(!posts) {
-					//[self doSomethingWithError:error];
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[[self appScrollView] stopLoading];
+					});
 					return;
 				}
 				// save posts to memory
@@ -369,7 +386,9 @@
 			// Get the latest posts in the user's incoming post stream...
 			[ANSession.defaultSession postsForUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
 				if(!posts) {
-					//[self doSomethingWithError:error];
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[[self appScrollView] stopLoading];
+					});
 					return;
 				}
 				// save posts to memory
