@@ -569,6 +569,7 @@
 - (void)authenticate {
 	ANAuthenticator *authenticator = [ANAuthenticator new];
 	[authenticator setClientID:@"KXWTJNJeyw5fGQDmfAAcecepf7tp6eEY"];
+	[authenticator setPasswordGrantSecret:@"kPtJeNSnfQgm4QqQcn7BfHWfeG8c5ZTH"];
 	[authenticator setRedirectURL:[NSURL URLWithString:@"sunlight://api-key/"]];
 	NSURL *url = [authenticator URLToAuthorizeForScopes:@[ANScopeStream, ANScopeEmail, ANScopeWritePost, ANScopeFollow, ANScopeMessages]];
 	[[NSWorkspace sharedWorkspace] openURL:url];
@@ -661,6 +662,13 @@
 		//NSLog(@"this is not a repost");
 		[result hideRepost];
 	}
+	
+	if ([[post user] ID]==ANMeUserID) {
+		[[result deleteButton] setHidden:NO];
+	}
+	else {
+		[[result deleteButton] setHidden:YES];
+	}
     
     if ([post isDeleted]) {
         [result hideDeletedPost];
@@ -719,7 +727,7 @@
 		}];
 	}
 	// set contents of post
-	if ([post text]!=nil) {
+	if (![post isDeleted]) {
 		[[[result postView] textStorage] setAttributedString:[self stylizeStatusString:[post text]]];
 		[[result postView] setEditable:NO];
 		// set height of the post text view
