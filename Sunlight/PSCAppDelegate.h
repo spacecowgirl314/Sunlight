@@ -44,7 +44,6 @@ typedef enum {
 @property IBOutlet PSCButtonCollectionButton *messagesButton;
 @property IBOutlet PSCGradientView *topShadow;
 @property IBOutlet NSTextField *titleTextField;
-@property (nonatomic) NSString *authToken;
 @property (assign) ANPost *replyPost;
 
 @end

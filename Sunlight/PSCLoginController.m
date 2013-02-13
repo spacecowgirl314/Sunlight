@@ -7,6 +7,8 @@
 //
 
 #import "PSCLoginController.h"
+#import "AppNetKit.h"
+#import "PSCMemoryCache.h"
 
 @interface PSCLoginController ()
     
@@ -17,6 +19,8 @@
 @synthesize titleView;
 @synthesize usernameTextField;
 @synthesize passwordTextField;
+@synthesize progressIndicator;
+@synthesize successCallback;
 
 -(id)init
 {
@@ -68,13 +72,55 @@
 }
 
 - (IBAction)pressCancel:(id)sender {
-	[self close];
-	//[[self window] close];
+	if (![PSCMemoryCache sharedMemory].authToken) {
+		[[NSApplication sharedApplication] terminate:self];
+	}
+	else {
+		[[self window] close];
+	}
+}
+
+static int numberOfShakes = 8;
+static float durationOfShake = 0.5f;
+static float vigourOfShake = 0.05f;
+
+- (CAKeyframeAnimation *)shakeAnimation:(NSRect)frame
+{
+    CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animation];
+	
+    CGMutablePathRef shakePath = CGPathCreateMutable();
+    CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
+	int index;
+	for (index = 0; index < numberOfShakes; ++index)
+	{
+		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) - frame.size.width * vigourOfShake, NSMinY(frame));
+		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) + frame.size.width * vigourOfShake, NSMinY(frame));
+	}
+    CGPathCloseSubpath(shakePath);
+    shakeAnimation.path = shakePath;
+    shakeAnimation.duration = durationOfShake;
+    return shakeAnimation;
 }
 
 - (IBAction)signIn:(id)sender
 {
-	
+	[progressIndicator startAnimation:nil];
+	[ANAuthenticator.sharedAuthenticator accessTokenForScopes:@[ ANScopeStream, ANScopeEmail, ANScopeWritePost, ANScopeFollow, ANScopeMessages ] withUsername:usernameTextField.stringValue password:passwordTextField.stringValue completion:^(NSString * accessToken, id rep, NSError * error) {
+        [progressIndicator stopAnimation:nil];
+        
+        if(!accessToken) {
+            //[self showErrorToUser:error];
+			[[self window] setAnimations:@{@"frameOrigin":[self shakeAnimation:[self.window frame]]}];
+			[[self.window animator] setFrameOrigin:[self.window frame].origin];
+            return;
+        }
+        
+		[PSCMemoryCache sharedMemory].authToken = accessToken;
+		[[self window] close];
+		[NSApp abortModal];
+		successCallback();
+		successCallback = nil;
+    }];
 }
 
 @end

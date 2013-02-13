@@ -15,6 +15,7 @@
 
 @property NSMutableDictionary *avatarImages;
 @property NSMutableDictionary *streamsDictionary;
+@property (nonatomic) NSString *authToken;
 
 + (instancetype)sharedMemory;
 - (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage;

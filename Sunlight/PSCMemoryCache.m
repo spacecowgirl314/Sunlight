@@ -11,6 +11,7 @@
 @implementation PSCMemoryCache
 @synthesize avatarImages;
 @synthesize streamsDictionary;
+@synthesize authToken = _authToken;
 
 - (id)init {
 	if (self==[super init])
@@ -73,6 +74,25 @@
 	CGImageRef masked = CGImageCreateWithMask([self nsImageToCGImageRef:image], mask);
 	return [self imageFromCGImageRef:masked];
 	
+}
+
+- (void)setAuthToken:(NSString *)apiKey {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	_authToken = apiKey;
+	if (apiKey) {
+		[defaults setObject:apiKey forKey:@"access_token"];
+	} else {
+		[defaults removeObjectForKey:@"access_token"];
+	}
+	[defaults synchronize];
+}
+
+- (NSString*)authToken {
+	if (!_authToken) {
+		_authToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"access_token"];
+		//NSLog(@"Read API Key %@", _authToken);
+	}
+	return _authToken;
 }
 
 @end

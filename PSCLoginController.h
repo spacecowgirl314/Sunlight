@@ -19,6 +19,8 @@
 @property IBOutlet NSButton *cancelButton;
 @property IBOutlet NSTextField *usernameTextField;
 @property IBOutlet NSTextField *passwordTextField;
+@property IBOutlet NSProgressIndicator *progressIndicator;
+@property (strong) void(^successCallback)();
 
 - (IBAction)pressCancel:(id)sender;
 - (IBAction)signIn:(id)sender;

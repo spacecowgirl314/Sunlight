@@ -22,7 +22,6 @@
 @synthesize postController;
 @synthesize loginController;
 @synthesize titleView;
-@synthesize authToken = _authToken;
 @synthesize streamButton;
 @synthesize mentionsButton;
 @synthesize starsButton;
@@ -32,7 +31,11 @@
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification {
 	//[[self window] setAlphaValue:0.0];
-	//[[self window] orderOut:nil];
+}
+
+- (void)applicationWillFinishLaunching:(NSNotification *)notification {
+	// keep the main window hidden until we know we've been logged in
+	[[self window] orderOut:nil];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -87,8 +90,9 @@
 	 //[self addOutput:[NSString stringWithFormat:@"Registered: %@", [c registeredHotKeys]]];
 	 }*/
 	// Check the presence of the API key.
-	if ([self.authToken length]) {
-		//[self checkToken];
+	if ([[PSCMemoryCache sharedMemory].authToken length]) {
+		// know that we're sure we've been logged in show the main window
+		[self.window makeKeyAndOrderFront:self];
 		[self prepare];
 	} else {
 		[self authenticate];
@@ -409,7 +413,7 @@
 }
 
 - (void)prepare {
-	ANSession.defaultSession.accessToken = self.authToken;
+	ANSession.defaultSession.accessToken = [PSCMemoryCache sharedMemory].authToken;
 	currentStream = PSCStream;
 	// start window off by not being seen
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
@@ -554,7 +558,7 @@
 			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:notification.userInfo[@"url"]]];
 			break;
 		default:
-			NSLog(@"Notfiication appears to have been dismissed!");
+			NSLog(@"Notification appears to have been dismissed!");
 			break;
 	}
 }
@@ -567,12 +571,23 @@
 #pragma mark - Authentication and URL handling
 
 - (void)authenticate {
-	ANAuthenticator *authenticator = [ANAuthenticator new];
-	[authenticator setClientID:@"KXWTJNJeyw5fGQDmfAAcecepf7tp6eEY"];
-	[authenticator setPasswordGrantSecret:@"kPtJeNSnfQgm4QqQcn7BfHWfeG8c5ZTH"];
-	[authenticator setRedirectURL:[NSURL URLWithString:@"sunlight://api-key/"]];
-	NSURL *url = [authenticator URLToAuthorizeForScopes:@[ANScopeStream, ANScopeEmail, ANScopeWritePost, ANScopeFollow, ANScopeMessages]];
-	[[NSWorkspace sharedWorkspace] openURL:url];
+	[ANAuthenticator.sharedAuthenticator setClientID:@"KXWTJNJeyw5fGQDmfAAcecepf7tp6eEY"];
+	[ANAuthenticator.sharedAuthenticator setPasswordGrantSecret:@"kPtJeNSnfQgm4QqQcn7BfHWfeG8c5ZTH"];
+	//[ANAuthenticator.sharedAuthenticator setRedirectURL:[NSURL URLWithString:@"sunlight://api-key/"]];
+	/*NSURL *url = [ANAuthenticator.sharedAuthenticator URLToAuthorizeForScopes:@[ANScopeStream, ANScopeEmail, ANScopeWritePost, ANScopeFollow, ANScopeMessages]];
+	[[NSWorkspace sharedWorkspace] openURL:url];*/
+	if (!self.loginController) {
+		PSCLoginController *pL = [[PSCLoginController alloc] init];
+		self.loginController =  pL;
+		[self.loginController setSuccessCallback:^{
+			[self.window makeKeyAndOrderFront:self];
+			[self prepare];
+		}];
+	}
+	[[self window] orderOut:nil];
+	[self.loginController.window setLevel:NSPopUpMenuWindowLevel];
+	[NSApp runModalForWindow:self.loginController.window];
+	//[self.loginController showWindow:self];
 }
 
 - (void)receivedURL:(NSAppleEventDescriptor*)event withReplyEvent: (NSAppleEventDescriptor*)replyEvent
@@ -580,30 +595,11 @@
 	NSString *url = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
 	NSRange tkIdRange = [url rangeOfString:@"#access_token="];
 	if (tkIdRange.location != NSNotFound) {
-		self.authToken = [url substringFromIndex:NSMaxRange(tkIdRange)];
+		[PSCMemoryCache sharedMemory].authToken = [url substringFromIndex:NSMaxRange(tkIdRange)];
 		[self prepare];
 		//[statusItem setImage:[NSImage imageNamed:@"status_icon.png"]];
 		//[self checkToken];
 	}
-}
-
-- (void) setAuthToken:(NSString *)apiKey {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	_authToken = apiKey;
-	if (apiKey) {
-		[defaults setObject:apiKey forKey:@"api_key"];
-	} else {
-		[defaults removeObjectForKey:@"api_key"];
-	}
-	[defaults synchronize];
-}
-
-- (NSString*) authToken {
-	if (!_authToken) {
-		_authToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"api_key"];
-		//NSLog(@"Read API Key %@", _authToken);
-	}
-	return _authToken;
 }
 
 - (void)windowDidResize:(NSNotification*)aNotification {
@@ -647,12 +643,6 @@
     
 	ANPost *post = [postsArray objectAtIndex:row];
 	ANUser *user = [post user];
-    if(!ANMeUserID) {
-        [[result deleteButton] setHidden:YES];
-    }
-    else {
-        [[result deleteButton] setHidden:NO];
-    }
 	if ([post repostOf]) {
 		//NSLog(@"this is a repost");
 		ANUser *userReposting = user;
