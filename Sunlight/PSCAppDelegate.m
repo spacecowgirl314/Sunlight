@@ -43,6 +43,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    [[self appTableView] setBackgroundColor:[NSColor colorWithDeviceRed:0.941 green:0.941 blue:0.941 alpha:1.0]];
 	// register for startup events
 	[[NSAppleEventManager sharedAppleEventManager] setEventHandler:self
 													   andSelector:@selector(receivedURL:withReplyEvent:)
@@ -153,7 +154,7 @@
 
 - (void)showErrorBarWithError:(NSError*)error {
 	// prevent resizing. this keeps the user from seeing my poorly formed layout code (ie. moving bar)
-	[self.window setResizeIncrements:NSMakeSize(MAXFLOAT, MAXFLOAT)];
+//	[self.window setResizeIncrements:NSMakeSize(MAXFLOAT, MAXFLOAT)];
 	NSString *errorMessage;
 	switch ([error code]) {
 		case -1004:
@@ -209,18 +210,19 @@
 	// move the views out of view
 	[imageView setFrame:NSMakeRect(imageView.frame.origin.x, imageView.frame.origin.y+imageView.frame.size.height, imageView.frame.size.width, imageView.frame.size.height)];
 	[errorLabel setFrame:NSMakeRect(errorLabel.frame.origin.x, errorLabel.frame.origin.y+errorLabel.frame.size.height, errorLabel.frame.size.width, errorLabel.frame.size.height)];
-	[view addSubview:imageView];
+	[view addSubview:imageView positioned:NSWindowBelow relativeTo:self.topShadow];
+    [view addSubview:errorLabel positioned:NSWindowAbove relativeTo:imageView];
 	[view addSubview:errorLabel];
 	// TODO: insert reactive cocoa here that offsets any movement done by resizing the window vertically
 	[NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:0.5f];
+    [[NSAnimationContext currentContext] setDuration:0.2f];
 	// move the views into view
 	[[imageView animator]setFrame:NSMakeRect(imageView.frame.origin.x, imageView.frame.origin.y-imageView.frame.size.height, imageView.frame.size.width, imageView.frame.size.height)];
 	[[errorLabel animator] setFrame:NSMakeRect(errorLabel.frame.origin.x, errorLabel.frame.origin.y-errorLabel.frame.size.height, errorLabel.frame.size.width, errorLabel.frame.size.height)];
 	[NSAnimationContext endGrouping];
 	[NSTimer scheduledTimerWithTimeInterval:3.0 block:^{
 		[NSAnimationContext beginGrouping];
-		[[NSAnimationContext currentContext] setDuration:0.5f];
+		[[NSAnimationContext currentContext] setDuration:0.2f];
 		[[imageView animator] setFrame:NSMakeRect(imageView.frame.origin.x, imageView.frame.origin.y+imageView.frame.size.height, imageView.frame.size.width, imageView.frame.size.height)];
 		[[errorLabel animator] setFrame:NSMakeRect(errorLabel.frame.origin.x, errorLabel.frame.origin.y+errorLabel.frame.size.height, errorLabel.frame.size.width, errorLabel.frame.size.height)];
 		[NSAnimationContext endGrouping];
