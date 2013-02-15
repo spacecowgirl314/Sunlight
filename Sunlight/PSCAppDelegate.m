@@ -17,6 +17,8 @@
 #import "PSCMemoryCache.h"
 #import "PSCButtonCollection.h"
 #import "PSCSwipeableScrollView.h"
+#import "NSTimer+Blocks.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @implementation PSCAppDelegate
 @synthesize postController;
@@ -28,6 +30,8 @@
 @synthesize profileButton;
 @synthesize messagesButton;
 @synthesize titleTextField;
+@synthesize appScrollView;
+@synthesize appTableView;
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification {
 	//[[self window] setAlphaValue:0.0];
@@ -148,6 +152,88 @@
 	[self loadMessages:NO];
 }
 
+- (void)showErrorBarWithError:(NSError*)error {
+	// prevent resizing. this keeps the user from seeing my poorly formed layout code (ie. moving bar)
+	[self.window setResizeIncrements:NSMakeSize(MAXFLOAT, MAXFLOAT)];
+	NSString *errorMessage;
+	switch ([error code]) {
+		case -1004:
+			errorMessage = @"App.net appears to be offline.";
+			break;
+		case -1009:
+			errorMessage = @"Internet connection appears offline.";
+			break;
+		default:
+			errorMessage = @"There was an unknown issue connecting to App.net.";
+			break;
+	}
+	NSView *view = self.window.contentView;
+	NSImage *notificationImage = [NSImage imageNamed:@"notification-banner"];
+	NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, view.frame.size.height-26, notificationImage.size.width, notificationImage.size.height)];
+	NSArray *heightConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[imageView(==26)]"
+																   options:0
+																   metrics:nil
+																	 views:NSDictionaryOfVariableBindings(imageView)];
+	/*NSArray *topConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"[imageView(==0)]"
+																	  options:NSLayoutAttributeTop
+																	  metrics:nil
+																		views:NSDictionaryOfVariableBindings(imageView)];*/
+	NSArray *widthConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"[imageView(>=360)]"
+																		 options:0
+																		 metrics:nil
+																		   views:NSDictionaryOfVariableBindings(imageView)];
+	[imageView addConstraints:heightConstraints];
+	[imageView addConstraints:widthConstraints];
+	//[imageView addConstraints:topConstraints];
+	[imageView setImage:notificationImage];
+	NSTextField *errorLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(view.frame.size.width/2, imageView.frame.origin.y, view.frame.size.width, notificationImage.size.height)];
+	[errorLabel setEditable:NO];
+	/*heightConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[errorLabel(==26)]"
+																		 options:0
+																		 metrics:nil
+																		   views:NSDictionaryOfVariableBindings(errorLabel)];
+	widthConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"[errorLabel(>=360)]"
+																		options:0
+																		metrics:nil
+																		  views:NSDictionaryOfVariableBindings(errorLabel)];
+	NSLayoutConstraint *centerConstraint = [NSLayoutConstraint constraintWithItem:errorLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0];
+	[errorLabel addConstraints:heightConstraints];
+	[errorLabel addConstraint:centerConstraint];*/
+	errorLabel.autoresizingMask = (NSViewMinXMargin|NSViewMaxXMargin);
+	errorLabel.translatesAutoresizingMaskIntoConstraints = YES;
+	[errorLabel setStringValue:errorMessage];
+	[errorLabel setAlignment:NSCenterTextAlignment];
+	[errorLabel setBackgroundColor:[NSColor clearColor]];
+	[errorLabel setBordered:NO];
+	[errorLabel setFont:[NSFont fontWithName:@"Helvetica Neue Medium" size:13]];
+	[errorLabel setTextColor:[NSColor colorWithDeviceRed:0.227 green:0.227 blue:0.227 alpha:1.0]];
+	// move the views out of view
+	[imageView setFrame:NSMakeRect(imageView.frame.origin.x, imageView.frame.origin.y+imageView.frame.size.height, imageView.frame.size.width, imageView.frame.size.height)];
+	[errorLabel setFrame:NSMakeRect(errorLabel.frame.origin.x, errorLabel.frame.origin.y+errorLabel.frame.size.height, errorLabel.frame.size.width, errorLabel.frame.size.height)];
+	[view addSubview:imageView];
+	[view addSubview:errorLabel];
+	// TODO: insert reactive cocoa here that offsets any movement done by resizing the window vertically
+	[NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setDuration:0.5f];
+	// move the views into view
+	[[imageView animator]setFrame:NSMakeRect(imageView.frame.origin.x, imageView.frame.origin.y-imageView.frame.size.height, imageView.frame.size.width, imageView.frame.size.height)];
+	[[errorLabel animator] setFrame:NSMakeRect(errorLabel.frame.origin.x, errorLabel.frame.origin.y-errorLabel.frame.size.height, errorLabel.frame.size.width, errorLabel.frame.size.height)];
+	[NSAnimationContext endGrouping];
+	[NSTimer scheduledTimerWithTimeInterval:3.0 block:^{
+		[NSAnimationContext beginGrouping];
+		[[NSAnimationContext currentContext] setDuration:0.5f];
+		[[imageView animator] setFrame:NSMakeRect(imageView.frame.origin.x, imageView.frame.origin.y+imageView.frame.size.height, imageView.frame.size.width, imageView.frame.size.height)];
+		[[errorLabel animator] setFrame:NSMakeRect(errorLabel.frame.origin.x, errorLabel.frame.origin.y+errorLabel.frame.size.height, errorLabel.frame.size.width, errorLabel.frame.size.height)];
+		[NSAnimationContext endGrouping];
+	} repeats:NO];
+	[NSTimer scheduledTimerWithTimeInterval:3.0+0.5 block:^{
+		// enable resizing again
+		[self.window setResizeIncrements:NSMakeSize(1, 1)];
+		[imageView removeFromSuperview];
+		[errorLabel removeFromSuperview];
+	} repeats:NO];
+}
+
 - (void)loadHashtag:(NSNotification*)theNotification{
 	// setup copy view
 	NSString *tag = [[theNotification object] substringFromIndex:2];
@@ -204,6 +290,10 @@
 	self.appTableView = newTableView;*/
 }
 
+- (IBAction)loadMoreInStream:(id)sender {
+	
+}
+
 - (void)loadStream:(BOOL)reload {
 	NSArray *streamPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];
     [titleTextField setStringValue:@"My Stream"];
@@ -221,12 +311,8 @@
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
 			[ANSession.defaultSession postsInStreamWithCompletion:^(ANResponse * response, NSArray * posts, NSError * error) {
-				NSLog(@"response:%@", [response errorMessage]);
-				if ([error code]==-1004) {
-					NSLog(@"ADN appears to be down.");
-				}
 				if (error) {
-					NSLog(@"error:%@", [error description]);
+					[self showErrorBarWithError:error];
 				}
 				if(!posts) {
 					dispatch_async(dispatch_get_main_queue(), ^{
@@ -535,7 +621,7 @@
 #pragma mark - Mentions Notifications
 
 - (void)checkForMentions {
-	[ANSession.defaultSession postsMentioningUserWithID:ANMeUserID betweenID:ANMeUserID andID:ANMeUserID completion:^(ANResponse *response, NSArray *posts, NSError *error) {
+	[ANSession.defaultSession postsMentioningUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse *response, NSArray *posts, NSError *error) {
 		ANResourceID lastMention = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastMention"];
 		for (ANPost *mention in posts) {
 			//NSLog(@"this id: %llu > last id: %llu", [mention originalID], lastMention);
@@ -736,9 +822,14 @@
 	}
 	else {
 		[[user avatarImage] imageAtSize:[[result avatarView] convertSizeToBacking:[result avatarView].frame.size] completion:^(NSImage *image, NSError *error) {
-			NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
-			[[PSCMemoryCache sharedMemory].avatarImages setValue:maskedImage forKey:[user username]];
-			[[result avatarView] setImage:maskedImage];
+			if (!error) {
+				NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+				[[PSCMemoryCache sharedMemory].avatarImages setValue:maskedImage forKey:[user username]];
+				[[result avatarView] setImage:maskedImage];
+			}
+			else {
+				[[result avatarView] setImage:nil];
+			}
 		}];
 	}
 	// set contents of post

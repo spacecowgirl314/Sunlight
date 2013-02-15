@@ -95,4 +95,30 @@
 	return _authToken;
 }
 
+/*
+ this could should take the new posts response and filter out posts we already have with the exception of deleted posts
+ */
+- (void)filterNewPostsForKey:(NSString*)key posts:(NSArray*)post {
+	NSArray *currentArray = [streamsDictionary objectForKey:key];
+	/* example deduplication code
+	NSMutableArray* filterResults = [[NSMutableArray alloc] init];
+	BOOL copy;
+	
+	if (![category count] == 0) {
+		for (CategoryArray *a1 in category) {
+			copy = YES;
+			for (CategoryArray *a2 in filterResults) {
+				if ([a1.label isEqualToString:a2.label] && [a1.url isEqualToString:a2.url]) {
+					copy = NO;
+					break;
+				}
+			}
+			if (copy) {
+				[filterResults addObject:a1];
+			}
+		}
+	}
+	*/
+}
+
 @end

@@ -17,6 +17,7 @@
 		371D971616C07B5A009BCDB1 /* new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D971416C07B5A009BCDB1 /* new@2x.png */; };
 		37240F0C16C389CB0002A64B /* PSCThumbnailKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 37240F0B16C389CB0002A64B /* PSCThumbnailKit.m */; };
 		37240F0E16C396280002A64B /* PSCPostCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37240F0D16C396280002A64B /* PSCPostCellView.xib */; };
+		372C890D16CB850D00EE84EC /* NSTimer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C890C16CB850D00EE84EC /* NSTimer+Blocks.m */; };
 		373036BC16BA6EA500F69545 /* _ANIdentifiedResourceSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3730363B16BA6EA500F69545 /* _ANIdentifiedResourceSet.m */; };
 		373036BD16BA6EA500F69545 /* ANAccessTokenInformationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3730363D16BA6EA500F69545 /* ANAccessTokenInformationRequest.m */; };
 		373036BE16BA6EA500F69545 /* ANAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3730363F16BA6EA500F69545 /* ANAnnotation.m */; };
@@ -262,6 +263,8 @@
 		37240F0A16C389CB0002A64B /* PSCThumbnailKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCThumbnailKit.h; sourceTree = "<group>"; };
 		37240F0B16C389CB0002A64B /* PSCThumbnailKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCThumbnailKit.m; sourceTree = "<group>"; };
 		37240F0D16C396280002A64B /* PSCPostCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCPostCellView.xib; sourceTree = "<group>"; };
+		372C890B16CB850D00EE84EC /* NSTimer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Blocks.h"; sourceTree = "<group>"; };
+		372C890C16CB850D00EE84EC /* NSTimer+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Blocks.m"; sourceTree = "<group>"; };
 		3730363A16BA6EA500F69545 /* _ANIdentifiedResourceSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ANIdentifiedResourceSet.h; sourceTree = "<group>"; };
 		3730363B16BA6EA500F69545 /* _ANIdentifiedResourceSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ANIdentifiedResourceSet.m; sourceTree = "<group>"; };
 		3730363C16BA6EA500F69545 /* ANAccessTokenInformationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAccessTokenInformationRequest.h; sourceTree = "<group>"; };
@@ -747,6 +750,8 @@
 			isa = PBXGroup;
 			children = (
 				3781508E16C0EA4D0015956E /* SEHumanizedTime */,
+				372C890B16CB850D00EE84EC /* NSTimer+Blocks.h */,
+				372C890C16CB850D00EE84EC /* NSTimer+Blocks.m */,
 				378602F716C23F57003256B9 /* NSButton+TextColor.h */,
 				378602F816C23F57003256B9 /* NSButton+TextColor.m */,
 				37E7F04B16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.h */,
@@ -1372,6 +1377,7 @@
 				37F1864616C4A8D500E682E2 /* PSCButtonCollection.m in Sources */,
 				37F1864A16C4A9C000E682E2 /* PSCButtonCollectionButton.m in Sources */,
 				700110CA16C4CA6A00ECB894 /* PSCLoginController.m in Sources */,
+				372C890D16CB850D00EE84EC /* NSTimer+Blocks.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1505,6 +1511,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sunlight/Sunlight-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "Sunlight/Sunlight-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1518,6 +1528,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sunlight/Sunlight-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "Sunlight/Sunlight-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
