@@ -241,6 +241,9 @@
 	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 	dispatch_async(queue,^{
 		[ANSession.defaultSession postsWithTag:tag completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+			if (error) {
+				[self showErrorBarWithError:error];
+			}
 			if(!posts) {
 				postsArray = posts;
 				[[self appTableView] reloadData];
@@ -370,6 +373,9 @@
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
 			[ANSession.defaultSession postsMentioningUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse *response, NSArray *posts, NSError *error) {
+				if (error) {
+					[self showErrorBarWithError:error];
+				}
 				if(!posts) {
 					dispatch_async(dispatch_get_main_queue(), ^{
 						[[self appScrollView] stopLoading];
@@ -420,6 +426,9 @@
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
 			[ANSession.defaultSession postsStarredByUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+				if (error) {
+					[self showErrorBarWithError:error];
+				}
 				if(!posts) {
 					dispatch_async(dispatch_get_main_queue(), ^{
 						[[self appScrollView] stopLoading];
@@ -471,6 +480,9 @@
 		dispatch_async(queue,^{
 			// Get the latest posts in the user's incoming post stream...
 			[ANSession.defaultSession postsForUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+				if (error) {
+					[self showErrorBarWithError:error];
+				}
 				if(!posts) {
 					dispatch_async(dispatch_get_main_queue(), ^{
 						[[self appScrollView] stopLoading];
