@@ -18,7 +18,6 @@
 #import "PSCButtonCollection.h"
 #import "PSCSwipeableScrollView.h"
 #import "NSTimer+Blocks.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @implementation PSCAppDelegate
 @synthesize postController;
