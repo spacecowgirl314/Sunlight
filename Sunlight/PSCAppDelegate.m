@@ -668,15 +668,21 @@
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
 {
+	if (!self.postController) {
+		PSCNewPostController *pC = [[PSCNewPostController alloc] init];
+		self.postController =  pC;
+	}
 	[center removeDeliveredNotification:notification];
 	switch (notification.activationType) {
 		case NSUserNotificationActivationTypeActionButtonClicked:
 			NSLog(@"Reply Button was clicked -> quick reply");
-			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:notification.userInfo[@"url"]]];
+			[self.postController draftReply:notification.userInfo[@"post"]];
+			[self.postController showWindow:self];
 			break;
 		case NSUserNotificationActivationTypeContentsClicked:
 			NSLog(@"Notification body was clicked -> redirect to item");
-			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:notification.userInfo[@"url"]]];
+			[self.postController draftReply:notification.userInfo[@"post"]];
+			[self.postController showWindow:self];
 			break;
 		default:
 			NSLog(@"Notification appears to have been dismissed!");
