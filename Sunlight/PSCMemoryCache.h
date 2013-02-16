@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AppNetKit.h"
 
 @interface PSCMemoryCache : NSObject {
 	NSMutableDictionary *avatarImages;
@@ -16,6 +17,7 @@
 @property NSMutableDictionary *avatarImages;
 @property NSMutableDictionary *streamsDictionary;
 @property (nonatomic) NSString *authToken;
+@property ANUser *currentUser;
 
 + (instancetype)sharedMemory;
 - (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage;

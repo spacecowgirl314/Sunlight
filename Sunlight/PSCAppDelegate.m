@@ -318,6 +318,10 @@
 		}
 	}
 	void (^reloadPosts)() = ^() {
+		// set up the current user for operations if not yet done
+		if (![[PSCMemoryCache sharedMemory] currentUser]) {
+			[self setCurrentUser];
+		}
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
@@ -382,6 +386,10 @@
 		}
 	}
 	void (^reloadPosts)() = ^() {
+		// set up the current user for operations if not yet done
+		if (![[PSCMemoryCache sharedMemory] currentUser]) {
+			[self setCurrentUser];
+		}
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
@@ -435,6 +443,10 @@
 		}
 	}
 	void (^reloadPosts)() = ^() {
+		// set up the current user for operations if not yet done
+		if (![[PSCMemoryCache sharedMemory] currentUser]) {
+			[self setCurrentUser];
+		}
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
@@ -488,6 +500,10 @@
 		}
 	}
 	void (^reloadPosts)() = ^() {
+		// set up the current user for operations if not yet done
+		if (![[PSCMemoryCache sharedMemory] currentUser]) {
+			[self setCurrentUser];
+		}
 		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
@@ -542,9 +558,25 @@
 	}
 }
 
+#pragma mark - Preparations and setup stuff
+
+- (void)setCurrentUser {
+	// set current user
+	[ANSession.defaultSession userWithID:ANMeUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
+		if (error) {
+			return;
+		}
+		[[PSCMemoryCache sharedMemory] setCurrentUser:user];
+	}];
+}
+
 - (void)prepare {
 	ANSession.defaultSession.accessToken = [PSCMemoryCache sharedMemory].authToken;
 	currentStream = PSCStream;
+	// set up the current user for operations if not yet done
+	if (![[PSCMemoryCache sharedMemory] currentUser]) {
+		[self setCurrentUser];
+	}
 	// start window off by not being seen
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
 		switch (currentStream)
@@ -576,13 +608,6 @@
 			}
 		}
 	}];
-	/*[engine writePost:@"Hello, World! #testing" replyToPostWithID:-1 annotations:nil links:nil block:^(ADNPost *post, NSError *error) {
-	 if (error) {
-	 //[self requestFailed:error];
-	 } else {
-	 //[self receivedPost:post];
-	 }
-	 }];*/
 	// Get the latest posts in the user's incoming post stream...
 	switch (currentStream)
 	{
@@ -651,6 +676,7 @@
 			}
 		}
 		// save the lastMention
+		//[self showMention:(ANPost*)[posts objectAtIndex:0]];
 		[[NSUserDefaults standardUserDefaults] setInteger:[[posts objectAtIndex:0] originalID] forKey:@"lastMention"];
 	}];
 }
@@ -661,7 +687,10 @@
 	notification.title = [NSString stringWithFormat: @"%@ mentioned you", [[mention user] name]];
 	notification.informativeText = [mention text];
 	notification.actionButtonTitle = @"Reply";
-	notification.userInfo = @{ @"post" : mention };
+	//NSMutableData *data = [NSMutableData new];
+	//NSKeyedArchiver *archive = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+	//[archive encodeObject:mention];
+	//notification.userInfo = @{ @"post" : archive };
 	notification.hasActionButton = YES;
 	[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
@@ -673,15 +702,16 @@
 		self.postController =  pC;
 	}
 	[center removeDeliveredNotification:notification];
+	NSKeyedArchiver *archiver = notification.userInfo[@"post"];
 	switch (notification.activationType) {
 		case NSUserNotificationActivationTypeActionButtonClicked:
 			NSLog(@"Reply Button was clicked -> quick reply");
-			[self.postController draftReply:notification.userInfo[@"post"]];
+			[self.postController draftReply:[archiver decodeObject]];
 			[self.postController showWindow:self];
 			break;
 		case NSUserNotificationActivationTypeContentsClicked:
 			NSLog(@"Notification body was clicked -> redirect to item");
-			[self.postController draftReply:notification.userInfo[@"post"]];
+			[self.postController draftReply:[archiver decodeObject]];
 			[self.postController showWindow:self];
 			break;
 		default:
@@ -786,8 +816,7 @@
 		[result hideRepost];
 	}
 	
-	if ([[post user] ID]==[[post user] ID]) {
-		// ANMeUserID
+	if ([[post user] ID]==[[[PSCMemoryCache sharedMemory] currentUser] ID]) {
 		[[result deleteButton] setHidden:NO];
 	}
 	else {

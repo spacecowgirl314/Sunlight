@@ -7,12 +7,12 @@
 //
 
 #import "PSCMemoryCache.h"
-#import "AppNetKit.h"
 
 @implementation PSCMemoryCache
 @synthesize avatarImages;
 @synthesize streamsDictionary;
 @synthesize authToken = _authToken;
+@synthesize currentUser;
 
 - (id)init {
 	if (self==[super init])

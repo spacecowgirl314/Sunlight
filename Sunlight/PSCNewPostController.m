@@ -153,7 +153,7 @@
 }
 
 - (void)draftReply:(ANPost*)post {
-	replyPost = [post draftReply];
+	replyPost = [post draftReplyToAllExceptUser:[[PSCMemoryCache sharedMemory] currentUser]];
 	[postTextField setStringValue:[replyPost text]];
 	// adjust character count
 	[self textDidChange:nil];
