@@ -7,6 +7,7 @@
 //
 
 #import "PSCNewPostController.h"
+#import "PSCMemoryCache.h"
 
 @interface PSCNewPostController ()
 
@@ -50,6 +51,24 @@
     }
     
     return self;
+}
+
+- (void)windowWillLoad
+{
+	// load up the avatar
+	[ANSession.defaultSession userWithID:ANMeUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
+		if ([[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]])
+		{
+			[[self avatarView] setImage:[[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]]];
+		}
+		else {
+			[[user avatarImage] imageAtSize:CGSizeMake(52*2, 52*2) completion:^(NSImage *image, NSError *error) {
+				NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+				[[PSCMemoryCache sharedMemory].avatarImages setValue:maskedImage forKey:[user username]];
+				[[self avatarView] setImage:maskedImage];
+			}];
+		}
+	}];
 }
 
 - (void)windowDidLoad

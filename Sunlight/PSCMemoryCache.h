@@ -19,5 +19,6 @@
 
 + (instancetype)sharedMemory;
 - (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage;
+- (int)filterNewPostsForKey:(NSString*)key posts:(NSArray*)posts;
 
 @end

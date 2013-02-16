@@ -7,6 +7,7 @@
 //
 
 #import "PSCMemoryCache.h"
+#import "AppNetKit.h"
 
 @implementation PSCMemoryCache
 @synthesize avatarImages;
@@ -95,30 +96,47 @@
 	return _authToken;
 }
 
+- (ANPost*)doesNSArrayContainSameID:(ANResourceID)checkingID array:(NSArray*)checkingArray {
+	ANPost *resultPost = nil;
+	for (ANPost *post in checkingArray) {
+		if (post.ID == checkingID) {
+			return post;
+		}
+	}
+	return resultPost;
+}
+
 /*
  this could should take the new posts response and filter out posts we already have with the exception of deleted posts
  */
-- (void)filterNewPostsForKey:(NSString*)key posts:(NSArray*)post {
+- (int)filterNewPostsForKey:(NSString*)key posts:(NSArray*)posts {
 	NSArray *currentArray = [streamsDictionary objectForKey:key];
-	/* example deduplication code
-	NSMutableArray* filterResults = [[NSMutableArray alloc] init];
-	BOOL copy;
+	if (!currentArray) {
+		currentArray = [NSArray new];
+	}
+	NSMutableArray *filterResults = [currentArray mutableCopy];
+	NSMutableArray *newPosts = [NSMutableArray new];
 	
-	if (![category count] == 0) {
-		for (CategoryArray *a1 in category) {
-			copy = YES;
-			for (CategoryArray *a2 in filterResults) {
-				if ([a1.label isEqualToString:a2.label] && [a1.url isEqualToString:a2.url]) {
-					copy = NO;
-					break;
-				}
-			}
-			if (copy) {
-				[filterResults addObject:a1];
-			}
+	// detect continuity break, ie. posts is just a new post but a post a lot newer that would constitute a break bar...
+	for (ANPost *post in posts) {
+		ANPost *matchingPost = [self doesNSArrayContainSameID:post.ID array:currentArray];
+		if (matchingPost) {
+			// check for a post that was there and then was deleted
+		}
+		else {
+			// posts is new, add it
+			[newPosts addObject:post];
 		}
 	}
-	*/
+	
+	// insert new objects into stream
+	for (int i=0; i<newPosts.count; i++) {
+		[filterResults insertObject:[newPosts objectAtIndex:i] atIndex:i];
+	}
+	
+	[streamsDictionary setObject:filterResults forKey:key];
+	
+	return (int)newPosts.count;
 }
 
 @end

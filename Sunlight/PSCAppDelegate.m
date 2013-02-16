@@ -103,6 +103,9 @@
 	// check and then setup notifications
 	[self checkForMentions];
 	NSTimer *mentionsTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(checkForMentions) userInfo:nil repeats:YES];
+	[NSTimer scheduledTimerWithTimeInterval:60*3 block:^{
+		[self loadStream:YES];
+	} repeats:YES];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
@@ -111,7 +114,7 @@
 	return YES;
 }
 
-#pragma mark Login
+#pragma mark - Login
 
 - (IBAction)openLogin:(id)sender {
 	if (!self.loginController) {
@@ -120,6 +123,8 @@
 	}
 	[self.loginController showWindow:self];
 }
+
+#pragma mark - Switching Streams
 
 - (IBAction)switchToStream:(id)sender {
 	NSLog(@"Switched to stream.");
@@ -209,6 +214,8 @@
 	// move the views out of view
 	[imageView setFrame:NSMakeRect(imageView.frame.origin.x, imageView.frame.origin.y+imageView.frame.size.height, imageView.frame.size.width, imageView.frame.size.height)];
 	[errorLabel setFrame:NSMakeRect(errorLabel.frame.origin.x, errorLabel.frame.origin.y+errorLabel.frame.size.height, errorLabel.frame.size.width, errorLabel.frame.size.height)];
+	[view addSubview:imageView positioned:NSWindowBelow relativeTo:self.topShadow];
+	[view addSubview:errorLabel positioned:NSWindowAbove relativeTo:imageView];
 	[view addSubview:imageView];
 	[view addSubview:errorLabel];
 	// TODO: insert reactive cocoa here that offsets any movement done by resizing the window vertically
@@ -232,6 +239,8 @@
 		[errorLabel removeFromSuperview];
 	} repeats:NO];
 }
+
+#pragma mark - Loading Streams
 
 - (void)loadHashtag:(NSNotification*)theNotification{
 	// setup copy view
@@ -323,14 +332,19 @@
 					return;
 				}
 				// save posts to memory
-				[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];
+				/*[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];*/
+				// simulatenously check for new posts in the stream and filter them
+				if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream] posts:posts]) {
+					[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
+				}
 				// theoretical test for loading more posts
 				/*ANPost *post =  [posts objectAtIndex:[posts count]];
 				 ANResourceID *resourceID = [post ID];
 				 [ANSession.defaultSession postsInStreamBetweenID:nil andID:resourceID completion:^(ANResponse *response, NSArray *posts, NSError *error) {
 				 
 				 }];*/
-				postsArray = posts;
+				// retrieve filtered posts from memory
+				postsArray = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]]; //posts;
 				[[self appTableView] reloadData];
 				dispatch_async(dispatch_get_main_queue(), ^{
 					[[self appScrollView] stopLoading];
@@ -612,19 +626,6 @@
 		PSCNewPostController *pC = [[PSCNewPostController alloc] init];
 		self.postController =  pC;
 	}
-	[ANSession.defaultSession userWithID:ANMeUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
-		if ([[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]])
-		{
-			[[self.postController avatarView] setImage:[[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]]];
-		}
-		else {
-			[[user avatarImage] imageAtSize:CGSizeMake(52*2, 52*2) completion:^(NSImage *image, NSError *error) {
-				NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
-				[[PSCMemoryCache sharedMemory].avatarImages setValue:maskedImage forKey:[user username]];
-				[[self.postController avatarView] setImage:maskedImage];
-			}];
-		}
-	}];
 	[self.postController showWindow:self];
 	//[self.postController processResults:[questionField stringValue]];
 }
@@ -633,6 +634,10 @@
 
 - (void)checkForMentions {
 	[ANSession.defaultSession postsMentioningUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse *response, NSArray *posts, NSError *error) {
+		// don't continue if there was an error
+		if (error) {
+			return;
+		}
 		ANResourceID lastMention = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastMention"];
 		for (ANPost *mention in posts) {
 			//NSLog(@"this id: %llu > last id: %llu", [mention originalID], lastMention);
@@ -656,7 +661,7 @@
 	notification.title = [NSString stringWithFormat: @"%@ mentioned you", [[mention user] name]];
 	notification.informativeText = [mention text];
 	notification.actionButtonTitle = @"Reply";
-	notification.userInfo = nil; //@{ @"post" : @0 };
+	notification.userInfo = @{ @"post" : mention };
 	notification.hasActionButton = YES;
 	[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
@@ -775,7 +780,8 @@
 		[result hideRepost];
 	}
 	
-	if ([[post user] ID]==ANMeUserID) {
+	if ([[post user] ID]==[[post user] ID]) {
+		// ANMeUserID
 		[[result deleteButton] setHidden:NO];
 	}
 	else {
