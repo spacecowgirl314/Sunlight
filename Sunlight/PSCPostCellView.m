@@ -310,6 +310,10 @@
 	}];
 }
 
+- (IBAction)openConversation:(id)sender {
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"Conversation" object:self.post];
+}
+
 - (void)mouseDown:(NSEvent *)theEvent {
     NSLog(@"mouseDown event detected!");
 }

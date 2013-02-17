@@ -83,6 +83,7 @@
 	[messagesButton setSelectedButtonImage:[NSImage imageNamed:@"title-inbox-highlight"]];
 	[streamButton selectButton];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHashtag:) name:@"Hashtag" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadConversation:) name:@"Conversation" object:nil];
     
 	// Register
 	//[self addOutput:@"Attempting to register hotkey for example 1"];
@@ -241,7 +242,18 @@
 
 #pragma mark - Loading Streams
 
-- (void)loadHashtag:(NSNotification*)theNotification{
+- (void)loadConversation:(NSNotification*)notification {
+	ANPost *postWithReplies = [notification object];
+	[postWithReplies replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
+		if (error) {
+			[self showErrorBarWithError:error];
+		}
+		postsArray = posts;
+		[[self appTableView] reloadData];
+	}];
+}
+
+- (void)loadHashtag:(NSNotification*)theNotification {
 	// setup copy view
 	NSString *tag = [[theNotification object] substringFromIndex:2];
 	NSLog(@"tag:%@", tag);
@@ -545,6 +557,9 @@
 }
 
 - (void)loadMessages:(BOOL)reload {
+	[titleTextField setStringValue:@"Messages"];
+	postsArray = nil;
+	[[self appTableView] reloadData];
 	// API docs here http://developers.app.net/docs/basics/messaging/
 	NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
@@ -555,6 +570,9 @@
 			[button setShadow:nil];
 		}
 	}
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[self appScrollView] stopLoading];
+	});
 }
 
 #pragma mark - Preparations and setup stuff
@@ -857,10 +875,10 @@
 		[[result repostButton] setTextColor:[result defaultButtonColor]];
 	}
 	if ([post numberOfReplies]>0) {
-		[[result conversationImageView] setHidden:NO];
+		[[result conversationButton] setHidden:NO];
 	}
 	else {
-		[[result conversationImageView] setHidden:YES];
+		[[result conversationButton] setHidden:YES];
 	}
 	// set creation date
 	NSString *postCreationString = [[post createdAt] stringWithHumanizedTimeDifference:NSDateHumanizedSuffixNone withFullString:NO];

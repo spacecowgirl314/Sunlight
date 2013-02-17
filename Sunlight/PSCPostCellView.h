@@ -35,7 +35,7 @@
 @property IBOutlet NSTextField *userField;
 @property IBOutlet NSTextField *postCreationField;
 @property IBOutlet NSImageView *avatarView;
-@property IBOutlet NSImageView *conversationImageView;
+@property IBOutlet NSButton *conversationButton;
 @property IBOutlet NSButton *replyButton;
 @property IBOutlet NSButton *muteButton;
 @property IBOutlet NSButton *repostButton;
@@ -49,6 +49,7 @@
 - (IBAction)starPost:(id)sender;
 - (IBAction)repostPost:(id)sender;
 - (IBAction)muteUser:(id)sender;
+- (IBAction)openConversation:(id)sender;
 - (NSColor*)defaultButtonColor;
 - (void)hideRepost;
 - (void)showRepost;
