@@ -106,7 +106,7 @@
 	[self checkForMentions];
 	NSTimer *mentionsTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(checkForMentions) userInfo:nil repeats:YES];
 	[NSTimer scheduledTimerWithTimeInterval:60*3 block:^{
-		[self loadStream:YES];
+		[self loadStream:YES switching:NO];
 	} repeats:YES];
 }
 
@@ -131,7 +131,7 @@
 - (IBAction)switchToStream:(id)sender {
 	NSLog(@"Switched to stream.");
 	currentStream = PSCStream;
-	[self loadStream:NO];
+	[self loadStream:NO switching:YES];
 }
 
 - (IBAction)switchToMentions:(id)sender {
@@ -316,7 +316,7 @@
 	
 }
 
-- (void)loadStream:(BOOL)reload {
+- (void)loadStream:(BOOL)reload switching:(BOOL)switching {
 	NSArray *streamPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];
     [titleTextField setStringValue:@"My Stream"];
     NSShadow * shadow = [[NSShadow alloc] init];
@@ -358,12 +358,14 @@
 				 [ANSession.defaultSession postsInStreamBetweenID:nil andID:resourceID completion:^(ANResponse *response, NSArray *posts, NSError *error) {
 				 
 				 }];*/
-				// retrieve filtered posts from memory
-				postsArray = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]]; //posts;
-				[[self appTableView] reloadData];
-				dispatch_async(dispatch_get_main_queue(), ^{
-					[[self appScrollView] stopLoading];
-				});
+				// retrieve filtered posts from memory only if we switched to the stream view
+				if (switching) {
+					postsArray = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]]; //posts;
+					[[self appTableView] reloadData];
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[[self appScrollView] stopLoading];
+					});
+				}
 			}];
 		});
 	};
@@ -600,7 +602,7 @@
 		{
 			case PSCStream:
 			{
-				[self loadStream:YES];
+				[self loadStream:YES switching:YES];
 				break;
 			}
 			case PSCMentions:
@@ -630,7 +632,11 @@
 	{
 		case PSCStream:
 		{
-			[self performSelector:@selector(loadStream:) withObject:NO afterDelay:0.0];
+			/*[NSTimer scheduledTimerWithTimeInterval:0.0 block:^{
+				[self loadStream:YES switching:YES];
+			} repeats:NO];*/
+			[self loadStream:YES switching:YES];
+			//[self performSelector:@selector(loadStream:) withObject:NO afterDelay:0.0];
 			//[self loadStream];
 			break;
 		}
