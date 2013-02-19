@@ -21,7 +21,8 @@ typedef enum {
     PSCMentions,
     PSCStars,
 	PSCProfile,
-	PSCMessages
+	PSCMessages,
+	PSCConversation
 } PSCStreamType;
 
 @interface PSCAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate> {

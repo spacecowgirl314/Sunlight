@@ -243,6 +243,7 @@
 #pragma mark - Loading Streams
 
 - (void)loadConversation:(NSNotification*)notification {
+	currentStream = PSCConversation;
 	ANPost *postWithReplies = [notification object];
 	[postWithReplies replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
 		if (error) {
@@ -358,7 +359,7 @@
 				 [ANSession.defaultSession postsInStreamBetweenID:nil andID:resourceID completion:^(ANResponse *response, NSArray *posts, NSError *error) {
 				 
 				 }];*/
-				// retrieve filtered posts from memory only if we switched to the stream view
+				// retrieve filtered posts from memory only if we are in the stream view
 				if (currentStream==PSCStream) {
 					postsArray = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]]; //posts;
 					[[self appTableView] reloadData];
@@ -625,6 +626,11 @@
 				[self loadMessages:YES];
 				break;
 			}
+			case PSCConversation:
+			{
+				[[self appScrollView] stopLoading];
+				break;
+			}
 		}
 	}];
 	// Get the latest posts in the user's incoming post stream...
@@ -658,6 +664,11 @@
 		{
 			[self performSelector:@selector(loadMessages:) withObject:NO afterDelay:0.0];
 			//[self loadMessages:NO];
+			break;
+		}
+		case PSCConversation:
+		{
+			[[self appScrollView] stopLoading];
 			break;
 		}
 	}
