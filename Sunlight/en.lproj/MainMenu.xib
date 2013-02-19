@@ -1507,11 +1507,12 @@
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="406475128">
 						<reference key="NSNextResponder" ref="804317596"/>
-						<int key="NSvFlags">-2147483380</int>
+						<int key="NSvFlags">268</int>
 						<array class="NSMutableArray" key="NSSubviews"/>
 						<string key="NSFrame">{{3, 1}, {39, 38}}</string>
 						<reference key="NSSuperview" ref="804317596"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="169136285"/>
 						<string key="NSReuseIdentifierKey">_NS:1574</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="380888584">
@@ -1541,6 +1542,7 @@
 						<string key="NSFrame">{{240, 3}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="804317596"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="783902388"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="536239672">
@@ -1574,6 +1576,7 @@
 						<string key="NSFrame">{{192, 3}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="804317596"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="950085444"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="245250507">
@@ -1607,6 +1610,7 @@
 						<string key="NSFrame">{{144, 3}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="804317596"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="6237701"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="569146629">
@@ -1640,6 +1644,7 @@
 						<string key="NSFrame">{{96, 3}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="804317596"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="845348163"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="895017453">
@@ -1673,6 +1678,7 @@
 						<string key="NSFrame">{{48, 3}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="804317596"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="456308900"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="362826704">
@@ -1745,6 +1751,7 @@
 						<string key="NSFrame">{{305, 36}, {18, 19}}</string>
 						<reference key="NSSuperview" ref="804317596"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="481273304">
@@ -3031,6 +3038,14 @@
 						<reference key="destination" ref="456308900"/>
 					</object>
 					<int key="connectionID">4284</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">loadPreviousInStream:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="406475128"/>
+					</object>
+					<int key="connectionID">4508</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -6807,7 +6822,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">4507</int>
+			<int key="maxID">4508</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6838,6 +6853,40 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">PSCAppDelegate</string>
 					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="loadPreviousInStream:">id</string>
+						<string key="switchToMentions:">id</string>
+						<string key="switchToMessages:">id</string>
+						<string key="switchToProfile:">id</string>
+						<string key="switchToStars:">id</string>
+						<string key="switchToStream:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="loadPreviousInStream:">
+							<string key="name">loadPreviousInStream:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchToMentions:">
+							<string key="name">switchToMentions:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchToMessages:">
+							<string key="name">switchToMessages:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchToProfile:">
+							<string key="name">switchToProfile:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchToStars:">
+							<string key="name">switchToStars:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchToStream:">
+							<string key="name">switchToStream:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="appScrollView">EQSTRScrollView</string>
 						<string key="appTableView">NSTableView</string>

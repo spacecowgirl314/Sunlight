@@ -47,4 +47,11 @@ typedef enum {
 @property IBOutlet NSTextField *titleTextField;
 @property (assign) ANPost *replyPost;
 
+- (IBAction)switchToStream:(id)sender;
+- (IBAction)switchToMentions:(id)sender;
+- (IBAction)switchToStars:(id)sender;
+- (IBAction)switchToProfile:(id)sender;
+- (IBAction)switchToMessages:(id)sender;
+- (IBAction)loadPreviousInStream:(id)sender;
+
 @end

@@ -323,10 +323,6 @@
 	NSRectFill(self.bounds);
 }
 
-- (void)hideDeletedPost {
-    
-}
-
 - (void)hideRepost {
 	[[self repostImageView] setHidden:YES];
 	[[self repostedUserButton] setHidden:YES];

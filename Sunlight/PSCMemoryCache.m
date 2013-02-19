@@ -124,8 +124,14 @@
 			// check for a post that was there and then was deleted
 		}
 		else {
-			// posts is new, add it
-			[newPosts addObject:post];
+			// keep deleted posts from showing up
+			if (![post isDeleted]) {
+				// posts is new, add it
+				[newPosts addObject:post];
+			}
+			else {
+				// add hook here to animate a post that is now deleted out of existence
+			}
 		}
 	}
 	

@@ -116,14 +116,23 @@
 	return YES;
 }
 
-#pragma mark - Login
+#pragma mark - Miscellanious Methods
 
-- (IBAction)openLogin:(id)sender {
-	if (!self.loginController) {
-		PSCLoginController *pL = [[PSCLoginController alloc] init];
-		self.loginController =  pL;
-	}
-	[self.loginController showWindow:self];
+/* from
+ https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/NSScrollViewGuide/Articles/Scrolling.html
+ */
+- (void)scrollToTop {
+	NSPoint newScrollOrigin;
+	
+    // assume that the scrollview is an existing variable
+    if ([[appScrollView documentView] isFlipped]) {
+        newScrollOrigin=NSMakePoint(0.0,0.0);
+    } else {
+        newScrollOrigin=NSMakePoint(0.0,NSMaxY([[appScrollView documentView] frame])
+									-NSHeight([[appScrollView contentView] bounds]));
+    }
+	
+    [[appScrollView documentView] scrollPoint:newScrollOrigin];
 }
 
 #pragma mark - Switching Streams
@@ -313,8 +322,12 @@
 	self.appTableView = newTableView;*/
 }
 
-- (IBAction)loadMoreInStream:(id)sender {
-	
+- (IBAction)loadPreviousInStream:(id)sender {
+	ANPost *lastPost = [postsArray lastObject];
+	[ANSession.defaultSession postsInStreamBetweenID:ANUnspecifiedPostID andID:lastPost.ID completion:^(ANResponse *response, NSArray *posts, NSError *error) {
+		postsArray = posts;
+		[[self appTableView] reloadData];
+	}];
 }
 
 - (void)loadStream:(BOOL)reload {
@@ -373,8 +386,7 @@
 	if (streamPosts) {
 		if (!reload) {
 			postsArray = streamPosts;
-			// scroll to the top and reload or start animating in the cells
-			[[[self appScrollView] verticalScroller] setFloatValue:1.0];
+			[self scrollToTop];
 			[[self appTableView] reloadData];
 		}
 		else {
@@ -430,8 +442,7 @@
 	if (mentionsPosts) {
 		if (!reload) {
 			postsArray = mentionsPosts;
-			// scroll to the top and reload or start animating in the cells
-			[[[self appScrollView] verticalScroller] setFloatValue:1.0];
+			[self scrollToTop];
 			[[self appTableView] reloadData];
 		}
 		else {
@@ -487,8 +498,7 @@
 	if (starsPosts) {
 		if (!reload) {
 			postsArray = starsPosts;
-			// scroll to the top and reload or start animating in the cells
-			[[[self appScrollView] verticalScroller] setFloatValue:1.0];
+			[self scrollToTop];
 			[[self appTableView] reloadData];
 		}
 		else {
@@ -545,8 +555,7 @@
 	if (profilePosts) {
 		if (!reload) {
 			postsArray = profilePosts;
-			// scroll to the top and reload or start animating in the cells
-			[[[self appScrollView] verticalScroller] setFloatValue:1.0];
+			[self scrollToTop];
 			[[self appTableView] reloadData];
 		}
 		else {
@@ -852,13 +861,6 @@
 	else {
 		[[result deleteButton] setHidden:YES];
 	}
-    
-    if ([post isDeleted]) {
-        [result hideDeletedPost];
-    }
-    else {
-        nil;
-    }
     
 	// send post to the cell view
 	[result setPost:post];
