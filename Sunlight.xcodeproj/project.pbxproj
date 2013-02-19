@@ -154,6 +154,8 @@
 		37EEA9C516BB7DC200E3C56E /* PSCSwipeableScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */; };
 		37F1864616C4A8D500E682E2 /* PSCButtonCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F1864516C4A8D500E682E2 /* PSCButtonCollection.m */; };
 		37F1864A16C4A9C000E682E2 /* PSCButtonCollectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F1864916C4A9BF00E682E2 /* PSCButtonCollectionButton.m */; };
+		37FF6B7416D37DEF009F0D8F /* ANMessagesForUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FF6B7316D37DEE009F0D8F /* ANMessagesForUserRequest.m */; };
+		37FF6B7716D38387009F0D8F /* ANRequestReturningMessageList.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FF6B7616D38386009F0D8F /* ANRequestReturningMessageList.m */; };
 		700110CA16C4CA6A00ECB894 /* PSCLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 700110C916C4CA6900ECB894 /* PSCLoginController.m */; };
 		700110CC16C4CAC300ECB894 /* PSCLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 700110CB16C4CAC300ECB894 /* PSCLogin.xib */; };
 		700110DD16C4FD9300ECB894 /* login-input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 700110D916C4FD9300ECB894 /* login-input@2x.png */; };
@@ -502,6 +504,10 @@
 		37F1864516C4A8D500E682E2 /* PSCButtonCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCButtonCollection.m; sourceTree = "<group>"; };
 		37F1864816C4A9BF00E682E2 /* PSCButtonCollectionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCButtonCollectionButton.h; sourceTree = "<group>"; };
 		37F1864916C4A9BF00E682E2 /* PSCButtonCollectionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCButtonCollectionButton.m; sourceTree = "<group>"; };
+		37FF6B7216D37DED009F0D8F /* ANMessagesForUserRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMessagesForUserRequest.h; sourceTree = "<group>"; };
+		37FF6B7316D37DEE009F0D8F /* ANMessagesForUserRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMessagesForUserRequest.m; sourceTree = "<group>"; };
+		37FF6B7516D38386009F0D8F /* ANRequestReturningMessageList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANRequestReturningMessageList.h; sourceTree = "<group>"; };
+		37FF6B7616D38386009F0D8F /* ANRequestReturningMessageList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANRequestReturningMessageList.m; sourceTree = "<group>"; };
 		700110C816C4C9EC00ECB894 /* PSCLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSCLoginController.h; path = ../PSCLoginController.h; sourceTree = "<group>"; };
 		700110C916C4CA6900ECB894 /* PSCLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCLoginController.m; sourceTree = "<group>"; };
 		700110CB16C4CAC300ECB894 /* PSCLogin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCLogin.xib; sourceTree = "<group>"; };
@@ -678,10 +684,14 @@
 				3730367B16BA6EA500F69545 /* ANPostsWithTagRequest.m */,
 				3730367C16BA6EA500F69545 /* ANRepostPostRequest.h */,
 				3730367D16BA6EA500F69545 /* ANRepostPostRequest.m */,
+				37FF6B7216D37DED009F0D8F /* ANMessagesForUserRequest.h */,
+				37FF6B7316D37DEE009F0D8F /* ANMessagesForUserRequest.m */,
 				3730367E16BA6EA500F69545 /* ANRequest.h */,
 				3730367F16BA6EA500F69545 /* ANRequest.m */,
 				3730368016BA6EA500F69545 /* ANRequestReturningPostList.h */,
 				3730368116BA6EA500F69545 /* ANRequestReturningPostList.m */,
+				37FF6B7516D38386009F0D8F /* ANRequestReturningMessageList.h */,
+				37FF6B7616D38386009F0D8F /* ANRequestReturningMessageList.m */,
 				3730368216BA6EA500F69545 /* ANResource+Magic.h */,
 				3730368316BA6EA500F69545 /* ANResource+Magic.m */,
 				3730368416BA6EA500F69545 /* ANResource.h */,
@@ -1390,6 +1400,8 @@
 				37F1864A16C4A9C000E682E2 /* PSCButtonCollectionButton.m in Sources */,
 				700110CA16C4CA6A00ECB894 /* PSCLoginController.m in Sources */,
 				372C890D16CB850D00EE84EC /* NSTimer+Blocks.m in Sources */,
+				37FF6B7416D37DEF009F0D8F /* ANMessagesForUserRequest.m in Sources */,
+				37FF6B7716D38387009F0D8F /* ANRequestReturningMessageList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

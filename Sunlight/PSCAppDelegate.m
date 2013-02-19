@@ -582,6 +582,27 @@
 			[button setShadow:nil];
 		}
 	}
+	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+	dispatch_async(queue,^{
+		[ANSession.defaultSession messagesForUserWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
+			if (error) {
+				[self showErrorBarWithError:error];
+			}
+			if(!posts) {
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[[self appScrollView] stopLoading];
+				});
+				return;
+			}
+			// save posts to memory
+			[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMessages]];
+			postsArray = posts;
+			[[self appTableView] reloadData];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[[self appScrollView] stopLoading];
+			});
+		}];
+	});
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[[self appScrollView] stopLoading];
 	});
