@@ -910,7 +910,7 @@
         [[result repostButton] setTitle:@"Repost"];
 		[[result repostButton] setTextColor:[result defaultButtonColor]];
 	}
-	if ([post numberOfReplies]>0) {
+	if ([post numberOfReplies]>0 || [post replyTo]) {
 		[[result conversationButton] setHidden:NO];
 	}
 	else {
