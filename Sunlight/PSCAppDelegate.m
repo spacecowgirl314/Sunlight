@@ -8,6 +8,7 @@
 
 #import "PSCAppDelegate.h"
 #import "PSCPostCellView.h"
+#import "PSCProfileCellView.h"
 #import "DDHotKeyCenter.h"
 #import "NSDate+HumanizedTime.h"
 #import <Quartz/Quartz.h>
@@ -66,6 +67,7 @@
 		[[self appScrollView] stopLoading];
 	}];
 	[[self appTableView] registerNib:[[NSNib alloc] initWithNibNamed:@"PSCPostCellView" bundle:nil] forIdentifier:@"PostCell"];
+	[[self appTableView] registerNib:[[NSNib alloc] initWithNibNamed:@"PSCProfileCellView" bundle:nil] forIdentifier:@"ProfileCell"];
 	[[NSNotificationCenter defaultCenter]
 	 addObserver: self
 	 selector: @selector(windowDidResize:)
@@ -252,14 +254,24 @@
 #pragma mark - Loading Streams
 
 - (void)loadConversation:(NSNotification*)notification {
-	currentStream = PSCConversation;
 	ANPost *postWithReplies = [notification object];
 	[postWithReplies replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
 		if (error) {
 			[self showErrorBarWithError:error];
+			return;
 		}
+		currentStream = PSCConversation;
+		[titleTextField setStringValue:@"Conversation"];
+		[self scrollToTop];
+		// remove current rows if present
+		NSRange range = NSMakeRange(0, [postsArray count]);
+		NSIndexSet *theSet = [NSIndexSet indexSetWithIndexesInRange:range];
+		[[self appTableView] removeRowsAtIndexes:theSet withAnimation:NSTableViewAnimationSlideLeft];
 		postsArray = posts;
-		[[self appTableView] reloadData];
+		// insert new rows:
+		range = NSMakeRange(0, [posts count]);
+		theSet = [NSIndexSet indexSetWithIndexesInRange:range];
+		[[self appTableView] insertRowsAtIndexes:theSet withAnimation:NSTableViewAnimationSlideRight];
 	}];
 }
 
@@ -543,8 +555,18 @@
 					return;
 				}
 				// save posts to memory
-				[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
-				postsArray = posts;
+				//[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
+				if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile] posts:posts]) {
+					//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
+				}
+				// Retrieve filtered posts
+				NSArray *filteredPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
+				// Inject Profile Cell View
+				NSMutableArray *profileInjection = [filteredPosts mutableCopy];
+				ANPost *fakePost = [[ANPost alloc] initWithRepresentation:@{} session:ANSession.defaultSession];
+				[profileInjection insertObject:fakePost atIndex:0];
+				postsArray = profileInjection;
+				//postsArray = posts;
 				[[self appTableView] reloadData];
 				dispatch_async(dispatch_get_main_queue(), ^{
 					[[self appScrollView] stopLoading];
@@ -554,7 +576,12 @@
 	};
 	if (profilePosts) {
 		if (!reload) {
-			postsArray = profilePosts;
+			// Inject Profile Cell View
+			NSMutableArray *profileInjection = [profilePosts mutableCopy];
+			ANPost *fakePost = [[ANPost alloc] initWithRepresentation:@{} session:ANSession.defaultSession];
+			[profileInjection insertObject:fakePost atIndex:0];
+			postsArray = profileInjection;
+			//postsArray = profilePosts;
 			[self scrollToTop];
 			[[self appTableView] reloadData];
 		}
@@ -854,11 +881,49 @@
 
 - (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
+	ANPost *post = [postsArray objectAtIndex:row];
+	if ([post text]==nil && currentStream==PSCProfile) {
+		PSCProfileCellView *profileCellView = [tableView makeViewWithIdentifier:@"ProfileCell" owner:nil];
+		[ANSession.defaultSession userWithID:ANMeUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
+			// set name
+			[[profileCellView userField] setStringValue:[user name]];
+			// set biography
+			[[profileCellView biographyView] setStringValue:[[user userDescription] text]];
+			// set avatar image
+			// download avatar image and store in a dictionary
+			if ([[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]])
+			{
+				[[profileCellView avatarView] setImage:[[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]]];
+			}
+			else {
+				[[user avatarImage] imageAtSize:[[profileCellView avatarView] convertSizeToBacking:[profileCellView avatarView].frame.size] completion:^(NSImage *image, NSError *error) {
+					if (!error) {
+						NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+						[[PSCMemoryCache sharedMemory].avatarImages setValue:maskedImage forKey:[user username]];
+						[[profileCellView avatarView] setImage:maskedImage];
+					}
+					else {
+						[[profileCellView avatarView] setImage:nil];
+					}
+				}];
+			}
+			// set banner
+			[[user coverImage] imageAtSize:[[profileCellView bannerView] convertSizeToBacking:[profileCellView bannerView].frame.size] completion:^(NSImage *image, NSError *error) {
+				if (!error) {
+					[[profileCellView bannerView] setImage:image];
+				}
+				else {
+					[[profileCellView bannerView] setImage:nil];
+				}
+			}];
+		}];
+		return profileCellView;
+	}
     PSCPostCellView *result = [tableView makeViewWithIdentifier:@"PostCell" owner:nil]; //[PSCPostCellView viewFromNib]; // [tableColumn identifier]
 	// clear out the old image first. prevent temporary flickering due to no caching
 	[[result avatarView] setImage:nil];
     
-	ANPost *post = [postsArray objectAtIndex:row];
+	//ANPost *post = [postsArray objectAtIndex:row];
 	ANUser *user = [post user];
 	if ([post repostOf]) {
 		//NSLog(@"this is a repost");
@@ -962,8 +1027,9 @@
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
 	//NSLog(@"row:%ld", row);
 	ANPost *post = [postsArray objectAtIndex:row];
-	if ([post repostOf]) {
-		
+	if ([post text]==nil) {
+		// calculate for profile cell view
+		return 385;
 	}
 	NSFont *font = [NSFont fontWithName:@"Helvetica Neue Medium" size:13.0f];
 	float height = [[post text] heightForWidth:[[self window] frame].size.width-61-2 font:font]; // 61 was previously 70
