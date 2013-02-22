@@ -23,6 +23,15 @@
 @synthesize followButton;
 @synthesize user;
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	self = [super initWithCoder:aDecoder];
+	if (self) {
+		
+	}
+	return self;
+}
+
 - (id)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
@@ -41,6 +50,7 @@
 	[bottomShadow setEndingColor:[NSColor clearColor]];
     [bottomShadow setAngle:270];
 	[followButton setTextColor:[self defaultButtonColor]];
+	[self becomeFirstResponder];
 }
 
 - (NSColor*)defaultButtonColor {

@@ -978,6 +978,7 @@
 	}
     PSCPostCellView *result = [tableView makeViewWithIdentifier:@"PostCell" owner:nil]; //[PSCPostCellView viewFromNib]; // [tableColumn identifier]
 	// clear out the old image first. prevent temporary flickering due to no caching
+	[[[result avatarView] window] makeFirstResponder:[result avatarView]];
 	[[result avatarView] setImage:nil];
     
 	//ANPost *post = [postsArray objectAtIndex:row];

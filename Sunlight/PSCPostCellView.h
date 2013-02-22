@@ -25,8 +25,8 @@
     IBOutlet NSButton *deleteButton;
 	NSTrackingArea *trackingArea;
 	NSTimer *fadeTimer;
-	/*CGFloat scrollDeltaX;
-	CGFloat scrollDeltaY;*/
+	CGFloat scrollDeltaX;
+	CGFloat scrollDeltaY;
 }
 
 @property ANPost *post;
@@ -50,6 +50,7 @@
 - (IBAction)repostPost:(id)sender;
 - (IBAction)muteUser:(id)sender;
 - (IBAction)openConversation:(id)sender;
+- (IBAction)openUser:(id)sender;
 - (NSColor*)defaultButtonColor;
 - (void)hideRepost;
 - (void)showRepost;

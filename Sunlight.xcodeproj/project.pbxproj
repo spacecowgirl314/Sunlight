@@ -129,6 +129,7 @@
 		3786031216C27CD3003256B9 /* PSCMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3786031116C27CD2003256B9 /* PSCMemoryCache.m */; };
 		3786043C16D6E25800F56553 /* PSCProfileCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3786043B16D6E25800F56553 /* PSCProfileCellView.m */; };
 		3786043E16D70F6200F56553 /* PSCProfileCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3786043D16D70F6200F56553 /* PSCProfileCellView.xib */; };
+		3786044116D773E600F56553 /* PSCAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3786044016D773E600F56553 /* PSCAvatarImageView.m */; };
 		37A66337162AC33D00010161 /* NSScrollViewScrollKiller.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */; };
 		37A6633D162AD8F600010161 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A6633C162AD8F600010161 /* CoreLocation.framework */; };
 		37A663E2162AE6E900010161 /* NSView+Fade.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A663E1162AE6E800010161 /* NSView+Fade.m */; };
@@ -460,6 +461,8 @@
 		3786043A16D6E25800F56553 /* PSCProfileCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCProfileCellView.h; sourceTree = "<group>"; };
 		3786043B16D6E25800F56553 /* PSCProfileCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCProfileCellView.m; sourceTree = "<group>"; };
 		3786043D16D70F6200F56553 /* PSCProfileCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCProfileCellView.xib; sourceTree = "<group>"; };
+		3786043F16D773E600F56553 /* PSCAvatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCAvatarImageView.h; sourceTree = "<group>"; };
+		3786044016D773E600F56553 /* PSCAvatarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCAvatarImageView.m; sourceTree = "<group>"; };
 		3795FE671628C02F0091B6CD /* Sunlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Sunlight.entitlements; sourceTree = "<group>"; };
 		37A66328162AAD7A00010161 /* AutoHyperlinks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AutoHyperlinks.framework; path = ../repos/CocoaTentClient/AutoHyperlinks.framework; sourceTree = "<group>"; };
 		37A66335162AC33D00010161 /* NSScrollViewScrollKiller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSScrollViewScrollKiller.h; sourceTree = "<group>"; };
@@ -922,6 +925,8 @@
 			children = (
 				37F1864816C4A9BF00E682E2 /* PSCButtonCollectionButton.h */,
 				37F1864916C4A9BF00E682E2 /* PSCButtonCollectionButton.m */,
+				3786043F16D773E600F56553 /* PSCAvatarImageView.h */,
+				3786044016D773E600F56553 /* PSCAvatarImageView.m */,
 				378602EE16C22C57003256B9 /* PSCTextView.h */,
 				378602EF16C22C58003256B9 /* PSCTextView.m */,
 				3781509F16C0F2290015956E /* PSCGradientView.h */,
@@ -1412,6 +1417,7 @@
 				37FF6B7416D37DEF009F0D8F /* ANMessagesForUserRequest.m in Sources */,
 				37FF6B7716D38387009F0D8F /* ANRequestReturningMessageList.m in Sources */,
 				3786043C16D6E25800F56553 /* PSCProfileCellView.m in Sources */,
+				3786044116D773E600F56553 /* PSCAvatarImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

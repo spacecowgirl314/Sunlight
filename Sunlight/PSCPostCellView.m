@@ -13,6 +13,7 @@
 
 @implementation PSCPostCellView
 @synthesize post;
+@synthesize postController;
 @synthesize postScrollView;
 @synthesize postView;
 @synthesize userField;
@@ -52,39 +53,53 @@
 	return (axis == NSEventGestureAxisHorizontal) ? YES : NO; }
 
 // semi-working swipe detection, needs to filter out scrolling up and down
-/*- (void)scrollWheel:(NSEvent *)event
+- (void)scrollWheel:(NSEvent *)event
 {
 	if([event phase] == NSEventPhaseBegan)
 	{
 		scrollDeltaX = [event deltaX];
-		NSLog(@"x delta:%f", scrollDeltaX);
+		//NSLog(@"x delta:%f", scrollDeltaX);
 		scrollDeltaY = [event deltaY];
 	}
     if([event phase] == NSEventPhaseEnded)
     {
-		int swipeColorValue;
+		/*int swipeColorValue;
 		const int SwipeLeft = 0;
 		const int SwipeRight = 1;
 		const int SwipeUp = 2;
-		const int SwipeDown = 3;
+		const int SwipeDown = 3;*/
 		
 		CGFloat x = scrollDeltaX; //[event deltaX];
 		CGFloat y = scrollDeltaY; //[event deltaY];
-		//NSLog(@"x delta:%f", x);
+		//NSLog(@"x delta:%f, y delta:%f", x, y);
 		if (x != 0) {
-			swipeColorValue = (x < 0)  ? SwipeLeft : SwipeRight;
+			// filter out scrolling up and down
+			if (y < 0.45 || y < -0.45) {
+				// now make sure we're swiping right
+				if (x > 0) {
+					// make sure there is a conversation
+					if ([post numberOfReplies]>0 || [post replyTo]) {
+						[[NSNotificationCenter defaultCenter] postNotificationName:@"Conversation" object:self.post];
+					}
+				}
+				//swipeColorValue = (x < 0)  ? SwipeLeft : SwipeRight;
+			}
 		}
-		if (y != 0) {
+		/*if (y != 0) {
 			swipeColorValue = (y > 0)  ? SwipeUp : SwipeDown;
-		}
-		NSString *direction;
+		}*/
+		
+		/*NSString *direction;
 		switch (swipeColorValue) {
 			case SwipeLeft:
 				direction = @"left";
 				break;
-			case SwipeRight:
+			case SwipeRight: {
 				direction = @"right";
+				NSLog(@"y:%f x:%f", y, x);
+				[[NSNotificationCenter defaultCenter] postNotificationName:@"Conversation" object:self.post];
 				break;
+			}
 			case SwipeUp:
 				direction = @"up";
 				break;
@@ -93,10 +108,10 @@
 				direction = @"down";
 				break;
 		}
-		NSLog(@"Swipe %@", direction);
+		NSLog(@"Swipe %@", direction);*/
     }
     [super scrollWheel:event];
-}*/
+}
 
 - (NSColor*)defaultButtonColor {
 	return [NSColor colorWithDeviceRed:0.643 green:0.643 blue:0.643 alpha:1.0];
@@ -312,6 +327,10 @@
 
 - (IBAction)openConversation:(id)sender {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"Conversation" object:self.post];
+}
+
+- (IBAction)openUser:(id)sender {
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"Profile" object:self.post.user.username];
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
