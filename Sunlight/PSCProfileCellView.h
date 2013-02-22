@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PSCGradientView.h"
 
 @interface PSCProfileCellView : NSTableCellView
 
@@ -14,6 +15,11 @@
 @property IBOutlet NSImageView *avatarView;
 @property IBOutlet NSTextField *userField;
 @property IBOutlet NSTextField *biographyView;
+@property IBOutlet PSCGradientView *bannerShadow;
+@property IBOutlet NSTextField *followerCount;
+@property IBOutlet NSTextField *followingCount;
+@property IBOutlet NSTextField *starredCount;
+@property IBOutlet PSCGradientView *bottomShadow;
 
 
 @end

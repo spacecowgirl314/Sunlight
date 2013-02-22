@@ -53,6 +53,7 @@
 		
 		if( [attributes objectForKey:@"UsernameMatch"] != nil ) {
 			NSLog( @"UsernameMatch: %@", [attributes objectForKey:@"UsernameMatch"] );
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"Profile" object:[attributes objectForKey:@"UsernameMatch"]];
 		}
 		
 		if( [attributes objectForKey:@"HashtagMatch"] != nil ) {

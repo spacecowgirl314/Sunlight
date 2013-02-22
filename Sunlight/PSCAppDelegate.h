@@ -22,7 +22,8 @@ typedef enum {
     PSCStars,
 	PSCProfile,
 	PSCMessages,
-	PSCConversation
+	PSCConversation,
+	PSCHashtag
 } PSCStreamType;
 
 @interface PSCAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate> {
@@ -30,6 +31,7 @@ typedef enum {
 	PSCStreamType currentStream;
 	NSArray *postsArray;
     IBOutlet NSTextField *titleTextField;
+	ANResourceID profileUserID;
 }
 
 @property (assign) IBOutlet INAppStoreWindow *window;

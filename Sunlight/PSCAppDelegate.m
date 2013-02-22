@@ -86,6 +86,7 @@
 	[streamButton selectButton];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHashtag:) name:@"Hashtag" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadConversation:) name:@"Conversation" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProfileFromNotification:) name:@"Profile" object:nil];
     
 	// Register
 	//[self addOutput:@"Attempting to register hotkey for example 1"];
@@ -523,9 +524,27 @@
 	}
 }
 
+- (void)loadProfileFromNotification:(NSNotification*)notification {
+	NSString *username = [[notification object] substringFromIndex:1];
+	[ANSession.defaultSession userWithUsername:username completion:^(ANResponse *response, ANUser *user, NSError *error) {
+		if (error) {
+			[self showErrorBarWithError:error];
+			return;
+		}
+		else {
+			profileUserID = [user ID];
+			[self loadProfile:YES withID:profileUserID];
+		}
+	}];
+}
+
 - (void)loadProfile:(BOOL)reload {
+	profileUserID = ANMeUserID;
+	[self loadProfile:reload withID:profileUserID];
+}
+
+- (void)loadProfile:(BOOL)reload withID:(ANResourceID)userID {
 	NSArray *profilePosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
-    [titleTextField setStringValue:@"My Profile"];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
     [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
@@ -544,9 +563,23 @@
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
 			// Get the latest posts in the user's incoming post stream...
-			[ANSession.defaultSession postsForUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+			[ANSession.defaultSession postsForUserWithID:userID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
 				if (error) {
 					[self showErrorBarWithError:error];
+					return;
+				}
+				// set title
+				if (userID==ANMeUserID) {
+					if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile] posts:posts]) {
+						//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
+					}
+					[titleTextField setStringValue:@"My Profile"];
+				}
+				else {
+					if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%lld", userID] posts:posts]) {
+						//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
+					}
+					[titleTextField setStringValue:@"Profile"];
 				}
 				if(!posts) {
 					dispatch_async(dispatch_get_main_queue(), ^{
@@ -556,11 +589,14 @@
 				}
 				// save posts to memory
 				//[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
-				if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile] posts:posts]) {
-					//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
-				}
 				// Retrieve filtered posts
-				NSArray *filteredPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
+				NSArray *filteredPosts;
+				if (userID==ANMeUserID) {
+					filteredPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
+				}
+				else {
+					filteredPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%lld", userID]];
+				}
 				// Inject Profile Cell View
 				NSMutableArray *profileInjection = [filteredPosts mutableCopy];
 				ANPost *fakePost = [[ANPost alloc] initWithRepresentation:@{} session:ANSession.defaultSession];
@@ -576,6 +612,8 @@
 	};
 	if (profilePosts) {
 		if (!reload) {
+			// set title
+			[titleTextField setStringValue:@"My Profile"];
 			// Inject Profile Cell View
 			NSMutableArray *profileInjection = [profilePosts mutableCopy];
 			ANPost *fakePost = [[ANPost alloc] initWithRepresentation:@{} session:ANSession.defaultSession];
@@ -882,13 +920,22 @@
 - (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
 	ANPost *post = [postsArray objectAtIndex:row];
-	if ([post text]==nil && currentStream==PSCProfile) {
+	if ([post text]==nil) {
 		PSCProfileCellView *profileCellView = [tableView makeViewWithIdentifier:@"ProfileCell" owner:nil];
-		[ANSession.defaultSession userWithID:ANMeUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
+		[ANSession.defaultSession userWithID:profileUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
 			// set name
 			[[profileCellView userField] setStringValue:[user name]];
 			// set biography
 			[[profileCellView biographyView] setStringValue:[[user userDescription] text]];
+			[[profileCellView followingCount] setIntegerValue:[[user counts] following]];
+			[[profileCellView followerCount] setIntegerValue:[[user counts] followers]];
+			[[profileCellView starredCount] setIntegerValue:[[user counts] stars]];
+			if ([user followsYou]) {
+				
+			}
+			if ([user youFollow]) {
+				
+			}
 			// set avatar image
 			// download avatar image and store in a dictionary
 			if ([[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]])
