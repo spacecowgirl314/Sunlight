@@ -917,6 +917,11 @@
 	return composedImage;
 }
 
+- (CGSize)convertSizeToScale:(CGSize)size scale:(double)scale
+{
+    return CGSizeMake(size.width*scale, size.height*scale);
+}
+
 - (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
 	ANPost *post = [postsArray objectAtIndex:row];
@@ -936,26 +941,19 @@
 			if ([user youFollow]) {
 				
 			}
-			// set avatar image
-			// download avatar image and store in a dictionary
-			if ([[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]])
-			{
-				[[profileCellView avatarView] setImage:[[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]]];
-			}
-			else {
-				[[user avatarImage] imageAtSize:[[profileCellView avatarView] convertSizeToBacking:[profileCellView avatarView].frame.size] completion:^(NSImage *image, NSError *error) {
-					if (!error) {
-						NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
-						[[PSCMemoryCache sharedMemory].avatarImages setValue:maskedImage forKey:[user username]];
-						[[profileCellView avatarView] setImage:maskedImage];
-					}
-					else {
-						[[profileCellView avatarView] setImage:nil];
-					}
-				}];
-			}
+			// set avatar image.. note: don't use the cache because we request a different size here
+			// also some weird stuff goes on here with the width, it increases by itself. Use height instead.
+			[[user avatarImage] imageAtSize:CGSizeMake(profileCellView.avatarView.frame.size.height*_window.backingScaleFactor, profileCellView.avatarView.frame.size.height*_window.backingScaleFactor) completion:^(NSImage *image, NSError *error) {
+				if (!error) {
+					NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+					[[profileCellView avatarView] setImage:maskedImage];
+				}
+				else {
+					[[profileCellView avatarView] setImage:nil];
+				}
+			}];
 			// set banner
-			[[user coverImage] imageAtSize:[[profileCellView bannerView] convertSizeToBacking:[profileCellView bannerView].frame.size] completion:^(NSImage *image, NSError *error) {
+			[[user coverImage] imageAtSize:[self convertSizeToScale:profileCellView.bannerView.frame.size scale:_window.backingScaleFactor] completion:^(NSImage *image, NSError *error) {
 				if (!error) {
 					[[profileCellView bannerView] setImage:image];
 				}
@@ -1038,7 +1036,7 @@
 		[[result avatarView] setImage:[[PSCMemoryCache sharedMemory].avatarImages objectForKey:[user username]]];
 	}
 	else {
-		[[user avatarImage] imageAtSize:[[result avatarView] convertSizeToBacking:[result avatarView].frame.size] completion:^(NSImage *image, NSError *error) {
+		[[user avatarImage] imageAtSize:[self convertSizeToScale:result.avatarView.frame.size scale:2] completion:^(NSImage *image, NSError *error) {
 			if (!error) {
 				NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
 				[[PSCMemoryCache sharedMemory].avatarImages setValue:maskedImage forKey:[user username]];

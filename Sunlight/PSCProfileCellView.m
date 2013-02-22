@@ -18,6 +18,8 @@
 @synthesize followingCount;
 @synthesize starredCount;
 @synthesize bottomShadow;
+@synthesize isFollowingYouField;
+@synthesize followButton;
 
 - (id)initWithFrame:(NSRect)frame
 {
@@ -36,6 +38,10 @@
 	[[self bottomShadow] setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f]];
 	[[self bottomShadow] setEndingColor:[NSColor clearColor]];
     [[self bottomShadow] setAngle:270];
+}
+
+- (IBAction)toggleFollow:(id)sender {
+	
 }
 
 /*- (void)drawRect:(NSRect)dirtyRect

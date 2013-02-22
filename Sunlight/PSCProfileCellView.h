@@ -20,6 +20,8 @@
 @property IBOutlet NSTextField *followingCount;
 @property IBOutlet NSTextField *starredCount;
 @property IBOutlet PSCGradientView *bottomShadow;
+@property IBOutlet NSTextField *isFollowingYouField;
+@property IBOutlet NSButton *followButton;
 
 
 @end
