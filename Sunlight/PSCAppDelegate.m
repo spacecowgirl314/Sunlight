@@ -928,6 +928,8 @@
 	if ([post text]==nil) {
 		PSCProfileCellView *profileCellView = [tableView makeViewWithIdentifier:@"ProfileCell" owner:nil];
 		[ANSession.defaultSession userWithID:profileUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
+			// send user to the cell
+			[profileCellView setUser:user];
 			// set name
 			[[profileCellView userField] setStringValue:[user name]];
 			// set biography
@@ -936,10 +938,20 @@
 			[[profileCellView followerCount] setIntegerValue:[[user counts] followers]];
 			[[profileCellView starredCount] setIntegerValue:[[user counts] stars]];
 			if ([user followsYou]) {
-				
+				[[profileCellView isFollowingYouField] setStringValue:@"Following You"];
+			}
+			else {
+				[[profileCellView isFollowingYouField] setStringValue:@"Not Following You"];
 			}
 			if ([user youFollow]) {
-				
+				[[profileCellView followButton] setImage:[NSImage imageNamed:@"profile-following-check"]];
+				[[profileCellView followButton] setTitle:@"Following"];
+				[[profileCellView followButton] setTextColor:[NSColor colorWithDeviceRed:0.161 green:0.376 blue:0.733 alpha:1]];
+			}
+			else {
+				[[profileCellView followButton] setImage:[NSImage imageNamed:@"profile-following-add"]];
+				[[profileCellView followButton] setTitle:@"Follow"];
+				[[profileCellView followButton] setTextColor:[profileCellView defaultButtonColor]];
 			}
 			// set avatar image.. note: don't use the cache because we request a different size here
 			// also some weird stuff goes on here with the width, it increases by itself. Use height instead.
