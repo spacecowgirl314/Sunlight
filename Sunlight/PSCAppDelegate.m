@@ -345,7 +345,6 @@
 
 - (void)loadStream:(BOOL)reload {
 	NSArray *streamPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];
-    [titleTextField setStringValue:@"My Stream"];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
     [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
@@ -387,6 +386,7 @@
 				 }];*/
 				// retrieve filtered posts from memory only if we are in the stream view
 				if (currentStream==PSCStream) {
+					[titleTextField setStringValue:@"My Stream"];
 					postsArray = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]]; //posts;
 					[[self appTableView] reloadData];
 					dispatch_async(dispatch_get_main_queue(), ^{
@@ -398,6 +398,7 @@
 	};
 	if (streamPosts) {
 		if (!reload) {
+			[titleTextField setStringValue:@"My Stream"];
 			postsArray = streamPosts;
 			[self scrollToTop];
 			[[self appTableView] reloadData];
@@ -928,6 +929,10 @@
 	if ([post text]==nil) {
 		PSCProfileCellView *profileCellView = [tableView makeViewWithIdentifier:@"ProfileCell" owner:nil];
 		[ANSession.defaultSession userWithID:profileUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
+			if (error) {
+				[self showErrorBarWithError:error];
+				return;
+			}
 			// send user to the cell
 			[profileCellView setUser:user];
 			// set name
