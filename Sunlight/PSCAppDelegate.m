@@ -86,6 +86,7 @@
 	[[self breadcrumbShadow] setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f]];
 	[[self breadcrumbShadow] setEndingColor:[NSColor clearColor]];
     [[self breadcrumbShadow] setAngle:270];
+	[[self breadcrumbView] setDelegate:self];
 	// setup buttons
 	buttonCollection = [[PSCButtonCollection alloc] initWithButtons:@[streamButton, mentionsButton, starsButton, profileButton, messagesButton]];
 	[streamButton setSelectedButtonImage:[NSImage imageNamed:@"title-stream-highlight"]];
@@ -127,6 +128,20 @@
 {
 	[self.window makeKeyAndOrderFront:self];
 	return YES;
+}
+
+#pragma mark - Breadcrumbs
+
+- (void)breadcrumbView:(PSCBreadcrumbView *)view didTapItemAtIndex:(NSUInteger)index
+{
+	NSLog(@"Item at Index = %ld", (unsigned long)index);
+	[navigationController popStream:nil];
+}
+
+- (void)breadcrumbViewDidTapStartButton:(PSCBreadcrumbView *)view
+{
+	NSLog(@"Start");
+	[navigationController clear];
 }
 
 #pragma mark - Miscellanious Methods
