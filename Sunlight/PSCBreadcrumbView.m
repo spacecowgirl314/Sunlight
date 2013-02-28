@@ -63,6 +63,12 @@ layer.shadowColor = kShadowColor
 	self.autoresizesSubviews = YES;
 	mSetShadow(self);
 	_items = [NSArray new];
+    
+    // set the gradient view background
+    NSColor *topColor = [NSColor colorWithDeviceRed:0.976 green:0.976 blue:0.976 alpha:1.0];
+    NSColor *bottomColor = [NSColor colorWithDeviceRed:0.898 green:0.898 blue:0.898 alpha:1.0];
+    [self setStartingColor:topColor];
+    [self setEndingColor:bottomColor];
 	
 	_containerView = [[NSView alloc] initWithFrame:self.bounds];
 	_containerView.autoresizingMask =
