@@ -124,7 +124,7 @@ layer.shadowColor = kShadowColor
 - (NSButton *)startButton
 {
 	NSButton *button = [[NSButton alloc] init];
-	NSImage *bgImage = [NSImage imageNamed:@"button_item"];
+	NSImage *bgImage = [NSImage imageNamed:@"crumb-arrow"];
 	[button setImage:bgImage];
 	[button setAlternateImage:bgImage];
 	[button setImagePosition:NSImageRight];
@@ -162,7 +162,7 @@ layer.shadowColor = kShadowColor
 	button.title = item.title;
 	button.textColor = [NSColor colorWithDeviceRed:0.643 green:0.643 blue:0.643 alpha:1.0];
 	
-	NSImage *bgImage = [NSImage imageNamed:@"button_item"];
+	NSImage *bgImage = [NSImage imageNamed:@"crumb-arrow"];
 	[button setImage:bgImage];
 	[button setAlternateImage:bgImage];
 	[button setImagePosition:NSImageRight];
