@@ -19,6 +19,7 @@
 #import "PSCButtonCollection.h"
 #import "PSCSwipeableScrollView.h"
 #import "NSTimer+Blocks.h"
+#import "PSCStream.h"
 
 @implementation PSCAppDelegate
 @synthesize postController;
@@ -142,7 +143,7 @@
 
 - (IBAction)switchToStream:(id)sender {
 	NSLog(@"Switched to stream.");
-	currentStream = PSCStream;
+	currentStream = PSCMyStream;
 	[self loadStream:NO];
 }
 
@@ -295,7 +296,7 @@
 				return;
 			}
 			// save posts to memory
-			//[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];
+			//[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]];
 			// theoretical test for loading more posts
 			/*ANPost *post =  [posts objectAtIndex:[posts count]];
 			 ANResourceID *resourceID = [post ID];
@@ -344,7 +345,7 @@
 }
 
 - (void)loadStream:(BOOL)reload {
-	NSArray *streamPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];
+	NSArray *streamPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
     [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
@@ -373,9 +374,9 @@
 					return;
 				}
 				// save posts to memory
-				/*[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]];*/
+				/*[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]];*/
 				// simulatenously check for new posts in the stream and filter them
-				if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream] posts:posts]) {
+				if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream] posts:posts]) {
 					[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
 				}
 				// theoretical test for loading more posts
@@ -385,9 +386,9 @@
 				 
 				 }];*/
 				// retrieve filtered posts from memory only if we are in the stream view
-				if (currentStream==PSCStream) {
+				if (currentStream==PSCMyStream) {
 					[titleTextField setStringValue:@"My Stream"];
-					postsArray = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStream]]; //posts;
+					postsArray = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]]; //posts;
 					[[self appTableView] reloadData];
 					dispatch_async(dispatch_get_main_queue(), ^{
 						[[self appScrollView] stopLoading];
@@ -694,7 +695,7 @@
 
 - (void)prepare {
 	ANSession.defaultSession.accessToken = [PSCMemoryCache sharedMemory].authToken;
-	currentStream = PSCStream;
+	currentStream = PSCMyStream;
 	// set up the current user for operations if not yet done
 	if (![[PSCMemoryCache sharedMemory] currentUser]) {
 		[self setCurrentUser];
@@ -703,7 +704,7 @@
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
 		switch (currentStream)
 		{
-			case PSCStream:
+			case PSCMyStream:
 			{
 				[self loadStream:YES];
 				break;
@@ -738,7 +739,7 @@
 	// Get the latest posts in the user's incoming post stream...
 	switch (currentStream)
 	{
-		case PSCStream:
+		case PSCMyStream:
 		{
 			[self performSelector:@selector(loadStream:) withObject:NO afterDelay:0.0];
 			//[self loadStream:YES];

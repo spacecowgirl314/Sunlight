@@ -15,9 +15,10 @@
 #import "PSCGradientView.h"
 #import "PSCButtonCollection.h"
 #import "PSCButtonCollectionButton.h"
+#import "PSCNavigationController.h"
 
 typedef enum {
-    PSCStream,
+    PSCMyStream,
     PSCMentions,
     PSCStars,
 	PSCProfile,
@@ -32,6 +33,7 @@ typedef enum {
 	NSArray *postsArray;
     IBOutlet NSTextField *titleTextField;
 	ANResourceID profileUserID;
+	PSCNavigationController *navigationController;
 }
 
 @property (assign) IBOutlet INAppStoreWindow *window;
