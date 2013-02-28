@@ -135,7 +135,7 @@
 - (void)breadcrumbView:(PSCBreadcrumbView *)view didTapItemAtIndex:(NSUInteger)index
 {
 	NSLog(@"Item at Index = %ld", (unsigned long)index);
-	[navigationController popStream:nil];
+	[navigationController popStreamAtIndex:index];
 }
 
 - (void)breadcrumbViewDidTapStartButton:(PSCBreadcrumbView *)view

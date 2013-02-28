@@ -33,6 +33,15 @@
 	}
 }
 
+- (void)popStreamAtIndex:(int)index
+{
+	// iterate backwards until we reach the item being removed
+	for (NSUInteger i=streams.count-1; i>index; i--)
+	{
+		[streams removeObjectAtIndex:i];
+	}
+}
+
 - (void)clear
 {
 	[streams removeAllObjects];

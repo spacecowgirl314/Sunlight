@@ -16,6 +16,7 @@
 
 - (void)pushStream:(PSCStream*)stream;
 - (void)popStream:(PSCStream*)stream;
+- (void)popStreamAtIndex:(int)index;
 - (void)clear;
 
 @end
