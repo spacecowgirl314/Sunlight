@@ -534,6 +534,7 @@
 		}
 		else {
 			profileUserID = [user ID];
+			currentStream = PSCProfile;
 			[self loadProfile:YES withID:profileUserID];
 		}
 	}];
@@ -923,68 +924,69 @@
     return CGSizeMake(size.width*scale, size.height*scale);
 }
 
-- (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
-	ANPost *post = [postsArray objectAtIndex:row];
-	if ([post text]==nil) {
-		PSCProfileCellView *profileCellView = [tableView makeViewWithIdentifier:@"ProfileCell" owner:nil];
-		[ANSession.defaultSession userWithID:profileUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
-			if (error) {
-				[self showErrorBarWithError:error];
-				return;
-			}
-			// send user to the cell
-			[profileCellView setUser:user];
-			// set name
-			[[profileCellView userField] setStringValue:[user name]];
-			// set biography
-			[[profileCellView biographyView] setStringValue:[[user userDescription] text]];
-			[[profileCellView followingCount] setIntegerValue:[[user counts] following]];
-			[[profileCellView followerCount] setIntegerValue:[[user counts] followers]];
-			[[profileCellView starredCount] setIntegerValue:[[user counts] stars]];
-			if ([user followsYou]) {
-				[[profileCellView isFollowingYouField] setStringValue:@"Following You"];
+- (PSCProfileCellView*)configureProfileCellView:(NSTableView*)tableView
+{
+	PSCProfileCellView *profileCellView = [tableView makeViewWithIdentifier:@"ProfileCell" owner:nil];
+	[ANSession.defaultSession userWithID:profileUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
+		if (error) {
+			[self showErrorBarWithError:error];
+			return;
+		}
+		// send user to the cell
+		[profileCellView setUser:user];
+		// set name
+		[[profileCellView userField] setStringValue:[user name]];
+		// set biography
+		[[profileCellView biographyView] setStringValue:[[user userDescription] text]];
+		[[profileCellView followingCount] setIntegerValue:[[user counts] following]];
+		[[profileCellView followerCount] setIntegerValue:[[user counts] followers]];
+		[[profileCellView starredCount] setIntegerValue:[[user counts] stars]];
+		if ([user followsYou]) {
+			[[profileCellView isFollowingYouField] setStringValue:@"Following You"];
+		}
+		else {
+			[[profileCellView isFollowingYouField] setStringValue:@"Not Following You"];
+		}
+		if ([user youFollow]) {
+			[[profileCellView followButton] setImage:[NSImage imageNamed:@"profile-following-check"]];
+			[[profileCellView followButton] setTitle:@"Following"];
+			[[profileCellView followButton] setTextColor:[NSColor colorWithDeviceRed:0.161 green:0.376 blue:0.733 alpha:1]];
+		}
+		else {
+			[[profileCellView followButton] setImage:[NSImage imageNamed:@"profile-following-add"]];
+			[[profileCellView followButton] setTitle:@"Follow"];
+			[[profileCellView followButton] setTextColor:[profileCellView defaultButtonColor]];
+		}
+		// set avatar image.. note: don't use the cache because we request a different size here
+		// also some weird stuff goes on here with the width, it increases by itself. Use height instead.
+		[[user avatarImage] imageAtSize:CGSizeMake(profileCellView.avatarView.frame.size.height*_window.backingScaleFactor, profileCellView.avatarView.frame.size.height*_window.backingScaleFactor) completion:^(NSImage *image, NSError *error) {
+			if (!error) {
+				NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+				[[profileCellView avatarView] setImage:maskedImage];
 			}
 			else {
-				[[profileCellView isFollowingYouField] setStringValue:@"Not Following You"];
+				[[profileCellView avatarView] setImage:nil];
 			}
-			if ([user youFollow]) {
-				[[profileCellView followButton] setImage:[NSImage imageNamed:@"profile-following-check"]];
-				[[profileCellView followButton] setTitle:@"Following"];
-				[[profileCellView followButton] setTextColor:[NSColor colorWithDeviceRed:0.161 green:0.376 blue:0.733 alpha:1]];
-			}
-			else {
-				[[profileCellView followButton] setImage:[NSImage imageNamed:@"profile-following-add"]];
-				[[profileCellView followButton] setTitle:@"Follow"];
-				[[profileCellView followButton] setTextColor:[profileCellView defaultButtonColor]];
-			}
-			// set avatar image.. note: don't use the cache because we request a different size here
-			// also some weird stuff goes on here with the width, it increases by itself. Use height instead.
-			[[user avatarImage] imageAtSize:CGSizeMake(profileCellView.avatarView.frame.size.height*_window.backingScaleFactor, profileCellView.avatarView.frame.size.height*_window.backingScaleFactor) completion:^(NSImage *image, NSError *error) {
-				if (!error) {
-					NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
-					[[profileCellView avatarView] setImage:maskedImage];
-				}
-				else {
-					[[profileCellView avatarView] setImage:nil];
-				}
-			}];
-			// set banner
-			[[user coverImage] imageAtSize:[self convertSizeToScale:profileCellView.bannerView.frame.size scale:_window.backingScaleFactor] completion:^(NSImage *image, NSError *error) {
-				if (!error) {
-					[[profileCellView bannerView] setImage:image];
-				}
-				else {
-					[[profileCellView bannerView] setImage:nil];
-				}
-			}];
 		}];
-		return profileCellView;
-	}
-    PSCPostCellView *result = [tableView makeViewWithIdentifier:@"PostCell" owner:nil]; //[PSCPostCellView viewFromNib]; // [tableColumn identifier]
+		// set banner
+		[[user coverImage] imageAtSize:[self convertSizeToScale:profileCellView.bannerView.frame.size scale:_window.backingScaleFactor] completion:^(NSImage *image, NSError *error) {
+			if (!error) {
+				[[profileCellView bannerView] setImage:image];
+			}
+			else {
+				[[profileCellView bannerView] setImage:nil];
+			}
+		}];
+	}];
+	return profileCellView;
+}
+
+- (PSCPostCellView*)configurePostCellView:(NSTableView*)tableView post:(ANPost*)post
+{
+	PSCPostCellView *result = [tableView makeViewWithIdentifier:@"PostCell" owner:nil];
 	// clear out the old image first. prevent temporary flickering due to no caching
 	[[[result avatarView] window] makeFirstResponder:[result avatarView]];
-	[[result avatarView] setImage:nil];
+	//[[result avatarView] setImage:nil];
     
 	//ANPost *post = [postsArray objectAtIndex:row];
 	ANUser *user = [post user];
@@ -1078,8 +1080,18 @@
 	else {
 		[[result postView] setString:@"[Post deleted]"];
 	}
-    
-    return result;
+	return result;
+}
+
+- (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
+	ANPost *post = [postsArray objectAtIndex:row];
+	if ([post text]==nil && currentStream==PSCProfile) {
+		return [self configureProfileCellView:tableView];
+	} else
+	{
+		return [self configurePostCellView:tableView post:post];
+	}
 }
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex {
