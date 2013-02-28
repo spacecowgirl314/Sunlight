@@ -1083,9 +1083,11 @@
 	
 	if ([[post user] ID]==[[[PSCMemoryCache sharedMemory] currentUser] ID]) {
 		[[result deleteButton] setHidden:NO];
+        [[result repostButton] setHidden:YES];
 	}
 	else {
 		[[result deleteButton] setHidden:YES];
+        [[result repostButton] setHidden:NO];
 	}
     
 	// send post to the cell view

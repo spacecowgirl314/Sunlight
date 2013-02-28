@@ -19,6 +19,7 @@
 @synthesize followingCount;
 @synthesize starredCount;
 @synthesize bottomShadow;
+@synthesize topShadow;
 @synthesize isFollowingYouField;
 @synthesize followButton;
 @synthesize isYou;
@@ -50,6 +51,9 @@
 	[bottomShadow setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f]];
 	[bottomShadow setEndingColor:[NSColor clearColor]];
     [bottomShadow setAngle:270];
+    [topShadow setStartingColor:[NSColor clearColor]];
+	[topShadow setEndingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f]];
+    [topShadow setAngle:270];
 	[followButton setTextColor:[self defaultButtonColor]];
     [isYou setHidden:YES];
 	[self becomeFirstResponder];

@@ -21,6 +21,7 @@
 @property IBOutlet NSTextField *followingCount;
 @property IBOutlet NSTextField *starredCount;
 @property IBOutlet PSCGradientView *bottomShadow;
+@property IBOutlet PSCGradientView *topShadow;
 @property IBOutlet NSTextField *isFollowingYouField;
 @property IBOutlet NSButton *followButton;
 @property IBOutlet NSTextField *isYou;
