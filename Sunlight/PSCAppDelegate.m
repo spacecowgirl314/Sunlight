@@ -527,7 +527,12 @@
 }
 
 - (void)loadProfileFromNotification:(NSNotification*)notification {
-	NSString *username = [[notification object] substringFromIndex:1];
+	NSString *username = [notification object];
+	NSRange isRange = [username rangeOfString:@"@" options:NSCaseInsensitiveSearch];
+	if(isRange.location == 0) {
+		//found it...
+		username = [[notification object] substringFromIndex:1];
+	}
 	[ANSession.defaultSession userWithUsername:username completion:^(ANResponse *response, ANUser *user, NSError *error) {
 		if (error) {
 			[self showErrorBarWithError:error];

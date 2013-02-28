@@ -46,7 +46,13 @@
 	
 	if( [attributes objectForKey:@"UsernameMatch"] != nil ) {
 		NSLog( @"UsernameMatch: %@", [attributes objectForKey:@"UsernameMatch"] );
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"Profile" object:[attributes objectForKey:@"UsernameMatch"]];
 	}
+}
+
+- (IBAction)viewUser:(id)sender
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"Profile" object:[[post user] username]];
 }
 
 - (BOOL)wantsScrollEventsForSwipeTrackingOnAxis:(NSEventGestureAxis)axis {
@@ -231,12 +237,12 @@
 	//[self.postController processResults:[questionField stringValue]];
 	
 	// get replies
-	[post replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
+	/*[post replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
 		if ([posts count]!=0) {
 			ANPost *reply = [posts objectAtIndex:0];
 			//NSLog(@"reply: %@", [reply text]);
 		}
-	}];
+	}];*/
 }
 
 - (IBAction)starPost:(id)sender {
