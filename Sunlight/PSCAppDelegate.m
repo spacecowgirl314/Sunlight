@@ -56,8 +56,9 @@
     self.window.fullScreenButtonRightMargin = 7.0;
     self.window.hideTitleBarInFullScreen = YES;
     self.window.centerFullScreenButton = YES;
-    self.window.centerTrafficLightButtons = NO;
-    self.window.titleBarHeight = 60.0;
+    self.window.centerTrafficLightButtons = YES;
+    self.window.showsTitle = NO;
+    self.window.titleBarHeight = 40.0;
     self.window.baselineSeparatorColor = [NSColor colorWithDeviceRed:0.624 green:0.624 blue:0.624 alpha:1.0];
 	// self.titleView is a an IBOutlet to an NSView that has been configured in IB with everything you want in the title bar
 	self.titleView.frame = self.window.titleBarView.bounds;
