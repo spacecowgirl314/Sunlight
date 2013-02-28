@@ -46,6 +46,7 @@
 //- (void)setItems:(NSArray *)items animated:(BOOL)animated;
 - (void)pushItem:(PSCBreadcrumbItem*)item;
 - (void)popItem:(PSCBreadcrumbItem*)item;
+- (void)clear;
 - (void)setStartTitle:(NSString*)title;
 @end
 

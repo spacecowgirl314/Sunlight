@@ -33,6 +33,11 @@
 @synthesize titleTextField;
 @synthesize appScrollView;
 @synthesize appTableView;
+@synthesize breadcrumbShadow;
+@synthesize replyPost;
+@synthesize topShadow;
+@synthesize window;
+@synthesize breadcrumbView;
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification {
 	//[[self window] setAlphaValue:0.0];
@@ -78,6 +83,9 @@
 	[[self topShadow] setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f]];
 	[[self topShadow] setEndingColor:[NSColor clearColor]];
     [[self topShadow] setAngle:270];
+	[[self breadcrumbShadow] setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f]];
+	[[self breadcrumbShadow] setEndingColor:[NSColor clearColor]];
+    [[self breadcrumbShadow] setAngle:270];
 	// setup buttons
 	buttonCollection = [[PSCButtonCollection alloc] initWithButtons:@[streamButton, mentionsButton, starsButton, profileButton, messagesButton]];
 	[streamButton setSelectedButtonImage:[NSImage imageNamed:@"title-stream-highlight"]];
@@ -189,7 +197,7 @@
 	}
 	NSView *view = self.window.contentView;
 	NSImage *notificationImage = [NSImage imageNamed:@"notification-banner"];
-	NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, view.frame.size.height-26, notificationImage.size.width, notificationImage.size.height)];
+	NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, view.frame.size.height-26-breadcrumbView.frame.size.height, notificationImage.size.width, notificationImage.size.height)];
 	NSArray *heightConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[imageView(==26)]"
 																   options:0
 																   metrics:nil
@@ -230,7 +238,7 @@
 	// move the views out of view
 	[imageView setFrame:NSMakeRect(imageView.frame.origin.x, imageView.frame.origin.y+imageView.frame.size.height, imageView.frame.size.width, imageView.frame.size.height)];
 	[errorLabel setFrame:NSMakeRect(errorLabel.frame.origin.x, errorLabel.frame.origin.y+errorLabel.frame.size.height, errorLabel.frame.size.width, errorLabel.frame.size.height)];
-	[view addSubview:imageView positioned:NSWindowBelow relativeTo:self.topShadow];
+	[view addSubview:imageView positioned:NSWindowBelow relativeTo:self.breadcrumbShadow];
 	[view addSubview:errorLabel positioned:NSWindowAbove relativeTo:imageView];
 	// TODO: insert reactive cocoa here that offsets any movement done by resizing the window vertically
 	[NSAnimationContext beginGrouping];
@@ -256,6 +264,12 @@
 
 #pragma mark - Loading Streams
 
+- (PSCBreadcrumbItem *)item:(NSString *)title {
+	PSCBreadcrumbItem *item = [[PSCBreadcrumbItem alloc] init];
+	item.title = title;
+	return item;
+}
+
 - (void)loadConversation:(NSNotification*)notification {
 	ANPost *postWithReplies = [notification object];
 	[postWithReplies replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
@@ -263,6 +277,7 @@
 			[self showErrorBarWithError:error];
 			return;
 		}
+		[breadcrumbView pushItem:[self item:@"Conversation"]];
 		currentStream = PSCConversation;
 		[titleTextField setStringValue:@"Conversation"];
 		[self scrollToTop];
@@ -296,6 +311,7 @@
 				});
 				return;
 			}
+			[breadcrumbView pushItem:[self item:[[NSString alloc] initWithFormat:@"#%@", tag]]];
 			// save posts to memory
 			//[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]];
 			// theoretical test for loading more posts
@@ -389,6 +405,8 @@
 				// retrieve filtered posts from memory only if we are in the stream view
 				if (currentStream==PSCMyStream) {
 					[titleTextField setStringValue:@"My Stream"];
+					[breadcrumbView clear];
+					[breadcrumbView setStartTitle:@"My Stream"];
 					postsArray = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]]; //posts;
 					[[self appTableView] reloadData];
 					dispatch_async(dispatch_get_main_queue(), ^{
@@ -401,6 +419,8 @@
 	if (streamPosts) {
 		if (!reload) {
 			[titleTextField setStringValue:@"My Stream"];
+			[breadcrumbView clear];
+			[breadcrumbView setStartTitle:@"My Stream"];
 			postsArray = streamPosts;
 			[self scrollToTop];
 			[[self appTableView] reloadData];
@@ -417,7 +437,6 @@
 
 - (void)loadMentions:(BOOL)reload {
 	NSArray *mentionsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]];
-    [titleTextField setStringValue:@"Mentions"];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
     [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
@@ -446,17 +465,25 @@
 					return;
 				}
 				// save posts to memory
-				[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]];
-				postsArray = posts;
-				[[self appTableView] reloadData];
-				dispatch_async(dispatch_get_main_queue(), ^{
-					[[self appScrollView] stopLoading];
-				});
+				if (currentStream==PSCMentions) {
+					[titleTextField setStringValue:@"Mentions"];
+					[breadcrumbView clear];
+					[breadcrumbView setStartTitle:@"Mentions"];
+					[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]];
+					postsArray = posts;
+					[[self appTableView] reloadData];
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[[self appScrollView] stopLoading];
+					});
+				}
 			}];
 		});
 	};
 	if (mentionsPosts) {
 		if (!reload) {
+			[titleTextField setStringValue:@"Mentions"];
+			[breadcrumbView clear];
+			[breadcrumbView setStartTitle:@"Mentions"];
 			postsArray = mentionsPosts;
 			[self scrollToTop];
 			[[self appTableView] reloadData];
@@ -473,7 +500,6 @@
 
 - (void)loadStars:(BOOL)reload {
 	NSArray *starsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]];
-    [titleTextField setStringValue:@"Starred"];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
     [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
@@ -502,17 +528,25 @@
 					return;
 				}
 				// save posts to memory
-				[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]];
-				postsArray = posts;
-				[[self appTableView] reloadData];
-				dispatch_async(dispatch_get_main_queue(), ^{
-					[[self appScrollView] stopLoading];
-				});
+				if (currentStream==PSCStars) {
+					[titleTextField setStringValue:@"Starred"];
+					[breadcrumbView clear];
+					[breadcrumbView setStartTitle:@"Starred"];
+					[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]];
+					postsArray = posts;
+					[[self appTableView] reloadData];
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[[self appScrollView] stopLoading];
+					});
+				}
 			}];
 		});
 	};
 	if (starsPosts) {
 		if (!reload) {
+			[titleTextField setStringValue:@"Starred"];
+			[breadcrumbView clear];
+			[breadcrumbView setStartTitle:@"Starred"];
 			postsArray = starsPosts;
 			[self scrollToTop];
 			[[self appTableView] reloadData];
@@ -583,11 +617,14 @@
 						//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
 					}
 					[titleTextField setStringValue:@"My Profile"];
+					[breadcrumbView clear];
+					[breadcrumbView setStartTitle:@"My Profile"];
 				}
 				else {
 					if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%lld", userID] posts:posts]) {
 						//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
 					}
+					[breadcrumbView pushItem:[self item:@"Profile"]];
 					[titleTextField setStringValue:@"Profile"];
 				}
 				if(!posts) {
@@ -623,6 +660,8 @@
 		if (!reload) {
 			// set title
 			[titleTextField setStringValue:@"My Profile"];
+			[breadcrumbView clear];
+			[breadcrumbView setStartTitle:@"My Profile"];
 			// Inject Profile Cell View
 			NSMutableArray *profileInjection = [profilePosts mutableCopy];
 			ANPost *fakePost = [[ANPost alloc] initWithRepresentation:@{} session:ANSession.defaultSession];
@@ -643,7 +682,6 @@
 }
 
 - (void)loadMessages:(BOOL)reload {
-	[titleTextField setStringValue:@"Messages"];
 	postsArray = nil;
 	[[self appTableView] reloadData];
 	// API docs here http://developers.app.net/docs/basics/messaging/
@@ -669,12 +707,17 @@
 				return;
 			}
 			// save posts to memory
-			[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMessages]];
-			postsArray = posts;
-			[[self appTableView] reloadData];
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[[self appScrollView] stopLoading];
-			});
+			if (currentStream==PSCMessages) {
+				[titleTextField setStringValue:@"Messages"];
+				[breadcrumbView clear];
+				[breadcrumbView setStartTitle:@"Messages"];
+				[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMessages]];
+				postsArray = posts;
+				[[self appTableView] reloadData];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[[self appScrollView] stopLoading];
+				});
+			}
 		}];
 	});
 	dispatch_async(dispatch_get_main_queue(), ^{
@@ -976,7 +1019,7 @@
         }
 		// set avatar image.. note: don't use the cache because we request a different size here
 		// also some weird stuff goes on here with the width, it increases by itself. Use height instead.
-		[[user avatarImage] imageAtSize:CGSizeMake(profileCellView.avatarView.frame.size.height*_window.backingScaleFactor, profileCellView.avatarView.frame.size.height*_window.backingScaleFactor) completion:^(NSImage *image, NSError *error) {
+		[[user avatarImage] imageAtSize:CGSizeMake(profileCellView.avatarView.frame.size.height*window.backingScaleFactor, profileCellView.avatarView.frame.size.height*window.backingScaleFactor) completion:^(NSImage *image, NSError *error) {
 			if (!error) {
 				NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
 				[[profileCellView avatarView] setImage:maskedImage];
@@ -986,7 +1029,7 @@
 			}
 		}];
 		// set banner
-		[[user coverImage] imageAtSize:[self convertSizeToScale:profileCellView.bannerView.frame.size scale:_window.backingScaleFactor] completion:^(NSImage *image, NSError *error) {
+		[[user coverImage] imageAtSize:[self convertSizeToScale:profileCellView.bannerView.frame.size scale:window.backingScaleFactor] completion:^(NSImage *image, NSError *error) {
 			if (!error) {
 				[[profileCellView bannerView] setImage:image];
 			}

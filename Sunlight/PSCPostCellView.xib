@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12C54</string>
+		<string key="IBDocument.SystemVersion">12C60</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
@@ -381,12 +381,12 @@
 						<string key="NSFrame">{{10, 80}, {52, 53}}</string>
 						<reference key="NSSuperview" ref="606671869"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="351284941"/>
+						<reference key="NSNextKeyView" ref="977451297"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSImageCell" key="NSCell" id="14235497">
 							<int key="NSCellFlags">536870912</int>
 							<int key="NSCellFlags2">33554432</int>
-							<object class="NSCustomResource" key="NSContents" id="539107888">
+							<object class="NSCustomResource" key="NSContents">
 								<string key="NSClassName">NSImage</string>
 								<string key="NSResourceName">avatar-overlay</string>
 							</object>
@@ -659,7 +659,7 @@
 						<string key="NSFrame">{{10, 80}, {52, 53}}</string>
 						<reference key="NSSuperview" ref="606671869"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="446409003"/>
+						<reference key="NSNextKeyView" ref="351284941"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="111932449">
@@ -671,7 +671,10 @@
 							<reference key="NSControlView" ref="977451297"/>
 							<int key="NSButtonFlags">138690560</int>
 							<int key="NSButtonFlags2">130</int>
-							<reference key="NSAlternateImage" ref="539107888"/>
+							<object class="NSCustomResource" key="NSAlternateImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">avatar-click</string>
+							</object>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">200</int>
@@ -683,7 +686,7 @@
 				<string key="NSFrameSize">{360, 139}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="977451297"/>
+				<reference key="NSNextKeyView" ref="446409003"/>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -2729,6 +2732,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="avatar-click">{70, 71}</string>
 			<string key="avatar-overlay">{70, 71}</string>
 			<string key="divide-line">{700, 1}</string>
 			<string key="reposted-indicator">{16, 16}</string>

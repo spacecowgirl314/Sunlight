@@ -259,6 +259,11 @@ layer.shadowColor = kShadowColor
 	[self setItems:mutableCopy];
 }
 
+- (void)clear
+{
+	[self setItems:[NSArray arrayWithObjects:nil]];
+}
+
 - (void)updateButton:(NSButton *)button setLastItem:(BOOL)isLastItem
 {
   CGPoint o = button.frame.origin;

@@ -16,6 +16,7 @@
 #import "PSCButtonCollection.h"
 #import "PSCButtonCollectionButton.h"
 #import "PSCNavigationController.h"
+#import "PSCBreadcrumbView.h"
 
 typedef enum {
     PSCMyStream,
@@ -48,7 +49,9 @@ typedef enum {
 @property IBOutlet PSCButtonCollectionButton *profileButton;
 @property IBOutlet PSCButtonCollectionButton *messagesButton;
 @property IBOutlet PSCGradientView *topShadow;
+@property IBOutlet PSCGradientView *breadcrumbShadow;
 @property IBOutlet NSTextField *titleTextField;
+@property IBOutlet PSCBreadcrumbView *breadcrumbView;
 @property (assign) ANPost *replyPost;
 
 - (IBAction)switchToStream:(id)sender;
