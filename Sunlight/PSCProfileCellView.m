@@ -62,7 +62,7 @@
 		[user followWithCompletion:^(ANResponse *response, ANUser *user, NSError *error) {
 			if (!error) {
 				[followButton setImage:[NSImage imageNamed:@"profile-following-check"]];
-				[followButton setTitle:@"Following"];
+				[followButton setTitle:@" Following"];
 				[followButton setTextColor:[NSColor colorWithDeviceRed:0.161 green:0.376 blue:0.733 alpha:1]];
 			}
 		}];
@@ -70,7 +70,7 @@
 	else {
 		[user unfollowWithCompletion:^(ANResponse *response, ANUser *user, NSError *error) {
 			[followButton setImage:[NSImage imageNamed:@"profile-following-add"]];
-			[followButton setTitle:@"Follow"];
+			[followButton setTitle:@" Follow"];
 			[followButton setTextColor:[self defaultButtonColor]];
 		}];
 	}

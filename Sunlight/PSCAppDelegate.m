@@ -949,12 +949,12 @@
 		}
 		if ([user youFollow]) {
 			[[profileCellView followButton] setImage:[NSImage imageNamed:@"profile-following-check"]];
-			[[profileCellView followButton] setTitle:@"Following"];
+			[[profileCellView followButton] setTitle:@" Following"];
 			[[profileCellView followButton] setTextColor:[NSColor colorWithDeviceRed:0.161 green:0.376 blue:0.733 alpha:1]];
 		}
 		else {
 			[[profileCellView followButton] setImage:[NSImage imageNamed:@"profile-following-add"]];
-			[[profileCellView followButton] setTitle:@"Follow"];
+			[[profileCellView followButton] setTitle:@" Follow"];
 			[[profileCellView followButton] setTextColor:[profileCellView defaultButtonColor]];
 		}
 		// set avatar image.. note: don't use the cache because we request a different size here
