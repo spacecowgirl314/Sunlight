@@ -96,7 +96,7 @@
 }
 
 - (IBAction)pressCancel:(id)sender {
-	[postTextField setStringValue:@""];
+	[postTextField setString:@""];
 	[[self window] close];
 }
 
@@ -105,7 +105,7 @@
 {
 	//NSLog(@"controlTextDidChange");
 	// Set character count to character count label
-	NSString *string = [postTextField stringValue];
+	NSString *string = [postTextField string];
 	NSInteger count = 256-[string length];
 	// Beep if we went over count
 	if (count<0) {
@@ -121,7 +121,7 @@
 - (IBAction)post:(id)sender {
 	if (replyPost==nil) {
 		ANDraft *newDraft = [ANDraft new];
-		[newDraft setText:[postTextField stringValue]];
+		[newDraft setText:[postTextField string]];
 		[newDraft createPostViaSession:ANSession.defaultSession completion:^(ANResponse * response, ANPost * post, NSError * error) {
 			if(!post) {
 				NSLog(@"There was an error posting.");
@@ -129,14 +129,14 @@
 			}
 			else {
 				NSLog(@"Post succeeded!");
-				[postTextField setStringValue:@""];
+				[postTextField setString:@""];
 				[self close];
 			}
 		}];
 	}
 	else {
 		// And post it.
-		[replyPost setText:[postTextField stringValue]];
+		[replyPost setText:[postTextField string]];
 		[replyPost createPostViaSession:ANSession.defaultSession completion:^(ANResponse * response, ANPost * post, NSError * error) {
 			if(!post) {
 				NSLog(@"There was an error posting the reply.");
@@ -154,7 +154,7 @@
 
 - (void)draftReply:(ANPost*)post {
 	replyPost = [post draftReplyToAllExceptUser:[[PSCMemoryCache sharedMemory] currentUser]];
-	[postTextField setStringValue:[replyPost text]];
+	[postTextField setString:[replyPost text]];
 	// adjust character count
 	[self textDidChange:nil];
 }
