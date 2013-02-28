@@ -412,12 +412,12 @@ layer.shadowColor = kShadowColor
   }
 }*/
 
-- (void)drawRect:(NSRect)dirtyRect
+/*- (void)drawRect:(NSRect)dirtyRect
 {
 	// set any NSColor for filling, say white:
     [[NSColor whiteColor] setFill];
     NSRectFill(dirtyRect);
-}
+}*/
 
 @end
 
