@@ -957,6 +957,16 @@
 			[[profileCellView followButton] setTitle:@" Follow"];
 			[[profileCellView followButton] setTextColor:[profileCellView defaultButtonColor]];
 		}
+        if ([user ID]==[[[PSCMemoryCache sharedMemory] currentUser] ID]) {
+            [[profileCellView isYou] setHidden:NO];
+            [[profileCellView followButton] setHidden:YES];
+            [[profileCellView isFollowingYouField] setHidden:YES];
+        }
+        else {
+            [[profileCellView isYou] setHidden:YES];
+            [[profileCellView followButton] setHidden:NO];
+            [[profileCellView isFollowingYouField] setHidden:NO];
+        }
 		// set avatar image.. note: don't use the cache because we request a different size here
 		// also some weird stuff goes on here with the width, it increases by itself. Use height instead.
 		[[user avatarImage] imageAtSize:CGSizeMake(profileCellView.avatarView.frame.size.height*_window.backingScaleFactor, profileCellView.avatarView.frame.size.height*_window.backingScaleFactor) completion:^(NSImage *image, NSError *error) {

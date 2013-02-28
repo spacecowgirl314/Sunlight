@@ -21,6 +21,7 @@
 @synthesize bottomShadow;
 @synthesize isFollowingYouField;
 @synthesize followButton;
+@synthesize isYou;
 @synthesize user;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -50,6 +51,7 @@
 	[bottomShadow setEndingColor:[NSColor clearColor]];
     [bottomShadow setAngle:270];
 	[followButton setTextColor:[self defaultButtonColor]];
+    [isYou setHidden:YES];
 	[self becomeFirstResponder];
 }
 

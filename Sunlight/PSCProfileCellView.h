@@ -23,6 +23,7 @@
 @property IBOutlet PSCGradientView *bottomShadow;
 @property IBOutlet NSTextField *isFollowingYouField;
 @property IBOutlet NSButton *followButton;
+@property IBOutlet NSTextField *isYou;
 @property ANUser *user;
 
 - (NSColor*)defaultButtonColor;
