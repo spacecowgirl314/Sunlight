@@ -102,6 +102,7 @@
 	[[self window] close];
 }
 
+// From http://developer.apple.com/library/mac/#qa/qa1454/_index.html
 - (BOOL)control:(NSControl*)control textView:(NSTextView*)textView doCommandBySelector:(SEL)commandSelector
 {
     BOOL result = NO;
