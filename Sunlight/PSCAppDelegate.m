@@ -71,6 +71,7 @@
 	self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 	[self.window.titleBarView addSubview:self.titleView];
 	// do nothing until loaded
+    [[appScrollView refreshSpinner] setControlSize:NSSmallControlSize];
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
 		[[self appScrollView] stopLoading];
 	}];
