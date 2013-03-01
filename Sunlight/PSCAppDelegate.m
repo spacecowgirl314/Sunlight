@@ -9,6 +9,7 @@
 #import "PSCAppDelegate.h"
 #import "PSCPostCellView.h"
 #import "PSCProfileCellView.h"
+#import "PSCLoadMoreCellView.h"
 #import "DDHotKeyCenter.h"
 #import "NSDate+HumanizedTime.h"
 #import <Quartz/Quartz.h>
@@ -75,6 +76,7 @@
 	}];
 	[[self appTableView] registerNib:[[NSNib alloc] initWithNibNamed:@"PSCPostCellView" bundle:nil] forIdentifier:@"PostCell"];
 	[[self appTableView] registerNib:[[NSNib alloc] initWithNibNamed:@"PSCProfileCellView" bundle:nil] forIdentifier:@"ProfileCell"];
+	[[self appTableView] registerNib:[[NSNib alloc] initWithNibNamed:@"PSCLoadMoreCellView" bundle:nil] forIdentifier:@"LoadMoreCell"];
 	[[NSNotificationCenter defaultCenter]
 	 addObserver: self
 	 selector: @selector(windowDidResize:)
@@ -98,6 +100,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHashtag:) name:@"Hashtag" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadConversation:) name:@"Conversation" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProfileFromNotification:) name:@"Profile" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPreviousInStream:) name:@"LoadMore" object:nil];
     
 	// Register
 	//[self addOutput:@"Attempting to register hotkey for example 1"];
@@ -368,10 +371,16 @@
 	self.appTableView = newTableView;*/
 }
 
-- (IBAction)loadPreviousInStream:(id)sender {
-	ANPost *lastPost = [postsArray lastObject];
+- (void)loadPreviousInStream:(NSNotification*)notification {
+	// -2 instead of -1 because we're skipping the PSCLoadMore item
+	ANPost *lastPost = [postsArray objectAtIndex:postsArray.count-2];
 	[ANSession.defaultSession postsInStreamBetweenID:ANUnspecifiedPostID andID:lastPost.ID completion:^(ANResponse *response, NSArray *posts, NSError *error) {
-		postsArray = posts;
+		NSMutableArray *stream = [postsArray mutableCopy];
+		// Start adding at index position postsArray.count-2 and current array has count items
+		NSRange range = NSMakeRange(postsArray.count-1, [posts count]);
+		NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+		[stream insertObjects:posts atIndexes:indexSet];
+		postsArray = stream;
 		[[self appTableView] reloadData];
 	}];
 }
@@ -423,6 +432,11 @@
 					[breadcrumbView clear];
 					[breadcrumbView setStartTitle:@"My Stream"];
 					postsArray = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]]; //posts;
+					// Inject Load More Cell View
+					NSMutableArray *profileInjection = [postsArray mutableCopy];
+					[profileInjection insertObject:[PSCLoadMore new] atIndex:postsArray.count];
+					postsArray = profileInjection;
+					
 					[[self appTableView] reloadData];
 					dispatch_async(dispatch_get_main_queue(), ^{
 						[[self appScrollView] stopLoading];
@@ -437,6 +451,10 @@
 			[breadcrumbView clear];
 			[breadcrumbView setStartTitle:@"My Stream"];
 			postsArray = streamPosts;
+			// Inject Load More Cell View
+			NSMutableArray *profileInjection = [postsArray mutableCopy];
+			[profileInjection insertObject:[PSCLoadMore new] atIndex:postsArray.count];
+			postsArray = profileInjection;
 			[self scrollToTop];
 			[[self appTableView] reloadData];
 		}
@@ -583,7 +601,8 @@
 		//found it...
 		username = [[notification object] substringFromIndex:1];
 	}
-	[ANSession.defaultSession userWithUsername:username completion:^(ANResponse *response, ANUser *user, NSError *error) {
+	[self loadProfile:YES withUsername:username];
+	/*[ANSession.defaultSession userWithUsername:username completion:^(ANResponse *response, ANUser *user, NSError *error) {
 		if (error) {
 			[self showErrorBarWithError:error];
 			return;
@@ -593,15 +612,14 @@
 			currentStream = PSCProfile;
 			[self loadProfile:YES withID:profileUserID];
 		}
-	}];
+	}];*/
 }
 
 - (void)loadProfile:(BOOL)reload {
-	profileUserID = ANMeUserID;
-	[self loadProfile:reload withID:profileUserID];
+	[self loadProfile:reload withUsername:[[[PSCMemoryCache sharedMemory] currentUser] username]];
 }
 
-- (void)loadProfile:(BOOL)reload withID:(ANResourceID)userID {
+- (void)loadProfile:(BOOL)reload withUsername:(NSString*)username {
 	NSArray *profilePosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
@@ -621,53 +639,60 @@
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
 			// Get the latest posts in the user's incoming post stream...
-			[ANSession.defaultSession postsForUserWithID:userID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+			[ANSession.defaultSession userWithUsername:username completion:^(ANResponse *response, ANUser *user, NSError *error) {
 				if (error) {
 					[self showErrorBarWithError:error];
 					return;
 				}
-				// set title
-				if (userID==ANMeUserID) {
-					if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile] posts:posts]) {
-						//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
-					}
-					[titleTextField setStringValue:@"My Profile"];
-					[breadcrumbView clear];
-					[breadcrumbView setStartTitle:@"My Profile"];
-				}
 				else {
-					if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%lld", userID] posts:posts]) {
-						//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
-					}
-					[breadcrumbView pushItem:[self item:@"Profile"]];
-					[titleTextField setStringValue:@"Profile"];
+					[ANSession.defaultSession postsForUserWithID:[user ID] betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+						if (error) {
+							[self showErrorBarWithError:error];
+							return;
+						}
+						// set title
+						if ([user ID]==ANMeUserID) {
+							if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile] posts:posts]) {
+								//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
+							}
+							[titleTextField setStringValue:@"My Profile"];
+							[breadcrumbView clear];
+							[breadcrumbView setStartTitle:@"My Profile"];
+						}
+						else {
+							if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%lld", [user ID]] posts:posts]) {
+								//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
+							}
+							[breadcrumbView pushItem:[self item:@"Profile"]];
+							[titleTextField setStringValue:@"Profile"];
+						}
+						if(!posts) {
+							dispatch_async(dispatch_get_main_queue(), ^{
+								[[self appScrollView] stopLoading];
+							});
+							return;
+						}
+						// save posts to memory
+						//[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
+						// Retrieve filtered posts
+						NSArray *filteredPosts;
+						if ([user ID]==ANMeUserID) {
+							filteredPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
+						}
+						else {
+							filteredPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%lld", [user ID]]];
+						}
+						// Inject Profile Cell View
+						NSMutableArray *profileInjection = [filteredPosts mutableCopy];
+						[profileInjection insertObject:user atIndex:0];
+						postsArray = profileInjection;
+						//postsArray = posts;
+						[[self appTableView] reloadData];
+						dispatch_async(dispatch_get_main_queue(), ^{
+							[[self appScrollView] stopLoading];
+						});
+					}];
 				}
-				if(!posts) {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						[[self appScrollView] stopLoading];
-					});
-					return;
-				}
-				// save posts to memory
-				//[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
-				// Retrieve filtered posts
-				NSArray *filteredPosts;
-				if (userID==ANMeUserID) {
-					filteredPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
-				}
-				else {
-					filteredPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%lld", userID]];
-				}
-				// Inject Profile Cell View
-				NSMutableArray *profileInjection = [filteredPosts mutableCopy];
-				ANPost *fakePost = [[ANPost alloc] initWithRepresentation:@{} session:ANSession.defaultSession];
-				[profileInjection insertObject:fakePost atIndex:0];
-				postsArray = profileInjection;
-				//postsArray = posts;
-				[[self appTableView] reloadData];
-				dispatch_async(dispatch_get_main_queue(), ^{
-					[[self appScrollView] stopLoading];
-				});
 			}];
 		});
 	};
@@ -989,69 +1014,63 @@
     return CGSizeMake(size.width*scale, size.height*scale);
 }
 
-- (PSCProfileCellView*)configureProfileCellView:(NSTableView*)tableView
+- (PSCProfileCellView*)configureProfileCellView:(NSTableView*)tableView user:(ANUser*)user
 {
 	PSCProfileCellView *profileCellView = [tableView makeViewWithIdentifier:@"ProfileCell" owner:nil];
-	[ANSession.defaultSession userWithID:profileUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
-		if (error) {
-			[self showErrorBarWithError:error];
-			return;
-		}
-		// send user to the cell
-		[profileCellView setUser:user];
-		// set name
-		[[profileCellView userField] setStringValue:[user name]];
-		// set biography
-		[[profileCellView biographyView] setStringValue:[[user userDescription] text]];
-		[[profileCellView followingCount] setIntegerValue:[[user counts] following]];
-		[[profileCellView followerCount] setIntegerValue:[[user counts] followers]];
-		[[profileCellView starredCount] setIntegerValue:[[user counts] stars]];
-		if ([user followsYou]) {
-			[[profileCellView isFollowingYouField] setStringValue:@"Following You"];
+	// send user to the cell
+	[profileCellView setUser:user];
+	// set name
+	[[profileCellView userField] setStringValue:[user name]];
+	// set biography
+	[[profileCellView biographyView] setStringValue:[[user userDescription] text]];
+	[[profileCellView followingCount] setIntegerValue:[[user counts] following]];
+	[[profileCellView followerCount] setIntegerValue:[[user counts] followers]];
+	[[profileCellView starredCount] setIntegerValue:[[user counts] stars]];
+	if ([user followsYou]) {
+		[[profileCellView isFollowingYouField] setStringValue:@"Following You"];
+	}
+	else {
+		[[profileCellView isFollowingYouField] setStringValue:@"Not Following You"];
+	}
+	if ([user youFollow]) {
+		[[profileCellView followButton] setImage:[NSImage imageNamed:@"profile-following-check"]];
+		[[profileCellView followButton] setTitle:@" Following"];
+		[[profileCellView followButton] setTextColor:[NSColor colorWithDeviceRed:0.161 green:0.376 blue:0.733 alpha:1]];
+	}
+	else {
+		[[profileCellView followButton] setImage:[NSImage imageNamed:@"profile-following-add"]];
+		[[profileCellView followButton] setTitle:@" Follow"];
+		[[profileCellView followButton] setTextColor:[profileCellView defaultButtonColor]];
+	}
+	if ([user ID]==[[[PSCMemoryCache sharedMemory] currentUser] ID]) {
+		[[profileCellView isYou] setHidden:NO];
+		[[profileCellView followButton] setHidden:YES];
+		[[profileCellView isFollowingYouField] setHidden:YES];
+	}
+	else {
+		[[profileCellView isYou] setHidden:YES];
+		[[profileCellView followButton] setHidden:NO];
+		[[profileCellView isFollowingYouField] setHidden:NO];
+	}
+	// set avatar image.. note: don't use the cache because we request a different size here
+	// also some weird stuff goes on here with the width, it increases by itself. Use height instead.
+	[[user avatarImage] imageAtSize:CGSizeMake(profileCellView.avatarView.frame.size.height*window.backingScaleFactor, profileCellView.avatarView.frame.size.height*window.backingScaleFactor) completion:^(NSImage *image, NSError *error) {
+		if (!error) {
+			NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
+			[[profileCellView avatarView] setImage:maskedImage];
 		}
 		else {
-			[[profileCellView isFollowingYouField] setStringValue:@"Not Following You"];
+			[[profileCellView avatarView] setImage:nil];
 		}
-		if ([user youFollow]) {
-			[[profileCellView followButton] setImage:[NSImage imageNamed:@"profile-following-check"]];
-			[[profileCellView followButton] setTitle:@" Following"];
-			[[profileCellView followButton] setTextColor:[NSColor colorWithDeviceRed:0.161 green:0.376 blue:0.733 alpha:1]];
+	}];
+	// set banner
+	[[user coverImage] imageAtSize:[self convertSizeToScale:profileCellView.bannerView.frame.size scale:window.backingScaleFactor] completion:^(NSImage *image, NSError *error) {
+		if (!error) {
+			[[profileCellView bannerView] setImage:image];
 		}
 		else {
-			[[profileCellView followButton] setImage:[NSImage imageNamed:@"profile-following-add"]];
-			[[profileCellView followButton] setTitle:@" Follow"];
-			[[profileCellView followButton] setTextColor:[profileCellView defaultButtonColor]];
+			[[profileCellView bannerView] setImage:nil];
 		}
-        if ([user ID]==[[[PSCMemoryCache sharedMemory] currentUser] ID]) {
-            [[profileCellView isYou] setHidden:NO];
-            [[profileCellView followButton] setHidden:YES];
-            [[profileCellView isFollowingYouField] setHidden:YES];
-        }
-        else {
-            [[profileCellView isYou] setHidden:YES];
-            [[profileCellView followButton] setHidden:NO];
-            [[profileCellView isFollowingYouField] setHidden:NO];
-        }
-		// set avatar image.. note: don't use the cache because we request a different size here
-		// also some weird stuff goes on here with the width, it increases by itself. Use height instead.
-		[[user avatarImage] imageAtSize:CGSizeMake(profileCellView.avatarView.frame.size.height*window.backingScaleFactor, profileCellView.avatarView.frame.size.height*window.backingScaleFactor) completion:^(NSImage *image, NSError *error) {
-			if (!error) {
-				NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
-				[[profileCellView avatarView] setImage:maskedImage];
-			}
-			else {
-				[[profileCellView avatarView] setImage:nil];
-			}
-		}];
-		// set banner
-		[[user coverImage] imageAtSize:[self convertSizeToScale:profileCellView.bannerView.frame.size scale:window.backingScaleFactor] completion:^(NSImage *image, NSError *error) {
-			if (!error) {
-				[[profileCellView bannerView] setImage:image];
-			}
-			else {
-				[[profileCellView bannerView] setImage:nil];
-			}
-		}];
 	}];
 	return profileCellView;
 }
@@ -1162,13 +1181,19 @@
 
 - (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
-	ANPost *post = [postsArray objectAtIndex:row];
-	if ([post text]==nil && currentStream==PSCProfile) {
-		return [self configureProfileCellView:tableView];
-	} else
-	{
-		return [self configurePostCellView:tableView post:post];
+	id content = [postsArray objectAtIndex:row];
+	if ([content isKindOfClass:[ANUser class]]) {
+		return [self configureProfileCellView:tableView user:content];
 	}
+	if ([content isKindOfClass:[ANPost class]]) {
+		return [self configurePostCellView:tableView post:content];
+	}
+	if ([content isKindOfClass:[PSCLoadMore class]]) {
+		PSCLoadMoreCellView *result = [tableView makeViewWithIdentifier:@"LoadMoreCell" owner:nil];
+		return result;
+	}
+	// we should never reach this
+	return nil;
 }
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex {
@@ -1178,25 +1203,32 @@
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
 	//NSLog(@"row:%ld", row);
-	ANPost *post = [postsArray objectAtIndex:row];
-	if ([post text]==nil) {
+	id content = [postsArray objectAtIndex:row];
+	if ([content isKindOfClass:[ANUser class]]) {
 		// calculate for profile cell view
 		return 385;
 	}
-	NSFont *font = [NSFont fontWithName:@"Helvetica Neue Medium" size:13.0f];
-	float height = [[post text] heightForWidth:[[self window] frame].size.width-61-2 font:font]; // 61 was previously 70
-	int spaceToTop=15; // 15 was 18
-	int padding=10;
-	int minimumViewHeight = 105; // 118, actually 139 though //105 was previously 108
-	int spaceToBottom=45; // 45 was previous 46
-	int extraRepostSpace = ([post repostOf]) ? 19 : 0;
-	if (height+spaceToTop+spaceToBottom<minimumViewHeight)
-	{
-		return minimumViewHeight+extraRepostSpace;
+	if ([content isKindOfClass:[PSCLoadMore class]]) {
+		return 50;
 	}
-	else {
-		return height+spaceToTop+spaceToBottom+padding+extraRepostSpace;
+	if ([content isKindOfClass:[ANPost class]]) {
+		NSFont *font = [NSFont fontWithName:@"Helvetica Neue Medium" size:13.0f];
+		float height = [[content text] heightForWidth:[[self window] frame].size.width-61-2 font:font]; // 61 was previously 70
+		int spaceToTop=15; // 15 was 18
+		int padding=10;
+		int minimumViewHeight = 105; // 118, actually 139 though //105 was previously 108
+		int spaceToBottom=45; // 45 was previous 46
+		int extraRepostSpace = ([content repostOf]) ? 19 : 0;
+		if (height+spaceToTop+spaceToBottom<minimumViewHeight)
+		{
+			return minimumViewHeight+extraRepostSpace;
+		}
+		else {
+			return height+spaceToTop+spaceToBottom+padding+extraRepostSpace;
+		}
 	}
+	// we should never reach this
+	return 0;
 }
 
 #pragma mark -

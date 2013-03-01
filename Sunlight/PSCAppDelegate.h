@@ -17,6 +17,7 @@
 #import "PSCButtonCollectionButton.h"
 #import "PSCNavigationController.h"
 #import "PSCBreadcrumbView.h"
+#import "PSCLoadMore.h"
 
 typedef enum {
     PSCMyStream,

@@ -133,6 +133,9 @@
 		37A66337162AC33D00010161 /* NSScrollViewScrollKiller.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */; };
 		37A6633D162AD8F600010161 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A6633C162AD8F600010161 /* CoreLocation.framework */; };
 		37A663E2162AE6E900010161 /* NSView+Fade.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A663E1162AE6E800010161 /* NSView+Fade.m */; };
+		37A6F91716E07D98002B3988 /* PSCLoadMoreCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37A6F91616E07D98002B3988 /* PSCLoadMoreCellView.xib */; };
+		37A6F91A16E07DB1002B3988 /* PSCLoadMoreCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A6F91916E07DB1002B3988 /* PSCLoadMoreCellView.m */; };
+		37A6F91D16E085D0002B3988 /* PSCLoadMore.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A6F91C16E085D0002B3988 /* PSCLoadMore.m */; };
 		37AD27BA1627A8D4008E58BF /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AD27B91627A8D4008E58BF /* Quartz.framework */; };
 		37AD27C01627F59F008E58BF /* Sunlight.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 37AD27BF1627F59F008E58BF /* Sunlight.iconset */; };
 		37AD27CC16280A30008E58BF /* PSCNewPostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AD27CA16280A2F008E58BF /* PSCNewPostController.m */; };
@@ -486,6 +489,11 @@
 		37A6633C162AD8F600010161 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		37A663E0162AE6E800010161 /* NSView+Fade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+Fade.h"; sourceTree = "<group>"; };
 		37A663E1162AE6E800010161 /* NSView+Fade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+Fade.m"; sourceTree = "<group>"; };
+		37A6F91616E07D98002B3988 /* PSCLoadMoreCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCLoadMoreCellView.xib; sourceTree = "<group>"; };
+		37A6F91816E07DB1002B3988 /* PSCLoadMoreCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCLoadMoreCellView.h; sourceTree = "<group>"; };
+		37A6F91916E07DB1002B3988 /* PSCLoadMoreCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCLoadMoreCellView.m; sourceTree = "<group>"; };
+		37A6F91B16E085D0002B3988 /* PSCLoadMore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCLoadMore.h; sourceTree = "<group>"; };
+		37A6F91C16E085D0002B3988 /* PSCLoadMore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCLoadMore.m; sourceTree = "<group>"; };
 		37AD27B91627A8D4008E58BF /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		37AD27BF1627F59F008E58BF /* Sunlight.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Sunlight.iconset; sourceTree = SOURCE_ROOT; };
 		37AD27C916280A2F008E58BF /* PSCNewPostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCNewPostController.h; sourceTree = "<group>"; };
@@ -1040,6 +1048,9 @@
 				3786043A16D6E25800F56553 /* PSCProfileCellView.h */,
 				3786043B16D6E25800F56553 /* PSCProfileCellView.m */,
 				3786043D16D70F6200F56553 /* PSCProfileCellView.xib */,
+				37A6F91816E07DB1002B3988 /* PSCLoadMoreCellView.h */,
+				37A6F91916E07DB1002B3988 /* PSCLoadMoreCellView.m */,
+				37A6F91616E07D98002B3988 /* PSCLoadMoreCellView.xib */,
 				37EEA9C316BB7DC200E3C56E /* PSCSwipeableScrollView.h */,
 				37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */,
 				37AD27C916280A2F008E58BF /* PSCNewPostController.h */,
@@ -1132,6 +1143,8 @@
 				374AC7B216DF348F00415826 /* PSCBreadcrumbView.m */,
 				374AC7B416DF3FF300415826 /* PSCNavigationController.h */,
 				374AC7B516DF3FF300415826 /* PSCNavigationController.m */,
+				37A6F91B16E085D0002B3988 /* PSCLoadMore.h */,
+				37A6F91C16E085D0002B3988 /* PSCLoadMore.m */,
 			);
 			name = "Orginal Objects";
 			sourceTree = "<group>";
@@ -1349,6 +1362,7 @@
 				70AAA94C16DFDF8B00CB3E05 /* new-pressed@2x.png in Resources */,
 				70AAA94F16DFEB8200CB3E05 /* profile-triangle@2x.png in Resources */,
 				70AAA95016DFEB8200CB3E05 /* profile-triangle.png in Resources */,
+				37A6F91716E07D98002B3988 /* PSCLoadMoreCellView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1478,6 +1492,8 @@
 				3786044116D773E600F56553 /* PSCAvatarImageView.m in Sources */,
 				374AC7B316DF348F00415826 /* PSCBreadcrumbView.m in Sources */,
 				374AC7B616DF3FF300415826 /* PSCNavigationController.m in Sources */,
+				37A6F91A16E07DB1002B3988 /* PSCLoadMoreCellView.m in Sources */,
+				37A6F91D16E085D0002B3988 /* PSCLoadMore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
