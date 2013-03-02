@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "AppNetKit.h"
 #import "PSCGradientView.h"
+#import "PSCColorableView.h"
 
 @interface PSCProfileCellView : NSTableCellView
 
@@ -25,6 +26,7 @@
 @property IBOutlet NSTextField *isFollowingYouField;
 @property IBOutlet NSButton *followButton;
 @property IBOutlet NSTextField *isYou;
+@property IBOutlet PSCColorableView *bioView;
 @property ANUser *user;
 
 - (NSColor*)defaultButtonColor;

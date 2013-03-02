@@ -24,6 +24,7 @@
 @synthesize followButton;
 @synthesize isYou;
 @synthesize user;
+@synthesize bioView;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -56,6 +57,7 @@
     [topShadow setAngle:270];
 	[followButton setTextColor:[self defaultButtonColor]];
     [isYou setHidden:YES];
+	[bioView setColor:[NSColor colorWithDeviceRed:0.965 green:0.965 blue:0.965 alpha:1.0]];
 	[self becomeFirstResponder];
 }
 

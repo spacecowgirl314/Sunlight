@@ -101,6 +101,7 @@
 		3738A93F16C0E20D0031F803 /* timeline-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3738A92B16C0E20D0031F803 /* timeline-star@2x.png */; };
 		3738A94016C0E20D0031F803 /* timeline-time.png in Resources */ = {isa = PBXBuildFile; fileRef = 3738A92C16C0E20D0031F803 /* timeline-time.png */; };
 		3738A94116C0E20D0031F803 /* timeline-time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3738A92D16C0E20D0031F803 /* timeline-time@2x.png */; };
+		373E999016E17837005B35A4 /* PSCColorableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 373E998F16E17837005B35A4 /* PSCColorableView.m */; };
 		374AC7B316DF348F00415826 /* PSCBreadcrumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 374AC7B216DF348F00415826 /* PSCBreadcrumbView.m */; };
 		374AC7B616DF3FF300415826 /* PSCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 374AC7B516DF3FF300415826 /* PSCNavigationController.m */; };
 		374B859F16C323DE00E254D4 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 374B859D16C323DE00E254D4 /* arrow.png */; };
@@ -441,6 +442,8 @@
 		3738A92B16C0E20D0031F803 /* timeline-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline-star@2x.png"; sourceTree = "<group>"; };
 		3738A92C16C0E20D0031F803 /* timeline-time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline-time.png"; sourceTree = "<group>"; };
 		3738A92D16C0E20D0031F803 /* timeline-time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline-time@2x.png"; sourceTree = "<group>"; };
+		373E998E16E17837005B35A4 /* PSCColorableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCColorableView.h; sourceTree = "<group>"; };
+		373E998F16E17837005B35A4 /* PSCColorableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCColorableView.m; sourceTree = "<group>"; };
 		374AC7B116DF348F00415826 /* PSCBreadcrumbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCBreadcrumbView.h; sourceTree = "<group>"; };
 		374AC7B216DF348F00415826 /* PSCBreadcrumbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCBreadcrumbView.m; sourceTree = "<group>"; };
 		374AC7B416DF3FF300415826 /* PSCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCNavigationController.h; sourceTree = "<group>"; };
@@ -981,6 +984,8 @@
 				378602EF16C22C58003256B9 /* PSCTextView.m */,
 				3781509F16C0F2290015956E /* PSCGradientView.h */,
 				378150A016C0F2290015956E /* PSCGradientView.m */,
+				373E998E16E17837005B35A4 /* PSCColorableView.h */,
+				373E998F16E17837005B35A4 /* PSCColorableView.m */,
 				378602FD16C266F5003256B9 /* PSCGradientButton.h */,
 				378602FE16C266F5003256B9 /* PSCGradientButton.m */,
 				37A66335162AC33D00010161 /* NSScrollViewScrollKiller.h */,
@@ -1494,6 +1499,7 @@
 				374AC7B616DF3FF300415826 /* PSCNavigationController.m in Sources */,
 				37A6F91A16E07DB1002B3988 /* PSCLoadMoreCellView.m in Sources */,
 				37A6F91D16E085D0002B3988 /* PSCLoadMore.m in Sources */,
+				373E999016E17837005B35A4 /* PSCColorableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
