@@ -15,3 +15,6 @@
 [submodule "Sunlight/ScrollToRefresh"]
 	path = Sunlight/ScrollToRefresh
 	url = git@github.com:PhantomSunCreative/ScrollToRefresh.git
+[submodule "Sunlight/Godzippa"]
+	path = Sunlight/Godzippa
+	url = git://github.com/mattt/Godzippa.git

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		370B822016E46E16004A105E /* PSCStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B821F16E46E16004A105E /* PSCStream.m */; };
+		370B822316E494C6004A105E /* NSDictionary+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B822216E494C6004A105E /* NSDictionary+Compression.m */; };
+		370B822916E496D1004A105E /* NSData+Godzippa.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B822816E496D1004A105E /* NSData+Godzippa.m */; };
+		370B822B16E497C0004A105E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 370B822A16E497C0004A105E /* libz.dylib */; };
 		371D970816C067A2009BCDB1 /* avatar-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970416C067A2009BCDB1 /* avatar-mask.png */; };
 		371D970916C067A2009BCDB1 /* avatar-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970516C067A2009BCDB1 /* avatar-mask@2x.png */; };
 		371D970A16C067A2009BCDB1 /* avatar-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970616C067A2009BCDB1 /* avatar-overlay.png */; };
@@ -281,6 +284,11 @@
 /* Begin PBXFileReference section */
 		370B821E16E46E16004A105E /* PSCStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCStream.h; sourceTree = "<group>"; };
 		370B821F16E46E16004A105E /* PSCStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCStream.m; sourceTree = "<group>"; };
+		370B822116E494C6004A105E /* NSDictionary+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Compression.h"; sourceTree = "<group>"; };
+		370B822216E494C6004A105E /* NSDictionary+Compression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Compression.m"; sourceTree = "<group>"; };
+		370B822716E496D1004A105E /* NSData+Godzippa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Godzippa.h"; sourceTree = "<group>"; };
+		370B822816E496D1004A105E /* NSData+Godzippa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Godzippa.m"; sourceTree = "<group>"; };
+		370B822A16E497C0004A105E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		371D970416C067A2009BCDB1 /* avatar-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-mask.png"; sourceTree = "<group>"; };
 		371D970516C067A2009BCDB1 /* avatar-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-mask@2x.png"; sourceTree = "<group>"; };
 		371D970616C067A2009BCDB1 /* avatar-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-overlay.png"; sourceTree = "<group>"; };
@@ -644,6 +652,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				370B822B16E497C0004A105E /* libz.dylib in Frameworks */,
 				378602ED16C225BD003256B9 /* libicucore.dylib in Frameworks */,
 				37A6633D162AD8F600010161 /* CoreLocation.framework in Frameworks */,
 				37AD27BA1627A8D4008E58BF /* Quartz.framework in Frameworks */,
@@ -665,6 +674,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		370B822616E496D1004A105E /* Godzippa */ = {
+			isa = PBXGroup;
+			children = (
+				370B822716E496D1004A105E /* NSData+Godzippa.h */,
+				370B822816E496D1004A105E /* NSData+Godzippa.m */,
+			);
+			name = Godzippa;
+			path = Godzippa/Godzippa;
+			sourceTree = "<group>";
+		};
 		3730363916BA6EA500F69545 /* appnetkit */ = {
 			isa = PBXGroup;
 			children = (
@@ -818,12 +837,15 @@
 			isa = PBXGroup;
 			children = (
 				3781508E16C0EA4D0015956E /* SEHumanizedTime */,
+				370B822616E496D1004A105E /* Godzippa */,
 				372C890B16CB850D00EE84EC /* NSTimer+Blocks.h */,
 				372C890C16CB850D00EE84EC /* NSTimer+Blocks.m */,
 				378602F716C23F57003256B9 /* NSButton+TextColor.h */,
 				378602F816C23F57003256B9 /* NSButton+TextColor.m */,
 				37E7F04B16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.h */,
 				37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */,
+				370B822116E494C6004A105E /* NSDictionary+Compression.h */,
+				370B822216E494C6004A105E /* NSDictionary+Compression.m */,
 				37A663E0162AE6E800010161 /* NSView+Fade.h */,
 				37A663E1162AE6E800010161 /* NSView+Fade.m */,
 			);
@@ -1021,6 +1043,7 @@
 		37B5206116157DF500941F0D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				370B822A16E497C0004A105E /* libz.dylib */,
 				378602EC16C225BD003256B9 /* libicucore.dylib */,
 				37A66328162AAD7A00010161 /* AutoHyperlinks.framework */,
 				37A6633C162AD8F600010161 /* CoreLocation.framework */,
@@ -1506,6 +1529,8 @@
 				37A6F91D16E085D0002B3988 /* PSCLoadMore.m in Sources */,
 				373E999016E17837005B35A4 /* PSCColorableView.m in Sources */,
 				370B822016E46E16004A105E /* PSCStream.m in Sources */,
+				370B822316E494C6004A105E /* NSDictionary+Compression.m in Sources */,
+				370B822916E496D1004A105E /* NSData+Godzippa.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

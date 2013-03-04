@@ -21,6 +21,7 @@
 #import "PSCSwipeableScrollView.h"
 #import "NSTimer+Blocks.h"
 #import "PSCStream.h"
+#import "NSDictionary+Compression.h"
 
 @implementation PSCAppDelegate
 @synthesize postController;
@@ -938,7 +939,7 @@
 			}
 		}
 		// save the lastMention
-		//[self showMention:(ANPost*)[posts objectAtIndex:0]];
+		[self showMention:(ANPost*)[posts objectAtIndex:0]];
 		[[NSUserDefaults standardUserDefaults] setInteger:[[posts objectAtIndex:0] originalID] forKey:@"lastMention"];
 	}];
 }
@@ -949,12 +950,11 @@
 	notification.title = [NSString stringWithFormat: @"%@ mentioned you", [[mention user] name]];
 	notification.informativeText = [mention text];
 	notification.actionButtonTitle = @"Reply";
-	//NSMutableData *data = [NSMutableData new];
-	//NSKeyedArchiver *archive = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-	//[archive encodeObject:mention];
-	//notification.userInfo = @{ @"post" : archive };
+	NSNumber *postID = [NSNumber numberWithLongLong:mention.ID];
+	notification.userInfo = @{@"postID":postID};
 	notification.hasActionButton = YES;
 	[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+	[[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
 }
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
@@ -964,22 +964,26 @@
 		self.postController =  pC;
 	}
 	[center removeDeliveredNotification:notification];
-	NSKeyedArchiver *archiver = notification.userInfo[@"post"];
-	switch (notification.activationType) {
-		case NSUserNotificationActivationTypeActionButtonClicked:
-			NSLog(@"Reply Button was clicked -> quick reply");
-			[self.postController draftReply:[archiver decodeObject]];
-			[self.postController showWindow:self];
-			break;
-		case NSUserNotificationActivationTypeContentsClicked:
-			NSLog(@"Notification body was clicked -> redirect to item");
-			[self.postController draftReply:[archiver decodeObject]];
-			[self.postController showWindow:self];
-			break;
-		default:
-			NSLog(@"Notification appears to have been dismissed!");
-			break;
-	}
+	NSNumber *numberPostID = notification.userInfo[@"postID"];
+	ANResourceID postID = [numberPostID longLongValue];
+	[ANSession.defaultSession postWithID:postID completion:^(ANResponse *response, ANPost *post, NSError *error) {
+		// TODO: detect if the post was deleted. if it was show an error
+		switch (notification.activationType) {
+			case NSUserNotificationActivationTypeActionButtonClicked:
+				NSLog(@"Reply Button was clicked -> quick reply");
+				[self.postController draftReply:post];
+				[self.postController showWindow:self];
+				break;
+			case NSUserNotificationActivationTypeContentsClicked:
+				NSLog(@"Notification body was clicked -> redirect to item");
+				[self.postController draftReply:post];
+				[self.postController showWindow:self];
+				break;
+			default:
+				NSLog(@"Notification appears to have been dismissed!");
+				break;
+		}
+	}];
 }
 
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification

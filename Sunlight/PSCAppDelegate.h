@@ -29,7 +29,7 @@ typedef enum {
 	PSCHashtag
 } PSCStreamType;
 
-@interface PSCAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate, PSCBreadcrumbViewDelegate> {
+@interface PSCAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate, PSCBreadcrumbViewDelegate, NSUserNotificationCenterDelegate> {
 	PSCButtonCollection *buttonCollection;
 	PSCStreamType currentStream;
 	NSArray *postsArray;
