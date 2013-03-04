@@ -939,7 +939,7 @@
 			}
 		}
 		// save the lastMention
-		[self showMention:(ANPost*)[posts objectAtIndex:0]];
+		//[self showMention:(ANPost*)[posts objectAtIndex:0]];
 		[[NSUserDefaults standardUserDefaults] setInteger:[[posts objectAtIndex:0] originalID] forKey:@"lastMention"];
 	}];
 }
