@@ -1257,13 +1257,19 @@
 	if ([content isKindOfClass:[ANUser class]]) {
 		// calculate for profile cell view
 		NSString *biography = [[content userDescription] text];
-		NSFont *font = [NSFont fontWithName:@"Helvetica Bold" size:14.0f];
-		float height = [biography heightForWidth:[[self window] frame].size.width-32-11 font:font];
 		int customViewToTop = 143;
 		int biographyToTopOfCustomView = 43;
 		int heightOfBottomShadow = 3;
 		int padding = 10;
-		return height+customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+padding;
+		// detect nil biographies
+		if (biography) {
+			NSFont *font = [NSFont fontWithName:@"Helvetica Bold" size:14.0f];
+			float height = [biography heightForWidth:[[self window] frame].size.width-32-11 font:font];
+			return height+customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+padding;
+		}
+		else {
+			return customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+(padding*2);
+		}
 	}
 	if ([content isKindOfClass:[PSCLoadMore class]]) {
 		return 50;
