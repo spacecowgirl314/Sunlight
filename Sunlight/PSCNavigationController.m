@@ -42,6 +42,11 @@
 	}
 }
 
+- (PSCStream*)streamAtIndex:(int)index
+{
+	return [streams objectAtIndex:index];
+}
+
 - (void)clear
 {
 	[streams removeAllObjects];

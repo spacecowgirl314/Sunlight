@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		370B822016E46E16004A105E /* PSCStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B821F16E46E16004A105E /* PSCStream.m */; };
 		371D970816C067A2009BCDB1 /* avatar-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970416C067A2009BCDB1 /* avatar-mask.png */; };
 		371D970916C067A2009BCDB1 /* avatar-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970516C067A2009BCDB1 /* avatar-mask@2x.png */; };
 		371D970A16C067A2009BCDB1 /* avatar-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970616C067A2009BCDB1 /* avatar-overlay.png */; };
@@ -278,6 +279,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		370B821E16E46E16004A105E /* PSCStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCStream.h; sourceTree = "<group>"; };
+		370B821F16E46E16004A105E /* PSCStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCStream.m; sourceTree = "<group>"; };
 		371D970416C067A2009BCDB1 /* avatar-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-mask.png"; sourceTree = "<group>"; };
 		371D970516C067A2009BCDB1 /* avatar-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-mask@2x.png"; sourceTree = "<group>"; };
 		371D970616C067A2009BCDB1 /* avatar-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-overlay.png"; sourceTree = "<group>"; };
@@ -1148,6 +1151,8 @@
 				374AC7B216DF348F00415826 /* PSCBreadcrumbView.m */,
 				374AC7B416DF3FF300415826 /* PSCNavigationController.h */,
 				374AC7B516DF3FF300415826 /* PSCNavigationController.m */,
+				370B821E16E46E16004A105E /* PSCStream.h */,
+				370B821F16E46E16004A105E /* PSCStream.m */,
 				37A6F91B16E085D0002B3988 /* PSCLoadMore.h */,
 				37A6F91C16E085D0002B3988 /* PSCLoadMore.m */,
 			);
@@ -1500,6 +1505,7 @@
 				37A6F91A16E07DB1002B3988 /* PSCLoadMoreCellView.m in Sources */,
 				37A6F91D16E085D0002B3988 /* PSCLoadMore.m in Sources */,
 				373E999016E17837005B35A4 /* PSCColorableView.m in Sources */,
+				370B822016E46E16004A105E /* PSCStream.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

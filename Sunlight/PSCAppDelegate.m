@@ -90,6 +90,8 @@
 	[[self breadcrumbShadow] setEndingColor:[NSColor clearColor]];
     [[self breadcrumbShadow] setAngle:270];
 	[[self breadcrumbView] setDelegate:self];
+	// setup navigation controller
+	navigationController = [[PSCNavigationController alloc] init];
 	// setup buttons
 	buttonCollection = [[PSCButtonCollection alloc] initWithButtons:@[streamButton, mentionsButton, starsButton, profileButton, messagesButton]];
 	[streamButton setSelectedButtonImage:[NSImage imageNamed:@"title-stream-highlight"]];
@@ -138,14 +140,16 @@
 
 - (void)breadcrumbView:(PSCBreadcrumbView *)view didTapItemAtIndex:(NSUInteger)index
 {
-	NSLog(@"Item at Index = %ld", (unsigned long)index);
-	[navigationController popStreamAtIndex:index];
+	[navigationController popStreamAtIndex:(int)index];
+	PSCStream *stream = [navigationController streamAtIndex:(int)index];
+	[self popStreamWithPosts:stream.posts];
 }
 
 - (void)breadcrumbViewDidTapStartButton:(PSCBreadcrumbView *)view
 {
 	NSLog(@"Start");
 	[navigationController clear];
+	appScrollView.refreshBlock(appScrollView);
 }
 
 #pragma mark - Miscellanious Methods
@@ -300,16 +304,41 @@
 		currentStream = PSCConversation;
 		[titleTextField setStringValue:@"Conversation"];
 		[self scrollToTop];
-		// remove current rows if present
-		NSRange range = NSMakeRange(0, [postsArray count]);
-		NSIndexSet *theSet = [NSIndexSet indexSetWithIndexesInRange:range];
-		[[self appTableView] removeRowsAtIndexes:theSet withAnimation:NSTableViewAnimationSlideLeft];
-		postsArray = posts;
-		// insert new rows:
-		range = NSMakeRange(0, [posts count]);
-		theSet = [NSIndexSet indexSetWithIndexesInRange:range];
-		[[self appTableView] insertRowsAtIndexes:theSet withAnimation:NSTableViewAnimationSlideRight];
+		[self pushStreamWithPosts:posts];
+		PSCStream *stream = [PSCStream new];
+		[stream setPosts:posts];
+		[stream setReloadPosts:^{
+			
+		}];
+		[navigationController pushStream:stream];
 	}];
+}
+
+- (void)pushStreamWithPosts:(NSArray*)newPosts
+{
+	// remove current rows if present
+	NSRange range = NSMakeRange(0, [postsArray count]);
+	NSIndexSet *theSet = [NSIndexSet indexSetWithIndexesInRange:range];
+	[[self appTableView] removeRowsAtIndexes:theSet withAnimation:NSTableViewAnimationSlideLeft];
+	postsArray = newPosts;
+	// insert new rows:
+	range = NSMakeRange(0, [newPosts count]);
+	theSet = [NSIndexSet indexSetWithIndexesInRange:range];
+	[[self appTableView] insertRowsAtIndexes:theSet withAnimation:NSTableViewAnimationSlideRight];
+}
+
+- (void)popStreamWithPosts:(NSArray*)previousPosts
+{
+	// TODO: Set the current scroll position in the current stream before popping
+	// remove current rows if present
+	NSRange range = NSMakeRange(0, [postsArray count]);
+	NSIndexSet *theSet = [NSIndexSet indexSetWithIndexesInRange:range];
+	[[self appTableView] removeRowsAtIndexes:theSet withAnimation:NSTableViewAnimationSlideRight];
+	postsArray = previousPosts;
+	// insert new rows:
+	range = NSMakeRange(0, [previousPosts count]);
+	theSet = [NSIndexSet indexSetWithIndexesInRange:range];
+	[[self appTableView] insertRowsAtIndexes:theSet withAnimation:NSTableViewAnimationSlideLeft];
 }
 
 - (void)loadHashtag:(NSNotification*)theNotification {
@@ -675,6 +704,7 @@
 						}
 						// save posts to memory
 						//[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
+						
 						// Retrieve filtered posts
 						NSArray *filteredPosts;
 						if ([user ID]==ANMeUserID) {
@@ -683,12 +713,26 @@
 						else {
 							filteredPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%lld", [user ID]]];
 						}
+						
 						// Inject Profile Cell View
 						NSMutableArray *profileInjection = [filteredPosts mutableCopy];
 						[profileInjection insertObject:user atIndex:0];
-						postsArray = profileInjection;
-						//postsArray = posts;
-						[[self appTableView] reloadData];
+						
+						if ([user ID]==ANMeUserID) {
+							postsArray = profileInjection;
+							//postsArray = posts;
+							[[self appTableView] reloadData];
+						}
+						else {
+							// we're pushing a profile to the navigation controller
+							[self pushStreamWithPosts:profileInjection];
+							PSCStream *stream = [PSCStream new];
+							[stream setPosts:profileInjection];
+							[stream setReloadPosts:^{
+								
+							}];
+							[navigationController pushStream:stream];
+						}
 						dispatch_async(dispatch_get_main_queue(), ^{
 							[[self appScrollView] stopLoading];
 						});
@@ -1022,8 +1066,13 @@
 	[profileCellView setUser:user];
 	// set name
 	[[profileCellView userField] setStringValue:[user name]];
-	// set biography
-	[[profileCellView biographyView] setStringValue:[[user userDescription] text]];
+	// set biography and protect from derps who don't have any biography set
+	if ([[user userDescription] text]) {
+		[[profileCellView biographyView] setStringValue:[[user userDescription] text]];
+	}
+	else {
+		[[profileCellView biographyView] setStringValue:@""];
+	}
 	[[profileCellView followingCount] setIntegerValue:[[user counts] following]];
 	[[profileCellView followerCount] setIntegerValue:[[user counts] followers]];
 	[[profileCellView starredCount] setIntegerValue:[[user counts] stars]];

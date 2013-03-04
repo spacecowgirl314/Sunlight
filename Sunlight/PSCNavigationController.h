@@ -11,12 +11,14 @@
 
 @interface PSCNavigationController : NSObject
 {
+	@public
 	NSMutableArray *streams;
 }
 
 - (void)pushStream:(PSCStream*)stream;
 - (void)popStream:(PSCStream*)stream;
 - (void)popStreamAtIndex:(int)index;
+- (PSCStream*)streamAtIndex:(int)index;
 - (void)clear;
 
 @end
