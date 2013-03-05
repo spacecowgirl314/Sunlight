@@ -302,7 +302,7 @@
 			return;
 		}
 		[breadcrumbView pushItem:[self item:@"Conversation"]];
-		currentStream = PSCConversation;
+		//currentStream = PSCConversation;
 		[titleTextField setStringValue:@"Conversation"];
 		[self scrollToTop];
 		[self pushStreamWithPosts:posts];
@@ -1066,6 +1066,8 @@
 - (PSCProfileCellView*)configureProfileCellView:(NSTableView*)tableView user:(ANUser*)user
 {
 	PSCProfileCellView *profileCellView = [tableView makeViewWithIdentifier:@"ProfileCell" owner:nil];
+	// clear out the banner view every time we configure a new profile cell view
+	[[profileCellView bannerView] setImage:nil];
 	// send user to the cell
 	[profileCellView setUser:user];
 	// set name
