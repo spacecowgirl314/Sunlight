@@ -12,6 +12,6 @@
 
 @property NSArray *posts;
 @property NSPoint *position;
-@property (assign) void(^reloadPosts)(void);
+@property (strong) void(^reloadPosts)(void);
 
 @end

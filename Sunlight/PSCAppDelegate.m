@@ -335,7 +335,17 @@
 		PSCStream *stream = [PSCStream new];
 		[stream setPosts:posts];
 		[stream setReloadPosts:^{
-			
+			[postWithReplies replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
+				if (error) {
+					[self showErrorBarWithError:error];
+					return;
+				}
+				postsArray = posts;
+				[[self appTableView] reloadData];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[[self appScrollView] stopLoading];
+				});
+			}];
 		}];
 		[navigationController pushStream:stream];
 	}];
@@ -383,7 +393,16 @@
 				PSCStream *stream = [PSCStream new];
 				[stream setPosts:posts];
 				[stream setReloadPosts:^{
-					
+					[ANSession.defaultSession postsWithTag:tag completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+						if (error) {
+							[self showErrorBarWithError:error];
+						}
+						postsArray = posts;
+						[[self appTableView] reloadData];
+						dispatch_async(dispatch_get_main_queue(), ^{
+							[[self appScrollView] stopLoading];
+						});
+					}];
 				}];
 				[navigationController pushStream:stream];
 				return;
@@ -393,7 +412,16 @@
 			PSCStream *stream = [PSCStream new];
 			[stream setPosts:posts];
 			[stream setReloadPosts:^{
-				
+				[ANSession.defaultSession postsWithTag:tag completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+					if (error) {
+						[self showErrorBarWithError:error];
+					}
+					postsArray = posts;
+					[[self appTableView] reloadData];
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[[self appScrollView] stopLoading];
+					});
+				}];
 			}];
 			[navigationController pushStream:stream];
 		}];
@@ -766,7 +794,20 @@
 							PSCStream *stream = [PSCStream new];
 							[stream setPosts:profileInjection];
 							[stream setReloadPosts:^{
-								
+								[ANSession.defaultSession postsForUserWithID:[user ID] betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
+									if (error) {
+										[self showErrorBarWithError:error];
+										return;
+									}
+									// Inject Profile Cell View
+									NSMutableArray *profileInjection = [posts mutableCopy];
+									[profileInjection insertObject:user atIndex:0];
+									postsArray = profileInjection;
+									[[self appTableView] reloadData];
+									dispatch_async(dispatch_get_main_queue(), ^{
+										[[self appScrollView] stopLoading];
+									});
+								}];
 							}];
 							[navigationController pushStream:stream];
 						}
@@ -915,7 +956,7 @@
 - (void)reload {
 	if (navigationController.levels!=0) {
 		PSCStream *stream = [navigationController streamAtIndex:navigationController.levels-1];
-		[stream reloadPosts];
+		stream.reloadPosts();
 		//[[self appScrollView] stopLoading];
 		return;
 	}
