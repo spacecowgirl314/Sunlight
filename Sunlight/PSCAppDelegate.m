@@ -353,6 +353,7 @@
 
 - (void)pushStreamWithPosts:(NSArray*)newPosts
 {
+	[self scrollToTop];
 	// remove current rows if present
 	NSRange range = NSMakeRange(0, [postsArray count]);
 	NSIndexSet *theSet = [NSIndexSet indexSetWithIndexesInRange:range];
@@ -1203,7 +1204,11 @@
 	// send user to the cell
 	[profileCellView setUser:user];
 	// set name
-	[[profileCellView userField] setStringValue:[user name]];
+	NSString *name = [[NSString alloc] initWithFormat:@"%@ %@", [user name], [[user username] appNetUsernameString]];
+	NSMutableAttributedString *nameAttributedString = [[NSMutableAttributedString alloc] initWithString:name attributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue Medium" size:18], NSForegroundColorAttributeName:[NSColor whiteColor]}];
+	[nameAttributedString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:15], NSForegroundColorAttributeName:[NSColor lightGrayColor]} range:[name rangeOfString:[[user username] appNetUsernameString]]];
+	//[[profileCellView userField] setStringValue:name];
+	[[profileCellView userField] setAttributedStringValue:nameAttributedString];
 	// set biography and protect from derps who don't have any biography set
 	if ([[user userDescription] text]) {
 		[[profileCellView biographyView] setStringValue:[[user userDescription] text]];
