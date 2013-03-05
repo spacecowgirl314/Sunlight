@@ -52,4 +52,9 @@
 	[streams removeAllObjects];
 }
 
+- (int)levels
+{
+	return (int)streams.count;
+}
+
 @end

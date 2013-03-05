@@ -127,7 +127,7 @@
 	[self checkForMentions];
 	NSTimer *mentionsTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(checkForMentions) userInfo:nil repeats:YES];
 	[NSTimer scheduledTimerWithTimeInterval:60*3 block:^{
-		[self loadStream:YES];
+		[self loadMyStream:YES];
 	} repeats:YES];
 }
 
@@ -150,7 +150,7 @@
 {
 	NSLog(@"Start");
 	[navigationController clear];
-	appScrollView.refreshBlock(appScrollView);
+	[self popIntoCurrentStream];
 }
 
 #pragma mark - Miscellanious Methods
@@ -174,10 +174,36 @@
 
 #pragma mark - Switching Streams
 
+// by keeping selectButton out of the original action we're keeping performance uniform
+- (IBAction)switchToMyStreamFromMenu:(id)sender {
+	[[[buttonCollection buttons] objectAtIndex:0] selectButton];
+	[self switchToStream:sender];
+}
+
+- (IBAction)switchToMentionsFromMenu:(id)sender {
+	[[[buttonCollection buttons] objectAtIndex:1] selectButton];
+	[self switchToMentions:sender];
+}
+
+- (IBAction)switchToStarsFromMenu:(id)sender {
+	[[[buttonCollection buttons] objectAtIndex:2] selectButton];
+	[self switchToStars:sender];
+}
+
+- (IBAction)switchToProfileFromMenu:(id)sender {
+	[[[buttonCollection buttons] objectAtIndex:3] selectButton];
+	[self switchToProfile:sender];
+}
+
+- (IBAction)switchToMessagesFromMenu:(id)sender {
+	[[[buttonCollection buttons] objectAtIndex:4] selectButton];
+	[self switchToMessages:sender];
+}
+
 - (IBAction)switchToStream:(id)sender {
 	NSLog(@"Switched to stream.");
 	currentStream = PSCMyStream;
-	[self loadStream:NO];
+	[self loadMyStream:NO];
 }
 
 - (IBAction)switchToMentions:(id)sender {
@@ -353,53 +379,25 @@
 				[self showErrorBarWithError:error];
 			}
 			if(!posts) {
-				postsArray = posts;
-				[[self appTableView] reloadData];
-				dispatch_async(dispatch_get_main_queue(), ^{
-					[[self appScrollView] stopLoading];
-				});
+				[self pushStreamWithPosts:posts];
+				PSCStream *stream = [PSCStream new];
+				[stream setPosts:posts];
+				[stream setReloadPosts:^{
+					
+				}];
+				[navigationController pushStream:stream];
 				return;
 			}
 			[breadcrumbView pushItem:[self item:[[NSString alloc] initWithFormat:@"#%@", tag]]];
-			// save posts to memory
-			//[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]];
-			// theoretical test for loading more posts
-			/*ANPost *post =  [posts objectAtIndex:[posts count]];
-			 ANResourceID *resourceID = [post ID];
-			 [ANSession.defaultSession postsInStreamBetweenID:nil andID:resourceID completion:^(ANResponse *response, NSArray *posts, NSError *error) {
-			 
-			 }];*/
-			postsArray = posts;
-			[[self appTableView] reloadData];
-			/*dispatch_async(dispatch_get_main_queue(), ^{
-				[[self appScrollView] stopLoading];
-			});*/
+			[self pushStreamWithPosts:posts];
+			PSCStream *stream = [PSCStream new];
+			[stream setPosts:posts];
+			[stream setReloadPosts:^{
+				
+			}];
+			[navigationController pushStream:stream];
 		}];
 	});
-	/*PSCSwipeableScrollView *newScrollView = [[PSCSwipeableScrollView alloc] initWithFrame:[self appScrollView].frame];
-	NSTableView *newTableView = [[NSTableView alloc] initWithFrame:[self appScrollView].frame];
-	[newTableView registerNib:[[NSNib alloc] initWithNibNamed:@"PSCPostCellView" bundle:nil] forIdentifier:@"PostCell"];
-	//[newScrollView addSubview:newTableView];
-	NSTableColumn * column1 = [[NSTableColumn alloc] initWithIdentifier:@"Col1"];
-	[column1 setWidth:360];
-	// generally you want to add at least one column to the table view.
-	[newTableView addTableColumn:column1];
-	[newTableView setDelegate:self];
-	[newTableView setDataSource:self];
-	[newTableView reloadData];
-	[newScrollView setDocumentView:newTableView];
-	[newScrollView setHasVerticalScroller:YES];
-	[[[self window] contentView] addSubview:newScrollView positioned:NSWindowBelow relativeTo:[self appScrollView]];
-	NSRect endFrame = NSMakeRect([self appScrollView].frame.origin.x, [self appScrollView].frame.origin.y, [self appScrollView].frame.size.width, [self appScrollView].frame.size.height);
-	
-	NSRect exitFrame = NSMakeRect(-[self appScrollView].frame.size.height, [self appScrollView].bounds.origin.y, [self appScrollView].frame.size.width, [self appScrollView].frame.size.height);
-	[NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:0.5f];
-	[newScrollView setFrame:endFrame];
-	[[[self appScrollView] animator] setFrame:exitFrame];
-	[NSAnimationContext endGrouping];
-	self.appScrollView = newScrollView;
-	self.appTableView = newTableView;*/
 }
 
 - (void)loadPreviousInStream:(NSNotification*)notification {
@@ -416,7 +414,11 @@
 	}];
 }
 
-- (void)loadStream:(BOOL)reload {
+- (void)loadMyStream:(BOOL)reload {
+	[self loadMyStream:reload popping:NO];
+}
+
+- (void)loadMyStream:(BOOL)reload popping:(BOOL)isPopping {
 	NSArray *streamPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
@@ -481,13 +483,17 @@
 			[titleTextField setStringValue:@"My Stream"];
 			[breadcrumbView clear];
 			[breadcrumbView setStartTitle:@"My Stream"];
-			postsArray = streamPosts;
 			// Inject Load More Cell View
-			NSMutableArray *profileInjection = [postsArray mutableCopy];
-			[profileInjection insertObject:[PSCLoadMore new] atIndex:postsArray.count];
-			postsArray = profileInjection;
+			NSMutableArray *profileInjection = [streamPosts mutableCopy];
+			[profileInjection insertObject:[PSCLoadMore new] atIndex:streamPosts.count];
+			if (isPopping) {
+				[self popStreamWithPosts:profileInjection];
+			}
+			else {
+				postsArray = profileInjection;
+				[[self appTableView] reloadData];
+			}
 			[self scrollToTop];
-			[[self appTableView] reloadData];
 		}
 		else {
 			reloadPosts();
@@ -499,7 +505,15 @@
 	}
 }
 
+- (void)popIntoMyStream {
+	[self loadMyStream:NO popping:YES];
+}
+
 - (void)loadMentions:(BOOL)reload {
+	[self loadMentions:reload popping:NO];
+}
+
+- (void)loadMentions:(BOOL)reload popping:(BOOL)isPopping {
 	NSArray *mentionsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
@@ -548,9 +562,14 @@
 			[titleTextField setStringValue:@"Mentions"];
 			[breadcrumbView clear];
 			[breadcrumbView setStartTitle:@"Mentions"];
-			postsArray = mentionsPosts;
+			if (isPopping) {
+				[self popStreamWithPosts:mentionsPosts];
+			}
+			else {
+				postsArray = mentionsPosts;
+				[[self appTableView] reloadData];
+			}
 			[self scrollToTop];
-			[[self appTableView] reloadData];
 		}
 		else {
 			reloadPosts();
@@ -562,7 +581,15 @@
 	}
 }
 
+- (void)popIntoMentions {
+	[self loadMentions:NO popping:YES];
+}
+
 - (void)loadStars:(BOOL)reload {
+	[self loadStars:reload popping:NO];
+}
+
+- (void)loadStars:(BOOL)reload popping:(BOOL)isPopping {
 	NSArray *starsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
@@ -611,9 +638,14 @@
 			[titleTextField setStringValue:@"Starred"];
 			[breadcrumbView clear];
 			[breadcrumbView setStartTitle:@"Starred"];
-			postsArray = starsPosts;
+			if (isPopping) {
+				[self popStreamWithPosts:starsPosts];
+			}
+			else {
+				postsArray = starsPosts;
+				[[self appTableView] reloadData];
+			}
 			[self scrollToTop];
-			[[self appTableView] reloadData];
 		}
 		else {
 			reloadPosts();
@@ -625,6 +657,10 @@
 	}
 }
 
+- (void)popIntoStars {
+	[self loadStars:NO popping:YES];
+}
+
 - (void)loadProfileFromNotification:(NSNotification*)notification {
 	NSString *username = [notification object];
 	NSRange isRange = [username rangeOfString:@"@" options:NSCaseInsensitiveSearch];
@@ -632,7 +668,7 @@
 		//found it...
 		username = [[notification object] substringFromIndex:1];
 	}
-	[self loadProfile:YES withUsername:username];
+	[self loadProfile:YES withUsername:username popping:NO];
 	/*[ANSession.defaultSession userWithUsername:username completion:^(ANResponse *response, ANUser *user, NSError *error) {
 		if (error) {
 			[self showErrorBarWithError:error];
@@ -647,10 +683,10 @@
 }
 
 - (void)loadProfile:(BOOL)reload {
-	[self loadProfile:reload withUsername:[[[PSCMemoryCache sharedMemory] currentUser] username]];
+	[self loadProfile:reload withUsername:[[[PSCMemoryCache sharedMemory] currentUser] username] popping:NO];
 }
 
-- (void)loadProfile:(BOOL)reload withUsername:(NSString*)username {
+- (void)loadProfile:(BOOL)reload withUsername:(NSString*)username popping:(BOOL)isPopping {
 	NSArray *profilePosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
@@ -682,7 +718,7 @@
 							return;
 						}
 						// set title
-						if ([user ID]==ANMeUserID) {
+						if ([user ID]==[[[PSCMemoryCache sharedMemory] currentUser] ID] && currentStream==PSCProfile) {
 							if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile] posts:posts]) {
 								//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
 							}
@@ -708,7 +744,7 @@
 						
 						// Retrieve filtered posts
 						NSArray *filteredPosts;
-						if ([user ID]==ANMeUserID) {
+						if ([user ID]==[[[PSCMemoryCache sharedMemory] currentUser] ID] && currentStream==PSCProfile) {
 							filteredPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
 						}
 						else {
@@ -719,7 +755,7 @@
 						NSMutableArray *profileInjection = [filteredPosts mutableCopy];
 						[profileInjection insertObject:user atIndex:0];
 						
-						if ([user ID]==ANMeUserID) {
+						if ([user ID]==[[[PSCMemoryCache sharedMemory] currentUser] ID] && currentStream==PSCProfile) {
 							postsArray = profileInjection;
 							//postsArray = posts;
 							[[self appTableView] reloadData];
@@ -750,12 +786,16 @@
 			[breadcrumbView setStartTitle:@"My Profile"];
 			// Inject Profile Cell View
 			NSMutableArray *profileInjection = [profilePosts mutableCopy];
-			ANPost *fakePost = [[ANPost alloc] initWithRepresentation:@{} session:ANSession.defaultSession];
-			[profileInjection insertObject:fakePost atIndex:0];
-			postsArray = profileInjection;
-			//postsArray = profilePosts;
+			[profileInjection insertObject:[[PSCMemoryCache sharedMemory] currentUser] atIndex:0];
+			if (isPopping) {
+				[self popStreamWithPosts:profileInjection];
+			}
+			else {
+				postsArray = profileInjection;
+				//postsArray = profilePosts;
+				[[self appTableView] reloadData];
+			}
 			[self scrollToTop];
-			[[self appTableView] reloadData];
 		}
 		else {
 			reloadPosts();
@@ -767,7 +807,15 @@
 	}
 }
 
+- (void)popIntoProfile {
+	[self loadProfile:NO withUsername:[[[PSCMemoryCache sharedMemory] currentUser] username] popping:YES];
+}
+
 - (void)loadMessages:(BOOL)reload {
+	[self loadMessages:reload popping:NO];
+}
+
+- (void)loadMessages:(BOOL)reload popping:(BOOL)isPopping {
 	postsArray = nil;
 	[[self appTableView] reloadData];
 	// API docs here http://developers.app.net/docs/basics/messaging/
@@ -809,6 +857,43 @@
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[[self appScrollView] stopLoading];
 	});
+	// do popping thing and reload thing here
+}
+
+- (void)popIntoMessages {
+	[self loadMessages:NO popping:YES];
+}
+
+- (void)popIntoCurrentStream {
+	switch (currentStream)
+	{
+		case PSCMyStream:
+		{
+			[self popIntoMyStream];
+			break;
+		}
+		case PSCMentions:
+		{
+			[self popIntoMentions];
+			break;
+		}
+		case PSCStars:
+		{
+			[self popIntoStars];
+			break;
+		}
+		case PSCProfile:
+		{
+			[self popIntoProfile];
+			break;
+		}
+		case PSCMessages:
+		{
+			[self popIntoMessages];
+			break;
+		}
+	}
+
 }
 
 #pragma mark - Preparations and setup stuff
@@ -823,6 +908,47 @@
 	}];
 }
 
+- (IBAction)refreshStream:(id)sender {
+	[self reload];
+}
+
+- (void)reload {
+	if (navigationController.levels!=0) {
+		PSCStream *stream = [navigationController streamAtIndex:navigationController.levels-1];
+		[stream reloadPosts];
+		//[[self appScrollView] stopLoading];
+		return;
+	}
+	switch (currentStream)
+	{
+		case PSCMyStream:
+		{
+			[self loadMyStream:YES];
+			break;
+		}
+		case PSCMentions:
+		{
+			[self loadMentions:YES];
+			break;
+		}
+		case PSCStars:
+		{
+			[self loadStars:YES];
+			break;
+		}
+		case PSCProfile:
+		{
+			[self loadProfile:YES];
+			break;
+		}
+		case PSCMessages:
+		{
+			[self loadMessages:YES];
+			break;
+		}
+	}
+}
+
 - (void)prepare {
 	ANSession.defaultSession.accessToken = [PSCMemoryCache sharedMemory].authToken;
 	currentStream = PSCMyStream;
@@ -832,47 +958,15 @@
 	}
 	// start window off by not being seen
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
-		switch (currentStream)
-		{
-			case PSCMyStream:
-			{
-				[self loadStream:YES];
-				break;
-			}
-			case PSCMentions:
-			{
-				[self loadMentions:YES];
-				break;
-			}
-			case PSCStars:
-			{
-				[self loadStars:YES];
-				break;
-			}
-			case PSCProfile:
-			{
-				[self loadProfile:YES];
-				break;
-			}
-			case PSCMessages:
-			{
-				[self loadMessages:YES];
-				break;
-			}
-			case PSCConversation:
-			{
-				[[self appScrollView] stopLoading];
-				break;
-			}
-		}
+		[self reload];
 	}];
 	// Get the latest posts in the user's incoming post stream...
 	switch (currentStream)
 	{
 		case PSCMyStream:
 		{
-			[self performSelector:@selector(loadStream:) withObject:NO afterDelay:0.0];
-			//[self loadStream:YES];
+			[self performSelector:@selector(loadMyStream:) withObject:NO afterDelay:0.0];
+			//[self loadMyStream:YES];
 			break;
 		}
 		case PSCMentions:
@@ -897,11 +991,6 @@
 		{
 			[self performSelector:@selector(loadMessages:) withObject:NO afterDelay:0.0];
 			//[self loadMessages:NO];
-			break;
-		}
-		case PSCConversation:
-		{
-			[[self appScrollView] stopLoading];
 			break;
 		}
 	}
@@ -1066,8 +1155,10 @@
 - (PSCProfileCellView*)configureProfileCellView:(NSTableView*)tableView user:(ANUser*)user
 {
 	PSCProfileCellView *profileCellView = [tableView makeViewWithIdentifier:@"ProfileCell" owner:nil];
-	// clear out the banner view every time we configure a new profile cell view
+	// clear out the banner and avatar view every time we configure a new profile cell view
 	[[profileCellView bannerView] setImage:nil];
+	[[profileCellView avatarView] setImage:nil];
+	// TODO: then load them both cached
 	// send user to the cell
 	[profileCellView setUser:user];
 	// set name
@@ -1136,7 +1227,7 @@
 	PSCPostCellView *result = [tableView makeViewWithIdentifier:@"PostCell" owner:nil];
 	// clear out the old image first. prevent temporary flickering due to no caching
 	[[[result avatarView] window] makeFirstResponder:[result avatarView]];
-	//[[result avatarView] setImage:nil];
+	[[result avatarView] setImage:nil];
     
 	//ANPost *post = [postsArray objectAtIndex:row];
 	ANUser *user = [post user];

@@ -11,7 +11,6 @@
 
 @interface PSCNavigationController : NSObject
 {
-	@public
 	NSMutableArray *streams;
 }
 
@@ -20,5 +19,6 @@
 - (void)popStreamAtIndex:(int)index;
 - (PSCStream*)streamAtIndex:(int)index;
 - (void)clear;
+- (int)levels;
 
 @end

@@ -24,9 +24,7 @@ typedef enum {
     PSCMentions,
     PSCStars,
 	PSCProfile,
-	PSCMessages,
-	PSCConversation,
-	PSCHashtag
+	PSCMessages
 } PSCStreamType;
 
 @interface PSCAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate, PSCBreadcrumbViewDelegate, NSUserNotificationCenterDelegate> {
@@ -55,11 +53,17 @@ typedef enum {
 @property IBOutlet PSCBreadcrumbView *breadcrumbView;
 @property (assign) ANPost *replyPost;
 
+- (IBAction)switchToMyStreamFromMenu:(id)sender;
+- (IBAction)switchToMentionsFromMenu:(id)sender;
+- (IBAction)switchToStarsFromMenu:(id)sender;
+- (IBAction)switchToProfileFromMenu:(id)sender;
+- (IBAction)switchToMessagesFromMenu:(id)sender;
 - (IBAction)switchToStream:(id)sender;
 - (IBAction)switchToMentions:(id)sender;
 - (IBAction)switchToStars:(id)sender;
 - (IBAction)switchToProfile:(id)sender;
 - (IBAction)switchToMessages:(id)sender;
 - (IBAction)loadPreviousInStream:(id)sender;
+- (IBAction)refreshStream:(id)sender;
 
 @end
