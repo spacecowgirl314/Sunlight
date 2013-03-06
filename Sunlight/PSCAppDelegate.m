@@ -1222,7 +1222,7 @@
 	// set name
 	NSString *name = [[NSString alloc] initWithFormat:@"%@ %@", [user name], [[user username] appNetUsernameString]];
 	NSMutableAttributedString *nameAttributedString = [[NSMutableAttributedString alloc] initWithString:name attributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue Medium" size:18], NSForegroundColorAttributeName:[NSColor whiteColor]}];
-	[nameAttributedString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:14], NSForegroundColorAttributeName:[NSColor colorWithDeviceWhite:1.0 alpha:0.5]} range:[name rangeOfString:[[user username] appNetUsernameString]]];
+	[nameAttributedString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:14], NSForegroundColorAttributeName:[NSColor colorWithDeviceWhite:1.0 alpha:0.85]} range:[name rangeOfString:[[user username] appNetUsernameString]]];
 	//[[profileCellView userField] setStringValue:name];
 	[[profileCellView userField] setAttributedStringValue:nameAttributedString];
 	// set biography and protect from derps who don't have any biography set
