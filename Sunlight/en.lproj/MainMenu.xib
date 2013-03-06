@@ -1775,6 +1775,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
+						<string key="label">menu</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="649796088"/>
+					</object>
+					<int key="connectionID">4784</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
 						<string key="label">dataSource</string>
 						<reference key="source" ref="214318556"/>
 						<reference key="destination" ref="976324537"/>
@@ -3250,11 +3258,6 @@
 						<reference key="parent" ref="804317596"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">4328</int>
-						<reference key="object" ref="482684113"/>
-						<reference key="parent" ref="169136285"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">4331</int>
 						<reference key="object" ref="521842551"/>
 						<reference key="parent" ref="804317596"/>
@@ -3273,31 +3276,6 @@
 						<int key="objectID">4342</int>
 						<reference key="object" ref="1019937137"/>
 						<reference key="parent" ref="845348163"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4618</int>
-						<reference key="object" ref="269547008"/>
-						<reference key="parent" ref="804317596"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4622</int>
-						<reference key="object" ref="58053129"/>
-						<reference key="parent" ref="804317596"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4628</int>
-						<reference key="object" ref="72204084"/>
-						<reference key="parent" ref="804317596"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4632</int>
-						<reference key="object" ref="258132124"/>
-						<reference key="parent" ref="804317596"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4633</int>
-						<reference key="object" ref="151881835"/>
-						<reference key="parent" ref="804317596"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">4641</int>
@@ -3320,11 +3298,6 @@
 						<reference key="parent" ref="804317596"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">4668</int>
-						<reference key="object" ref="324023209"/>
-						<reference key="parent" ref="804317596"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">4310</int>
 						<reference key="object" ref="957381217"/>
 						<reference key="parent" ref="950085444"/>
@@ -3335,33 +3308,8 @@
 						<reference key="parent" ref="804317596"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">4617</int>
-						<reference key="object" ref="149480629"/>
-						<reference key="parent" ref="804317596"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4631</int>
-						<reference key="object" ref="198566052"/>
-						<reference key="parent" ref="804317596"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">4648</int>
 						<reference key="object" ref="940137470"/>
-						<reference key="parent" ref="804317596"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4624</int>
-						<reference key="object" ref="473153610"/>
-						<reference key="parent" ref="804317596"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4627</int>
-						<reference key="object" ref="592755208"/>
-						<reference key="parent" ref="804317596"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4634</int>
-						<reference key="object" ref="1035142871"/>
 						<reference key="parent" ref="804317596"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -3450,11 +3398,6 @@
 						<int key="objectID">4745</int>
 						<reference key="object" ref="350334577"/>
 						<reference key="parent" ref="439893737"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4746</int>
-						<reference key="object" ref="171222721"/>
-						<reference key="parent" ref="169136285"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">4747</int>
@@ -3620,6 +3563,71 @@
 						<int key="objectID">4777</int>
 						<reference key="object" ref="1013345457"/>
 						<reference key="parent" ref="997058054"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4632</int>
+						<reference key="object" ref="258132124"/>
+						<reference key="parent" ref="804317596"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4622</int>
+						<reference key="object" ref="58053129"/>
+						<reference key="parent" ref="804317596"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4668</int>
+						<reference key="object" ref="324023209"/>
+						<reference key="parent" ref="804317596"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4618</int>
+						<reference key="object" ref="269547008"/>
+						<reference key="parent" ref="804317596"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4633</int>
+						<reference key="object" ref="151881835"/>
+						<reference key="parent" ref="804317596"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4628</int>
+						<reference key="object" ref="72204084"/>
+						<reference key="parent" ref="804317596"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4746</int>
+						<reference key="object" ref="171222721"/>
+						<reference key="parent" ref="169136285"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4328</int>
+						<reference key="object" ref="482684113"/>
+						<reference key="parent" ref="169136285"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4634</int>
+						<reference key="object" ref="1035142871"/>
+						<reference key="parent" ref="804317596"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4617</int>
+						<reference key="object" ref="149480629"/>
+						<reference key="parent" ref="804317596"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4631</int>
+						<reference key="object" ref="198566052"/>
+						<reference key="parent" ref="804317596"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4627</int>
+						<reference key="object" ref="592755208"/>
+						<reference key="parent" ref="804317596"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4624</int>
+						<reference key="object" ref="473153610"/>
+						<reference key="parent" ref="804317596"/>
 					</object>
 				</array>
 			</object>
@@ -3890,7 +3898,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">4783</int>
+			<int key="maxID">4790</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3996,6 +4004,7 @@
 						<string key="breadcrumbShadow">PSCGradientView</string>
 						<string key="breadcrumbView">PSCBreadcrumbView</string>
 						<string key="mentionsButton">PSCButtonCollectionButton</string>
+						<string key="menu">NSMenu</string>
 						<string key="messagesButton">PSCButtonCollectionButton</string>
 						<string key="profileButton">PSCButtonCollectionButton</string>
 						<string key="starsButton">PSCButtonCollectionButton</string>
@@ -4025,6 +4034,10 @@
 						<object class="IBToOneOutletInfo" key="mentionsButton">
 							<string key="name">mentionsButton</string>
 							<string key="candidateClassName">PSCButtonCollectionButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menu">
+							<string key="name">menu</string>
+							<string key="candidateClassName">NSMenu</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="messagesButton">
 							<string key="name">messagesButton</string>

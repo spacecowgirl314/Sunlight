@@ -22,6 +22,7 @@
 #import "NSTimer+Blocks.h"
 #import "PSCStream.h"
 #import "NSDictionary+Compression.h"
+#import "NSAlert+Blocks.h"
 
 @implementation PSCAppDelegate
 @synthesize postController;
@@ -40,6 +41,7 @@
 @synthesize topShadow;
 @synthesize window;
 @synthesize breadcrumbView;
+@synthesize menu;
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification {
 	//[[self window] setAlphaValue:0.0];
@@ -52,6 +54,27 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+	// Expiration code
+	NSDate *now = [NSDate date];
+	NSDate *expireDate = [NSDate dateWithNaturalLanguageString:@"April 1, 2013"];
+	if ([now compare:expireDate] == NSOrderedDescending) {
+		[menu setAutoenablesItems:NO];
+		for (NSMenuItem *item in [menu itemArray]) {
+			[item setEnabled:NO];
+		}
+		[NSAlert showSheetModalForWindow:self.window
+								 message:@"Warning"
+						 informativeText:@"This build has expired."
+							  alertStyle:NSWarningAlertStyle
+					   cancelButtonTitle:@"Okay"
+					   otherButtonTitles:nil
+							   onDismiss:^(int buttonIndex)  {
+								   
+							   }
+								onCancel:^ {
+									[[NSApplication sharedApplication] terminate:self];
+								}];
+	}
     [[self appTableView] setBackgroundColor:[NSColor colorWithDeviceRed:0.941 green:0.941 blue:0.941 alpha:1.0]];
 	// register for startup events
 	[[NSAppleEventManager sharedAppleEventManager] setEventHandler:self
@@ -480,14 +503,9 @@
 				/*[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]];*/
 				// simulatenously check for new posts in the stream and filter them
 				if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream] posts:posts]) {
+					[[[buttonCollection buttons] objectAtIndex:0] enableIndicator];
 					[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
 				}
-				// theoretical test for loading more posts
-				/*ANPost *post =  [posts objectAtIndex:[posts count]];
-				 ANResourceID *resourceID = [post ID];
-				 [ANSession.defaultSession postsInStreamBetweenID:nil andID:resourceID completion:^(ANResponse *response, NSArray *posts, NSError *error) {
-				 
-				 }];*/
 				// retrieve filtered posts from memory only if we are in the stream view
 				if (currentStream==PSCMyStream && navigationController.levels==0) {
 					[titleTextField setStringValue:@"My Stream"];
@@ -704,17 +722,6 @@
 		username = [[notification object] substringFromIndex:1];
 	}
 	[self loadProfile:YES withUsername:username popping:NO];
-	/*[ANSession.defaultSession userWithUsername:username completion:^(ANResponse *response, ANUser *user, NSError *error) {
-		if (error) {
-			[self showErrorBarWithError:error];
-			return;
-		}
-		else {
-			profileUserID = [user ID];
-			currentStream = PSCProfile;
-			[self loadProfile:YES withID:profileUserID];
-		}
-	}];*/
 }
 
 - (void)loadProfile:(BOOL)reload {
@@ -1215,7 +1222,7 @@
 	// set name
 	NSString *name = [[NSString alloc] initWithFormat:@"%@ %@", [user name], [[user username] appNetUsernameString]];
 	NSMutableAttributedString *nameAttributedString = [[NSMutableAttributedString alloc] initWithString:name attributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue Medium" size:18], NSForegroundColorAttributeName:[NSColor whiteColor]}];
-	[nameAttributedString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:15], NSForegroundColorAttributeName:[NSColor lightGrayColor]} range:[name rangeOfString:[[user username] appNetUsernameString]]];
+	[nameAttributedString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:14], NSForegroundColorAttributeName:[NSColor colorWithDeviceWhite:1.0 alpha:0.5]} range:[name rangeOfString:[[user username] appNetUsernameString]]];
 	//[[profileCellView userField] setStringValue:name];
 	[[profileCellView userField] setAttributedStringValue:nameAttributedString];
 	// set biography and protect from derps who don't have any biography set

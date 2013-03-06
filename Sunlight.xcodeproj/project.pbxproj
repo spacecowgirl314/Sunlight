@@ -161,6 +161,7 @@
 		37B520AB1615837D00941F0D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B520AA1615837D00941F0D /* Carbon.framework */; };
 		37B520AD1615840100941F0D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B520AC1615840100941F0D /* QuartzCore.framework */; };
 		37B5214B16159CDE00941F0D /* PSCHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5214A16159CDE00941F0D /* PSCHUDWindow.m */; };
+		37B8EFDC16E6F2E800CE0990 /* NSAlert+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B8EFDB16E6F2E800CE0990 /* NSAlert+Blocks.m */; };
 		37E7F04D16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37EEA9C516BB7DC200E3C56E /* PSCSwipeableScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */; };
 		37F1864616C4A8D500E682E2 /* PSCButtonCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F1864516C4A8D500E682E2 /* PSCButtonCollection.m */; };
@@ -542,6 +543,8 @@
 		37B520AC1615840100941F0D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		37B5214916159CDE00941F0D /* PSCHUDWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCHUDWindow.h; sourceTree = "<group>"; };
 		37B5214A16159CDE00941F0D /* PSCHUDWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCHUDWindow.m; sourceTree = "<group>"; };
+		37B8EFDA16E6F2E800CE0990 /* NSAlert+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAlert+Blocks.h"; path = "NSAlert-Blocks/Tester/NSAlert+Blocks.h"; sourceTree = "<group>"; };
+		37B8EFDB16E6F2E800CE0990 /* NSAlert+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAlert+Blocks.m"; path = "NSAlert-Blocks/Tester/NSAlert+Blocks.m"; sourceTree = "<group>"; };
 		37E7F04B16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NS(Attributed)String+Geometrics.h"; sourceTree = "<group>"; };
 		37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NS(Attributed)String+Geometrics.m"; sourceTree = "<group>"; };
 		37EEA9C316BB7DC200E3C56E /* PSCSwipeableScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCSwipeableScrollView.h; sourceTree = "<group>"; };
@@ -838,6 +841,8 @@
 			children = (
 				3781508E16C0EA4D0015956E /* SEHumanizedTime */,
 				370B822616E496D1004A105E /* Godzippa */,
+				37B8EFDA16E6F2E800CE0990 /* NSAlert+Blocks.h */,
+				37B8EFDB16E6F2E800CE0990 /* NSAlert+Blocks.m */,
 				372C890B16CB850D00EE84EC /* NSTimer+Blocks.h */,
 				372C890C16CB850D00EE84EC /* NSTimer+Blocks.m */,
 				378602F716C23F57003256B9 /* NSButton+TextColor.h */,
@@ -1531,6 +1536,7 @@
 				370B822016E46E16004A105E /* PSCStream.m in Sources */,
 				370B822316E494C6004A105E /* NSDictionary+Compression.m in Sources */,
 				370B822916E496D1004A105E /* NSData+Godzippa.m in Sources */,
+				37B8EFDC16E6F2E800CE0990 /* NSAlert+Blocks.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

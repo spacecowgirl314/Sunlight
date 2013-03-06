@@ -18,3 +18,6 @@
 [submodule "Sunlight/Godzippa"]
 	path = Sunlight/Godzippa
 	url = git://github.com/mattt/Godzippa.git
+[submodule "Sunlight/NSAlert-Blocks"]
+	path = Sunlight/NSAlert-Blocks
+	url = git://github.com/AaronBratcher/NSAlert-Blocks.git

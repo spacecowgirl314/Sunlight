@@ -9,14 +9,17 @@
 #import <Cocoa/Cocoa.h>
 #import "PSCButtonCollection.h"
 
-@interface PSCButtonCollectionButton : NSButton
+@interface PSCButtonCollectionButton : NSButton 
 
 @property NSImage *defaultButtonImage;
 @property NSImage *defaultAlternateButtonImage;
 @property NSImage *selectedButtonImage;
+@property NSImageView *indicatorImageView;
 @property BOOL isEnabled;
 @property PSCButtonCollection *buttonCollection;
 
 - (void)selectButton;
+- (void)enableIndicator;
+- (void)disableIndicator;
 
 @end

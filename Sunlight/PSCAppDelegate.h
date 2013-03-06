@@ -51,6 +51,7 @@ typedef enum {
 @property IBOutlet PSCGradientView *breadcrumbShadow;
 @property IBOutlet NSTextField *titleTextField;
 @property IBOutlet PSCBreadcrumbView *breadcrumbView;
+@property IBOutlet NSMenu *menu;
 @property (assign) ANPost *replyPost;
 
 - (IBAction)switchToMyStreamFromMenu:(id)sender;
