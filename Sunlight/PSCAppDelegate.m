@@ -489,9 +489,10 @@
 				 
 				 }];*/
 				// retrieve filtered posts from memory only if we are in the stream view
-				if (currentStream==PSCMyStream) {
+				if (currentStream==PSCMyStream && navigationController.levels==0) {
 					[titleTextField setStringValue:@"My Stream"];
 					[breadcrumbView clear];
+					[navigationController clear];
 					[breadcrumbView setStartTitle:@"My Stream"];
 					postsArray = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]]; //posts;
 					// Inject Load More Cell View
@@ -511,6 +512,7 @@
 		if (!reload) {
 			[titleTextField setStringValue:@"My Stream"];
 			[breadcrumbView clear];
+			[navigationController clear];
 			[breadcrumbView setStartTitle:@"My Stream"];
 			// Inject Load More Cell View
 			NSMutableArray *profileInjection = [streamPosts mutableCopy];
@@ -575,6 +577,7 @@
 				if (currentStream==PSCMentions) {
 					[titleTextField setStringValue:@"Mentions"];
 					[breadcrumbView clear];
+					[navigationController clear];
 					[breadcrumbView setStartTitle:@"Mentions"];
 					[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]];
 					postsArray = posts;
@@ -590,6 +593,7 @@
 		if (!reload) {
 			[titleTextField setStringValue:@"Mentions"];
 			[breadcrumbView clear];
+			[navigationController clear];
 			[breadcrumbView setStartTitle:@"Mentions"];
 			if (isPopping) {
 				[self popStreamWithPosts:mentionsPosts];
@@ -651,6 +655,7 @@
 				if (currentStream==PSCStars) {
 					[titleTextField setStringValue:@"Starred"];
 					[breadcrumbView clear];
+					[navigationController clear];
 					[breadcrumbView setStartTitle:@"Starred"];
 					[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]];
 					postsArray = posts;
@@ -666,6 +671,7 @@
 		if (!reload) {
 			[titleTextField setStringValue:@"Starred"];
 			[breadcrumbView clear];
+			[navigationController clear];
 			[breadcrumbView setStartTitle:@"Starred"];
 			if (isPopping) {
 				[self popStreamWithPosts:starsPosts];
@@ -753,6 +759,7 @@
 							}
 							[titleTextField setStringValue:@"My Profile"];
 							[breadcrumbView clear];
+							[navigationController clear];
 							[breadcrumbView setStartTitle:@"My Profile"];
 						}
 						else {
@@ -825,6 +832,7 @@
 			// set title
 			[titleTextField setStringValue:@"My Profile"];
 			[breadcrumbView clear];
+			[navigationController clear];
 			[breadcrumbView setStartTitle:@"My Profile"];
 			// Inject Profile Cell View
 			NSMutableArray *profileInjection = [profilePosts mutableCopy];
@@ -886,6 +894,7 @@
 			if (currentStream==PSCMessages) {
 				[titleTextField setStringValue:@"Messages"];
 				[breadcrumbView clear];
+				[navigationController clear];
 				[breadcrumbView setStartTitle:@"Messages"];
 				[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMessages]];
 				postsArray = posts;
