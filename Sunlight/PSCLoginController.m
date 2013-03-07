@@ -105,6 +105,38 @@ static float vigourOfShake = 0.05f;
 - (IBAction)signIn:(id)sender
 {
 	[progressIndicator startAnimation:nil];
+	// begin white list
+	BOOL allowed = NO;
+	NSArray *whitelist = @[@"codinguru",
+						@"bradyv",
+						@"jwisser",
+						@"preshit",
+						@"dalton",
+						@"aah",
+						@"joeldev",
+						@"tandyq",
+						@"jamesabeth",
+						@"jakepolo",
+						@"asmallteapot",
+						@"jdhartley",
+						@"ryangould"
+						@"iamsebj",
+						@"kolin",
+						@"failgunner",
+						@"colby",
+						@"black",
+						@"hrbrt"];
+	for (NSString *username in whitelist) {
+		if ([usernameTextField.stringValue isEqualToString:username]) {
+			allowed = YES;
+		}
+	}
+	if (!allowed) {
+		[[self window] setAnimations:@{@"frameOrigin":[self shakeAnimation:[self.window frame]]}];
+		[[self.window animator] setFrameOrigin:[self.window frame].origin];
+		return;
+	}
+	// end white list
 	[ANAuthenticator.sharedAuthenticator accessTokenForScopes:@[ ANScopeStream, ANScopeEmail, ANScopeWritePost, ANScopeFollow, ANScopeMessages ] withUsername:usernameTextField.stringValue password:passwordTextField.stringValue completion:^(NSString * accessToken, id rep, NSError * error) {
         [progressIndicator stopAnimation:nil];
         
