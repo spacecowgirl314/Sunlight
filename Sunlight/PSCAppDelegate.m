@@ -226,30 +226,35 @@
 - (IBAction)switchToStream:(id)sender {
 	NSLog(@"Switched to stream.");
 	currentStream = PSCMyStream;
+	[[[buttonCollection buttons] objectAtIndex:0] disableIndicator];
 	[self loadMyStream:NO];
 }
 
 - (IBAction)switchToMentions:(id)sender {
 	NSLog(@"Switched to mentions.");
 	currentStream = PSCMentions;
+	[[[buttonCollection buttons] objectAtIndex:1] disableIndicator];
 	[self loadMentions:NO];
 }
 
 - (IBAction)switchToStars:(id)sender {
 	NSLog(@"Switched to stars.");
 	currentStream = PSCStars;
+	[[[buttonCollection buttons] objectAtIndex:2] disableIndicator];
 	[self loadStars:NO];
 }
 
 - (IBAction)switchToProfile:(id)sender {
 	NSLog(@"Switched to profile.");
 	currentStream = PSCProfile;
+	[[[buttonCollection buttons] objectAtIndex:3] disableIndicator];
 	[self loadProfile:NO];
 }
 
 - (IBAction)switchToMessages:(id)sender {
 	NSLog(@"Switched to messages.");
 	currentStream = PSCMessages;
+	[[[buttonCollection buttons] objectAtIndex:4] disableIndicator];
 	[self loadMessages:NO];
 }
 
@@ -372,6 +377,17 @@
 		}];
 		[navigationController pushStream:stream];
 	}];
+}
+
+- (void)reloadStreamWithPosts:(NSMutableArray*)posts newSet:(NSIndexSet*)newSet deletedPosts:(NSArray*)deletedPosts {
+	// Inject Load More Cell View
+	[posts insertObject:[PSCLoadMore new] atIndex:posts.count];
+	for (NSIndexSet *theSet in deletedPosts) {
+		[[self appTableView] removeRowsAtIndexes:theSet withAnimation:NSTableViewAnimationSlideLeft];
+	}
+	postsArray = posts;
+	// insert new rows:
+	[[self appTableView] insertRowsAtIndexes:newSet withAnimation:NSTableViewAnimationSlideDown];
 }
 
 - (void)pushStreamWithPosts:(NSArray*)newPosts
@@ -501,8 +517,13 @@
 				}
 				// save posts to memory
 				/*[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]];*/
+				BOOL isFirstTime = NO;
+				if ([[[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]] count]==0) {
+					isFirstTime=YES;
+				}
+				NSDictionary *deltaIndices = [[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream] posts:posts];
 				// simulatenously check for new posts in the stream and filter them
-				if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream] posts:posts]) {
+				if ([deltaIndices objectForKey:@"newPosts"]) {
 					[[[buttonCollection buttons] objectAtIndex:0] enableIndicator];
 					[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
 				}
@@ -512,13 +533,21 @@
 					[breadcrumbView clear];
 					[navigationController clear];
 					[breadcrumbView setStartTitle:@"My Stream"];
-					postsArray = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]]; //posts;
-					// Inject Load More Cell View
-					NSMutableArray *profileInjection = [postsArray mutableCopy];
-					[profileInjection insertObject:[PSCLoadMore new] atIndex:postsArray.count];
-					postsArray = profileInjection;
-					
-					[[self appTableView] reloadData];
+					//postsArray = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]]; //posts;
+					// grab deleted sets and new post set and animate
+					NSMutableArray *cachedPostsMemory = [[[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]] mutableCopy];
+					// detect if we have any posts already.
+					if (isFirstTime) {
+						// Inject Load More Cell View
+						[cachedPostsMemory insertObject:[PSCLoadMore new] atIndex:cachedPostsMemory.count];
+						postsArray = cachedPostsMemory;
+						[[self appTableView] reloadData];
+					}
+					else {
+						if ([deltaIndices objectForKey:@"newPosts"]) {
+							[self reloadStreamWithPosts:cachedPostsMemory newSet:[deltaIndices objectForKey:@"newPosts"] deletedPosts:[deltaIndices objectForKey:@"deletedPosts"]];
+						}
+					}
 					dispatch_async(dispatch_get_main_queue(), ^{
 						[[self appScrollView] stopLoading];
 					});

@@ -109,19 +109,46 @@
 /*
  this could should take the new posts response and filter out posts we already have with the exception of deleted posts
  */
-- (int)filterNewPostsForKey:(NSString*)key posts:(NSArray*)posts {
-	NSArray *currentArray = [streamsDictionary objectForKey:key];
+
+// in this case we return only the delta indices and cache the posts in the memory for tab switching
+- (NSDictionary*)filterNewPostsForKey:(NSString*)key posts:(NSArray*)posts {
+	return [self filterNewPostsForKey:key oldPosts:nil posts:posts];
+}
+
+// return the delta indices (new posts, deleted posts) and the appended filtered stream itself
+- (NSDictionary*)filterNewPosts:(NSArray*)newPosts withOldPosts:(NSArray*)oldPosts {
+	return [self filterNewPostsForKey:nil oldPosts:oldPosts posts:newPosts];
+}
+
+// take both forwaded methods and behave differently for each
+- (NSDictionary*)filterNewPostsForKey:(NSString*)key oldPosts:(NSArray*)oldPosts posts:(NSArray*)posts {
+	NSArray *currentArray;
+	// if the key isn't set we're being forwarded from newPosts withOldPosts
+	if (key!=nil) {
+		currentArray = [streamsDictionary objectForKey:key];
+	}
+	else {
+		currentArray = oldPosts;
+	}
 	if (!currentArray) {
 		currentArray = [NSArray new];
 	}
 	NSMutableArray *filterResults = [currentArray mutableCopy];
 	NSMutableArray *newPosts = [NSMutableArray new];
+	NSMutableArray *deletedPosts = [NSMutableArray new];
 	
 	// detect continuity break, ie. posts is just a new post but a post a lot newer that would constitute a break bar...
 	for (ANPost *post in posts) {
 		ANPost *matchingPost = [self doesNSArrayContainSameID:post.ID array:currentArray];
 		if (matchingPost) {
 			// check for a post that was there and then was deleted
+			// since in theory we should never see deleted posts enter the stream then we can predict that if they are matching and the new one is deleted then it was deleted after we reloaded
+			if ([matchingPost isDeleted]) {
+				// Add the index of each deleted item to the delta indices array.
+				[deletedPosts addObject:[NSIndexSet indexSetWithIndex:[filterResults indexOfObject:matchingPost]]];
+				// remove the newly deleted post from the filter
+				[filterResults removeObject:matchingPost];
+			}
 		}
 		else {
 			// keep deleted posts from showing up
@@ -139,10 +166,29 @@
 	for (int i=0; i<newPosts.count; i++) {
 		[filterResults insertObject:[newPosts objectAtIndex:i] atIndex:i];
 	}
+	// created the newPosts index set
+	NSRange range = NSMakeRange(0, [newPosts count]);
+	NSIndexSet *newSet = [NSIndexSet indexSetWithIndexesInRange:range];
 	
-	[streamsDictionary setObject:filterResults forKey:key];
-	
-	return (int)newPosts.count;
+	// handle the stream caching
+	if (key!=nil) {
+		[streamsDictionary setObject:filterResults forKey:key];
+		if ([newPosts count]==0) {
+			return @{@"deletedPosts":deletedPosts};
+		}
+		else {
+			return @{@"newPosts":newSet, @"deletedPosts":deletedPosts};
+		}
+	}
+	// append returning the posts for filterNewPosts withOldPosts
+	else {
+		if ([newPosts count]==0) {
+			return @{@"posts": filterResults, @"deletedPosts":deletedPosts};
+		}
+		else {
+			return @{@"posts": filterResults, @"newPosts":newSet, @"deletedPosts":deletedPosts};
+		}
+	}
 }
 
 @end
