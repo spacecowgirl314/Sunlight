@@ -125,7 +125,8 @@ static float vigourOfShake = 0.05f;
 						@"failgunner",
 						@"colby",
 						@"black",
-						@"hrbrt"];
+						@"hrbrt",
+						@"christian"];
 	for (NSString *username in whitelist) {
 		if ([usernameTextField.stringValue isEqualToString:username]) {
 			allowed = YES;
