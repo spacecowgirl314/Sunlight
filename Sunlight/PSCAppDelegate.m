@@ -1350,7 +1350,10 @@
 	// send post to the cell view
 	[result setPost:post];
 	// set real name
-	[[result userField] setStringValue:[user name]];
+	NSString *userNameAndUsername = [[NSString alloc] initWithFormat:@"%@ %@", [user name], [[user username] appNetUsernameString]];
+	NSMutableAttributedString *userNameandUsernameAttributedString = [[NSMutableAttributedString alloc] initWithString:userNameAndUsername attributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue Medium" size:13], NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.314 green:0.314 blue:0.314 alpha:1.0]}];
+	[userNameandUsernameAttributedString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:12], NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.545 green:0.545 blue:0.545 alpha:1.0]} range:[userNameAndUsername rangeOfString:[[user username] appNetUsernameString]]];
+	[[result userField] setAttributedStringValue:userNameandUsernameAttributedString];
 	// set action button's status, have we starred something?
 	if ([post youStarred]) {
 		[[result starButton] setImage:[NSImage imageNamed:@"star-highlight"]];
