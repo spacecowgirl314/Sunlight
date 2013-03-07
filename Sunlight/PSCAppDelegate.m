@@ -1120,6 +1120,13 @@
 	}];
 }
 
+- (BOOL)random {
+	int tmp = (arc4random() % 30)+1;
+    if(tmp % 5 == 0)
+        return YES;
+    return NO;
+}
+
 - (void)showMention:(ANPost*)mention
 {
 	NSUserNotification *notification = [[NSUserNotification alloc] init];
@@ -1129,6 +1136,7 @@
 	NSNumber *postID = [NSNumber numberWithLongLong:mention.ID];
 	notification.userInfo = @{@"postID":postID};
 	notification.hasActionButton = YES;
+	notification.soundName = [self random] ? @"171671__fins__success-1.wav" : @"171670__fins__success-2.wav";
 	[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 	[[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
 }
