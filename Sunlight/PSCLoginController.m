@@ -46,6 +46,8 @@
     self.titleView.frame = window.titleBarView.bounds;
     self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     [window.titleBarView addSubview:titleView];
+    
+    [window center];
 	
 	return self;
     
