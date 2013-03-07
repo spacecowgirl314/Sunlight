@@ -1313,7 +1313,17 @@
 	return profileCellView;
 }
 
-- (PSCPostCellView*)configurePostCellView:(NSTableView*)tableView post:(ANPost*)post
+- (void)carouselFix:(NSImageView*)imageView image:(NSImage*)image tableView:(NSTableView*)tableView rowIndex:(NSInteger)rowIndex {
+	NSRange visibleRows = [tableView rowsInRect:[tableView visibleRect]];
+	if (NSLocationInRange(rowIndex, visibleRows)) {
+		[imageView setImage:image];
+	}
+	else {
+		NSLog(@"Prevented carouselling");
+	}
+}
+
+- (PSCPostCellView*)configurePostCellView:(NSTableView*)tableView post:(ANPost*)post rowIndex:(NSUInteger)rowIndex
 {
 	PSCPostCellView *result = [tableView makeViewWithIdentifier:@"PostCell" owner:nil];
 	// clear out the old image first. prevent temporary flickering due to no caching
@@ -1397,11 +1407,12 @@
 			if (!error) {
 				NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
 				[[PSCMemoryCache sharedMemory].avatarImages setValue:maskedImage forKey:[user username]];
-				[[result avatarView] setImage:maskedImage];
+				[self carouselFix:[result avatarView] image:maskedImage tableView:tableView rowIndex:rowIndex];
+				//[[result avatarView] setImage:maskedImage];
 			}
-			else {
+			/*else {
 				[[result avatarView] setImage:nil];
-			}
+			}*/
 		}];
 	}
 	// set contents of post
@@ -1427,7 +1438,7 @@
 		return [self configureProfileCellView:tableView user:content];
 	}
 	if ([content isKindOfClass:[ANPost class]]) {
-		return [self configurePostCellView:tableView post:content];
+		return [self configurePostCellView:tableView post:content rowIndex:row];
 	}
 	if ([content isKindOfClass:[PSCLoadMore class]]) {
 		PSCLoadMoreCellView *result = [tableView makeViewWithIdentifier:@"LoadMoreCell" owner:nil];
