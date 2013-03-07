@@ -132,6 +132,7 @@ static float vigourOfShake = 0.05f;
 		}
 	}
 	if (!allowed) {
+		[progressIndicator stopAnimation:nil];
 		[[self window] setAnimations:@{@"frameOrigin":[self shakeAnimation:[self.window frame]]}];
 		[[self.window animator] setFrameOrigin:[self.window frame].origin];
 		return;
