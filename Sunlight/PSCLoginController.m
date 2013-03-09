@@ -46,6 +46,8 @@
     self.titleView.frame = window.titleBarView.bounds;
     self.titleView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     [window.titleBarView addSubview:titleView];
+    
+    [window center];
 	
 	return self;
     
@@ -126,7 +128,8 @@ static float vigourOfShake = 0.05f;
 						@"colby",
 						@"black",
 						@"hrbrt",
-						@"christian"];
+						@"christian",
+                        @"starring"];
 	for (NSString *username in whitelist) {
 		if ([usernameTextField.stringValue isEqualToString:username]) {
 			allowed = YES;

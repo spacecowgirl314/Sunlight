@@ -41,6 +41,8 @@
     window.showsBaselineSeparator = NO;
 	
 	[postTextField setDelegate:self];
+    
+    [window center];
 	
 	return self;
 }

@@ -152,6 +152,8 @@
 	[NSTimer scheduledTimerWithTimeInterval:60*3 block:^{
 		[self loadMyStream:YES];
 	} repeats:YES];
+    
+    [window center];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
