@@ -11,7 +11,7 @@
 @interface PSCStream : NSObject
 
 @property NSArray *posts;
-@property NSPoint *position;
+@property NSPoint position;
 @property (strong) void(^reloadPosts)(void);
 
 @end

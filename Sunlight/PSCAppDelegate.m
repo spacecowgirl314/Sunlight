@@ -164,8 +164,8 @@
 
 - (void)breadcrumbView:(PSCBreadcrumbView *)view didTapItemAtIndex:(NSUInteger)index
 {
-	[navigationController popStreamAtIndex:(int)index];
 	PSCStream *stream = [navigationController streamAtIndex:(int)index];
+	[navigationController popStreamAtIndex:(int)index];
 	[self popStreamWithPosts:stream.posts];
 }
 
@@ -193,6 +193,21 @@
     }
 	
     [[appScrollView documentView] scrollPoint:newScrollOrigin];
+}
+
+- (IBAction)poop:(id)sender {
+	[self scrollPosition];
+}
+
+- (NSPoint)scrollPosition {
+	NSPoint point = NSPointFromCGPoint(appScrollView.contentView.bounds.origin);
+	NSLog(@"point.y: %f", point.y);
+	return point; //NSPointFromCGPoint(appScrollView.contentView.bounds.origin);
+}
+
+- (void)setScrollPosition:(NSPoint)origin {
+	NSLog(@"setting y position:%f", origin.y);
+	[[appScrollView documentView] scrollPoint:origin];
 }
 
 #pragma mark - Switching Streams
@@ -358,8 +373,6 @@
 		[breadcrumbView pushItem:[self item:@"Conversation"]];
 		//currentStream = PSCConversation;
 		[titleTextField setStringValue:@"Conversation"];
-		[self scrollToTop];
-		[self pushStreamWithPosts:posts];
 		PSCStream *stream = [PSCStream new];
 		[stream setPosts:posts];
 		[stream setReloadPosts:^{
@@ -376,6 +389,7 @@
 			}];
 		}];
 		[navigationController pushStream:stream];
+		[self pushStreamWithPosts:posts];
 	}];
 }
 
@@ -392,6 +406,8 @@
 
 - (void)pushStreamWithPosts:(NSArray*)newPosts
 {
+	//[self scrollPosition];
+	[[navigationController streamAtIndex:[navigationController levels]-1] setPosition:[self scrollPosition]];
 	[self scrollToTop];
 	// remove current rows if present
 	NSRange range = NSMakeRange(0, [postsArray count]);
@@ -407,6 +423,9 @@
 - (void)popStreamWithPosts:(NSArray*)previousPosts
 {
 	// TODO: Set the current scroll position in the current stream before popping
+	if (navigationController.levels!=0) {
+		[self setScrollPosition:[[navigationController streamAtIndex:[navigationController levels]-1] position]];
+	}
 	// remove current rows if present
 	NSRange range = NSMakeRange(0, [postsArray count]);
 	NSIndexSet *theSet = [NSIndexSet indexSetWithIndexesInRange:range];
@@ -429,7 +448,6 @@
 				[self showErrorBarWithError:error];
 			}
 			if(!posts) {
-				[self pushStreamWithPosts:posts];
 				PSCStream *stream = [PSCStream new];
 				[stream setPosts:posts];
 				[stream setReloadPosts:^{
@@ -445,10 +463,10 @@
 					}];
 				}];
 				[navigationController pushStream:stream];
+				[self pushStreamWithPosts:posts];
 				return;
 			}
 			[breadcrumbView pushItem:[self item:[[NSString alloc] initWithFormat:@"#%@", tag]]];
-			[self pushStreamWithPosts:posts];
 			PSCStream *stream = [PSCStream new];
 			[stream setPosts:posts];
 			[stream setReloadPosts:^{
@@ -464,6 +482,7 @@
 				}];
 			}];
 			[navigationController pushStream:stream];
+			[self pushStreamWithPosts:posts];
 		}];
 	});
 }
@@ -565,13 +584,15 @@
 			NSMutableArray *profileInjection = [streamPosts mutableCopy];
 			[profileInjection insertObject:[PSCLoadMore new] atIndex:streamPosts.count];
 			if (isPopping) {
+				// load scroll position
+				//[self scrollToTop];
 				[self popStreamWithPosts:profileInjection];
 			}
 			else {
+				// load scroll position
 				postsArray = profileInjection;
 				[[self appTableView] reloadData];
 			}
-			[self scrollToTop];
 		}
 		else {
 			reloadPosts();
@@ -643,13 +664,13 @@
 			[navigationController clear];
 			[breadcrumbView setStartTitle:@"Mentions"];
 			if (isPopping) {
+				[self scrollToTop];
 				[self popStreamWithPosts:mentionsPosts];
 			}
 			else {
 				postsArray = mentionsPosts;
 				[[self appTableView] reloadData];
 			}
-			[self scrollToTop];
 		}
 		else {
 			reloadPosts();
@@ -721,13 +742,13 @@
 			[navigationController clear];
 			[breadcrumbView setStartTitle:@"Starred"];
 			if (isPopping) {
+				[self scrollToTop];
 				[self popStreamWithPosts:starsPosts];
 			}
 			else {
 				postsArray = starsPosts;
 				[[self appTableView] reloadData];
 			}
-			[self scrollToTop];
 		}
 		else {
 			reloadPosts();
@@ -834,7 +855,6 @@
 						}
 						else {
 							// we're pushing a profile to the navigation controller
-							[self pushStreamWithPosts:profileInjection];
 							PSCStream *stream = [PSCStream new];
 							[stream setPosts:profileInjection];
 							[stream setReloadPosts:^{
@@ -854,6 +874,7 @@
 								}];
 							}];
 							[navigationController pushStream:stream];
+							[self pushStreamWithPosts:profileInjection];
 						}
 						dispatch_async(dispatch_get_main_queue(), ^{
 							[[self appScrollView] stopLoading];
@@ -874,6 +895,7 @@
 			NSMutableArray *profileInjection = [profilePosts mutableCopy];
 			[profileInjection insertObject:[[PSCMemoryCache sharedMemory] currentUser] atIndex:0];
 			if (isPopping) {
+				[self scrollToTop];
 				[self popStreamWithPosts:profileInjection];
 			}
 			else {
@@ -881,7 +903,6 @@
 				//postsArray = profilePosts;
 				[[self appTableView] reloadData];
 			}
-			[self scrollToTop];
 		}
 		else {
 			reloadPosts();

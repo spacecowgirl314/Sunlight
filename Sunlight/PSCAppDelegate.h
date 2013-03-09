@@ -67,4 +67,7 @@ typedef enum {
 - (IBAction)loadPreviousInStream:(id)sender;
 - (IBAction)refreshStream:(id)sender;
 
+// test stuff
+- (IBAction)poop:(id)sender;
+
 @end
