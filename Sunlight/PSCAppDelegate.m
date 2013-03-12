@@ -1511,25 +1511,19 @@
 	[[result userField] setAttributedStringValue:userNameandUsernameAttributedString];
 	// set action button's status, have we starred something?
 	if ([post youStarred]) {
-		[[result starButton] setImage:[NSImage imageNamed:@"star-highlight"]];
-        [[result starButton] setAlternateImage:[NSImage imageNamed:@"star-highlight-pressed"]];
-        [[result starButton] setTitle:@"Starred"];
+		[[result starButton] setImage:[NSImage imageNamed:@"timeline-star-highlight"]];
 		[[result starButton] setTextColor:[NSColor colorWithDeviceRed:0.894 green:0.541 blue:0.082 alpha:1.0]];
 	}
 	else {
 		[[result starButton] setImage:[NSImage imageNamed:@"timeline-star"]];
-        [[result starButton] setTitle:@"Star"];
 		[[result starButton] setTextColor:[result defaultButtonColor]];
 	}
 	if ([post youReposted]) {
-		[[result repostButton] setImage:[NSImage imageNamed:@"repost-highlight"]];
-        [[result repostButton] setAlternateImage:[NSImage imageNamed:@"repost-highlight-pressed"]];
-        [[result repostButton] setTitle:@"Reposted"];
+		[[result repostButton] setImage:[NSImage imageNamed:@"timeline-repost-highlight"]];
         [[result repostButton] setTextColor:[NSColor colorWithDeviceRed:0.118 green:0.722 blue:0.106 alpha:1.0]];
 	}
 	else {
 		[[result repostButton] setImage:[NSImage imageNamed:@"timeline-repost"]];
-        [[result repostButton] setTitle:@"Repost"];
 		[[result repostButton] setTextColor:[result defaultButtonColor]];
 	}
 	if ([post numberOfReplies]>0 || [post replyTo]) {
@@ -1712,7 +1706,7 @@
 	for (ANEntity *mention in [entities mentions]) {
 		// Add custom attribute of UsernameMatch to indicate where our usernames are found
 		NSDictionary *linkAttr2 = [[NSDictionary alloc] initWithObjectsAndKeys:
-								   [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
+								   [NSColor colorWithDeviceRed:0.82 green:0.388 blue:0.031 alpha:1.0], NSForegroundColorAttributeName,
 								   [NSCursor pointingHandCursor], NSCursorAttributeName,
 								   mention.text, @"UsernameMatch",
 								   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,

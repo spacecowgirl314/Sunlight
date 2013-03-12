@@ -24,7 +24,7 @@
 		defaultAlternateButtonImage = self.alternateImage;
 		indicatorImageView = [[NSImageView alloc] init];
 		indicatorImageView.image = [NSImage imageNamed:@"indicator"];
-		indicatorImageView.frame = NSMakeRect(NSMidX([self bounds])-indicatorImageView.image.size.width/2, self.frame.size.height-indicatorImageView.image.size.height-2, indicatorImageView.image.size.width, indicatorImageView.image.size.height);
+		indicatorImageView.frame = NSMakeRect(NSMidX([self bounds])-indicatorImageView.image.size.width/2, self.frame.size.height-indicatorImageView.image.size.height+3, indicatorImageView.image.size.width, indicatorImageView.image.size.height);
 		indicatorImageView.alphaValue = 0.0;
 		[self addSubview:indicatorImageView];
 		[[NSAnimationContext currentContext] setDuration:0.2f];
@@ -40,7 +40,7 @@
 		defaultAlternateButtonImage = self.alternateImage;
 		indicatorImageView = [[NSImageView alloc] init];
 		indicatorImageView.image = [NSImage imageNamed:@"indicator"];
-		indicatorImageView.frame = NSMakeRect(NSMidX([self bounds])-indicatorImageView.image.size.width/2, self.frame.size.height-indicatorImageView.image.size.height-2, indicatorImageView.image.size.width, indicatorImageView.image.size.height);
+		indicatorImageView.frame = NSMakeRect(NSMidX([self bounds])-indicatorImageView.image.size.width/2, self.frame.size.height-indicatorImageView.image.size.height+3, indicatorImageView.image.size.width, indicatorImageView.image.size.height);
 		indicatorImageView.alphaValue = 0.0;
 		[self addSubview:indicatorImageView];
 		[[NSAnimationContext currentContext] setDuration:0.2f];

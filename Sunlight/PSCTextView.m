@@ -49,7 +49,7 @@
 - (NSDictionary *)linkTextAttributes {
 	return [[NSDictionary alloc] initWithObjectsAndKeys:
 	 [NSCursor pointingHandCursor], NSCursorAttributeName,
-	 [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
+	 [NSColor colorWithDeviceRed:0.82 green:0.388 blue:0.031 alpha:1.0], NSForegroundColorAttributeName,
 	 [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
 	 nil];
 }
