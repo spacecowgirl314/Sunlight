@@ -13,6 +13,7 @@
 #import "DDHotKeyCenter.h"
 #import "NSDate+HumanizedTime.h"
 #import <Quartz/Quartz.h>
+#import <CoreLocation/CoreLocation.h>
 #import "NS(Attributed)String+Geometrics.h"
 #import "RegexKitLite.h"
 #import "NSButton+TextColor.h"
@@ -349,6 +350,7 @@
 	currentStream = PSCProfile;
 	[[[buttonCollection buttons] objectAtIndex:3] disableIndicator];
 	[self loadProfile:NO];
+	[self getStreamScrollPosition];
 }
 
 - (IBAction)switchToMessages:(id)sender {
@@ -1459,7 +1461,19 @@
 	[[[result avatarView] window] makeFirstResponder:[result avatarView]];
 	[[result avatarView] setImage:nil];
 	
-	ANAnnotationSet *annotations = [post annotations];
+	/*ANAnnotationSet *annotationSet = [post annotations];
+	for (ANAnnotation *annotation in [annotationSet all]) {
+		NSLog(@"annotation type:%@ for %@", annotation.type, post.text);
+		if ([[annotation type] isEqualToString:ANAnnotationTypeGeolocation]) {
+			CLLocation *location = [annotation geolocationValue];
+			CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+			[geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+				for (CLPlacemark *placemark in placemarks) {
+					NSLog(@"placemark found:%@", [placemark description]);
+				}
+			}];
+		}
+	}*/
     
 	//ANPost *post = [postsArray objectAtIndex:row];
 	ANUser *user = [post user];
