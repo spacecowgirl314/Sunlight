@@ -23,6 +23,7 @@
 #import "PSCStream.h"
 #import "NSDictionary+Compression.h"
 #import "NSAlert+Blocks.h"
+//#import "ANEntity.h"
 
 @implementation PSCAppDelegate
 @synthesize postController;
@@ -538,7 +539,7 @@
 
 - (void)loadHashtag:(NSNotification*)theNotification {
 	// setup copy view
-	NSString *tag = [[theNotification object] substringFromIndex:2];
+	NSString *tag = [[theNotification object] substringFromIndex:1];
 	NSLog(@"tag:%@", tag);
 	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 	dispatch_async(queue,^{
@@ -1545,7 +1546,7 @@
 	}
 	// set contents of post
 	if (![post isDeleted]) {
-		[[[result postView] textStorage] setAttributedString:[self stylizeStatusString:[post text]]];
+		[[[result postView] textStorage] setAttributedString:[self stylizeStatusStringWithPost:post]];
 		[[result postView] setEditable:NO];
 		// set height of the post text view
 		NSFont *font = [NSFont fontWithName:@"Helvetica Neue Bold" size:13.0f];
@@ -1675,84 +1676,49 @@
  Special thanks to Mike Rundle for this. 
  http://flyosity.com/mac-os-x/clickable-tweet-links-hashtags-usernames-in-a-custom-nstextview.php
  */
--(NSAttributedString*)stylizeStatusString:(NSString*)string {
+-(NSAttributedString*)stylizeStatusStringWithPost:(ANPost*)post {
 	// Building up our attributed string
-	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:string];
-	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13.0f],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.251 green:0.251 blue:0.251 alpha:1.0]} range:NSMakeRange(0, [string length])];
-
-	// Generate arrays of our interesting items. Links, usernames, hashtags.
-	NSArray *linkMatches = [self scanStringForLinks:string];
-	NSArray *usernameMatches = [self scanStringForUsernames:string];
-	NSArray *hashtagMatches = [self scanStringForHashtags:string];
-	[attributedStatusString addAttribute:NSShadowAttributeName value:[self theShadow] range:NSMakeRange(0, [string length])];
-    
+	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:[post text]];
+	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13.0f],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.251 green:0.251 blue:0.251 alpha:1.0]} range:NSMakeRange(0, [[post text] length])];
+	[attributedStatusString addAttribute:NSShadowAttributeName value:[self theShadow] range:NSMakeRange(0, [[post text] length])];
 	
-	// Iterate across the string matches from our regular expressions, find the range
-	// of each match, add new attributes to that range
-	for (NSString *linkMatchedString in linkMatches) {
-		NSRange range = [string rangeOfString:linkMatchedString];
-		if( range.location != NSNotFound ) {
-			// Add custom attribute of LinkMatch to indicate where our URLs are found. Could be blue
-			// or any other color.
-			NSDictionary *linkAttr = [[NSDictionary alloc] initWithObjectsAndKeys:
-									  [NSCursor pointingHandCursor], NSCursorAttributeName,
-									  [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
-									  linkMatchedString, @"LinkMatch",
-									   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
-									  nil];
-			[attributedStatusString addAttributes:linkAttr range:range];
-		}
+	ANEntitySet *entities = [post entities];
+	
+	for (ANEntity *link in [entities links]) {
+		// Add custom attribute of LinkMatch to indicate where our URLs are found. Could be blue
+		// or any other color.
+		NSDictionary *linkAttr = [[NSDictionary alloc] initWithObjectsAndKeys:
+								  [NSCursor pointingHandCursor], NSCursorAttributeName,
+								  [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
+								  link.URL, @"LinkMatch",
+								  [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
+								  nil];
+		[attributedStatusString addAttributes:linkAttr range:link.range];
 	}
 	
-	for (NSString *usernameMatchedString in usernameMatches) {
-		NSRange range = [string rangeOfString:usernameMatchedString];
-		if( range.location != NSNotFound ) {
-			// Add custom attribute of UsernameMatch to indicate where our usernames are found
-			NSDictionary *linkAttr2 = [[NSDictionary alloc] initWithObjectsAndKeys:
-									   [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
-									   [NSCursor pointingHandCursor], NSCursorAttributeName,
-									   usernameMatchedString, @"UsernameMatch",
-									   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
-									   nil];
-			[attributedStatusString addAttributes:linkAttr2 range:range];
-		}
+	for (ANEntity *mention in [entities mentions]) {
+		// Add custom attribute of UsernameMatch to indicate where our usernames are found
+		NSDictionary *linkAttr2 = [[NSDictionary alloc] initWithObjectsAndKeys:
+								   [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
+								   [NSCursor pointingHandCursor], NSCursorAttributeName,
+								   mention.text, @"UsernameMatch",
+								   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
+								   nil];
+		[attributedStatusString addAttributes:linkAttr2 range:mention.range];
 	}
 	
-	for (NSString *hashtagMatchedString in hashtagMatches) {
-		NSRange range = [string rangeOfString:hashtagMatchedString];
-		if( range.location != NSNotFound ) {
-			// Add custom attribute of HashtagMatch to indicate where our hashtags are found
-			NSDictionary *linkAttr3 = [[NSDictionary alloc] initWithObjectsAndKeys:
-									   [NSColor colorWithDeviceRed:0.639 green:0.639 blue:0.639 alpha:1.0], NSForegroundColorAttributeName,
-									   [NSCursor pointingHandCursor], NSCursorAttributeName,
-									   hashtagMatchedString, @"HashtagMatch",
-									   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
-									   nil];
-			[attributedStatusString addAttributes:linkAttr3 range:range];
-		}
+	for (ANEntity *tag in [entities tags]) {
+		// Add custom attribute of HashtagMatch to indicate where our hashtags are found
+		NSDictionary *linkAttr3 = [[NSDictionary alloc] initWithObjectsAndKeys:
+								   [NSColor colorWithDeviceRed:0.639 green:0.639 blue:0.639 alpha:1.0], NSForegroundColorAttributeName,
+								   [NSCursor pointingHandCursor], NSCursorAttributeName,
+								   tag.text, @"HashtagMatch",
+								   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
+								   nil];
+		[attributedStatusString addAttributes:linkAttr3 range:tag.range];
 	}
-	
+		
 	return attributedStatusString;
-}
-
-#pragma mark -
-#pragma mark String parsing
-
-// These regular expressions aren't the greatest. There are much better ones out there to parse URLs, @usernames
-// and hashtags out of tweets. Getting the escaping just right is a pain in the ass, so be forewarned.
-
-- (NSArray *)scanStringForLinks:(NSString *)string {
-	return [string componentsMatchedByRegex:@"(?i)\\b((?:[a-z][\\w-]+:(?:/{1,3}|[a-z0-9%])|www\\d{0,3}[.]|[a-z0-9.\\-]+[.][a-z]{2,4}/?)(?:[^,\\]\\s()<>]+|\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\))*(?:\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\)|[^\\s`!()\\[\\]{};:'\".,<>?«»“”‘’])*)"];
-	// gruber's crappy regex \\b(([\\w-]+://?|www[.])[^\\s()<>]+(?:\\([\\w\\d]+\\)|([^[:punct:]\\s]|/)))
-	// (http(s)?://)?([\\w-]+\\.)+[\\w-]+(/[\\w- ;,./?%&=]*)? works without http
-}
-
-- (NSArray *)scanStringForUsernames:(NSString *)string {
-	return [string componentsMatchedByRegex:@"@{1}([-A-Za-z0-9_]{2,})"];
-}
-
-- (NSArray *)scanStringForHashtags:(NSString *)string {
-	return [string componentsMatchedByRegex:@"[\\s]{1,}#{1}([^\\s]{2,})"];
 }
 
 @end
