@@ -27,9 +27,9 @@
 		// Grab the attributes of our attributed string at this exact index
 		NSDictionary *attributes = [[self attributedString] attributesAtIndex:charIndex effectiveRange:NULL];
 		
-		if( [attributes objectForKey:@"LinkMatch"] != nil ) {
+		/*if( [attributes objectForKey:@"LinkMatch"] != nil ) {
 			[[NSWorkspace sharedWorkspace] openURL:[attributes objectForKey:@"LinkMatch"]];
-		}
+		}*/
 		
 		if( [attributes objectForKey:@"UsernameMatch"] != nil ) {
 			NSLog( @"UsernameMatch: %@", [attributes objectForKey:@"UsernameMatch"] );
@@ -44,6 +44,14 @@
 	}
 	
 	[super mouseDown:theEvent];
+}
+
+- (NSDictionary *)linkTextAttributes {
+	return [[NSDictionary alloc] initWithObjectsAndKeys:
+	 [NSCursor pointingHandCursor], NSCursorAttributeName,
+	 [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
+	 [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
+	 nil];
 }
 
 @end

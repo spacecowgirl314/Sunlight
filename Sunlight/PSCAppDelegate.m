@@ -1458,6 +1458,8 @@
 	// clear out the old image first. prevent temporary flickering due to no caching
 	[[[result avatarView] window] makeFirstResponder:[result avatarView]];
 	[[result avatarView] setImage:nil];
+	
+	ANAnnotationSet *annotations = [post annotations];
     
 	//ANPost *post = [postsArray objectAtIndex:row];
 	ANUser *user = [post user];
@@ -1686,13 +1688,9 @@
 	ANEntitySet *entities = [post entities];
 	
 	for (ANEntity *link in [entities links]) {
-		// Add custom attribute of LinkMatch to indicate where our URLs are found. Could be blue
-		// or any other color.
+		// Actual styling is set in PSCTextView
 		NSDictionary *linkAttr = [[NSDictionary alloc] initWithObjectsAndKeys:
-								  [NSCursor pointingHandCursor], NSCursorAttributeName,
-								  [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
-								  link.URL, @"LinkMatch",
-								  [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
+								  link.URL, NSLinkAttributeName,
 								  nil];
 		[attributedStatusString addAttributes:linkAttr range:link.range];
 	}
