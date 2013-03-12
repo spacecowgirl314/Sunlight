@@ -1370,6 +1370,16 @@
     return CGSizeMake(size.width*scale, size.height*scale);
 }
 
+- (void)carouselFix:(NSImageView*)imageView image:(NSImage*)image tableView:(NSTableView*)tableView rowIndex:(NSInteger)rowIndex {
+	NSRange visibleRows = [tableView rowsInRect:[tableView visibleRect]];
+	if (NSLocationInRange(rowIndex, visibleRows)) {
+		[imageView setImage:image];
+	}
+	else {
+		NSLog(@"Prevented carouselling");
+	}
+}
+
 - (PSCProfileCellView*)configureProfileCellView:(NSTableView*)tableView user:(ANUser*)user
 {
 	PSCProfileCellView *profileCellView = [tableView makeViewWithIdentifier:@"ProfileCell" owner:nil];
@@ -1385,9 +1395,15 @@
 	[nameAttributedString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:14], NSForegroundColorAttributeName:[NSColor colorWithDeviceWhite:1.0 alpha:0.85]} range:[name rangeOfString:[[user username] appNetUsernameString]]];
 	//[[profileCellView userField] setStringValue:name];
 	[[profileCellView userField] setAttributedStringValue:nameAttributedString];
+	
+	ANUserDescription *userDescription = [user userDescription];
+	
 	// set biography and protect from derps who don't have any biography set
-	if ([[user userDescription] text]) {
-		[[profileCellView biographyView] setStringValue:[[user userDescription] text]];
+	if ([userDescription text]) {
+		[[profileCellView biographyView] setAttributedStringValue:[self stylizeBioWithString:[userDescription text] andEntities:[userDescription entities]]]; //[[user userDescription] text]];
+		for (ANEntity *entity in [[userDescription entities] all]) {
+			NSLog(@"type:%@", entity.text);
+		}
 	}
 	else {
 		[[profileCellView biographyView] setStringValue:@""];
@@ -1442,16 +1458,6 @@
 		}
 	}];
 	return profileCellView;
-}
-
-- (void)carouselFix:(NSImageView*)imageView image:(NSImage*)image tableView:(NSTableView*)tableView rowIndex:(NSInteger)rowIndex {
-	NSRange visibleRows = [tableView rowsInRect:[tableView visibleRect]];
-	if (NSLocationInRange(rowIndex, visibleRows)) {
-		[imageView setImage:image];
-	}
-	else {
-		NSLog(@"Prevented carouselling");
-	}
 }
 
 - (PSCPostCellView*)configurePostCellView:(NSTableView*)tableView post:(ANPost*)post rowIndex:(NSUInteger)rowIndex
@@ -1562,7 +1568,7 @@
 	}
 	// set contents of post
 	if (![post isDeleted]) {
-		[[[result postView] textStorage] setAttributedString:[self stylizeStatusStringWithPost:post]];
+		[[[result postView] textStorage] setAttributedString:[self stylizeStatusWithString:[post text] andEntities:[post entities]]];
 		[[result postView] setEditable:NO];
 		// set height of the post text view
 		NSFont *font = [NSFont fontWithName:@"Helvetica Neue Bold" size:13.0f];
@@ -1594,9 +1600,18 @@
 	return nil;
 }
 
+- (void)deselectRow:(NSInteger)rowIndex {
+	
+}
+
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex {
-    //[aTableView deselectRow:rowIndex];
-    return NO;
+    id content = [postsArray objectAtIndex:rowIndex];
+	if ([content isKindOfClass:[ANPost class]]) {
+		return YES;
+	}
+	else {
+		return NO;
+	}
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
@@ -1690,16 +1705,14 @@
 }
 
 /*
- Special thanks to Mike Rundle for this. 
+ Mike Rundle has info on manual parsing.
  http://flyosity.com/mac-os-x/clickable-tweet-links-hashtags-usernames-in-a-custom-nstextview.php
  */
--(NSAttributedString*)stylizeStatusStringWithPost:(ANPost*)post {
+-(NSAttributedString*)stylizeStatusWithString:(NSString*)string andEntities:(ANEntitySet*)entities {
 	// Building up our attributed string
-	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:[post text]];
-	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13.0f],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.251 green:0.251 blue:0.251 alpha:1.0]} range:NSMakeRange(0, [[post text] length])];
-	[attributedStatusString addAttribute:NSShadowAttributeName value:[self theShadow] range:NSMakeRange(0, [[post text] length])];
-	
-	ANEntitySet *entities = [post entities];
+	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:string];
+	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13.0f],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.251 green:0.251 blue:0.251 alpha:1.0]} range:NSMakeRange(0, [string length])];
+	[attributedStatusString addAttribute:NSShadowAttributeName value:[self theShadow] range:NSMakeRange(0, [string length])];
 	
 	for (ANEntity *link in [entities links]) {
 		// Actual styling is set in PSCTextView
@@ -1731,6 +1744,46 @@
 		[attributedStatusString addAttributes:linkAttr3 range:tag.range];
 	}
 		
+	return attributedStatusString;
+}
+
+-(NSAttributedString*)stylizeBioWithString:(NSString*)string andEntities:(ANEntitySet*)entities {
+	// Building up our attributed string
+	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:string];
+	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Bold" size:14.0f],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.531 green:0.531 blue:0.531 alpha:1.0]} range:NSMakeRange(0, [string length])];
+	//[attributedStatusString addAttribute:NSShadowAttributeName value:[self theShadow] range:NSMakeRange(0, [string length])];
+	
+	for (ANEntity *link in [entities links]) {
+		// Actual styling is set in PSCTextView
+		NSDictionary *linkAttr = [[NSDictionary alloc] initWithObjectsAndKeys:
+								  [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
+								  link.URL, NSLinkAttributeName,
+								  nil];
+		[attributedStatusString addAttributes:linkAttr range:link.range];
+	}
+	
+	for (ANEntity *mention in [entities mentions]) {
+		// Add custom attribute of UsernameMatch to indicate where our usernames are found
+		NSDictionary *linkAttr2 = [[NSDictionary alloc] initWithObjectsAndKeys:
+								   [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
+								   [NSCursor pointingHandCursor], NSCursorAttributeName,
+								   mention.text, @"UsernameMatch",
+								   [NSFont fontWithName:@"Helvetica Bold" size:14], NSFontAttributeName,
+								   nil];
+		[attributedStatusString addAttributes:linkAttr2 range:mention.range];
+	}
+	
+	for (ANEntity *tag in [entities tags]) {
+		// Add custom attribute of HashtagMatch to indicate where our hashtags are found
+		NSDictionary *linkAttr3 = [[NSDictionary alloc] initWithObjectsAndKeys:
+								   [NSColor colorWithDeviceRed:0.639 green:0.639 blue:0.639 alpha:1.0], NSForegroundColorAttributeName,
+								   [NSCursor pointingHandCursor], NSCursorAttributeName,
+								   tag.text, @"HashtagMatch",
+								   [NSFont fontWithName:@"Helvetica Bold" size:14], NSFontAttributeName,
+								   nil];
+		[attributedStatusString addAttributes:linkAttr3 range:tag.range];
+	}
+	
 	return attributedStatusString;
 }
 

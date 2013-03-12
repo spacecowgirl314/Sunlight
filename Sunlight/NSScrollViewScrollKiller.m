@@ -31,5 +31,14 @@
     responderScroll(self, @selector(scrollWheel:), theEvent);
 }
 
+/*- (void)mouseDown:(NSEvent *)theEvent {
+	void (*responderDown)(id, SEL, id);
+    
+    responderDown = (void (*)(id, SEL, id))([NSResponder
+                                               instanceMethodForSelector:@selector(mouseDown:)]);
+    
+    responderDown(self, @selector(mouseDown:), theEvent);
+}*/
+
 
 @end

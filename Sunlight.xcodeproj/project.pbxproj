@@ -114,6 +114,8 @@
 		3759737316CF947300E6993D /* 151568__lukechalaudio__user-interface-generic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3759737216CF947300E6993D /* 151568__lukechalaudio__user-interface-generic.wav */; };
 		3759737516CFA2C700E6993D /* 171671__fins__success-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3759737416CFA2C700E6993D /* 171671__fins__success-1.wav */; };
 		3759737716CFA2CC00E6993D /* 171670__fins__success-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3759737616CFA2CC00E6993D /* 171670__fins__success-2.wav */; };
+		376A71DD16EF2629009A99D3 /* DSClickableURLTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 376A71DC16EF2629009A99D3 /* DSClickableURLTextField.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		376A71E016EF28AD009A99D3 /* PSCTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 376A71DF16EF28AD009A99D3 /* PSCTableView.m */; };
 		3781509516C0EA4D0015956E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3781508F16C0EA4D0015956E /* Localizable.strings */; };
 		3781509616C0EA4D0015956E /* Localizable_full.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3781509116C0EA4D0015956E /* Localizable_full.strings */; };
 		3781509716C0EA4D0015956E /* NSDate+HumanizedTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3781509416C0EA4D0015956E /* NSDate+HumanizedTime.m */; };
@@ -469,6 +471,10 @@
 		3759737216CF947300E6993D /* 151568__lukechalaudio__user-interface-generic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "151568__lukechalaudio__user-interface-generic.wav"; sourceTree = "<group>"; };
 		3759737416CFA2C700E6993D /* 171671__fins__success-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "171671__fins__success-1.wav"; sourceTree = "<group>"; };
 		3759737616CFA2CC00E6993D /* 171670__fins__success-2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "171670__fins__success-2.wav"; sourceTree = "<group>"; };
+		376A71DB16EF2628009A99D3 /* DSClickableURLTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSClickableURLTextField.h; sourceTree = "<group>"; };
+		376A71DC16EF2629009A99D3 /* DSClickableURLTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSClickableURLTextField.m; sourceTree = "<group>"; };
+		376A71DE16EF28AD009A99D3 /* PSCTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCTableView.h; sourceTree = "<group>"; };
+		376A71DF16EF28AD009A99D3 /* PSCTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCTableView.m; sourceTree = "<group>"; };
 		3781509016C0EA4D0015956E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3781509216C0EA4D0015956E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable_full.strings; sourceTree = "<group>"; };
 		3781509316C0EA4D0015956E /* NSDate+HumanizedTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+HumanizedTime.h"; sourceTree = "<group>"; };
@@ -1018,6 +1024,8 @@
 				3786044016D773E600F56553 /* PSCAvatarImageView.m */,
 				378602EE16C22C57003256B9 /* PSCTextView.h */,
 				378602EF16C22C58003256B9 /* PSCTextView.m */,
+				376A71DE16EF28AD009A99D3 /* PSCTableView.h */,
+				376A71DF16EF28AD009A99D3 /* PSCTableView.m */,
 				3781509F16C0F2290015956E /* PSCGradientView.h */,
 				378150A016C0F2290015956E /* PSCGradientView.m */,
 				373E998E16E17837005B35A4 /* PSCColorableView.h */,
@@ -1105,6 +1113,8 @@
 				37B5214A16159CDE00941F0D /* PSCHUDWindow.m */,
 				378602E916C22254003256B9 /* RegexKitLite.h */,
 				378602EA16C22254003256B9 /* RegexKitLite.m */,
+				376A71DB16EF2628009A99D3 /* DSClickableURLTextField.h */,
+				376A71DC16EF2629009A99D3 /* DSClickableURLTextField.m */,
 				37B5207716157DF600941F0D /* MainMenu.xib */,
 				37F1864716C4A96900E682E2 /* Orginal Objects */,
 				3765B1E9162AEA90000B3523 /* Categories */,
@@ -1545,6 +1555,8 @@
 				370B822316E494C6004A105E /* NSDictionary+Compression.m in Sources */,
 				370B822916E496D1004A105E /* NSData+Godzippa.m in Sources */,
 				37B8EFDC16E6F2E800CE0990 /* NSAlert+Blocks.m in Sources */,
+				376A71DD16EF2629009A99D3 /* DSClickableURLTextField.m in Sources */,
+				376A71E016EF28AD009A99D3 /* PSCTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

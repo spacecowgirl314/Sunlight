@@ -29,8 +29,7 @@
 
 - (void)awakeFromNib {
 	//[self updateTrackingArea];
-	[self setAcceptsTouchEvents:YES];
-	[self becomeFirstResponder];
+	//[self becomeFirstResponder];
 	//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResize) name:NSViewFrameDidChangeNotification object:self];
 	[replyButton setTextColor:[self defaultButtonColor]];
 	[muteButton setTextColor:[self defaultButtonColor]];
@@ -55,11 +54,11 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"Profile" object:[[post user] username]];
 }
 
-- (BOOL)wantsScrollEventsForSwipeTrackingOnAxis:(NSEventGestureAxis)axis {
-	return (axis == NSEventGestureAxisHorizontal) ? YES : NO; }
+/*- (BOOL)wantsScrollEventsForSwipeTrackingOnAxis:(NSEventGestureAxis)axis {
+	return (axis == NSEventGestureAxisHorizontal) ? YES : NO; }*/
 
 // semi-working swipe detection, needs to filter out scrolling up and down
-- (void)scrollWheel:(NSEvent *)event
+/*- (void)scrollWheel:(NSEvent *)event
 {
 	if([event phase] == NSEventPhaseBegan)
 	{
@@ -69,11 +68,6 @@
 	}
     if([event phase] == NSEventPhaseEnded)
     {
-		/*int swipeColorValue;
-		const int SwipeLeft = 0;
-		const int SwipeRight = 1;
-		const int SwipeUp = 2;
-		const int SwipeDown = 3;*/
 		
 		CGFloat x = scrollDeltaX; //[event deltaX];
 		CGFloat y = scrollDeltaY; //[event deltaY];
@@ -91,45 +85,27 @@
 				//swipeColorValue = (x < 0)  ? SwipeLeft : SwipeRight;
 			}
 		}
-		/*if (y != 0) {
-			swipeColorValue = (y > 0)  ? SwipeUp : SwipeDown;
-		}*/
 		
-		/*NSString *direction;
-		switch (swipeColorValue) {
-			case SwipeLeft:
-				direction = @"left";
-				break;
-			case SwipeRight: {
-				direction = @"right";
-				NSLog(@"y:%f x:%f", y, x);
-				[[NSNotificationCenter defaultCenter] postNotificationName:@"Conversation" object:self.post];
-				break;
-			}
-			case SwipeUp:
-				direction = @"up";
-				break;
-			case SwipeDown:
-			default:
-				direction = @"down";
-				break;
-		}
-		NSLog(@"Swipe %@", direction);*/
     }
     [super scrollWheel:event];
+}*/
+
+- (void)beginGestureWithEvent:(NSEvent *)event {
+    NSLog(@"Gesture detected!");
 }
+
+- (void)endGestureWithEvent:(NSEvent *)event {
+    NSLog(@"Gesture end detected!");
+}
+
+- (void)mouseDown:(NSEvent *)theEvent {
+    NSLog(@"mouseDown event detected!");
+	[super mouseDown:theEvent];
+}
+
 
 - (NSColor*)defaultButtonColor {
 	return [NSColor colorWithDeviceRed:0.643 green:0.643 blue:0.643 alpha:1.0];
-}
-
-- (BOOL)acceptsFirstResponder
-{
-	return YES;
-}
-
-- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent {
-    return YES;
 }
 
 // Necessary for when the view is resized
@@ -337,10 +313,6 @@
 
 - (IBAction)openUser:(id)sender {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"Profile" object:self.post.user.username];
-}
-
-- (void)mouseDown:(NSEvent *)theEvent {
-    NSLog(@"mouseDown event detected!");
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
