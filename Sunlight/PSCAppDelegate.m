@@ -320,8 +320,8 @@
 	NSLog(@"Switched to stream.");
 	currentStream = PSCMyStream;
 	[[[buttonCollection buttons] objectAtIndex:0] disableIndicator];
-	[self getStreamScrollPosition];
 	[self loadMyStream:NO];
+	[self getStreamScrollPosition];
 }
 
 - (IBAction)switchToMentions:(id)sender {
@@ -329,8 +329,8 @@
 	NSLog(@"Switched to mentions.");
 	currentStream = PSCMentions;
 	[[[buttonCollection buttons] objectAtIndex:1] disableIndicator];
-	[self getStreamScrollPosition];
 	[self loadMentions:NO];
+	[self getStreamScrollPosition];
 }
 
 - (IBAction)switchToStars:(id)sender {
@@ -338,8 +338,8 @@
 	NSLog(@"Switched to stars.");
 	currentStream = PSCStars;
 	[[[buttonCollection buttons] objectAtIndex:2] disableIndicator];
-	[self getStreamScrollPosition];
 	[self loadStars:NO];
+	[self getStreamScrollPosition];
 }
 
 - (IBAction)switchToProfile:(id)sender {
@@ -355,8 +355,8 @@
 	NSLog(@"Switched to messages.");
 	currentStream = PSCMessages;
 	[[[buttonCollection buttons] objectAtIndex:4] disableIndicator];
-	[self getStreamScrollPosition];
 	[self loadMessages:NO];
+	[self getStreamScrollPosition];
 }
 
 - (void)showErrorBarWithError:(NSError*)error {
@@ -763,7 +763,7 @@
 			[navigationController clear];
 			[breadcrumbView setStartTitle:@"Mentions"];
 			if (isPopping) {
-				[self scrollToTop];
+				//[self scrollToTop];
 				[self popStreamWithPosts:mentionsPosts];
 			}
 			else {
@@ -841,7 +841,7 @@
 			[navigationController clear];
 			[breadcrumbView setStartTitle:@"Starred"];
 			if (isPopping) {
-				[self scrollToTop];
+				//[self scrollToTop];
 				[self popStreamWithPosts:starsPosts];
 			}
 			else {
@@ -994,7 +994,7 @@
 			NSMutableArray *profileInjection = [profilePosts mutableCopy];
 			[profileInjection insertObject:[[PSCMemoryCache sharedMemory] currentUser] atIndex:0];
 			if (isPopping) {
-				[self scrollToTop];
+				//[self scrollToTop];
 				[self popStreamWithPosts:profileInjection];
 			}
 			else {
