@@ -54,6 +54,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+	streamScrollPositions = [NSMutableDictionary new];
 	// Expiration code
 	NSDate *now = [NSDate date];
 	NSDate *expireDate = [NSDate dateWithNaturalLanguageString:@"April 1, 2013"];
@@ -212,6 +213,80 @@
 	[[appScrollView documentView] scrollPoint:origin];
 }
 
+- (void)getStreamScrollPosition {
+	switch (currentStream) {
+		case PSCMyStream:
+		{
+			[self setScrollPosition:[[streamScrollPositions valueForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]] pointValue]];
+			break;
+		}
+		case PSCMentions:
+		{
+			[self setScrollPosition:[[streamScrollPositions valueForKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]] pointValue]];
+			break;
+		}
+		case PSCStars:
+		{
+			[self setScrollPosition:[[streamScrollPositions valueForKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]] pointValue]];
+			break;
+		}
+		case PSCProfile:
+		{
+			[self setScrollPosition:[[streamScrollPositions valueForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]] pointValue]];
+			break;
+		}
+		case PSCMessages:
+		{
+			[self setScrollPosition:[[streamScrollPositions valueForKey:[[NSString alloc] initWithFormat:@"%d", PSCMessages]] pointValue]];
+			break;
+		}
+	}
+}
+
+- (void)setStreamScrollPosition {
+	[self setStreamScrollPositionSwitching:NO];
+}
+
+- (void)setStreamScrollPositionSwitching:(BOOL)isSwitching {
+	//NSLog(@"level:%d",[navigationController levels]);
+	// prevent the stream scroll position being set when we are navigating unless we are at the stream level
+	if (isSwitching) {
+		if ([navigationController levels]!=0) {
+			return;
+		}
+	}
+	// it's 2 instead of 1 because by this point we've already pushed a stream
+	if ([navigationController levels]<2) {
+		switch (currentStream) {
+			case PSCMyStream:
+			{
+				[streamScrollPositions setValue:[NSValue valueWithPoint:[self scrollPosition]] forKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]];
+				break;
+			}
+			case PSCMentions:
+			{
+				[streamScrollPositions setValue:[NSValue valueWithPoint:[self scrollPosition]] forKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]];
+				break;
+			}
+			case PSCStars:
+			{
+				[streamScrollPositions setValue:[NSValue valueWithPoint:[self scrollPosition]] forKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]];
+				break;
+			}
+			case PSCProfile:
+			{
+				[streamScrollPositions setValue:[NSValue valueWithPoint:[self scrollPosition]] forKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
+				break;
+			}
+			case PSCMessages:
+			{
+				[streamScrollPositions setValue:[NSValue valueWithPoint:[self scrollPosition]] forKey:[[NSString alloc] initWithFormat:@"%d", PSCMessages]];
+				break;
+			}
+		}
+	}
+}
+
 #pragma mark - Switching Streams
 
 // by keeping selectButton out of the original action we're keeping performance uniform
@@ -241,27 +316,34 @@
 }
 
 - (IBAction)switchToStream:(id)sender {
+	[self setStreamScrollPositionSwitching:YES];
 	NSLog(@"Switched to stream.");
 	currentStream = PSCMyStream;
 	[[[buttonCollection buttons] objectAtIndex:0] disableIndicator];
+	[self getStreamScrollPosition];
 	[self loadMyStream:NO];
 }
 
 - (IBAction)switchToMentions:(id)sender {
+	[self setStreamScrollPositionSwitching:YES];
 	NSLog(@"Switched to mentions.");
 	currentStream = PSCMentions;
 	[[[buttonCollection buttons] objectAtIndex:1] disableIndicator];
+	[self getStreamScrollPosition];
 	[self loadMentions:NO];
 }
 
 - (IBAction)switchToStars:(id)sender {
+	[self setStreamScrollPositionSwitching:YES];
 	NSLog(@"Switched to stars.");
 	currentStream = PSCStars;
 	[[[buttonCollection buttons] objectAtIndex:2] disableIndicator];
+	[self getStreamScrollPosition];
 	[self loadStars:NO];
 }
 
 - (IBAction)switchToProfile:(id)sender {
+	[self setStreamScrollPositionSwitching:YES];
 	NSLog(@"Switched to profile.");
 	currentStream = PSCProfile;
 	[[[buttonCollection buttons] objectAtIndex:3] disableIndicator];
@@ -269,9 +351,11 @@
 }
 
 - (IBAction)switchToMessages:(id)sender {
+	[self setStreamScrollPositionSwitching:YES];
 	NSLog(@"Switched to messages.");
 	currentStream = PSCMessages;
 	[[[buttonCollection buttons] objectAtIndex:4] disableIndicator];
+	[self getStreamScrollPosition];
 	[self loadMessages:NO];
 }
 
@@ -409,7 +493,15 @@
 - (void)pushStreamWithPosts:(NSArray*)newPosts
 {
 	//[self scrollPosition];
-	[[navigationController streamAtIndex:[navigationController levels]-1] setPosition:[self scrollPosition]];
+	// store the position in the navigation controller stream
+	if ([navigationController levels]>1) {
+		NSLog(@"index for set position thing: %d", [navigationController levels]-2);
+		[[navigationController streamAtIndex:[navigationController levels]-2] setPosition:[self scrollPosition]];
+	}
+	// store the main tab position
+	else {
+		[self setStreamScrollPosition];
+	}
 	[self scrollToTop];
 	// remove current rows if present
 	NSRange range = NSMakeRange(0, [postsArray count]);
@@ -424,9 +516,14 @@
 
 - (void)popStreamWithPosts:(NSArray*)previousPosts
 {
-	// TODO: Set the current scroll position in the current stream before popping
+	// retrieve the scroll position for a stream in the navigation controller
 	if (navigationController.levels!=0) {
+		NSLog(@"index for retrieve scroll position:%d",[navigationController levels]-1);
 		[self setScrollPosition:[[navigationController streamAtIndex:[navigationController levels]-1] position]];
+	}
+	// retrieve the scroll position for the main tabs
+	else {
+		[self getStreamScrollPosition];
 	}
 	// remove current rows if present
 	NSRange range = NSMakeRange(0, [postsArray count]);

@@ -34,6 +34,7 @@ typedef enum {
     IBOutlet NSTextField *titleTextField;
 	ANResourceID profileUserID;
 	PSCNavigationController *navigationController;
+	NSMutableDictionary *streamScrollPositions;
 }
 
 @property (assign) IBOutlet INAppStoreWindow *window;
