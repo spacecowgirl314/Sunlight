@@ -611,7 +611,7 @@
 	NSArray *streamPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
-    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
+    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.75]];
 	[streamButton setShadow:shadow];
 	for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
 		if (![button isEqual:streamButton]) {
@@ -718,7 +718,7 @@
 	NSArray *mentionsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
-    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
+    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.75]];
     [mentionsButton setShadow:shadow];
 	for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
 		if (![button isEqual:mentionsButton]) {
@@ -796,7 +796,7 @@
 	NSArray *starsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
-    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
+    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.75]];
     [starsButton setShadow:shadow];
 	for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
 		if (![button isEqual:starsButton]) {
@@ -884,7 +884,7 @@
 	NSArray *profilePosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
-    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
+    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.75]];
     [profileButton setShadow:shadow];
     for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
 		if (![button isEqual:profileButton]) {
@@ -1030,7 +1030,7 @@
 	// API docs here http://developers.app.net/docs/basics/messaging/
 	NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
-    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.5]];
+    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.75]];
     [messagesButton setShadow:shadow];
     for (PSCButtonCollectionButton *button in buttonCollection.buttons) {
 		if (![button isEqual:messagesButton]) {
