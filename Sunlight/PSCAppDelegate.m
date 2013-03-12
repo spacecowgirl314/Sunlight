@@ -923,8 +923,8 @@
 							if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%lld", [user ID]] posts:posts]) {
 								//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
 							}
-							[breadcrumbView pushItem:[self item:@"Profile"]];
-							[titleTextField setStringValue:@"Profile"];
+							[breadcrumbView pushItem:[self item:[user username]]];
+							[titleTextField setStringValue:[user username]];
 						}
 						if(!posts) {
 							dispatch_async(dispatch_get_main_queue(), ^{
@@ -1555,6 +1555,7 @@
 		result.postScrollView.frame = CGRectMake(result.postView.frame.origin.x, result.postView.frame.origin.y, result.postView.frame.size.width, height);
 	}
 	else {
+		// this should never show, instead it's going to be animated out
 		[[result postView] setString:@"[Post deleted]"];
 	}
 	return result;
