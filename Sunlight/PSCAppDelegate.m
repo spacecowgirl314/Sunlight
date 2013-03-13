@@ -24,6 +24,7 @@
 #import "PSCStream.h"
 #import "NSDictionary+Compression.h"
 #import "NSAlert+Blocks.h"
+#import "PocketAPI.h"
 //#import "ANEntity.h"
 
 @implementation PSCAppDelegate
@@ -45,6 +46,17 @@
 @synthesize breadcrumbView;
 @synthesize menu;
 
+- (void)handleURLEvent:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent
+{
+    NSURL *url = [NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
+    if([[PocketAPI sharedAPI] handleOpenURL:url]){
+        //return YES;
+    }else{
+        // if you handle your own custom url-schemes, do it here
+        //return NO;
+    }
+}
+
 - (void)applicationWillBecomeActive:(NSNotification *)notification {
 	//[[self window] setAlphaValue:0.0];
 }
@@ -52,10 +64,22 @@
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
 	// keep the main window hidden until we know we've been logged in
 	[[self window] orderOut:nil];
+	// reigster url scheme. also must be in init to be called when launched
+    [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+	// Setup Pocket API
+	[[PocketAPI sharedAPI] setConsumerKey:@"12374-26052e4b51af78877e3cb733"];
+	[[PocketAPI sharedAPI] loginWithHandler:^(PocketAPI *api, NSError *error) {
+		if (!error) {
+			NSLog(@"Pocket logged in successfully");
+		}
+		else {
+			NSLog(@"Pocket login failed.");
+		}
+	}];
 	streamScrollPositions = [NSMutableDictionary new];
 	// Expiration code
 	NSDate *now = [NSDate date];
@@ -1633,7 +1657,7 @@
 		return 50;
 	}
 	if ([content isKindOfClass:[ANPost class]]) {
-		NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
+		NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
 		float height = [[content text] heightForWidth:[[self window] frame].size.width-61-2 font:font]; // 61 was previously 70
 		int spaceToTop=15; // 15 was 18
 		int padding=10;

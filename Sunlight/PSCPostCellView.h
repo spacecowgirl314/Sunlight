@@ -23,6 +23,8 @@
 	IBOutlet NSImageView *repostImageView;
 	IBOutlet NSButton *repostedUserButton;
     IBOutlet NSButton *deleteButton;
+	IBOutlet NSMenu *moreMenu;
+	IBOutlet NSButton *moreButton;
 	NSTrackingArea *trackingArea;
 	NSTimer *fadeTimer;
 	CGFloat scrollDeltaX;
@@ -48,14 +50,19 @@
 - (IBAction)openReplyPost:(id)sender;
 - (IBAction)starPost:(id)sender;
 - (IBAction)repostPost:(id)sender;
+- (IBAction)deletePost:(id)sender;
 - (IBAction)muteUser:(id)sender;
+- (IBAction)viewRepostUser:(id)sender;
+- (IBAction)viewUser:(id)sender;
 - (IBAction)openConversation:(id)sender;
 - (IBAction)openUser:(id)sender;
+- (IBAction)openMore:(id)sender;
 - (IBAction)addToReadingList:(id)sender;
+- (IBAction)addToPocket:(id)sender;
+- (IBAction)copyContents:(id)sender;
+- (IBAction)copyLink:(id)sender;
 - (NSColor*)defaultButtonColor;
 - (void)hideRepost;
 - (void)showRepost;
-- (void)hideDeletedPost;
-+ (instancetype)viewFromNib;
 
 @end

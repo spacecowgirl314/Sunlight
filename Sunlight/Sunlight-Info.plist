@@ -32,6 +32,16 @@
 				<string>sunlight</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Pocket</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>pocketapp12374</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>249</string>

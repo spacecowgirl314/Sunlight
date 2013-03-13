@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.SystemVersion">12C3006</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
@@ -1025,12 +1025,60 @@
 					<int key="connectionID">1136</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addToPocket:</string>
+						<reference key="source" ref="606671869"/>
+						<reference key="destination" ref="838107963"/>
+					</object>
+					<int key="connectionID">1137</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">moreMenu</string>
+						<reference key="source" ref="606671869"/>
+						<reference key="destination" ref="835831571"/>
+					</object>
+					<int key="connectionID">1141</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">moreButton</string>
+						<reference key="source" ref="606671869"/>
+						<reference key="destination" ref="692776135"/>
+					</object>
+					<int key="connectionID">1142</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openMore:</string>
+						<reference key="source" ref="606671869"/>
+						<reference key="destination" ref="692776135"/>
+					</object>
+					<int key="connectionID">1143</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">copyContents:</string>
+						<reference key="source" ref="606671869"/>
+						<reference key="destination" ref="86733419"/>
+					</object>
+					<int key="connectionID">1144</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">copyLink:</string>
+						<reference key="source" ref="606671869"/>
+						<reference key="destination" ref="960744606"/>
+					</object>
+					<int key="connectionID">1145</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">menu</string>
 						<reference key="source" ref="692776135"/>
 						<reference key="destination" ref="835831571"/>
 					</object>
-					<int key="connectionID">1045</int>
+					<int key="connectionID">1140</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2938,7 +2986,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1136</int>
+			<int key="maxID">1145</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2978,17 +3026,40 @@
 					<string key="className">PSCPostCellView</string>
 					<string key="superclassName">NSTableCellView</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="addToPocket:">id</string>
 						<string key="addToReadingList:">id</string>
+						<string key="copyContents:">id</string>
+						<string key="copyLink:">id</string>
+						<string key="deletePost:">id</string>
 						<string key="muteUser:">id</string>
 						<string key="openConversation:">id</string>
+						<string key="openMore:">id</string>
 						<string key="openReplyPost:">id</string>
 						<string key="openUser:">id</string>
 						<string key="repostPost:">id</string>
 						<string key="starPost:">id</string>
+						<string key="viewRepostUser:">id</string>
+						<string key="viewUser:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="addToPocket:">
+							<string key="name">addToPocket:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="addToReadingList:">
 							<string key="name">addToReadingList:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="copyContents:">
+							<string key="name">copyContents:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="copyLink:">
+							<string key="name">copyLink:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="deletePost:">
+							<string key="name">deletePost:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="muteUser:">
@@ -2997,6 +3068,10 @@
 						</object>
 						<object class="IBActionInfo" key="openConversation:">
 							<string key="name">openConversation:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openMore:">
+							<string key="name">openMore:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="openReplyPost:">
@@ -3015,11 +3090,21 @@
 							<string key="name">starPost:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="viewRepostUser:">
+							<string key="name">viewRepostUser:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="viewUser:">
+							<string key="name">viewUser:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="avatarView">NSImageView</string>
 						<string key="conversationButton">NSButton</string>
 						<string key="deleteButton">NSButton</string>
+						<string key="moreButton">NSButton</string>
+						<string key="moreMenu">NSMenu</string>
 						<string key="muteButton">NSButton</string>
 						<string key="postCreationField">NSTextField</string>
 						<string key="postScrollView">NSScrollView</string>
@@ -3043,6 +3128,14 @@
 						<object class="IBToOneOutletInfo" key="deleteButton">
 							<string key="name">deleteButton</string>
 							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="moreButton">
+							<string key="name">moreButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="moreMenu">
+							<string key="name">moreMenu</string>
+							<string key="candidateClassName">NSMenu</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="muteButton">
 							<string key="name">muteButton</string>

@@ -21,3 +21,6 @@
 [submodule "Sunlight/NSAlert-Blocks"]
 	path = Sunlight/NSAlert-Blocks
 	url = git://github.com/AaronBratcher/NSAlert-Blocks.git
+[submodule "Sunlight/Pocket-ObjC-SDK"]
+	path = Sunlight/Pocket-ObjC-SDK
+	url = git://github.com/Pocket/Pocket-ObjC-SDK.git

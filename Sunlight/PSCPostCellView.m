@@ -10,6 +10,7 @@
 #import "NSView+Fade.h"
 #import "NSButton+TextColor.h"
 #import "PSCMemoryCache.h"
+#import "PocketAPI.h"
 
 @implementation PSCPostCellView
 @synthesize post;
@@ -18,6 +19,7 @@
 @synthesize postView;
 @synthesize userField;
 @synthesize postCreationField;
+@synthesize conversationButton;
 @synthesize avatarView;
 @synthesize replyButton;
 @synthesize muteButton;
@@ -333,6 +335,10 @@
 	[[self repostedUserButton] addCursorRect:[[self repostedUserButton] bounds] cursor:[NSCursor pointingHandCursor]];
 }
 
+- (IBAction)openMore:(id)sender {
+	[moreMenu popUpMenuPositioningItem:nil atLocation:moreButton.frame.origin inView:self];
+}
+
 - (IBAction)addToReadingList:(id)sender {
 	for (ANEntity *link in post.entities.links)
 	{
@@ -346,7 +352,48 @@
 		if ( ![script executeAndReturnError:&errorDictionary] ) {
 			NSLog(@"Error while saving to Safari Reading List: %@", errorDictionary);
 		}
+		else {
+			// the URL was saved successfully
+		}
 	}
+}
+
+- (IBAction)addToPocket:(id)sender {
+	for (ANEntity *link in post.entities.links)
+	{
+		[[PocketAPI sharedAPI] saveURL:link.URL handler: ^(PocketAPI *API, NSURL *URL, NSError *error){
+			if(error){
+				// there was an issue connecting to Pocket
+				// present some UI to notify if necessary
+				NSLog(@"Error while saving to Pocket: %@", [error description]);
+				
+			}else{
+				// the URL was saved successfully
+			}
+		}];
+	}
+}
+
+- (IBAction)copyContents:(id)sender {
+	[[NSPasteboard generalPasteboard] clearContents];
+	[[NSPasteboard generalPasteboard] setString:post.text forType:NSPasteboardTypeString];
+}
+
+- (IBAction)copyLink:(id)sender {
+	[[NSPasteboard generalPasteboard] clearContents];
+	[[NSPasteboard generalPasteboard] setString:[post.canonicalURL absoluteString] forType:NSPasteboardTypeString];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+	NSRange range = NSMakeRange(0, 4);
+	NSIndexSet *theSet = [NSIndexSet indexSetWithIndexesInRange:range];
+	for (NSMenuItem *item in [[moreMenu itemArray] objectsAtIndexes:theSet]) {
+		if ([item isEqualTo:menuItem]) {
+			return post.entities.links.count != 0;
+		}
+	}
+	return YES;
 }
 
 @end
