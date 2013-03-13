@@ -1621,7 +1621,7 @@
 		int padding = 10;
 		// detect nil biographies
 		if (biography) {
-			NSFont *font = [NSFont fontWithName:@"Helvetica Bold" size:14.0f];
+			NSFont *font = [NSFont fontWithName:@"Helvetica" size:14.0f];
 			float height = [biography heightForWidth:[[self window] frame].size.width-32-11 font:font];
 			return height+customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+padding;
 		}
@@ -1633,7 +1633,7 @@
 		return 50;
 	}
 	if ([content isKindOfClass:[ANPost class]]) {
-		NSFont *font = [NSFont fontWithName:@"Helvetica Neue Medium" size:13.0f];
+		NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
 		float height = [[content text] heightForWidth:[[self window] frame].size.width-61-2 font:font]; // 61 was previously 70
 		int spaceToTop=15; // 15 was 18
 		int padding=10;
@@ -1745,7 +1745,7 @@
 -(NSAttributedString*)stylizeBioWithString:(NSString*)string andEntities:(ANEntitySet*)entities {
 	// Building up our attributed string
 	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:string];
-	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Bold" size:14.0f],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.531 green:0.531 blue:0.531 alpha:1.0]} range:NSMakeRange(0, [string length])];
+	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica" size:13.0f],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.531 green:0.531 blue:0.531 alpha:1.0]} range:NSMakeRange(0, [string length])];
 	//[attributedStatusString addAttribute:NSShadowAttributeName value:[self theShadow] range:NSMakeRange(0, [string length])];
 	
 	for (ANEntity *link in [entities links]) {
@@ -1763,7 +1763,7 @@
 								   [NSColor colorWithDeviceRed:0.82 green:0.388 blue:0.031 alpha:1.0], NSForegroundColorAttributeName,
 								   [NSCursor pointingHandCursor], NSCursorAttributeName,
 								   mention.text, @"UsernameMatch",
-								   [NSFont fontWithName:@"Helvetica Bold" size:14], NSFontAttributeName,
+								   [NSFont fontWithName:@"Helvetica" size:13], NSFontAttributeName,
 								   nil];
 		[attributedStatusString addAttributes:linkAttr2 range:mention.range];
 	}
@@ -1774,7 +1774,7 @@
 								   [NSColor colorWithDeviceRed:0.639 green:0.639 blue:0.639 alpha:1.0], NSForegroundColorAttributeName,
 								   [NSCursor pointingHandCursor], NSCursorAttributeName,
 								   tag.text, @"HashtagMatch",
-								   [NSFont fontWithName:@"Helvetica Bold" size:14], NSFontAttributeName,
+								   [NSFont fontWithName:@"Helvetica" size:13], NSFontAttributeName,
 								   nil];
 		[attributedStatusString addAttributes:linkAttr3 range:tag.range];
 	}
