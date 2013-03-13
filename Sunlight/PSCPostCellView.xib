@@ -253,7 +253,7 @@
 										<string key="NSFrameSize">{288, 67}</string>
 										<reference key="NSSuperview" ref="41427505"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="670694442"/>
+										<reference key="NSNextKeyView" ref="1042207625"/>
 										<string key="NSReuseIdentifierKey">_NS:13</string>
 										<object class="NSTextContainer" key="NSTextContainer" id="317913247">
 											<object class="NSLayoutManager" key="NSLayoutManager">
@@ -390,7 +390,7 @@
 						<string key="NSFrame">{{70, 44}, {288, 67}}</string>
 						<reference key="NSSuperview" ref="606671869"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1042207625"/>
+						<reference key="NSNextKeyView" ref="41427505"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="NSsFlags">133120</int>
 						<reference key="NSVScroller" ref="1042207625"/>
@@ -498,7 +498,6 @@
 						<string key="NSFrame">{{334, 11}, {19, 15}}</string>
 						<reference key="NSSuperview" ref="606671869"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="806309843">
@@ -2589,11 +2588,11 @@
 			<string key="shadow">{700, 5}</string>
 			<string key="timeline-convo">{18, 16}</string>
 			<string key="timeline-reply">{36, 28}</string>
-			<string key="timeline-reply-pressed">{15, 16}</string>
+			<string key="timeline-reply-pressed">{36, 28}</string>
 			<string key="timeline-repost">{36, 28}</string>
-			<string key="timeline-repost-pressed">{15, 16}</string>
+			<string key="timeline-repost-pressed">{36, 28}</string>
 			<string key="timeline-star">{36, 28}</string>
-			<string key="timeline-star-pressed">{15, 16}</string>
+			<string key="timeline-star-pressed">{36, 28}</string>
 		</dictionary>
 		<bool key="IBDocument.UseAutolayout">YES</bool>
 	</data>
