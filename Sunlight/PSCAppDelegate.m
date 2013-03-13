@@ -1664,7 +1664,7 @@
         int spaceToTop=15; // 15 was 18
         int padding=10;
         int minimumViewHeight = 105; // 118, actually 139 though //105 was previously 108
-        int spaceToBottom=43; // 45 was previous 46
+        int spaceToBottom=45; // 45 was previous 46
         int extraRepostSpace = ([content repostOf]) ? 19 : 0;
         
         int viewHeight = height + spaceToTop + spaceToBottom + padding + extraRepostSpace;
