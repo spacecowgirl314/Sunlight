@@ -91,7 +91,6 @@
 						<string key="NSFrameSize">{360, 3}</string>
 						<reference key="NSSuperview" ref="1059019460"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSClassName">PSCGradientView</string>
 					</object>
@@ -211,7 +210,11 @@
 									<int key="NSCellFlags">68157504</int>
 									<int key="NSCellFlags2">71304192</int>
 									<string key="NSContents">Not Following You</string>
-									<reference key="NSSupport" ref="169969092"/>
+									<object class="NSFont" key="NSSupport">
+										<string key="NSName">Helvetica-Bold</string>
+										<double key="NSSize">13</double>
+										<int key="NSfFlags">16</int>
+									</object>
 									<string key="NSCellIdentifier">_NS:1535</string>
 									<reference key="NSControlView" ref="164091825"/>
 									<reference key="NSBackgroundColor" ref="455427870"/>
