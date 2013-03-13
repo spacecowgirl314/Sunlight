@@ -1751,7 +1751,7 @@
 	for (ANEntity *link in [entities links]) {
 		// Actual styling is set in PSCTextView
 		NSDictionary *linkAttr = [[NSDictionary alloc] initWithObjectsAndKeys:
-								  [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
+								  [NSColor colorWithDeviceRed:0.82 green:0.388 blue:0.031 alpha:1.0], NSForegroundColorAttributeName,
 								  link.URL, NSLinkAttributeName,
 								  nil];
 		[attributedStatusString addAttributes:linkAttr range:link.range];
@@ -1760,7 +1760,7 @@
 	for (ANEntity *mention in [entities mentions]) {
 		// Add custom attribute of UsernameMatch to indicate where our usernames are found
 		NSDictionary *linkAttr2 = [[NSDictionary alloc] initWithObjectsAndKeys:
-								   [NSColor colorWithDeviceRed:0.157 green:0.459 blue:0.737 alpha:1.0], NSForegroundColorAttributeName,
+								   [NSColor colorWithDeviceRed:0.82 green:0.388 blue:0.031 alpha:1.0], NSForegroundColorAttributeName,
 								   [NSCursor pointingHandCursor], NSCursorAttributeName,
 								   mention.text, @"UsernameMatch",
 								   [NSFont fontWithName:@"Helvetica Bold" size:14], NSFontAttributeName,

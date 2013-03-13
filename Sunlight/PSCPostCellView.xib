@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.SystemVersion">12C3006</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
@@ -775,9 +775,19 @@
 						<reference key="NSOnImage" ref="120893200"/>
 						<reference key="NSMixedImage" ref="111102678"/>
 					</object>
+					<object class="NSMenuItem" id="638545320">
+						<reference key="NSMenu" ref="835831571"/>
+						<bool key="NSIsDisabled">YES</bool>
+						<bool key="NSIsSeparator">YES</bool>
+						<string key="NSTitle"/>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="120893200"/>
+						<reference key="NSMixedImage" ref="111102678"/>
+					</object>
 					<object class="NSMenuItem" id="86733419">
 						<reference key="NSMenu" ref="835831571"/>
-						<string key="NSTitle">Copy to Clipboard</string>
+						<string key="NSTitle">Copy Contents</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="120893200"/>
@@ -785,7 +795,7 @@
 					</object>
 					<object class="NSMenuItem" id="960744606">
 						<reference key="NSMenu" ref="835831571"/>
-						<string key="NSTitle">Copy Link to Clipboard</string>
+						<string key="NSTitle">Copy Link to Post</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="120893200"/>
@@ -955,6 +965,14 @@
 						<reference key="destination" ref="156523846"/>
 					</object>
 					<int key="connectionID">997</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addToReadingList:</string>
+						<reference key="source" ref="606671869"/>
+						<reference key="destination" ref="301263018"/>
+					</object>
+					<int key="connectionID">1124</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2417,6 +2435,7 @@
 							<reference ref="301263018"/>
 							<reference ref="957079556"/>
 							<reference ref="347580338"/>
+							<reference ref="638545320"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -2554,6 +2573,11 @@
 						<reference key="object" ref="774307596"/>
 						<reference key="parent" ref="606671869"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1123</int>
+						<reference key="object" ref="638545320"/>
+						<reference key="parent" ref="835831571"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -2604,6 +2628,7 @@
 				<string key="1119.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1121.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1122.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1123.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array class="NSMutableArray" key="12.IBNSViewMetadataConstraints">
 					<reference ref="238970193"/>
 				</array>
@@ -2777,7 +2802,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1122</int>
+			<int key="maxID">1124</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2817,6 +2842,7 @@
 					<string key="className">PSCPostCellView</string>
 					<string key="superclassName">NSTableCellView</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="addToReadingList:">id</string>
 						<string key="muteUser:">id</string>
 						<string key="openConversation:">id</string>
 						<string key="openReplyPost:">id</string>
@@ -2825,6 +2851,10 @@
 						<string key="starPost:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="addToReadingList:">
+							<string key="name">addToReadingList:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="muteUser:">
 							<string key="name">muteUser:</string>
 							<string key="candidateClassName">id</string>

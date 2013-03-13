@@ -51,6 +51,7 @@
 - (IBAction)muteUser:(id)sender;
 - (IBAction)openConversation:(id)sender;
 - (IBAction)openUser:(id)sender;
+- (IBAction)addToReadingList:(id)sender;
 - (NSColor*)defaultButtonColor;
 - (void)hideRepost;
 - (void)showRepost;

@@ -331,4 +331,18 @@
 	[[self repostedUserButton] addCursorRect:[[self repostedUserButton] bounds] cursor:[NSCursor pointingHandCursor]];
 }
 
+- (IBAction)addToReadingList:(id)sender {
+	ANEntity *link = post.entities.links[0];
+	NSURL *url = link.URL;
+	NSString *urlString = [url absoluteString];
+    NSString *source = [NSString stringWithFormat:@"tell application \"Safari\" to add reading list item \"%@\"", urlString];
+	
+    NSDictionary *errorDictionary;
+    NSAppleScript *script = [[NSAppleScript alloc] initWithSource:source];
+	
+    if ( ![script executeAndReturnError:&errorDictionary] ) {
+        NSLog(@"Error while saving to Safari Reading List: %@", errorDictionary);
+    }
+}
+
 @end
