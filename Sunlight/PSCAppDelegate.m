@@ -68,14 +68,14 @@
 {
 	// Setup Pocket API
 	[[PocketAPI sharedAPI] setConsumerKey:@"12374-26052e4b51af78877e3cb733"];
-	[[PocketAPI sharedAPI] loginWithHandler:^(PocketAPI *api, NSError *error) {
+	/*[[PocketAPI sharedAPI] loginWithHandler:^(PocketAPI *api, NSError *error) {
 		if (!error) {
 			NSLog(@"Pocket logged in successfully");
 		}
 		else {
 			NSLog(@"Pocket login failed.");
 		}
-	}];
+	}];*/
 	streamScrollPositions = [NSMutableDictionary new];
 	// Expiration code
 	NSDate *now = [NSDate date];
@@ -1233,6 +1233,20 @@
 	//[self.postController processResults:[questionField stringValue]];
 }
 
+- (IBAction)openReplyPost:(id)sender {
+	NSUInteger selectedRow = appTableView.selectedRow;
+	// selectedRow is -1 if no row is selected
+	if (selectedRow!=-1) {
+		ANPost *selectedPost = [postsArray objectAtIndex:selectedRow];
+		if (!self.postController) {
+			PSCNewPostController *pC = [[PSCNewPostController alloc] init];
+			self.postController =  pC;
+		}
+		[self.postController draftReply:selectedPost];
+		[self.postController showWindow:self];
+	}
+}
+
 #pragma mark - Mentions Notifications
 
 - (void)checkForMentions {
@@ -1463,6 +1477,8 @@
 	[[user coverImage] imageAtSize:[self convertSizeToScale:profileCellView.bannerView.frame.size scale:window.backingScaleFactor] completion:^(NSImage *image, NSError *error) {
 		if (!error) {
 			[[profileCellView bannerView] setImage:image];
+			NSRect frame = [[profileCellView bannerView] frame];
+			[[profileCellView bannerView] setFrame:NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, image.size.height)];
 		}
 		else {
 			[[profileCellView bannerView] setImage:nil];
@@ -1631,7 +1647,7 @@
 		int padding = 10;
 		// detect nil biographies
 		if (biography) {
-			NSFont *font = [NSFont fontWithName:@"Helvetica" size:14.0f];
+			NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
 			float height = [biography heightForWidth:[[self window] frame].size.width-32-11 font:font];
 			return height+customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+padding;
 		}
@@ -1648,7 +1664,7 @@
 		int spaceToTop=15; // 15 was 18
 		int padding=10;
 		int minimumViewHeight = 105; // 118, actually 139 though //105 was previously 108
-		int spaceToBottom=45; // 45 was previous 46
+		int spaceToBottom=47; // 45 was previous 46
 		int extraRepostSpace = ([content repostOf]) ? 19 : 0;
 		if (height+spaceToTop+spaceToBottom<minimumViewHeight)
 		{

@@ -66,6 +66,7 @@ typedef enum {
 - (IBAction)switchToProfile:(id)sender;
 - (IBAction)switchToMessages:(id)sender;
 - (IBAction)loadPreviousInStream:(id)sender;
+- (IBAction)openReplyPost:(id)sender;
 - (IBAction)refreshStream:(id)sender;
 
 // test stuff
