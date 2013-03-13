@@ -519,6 +519,7 @@
 
 - (void)popStreamWithPosts:(NSArray*)previousPosts
 {
+	
 	// retrieve the scroll position for a stream in the navigation controller
 	if (navigationController.levels!=0) {
 		NSLog(@"index for retrieve scroll position:%d",[navigationController levels]-1);

@@ -14,9 +14,6 @@
 		371D970816C067A2009BCDB1 /* avatar-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970416C067A2009BCDB1 /* avatar-mask.png */; };
 		371D970916C067A2009BCDB1 /* avatar-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970516C067A2009BCDB1 /* avatar-mask@2x.png */; };
 		371D970A16C067A2009BCDB1 /* avatar-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970616C067A2009BCDB1 /* avatar-overlay.png */; };
-		371D970B16C067A2009BCDB1 /* avatar-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970716C067A2009BCDB1 /* avatar-overlay@2x.png */; };
-		371D971016C06CC4009BCDB1 /* avatar-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970E16C06CC4009BCDB1 /* avatar-overlay.png */; };
-		371D971116C06CC4009BCDB1 /* avatar-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970F16C06CC4009BCDB1 /* avatar-overlay@2x.png */; };
 		37240F0C16C389CB0002A64B /* PSCThumbnailKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 37240F0B16C389CB0002A64B /* PSCThumbnailKit.m */; };
 		37240F0E16C396280002A64B /* PSCPostCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37240F0D16C396280002A64B /* PSCPostCellView.xib */; };
 		372C890D16CB850D00EE84EC /* NSTimer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C890C16CB850D00EE84EC /* NSTimer+Blocks.m */; };
@@ -104,6 +101,7 @@
 		3759737716CFA2CC00E6993D /* 171670__fins__success-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3759737616CFA2CC00E6993D /* 171670__fins__success-2.wav */; };
 		376A71DD16EF2629009A99D3 /* DSClickableURLTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 376A71DC16EF2629009A99D3 /* DSClickableURLTextField.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		376A71E016EF28AD009A99D3 /* PSCTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 376A71DF16EF28AD009A99D3 /* PSCTableView.m */; };
+		377E80E216F01B130014E330 /* avatar-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 377E80E116F01B130014E330 /* avatar-overlay@2x.png */; };
 		3781509516C0EA4D0015956E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3781508F16C0EA4D0015956E /* Localizable.strings */; };
 		3781509616C0EA4D0015956E /* Localizable_full.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3781509116C0EA4D0015956E /* Localizable_full.strings */; };
 		3781509716C0EA4D0015956E /* NSDate+HumanizedTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3781509416C0EA4D0015956E /* NSDate+HumanizedTime.m */; };
@@ -287,9 +285,7 @@
 		371D970416C067A2009BCDB1 /* avatar-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-mask.png"; sourceTree = "<group>"; };
 		371D970516C067A2009BCDB1 /* avatar-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-mask@2x.png"; sourceTree = "<group>"; };
 		371D970616C067A2009BCDB1 /* avatar-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-overlay.png"; sourceTree = "<group>"; };
-		371D970716C067A2009BCDB1 /* avatar-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-overlay@2x.png"; sourceTree = "<group>"; };
 		371D970E16C06CC4009BCDB1 /* avatar-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-overlay.png"; sourceTree = "<group>"; };
-		371D970F16C06CC4009BCDB1 /* avatar-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-overlay@2x.png"; sourceTree = "<group>"; };
 		37240F0A16C389CB0002A64B /* PSCThumbnailKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCThumbnailKit.h; sourceTree = "<group>"; };
 		37240F0B16C389CB0002A64B /* PSCThumbnailKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCThumbnailKit.m; sourceTree = "<group>"; };
 		37240F0D16C396280002A64B /* PSCPostCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCPostCellView.xib; sourceTree = "<group>"; };
@@ -453,6 +449,8 @@
 		376A71DC16EF2629009A99D3 /* DSClickableURLTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSClickableURLTextField.m; sourceTree = "<group>"; };
 		376A71DE16EF28AD009A99D3 /* PSCTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCTableView.h; sourceTree = "<group>"; };
 		376A71DF16EF28AD009A99D3 /* PSCTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCTableView.m; sourceTree = "<group>"; };
+		377E80E116F01B130014E330 /* avatar-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-overlay@2x.png"; sourceTree = "<group>"; };
+		377E80E316F01B5F0014E330 /* PSCLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCLoginController.h; sourceTree = "<group>"; };
 		3781509016C0EA4D0015956E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3781509216C0EA4D0015956E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable_full.strings; sourceTree = "<group>"; };
 		3781509316C0EA4D0015956E /* NSDate+HumanizedTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+HumanizedTime.h"; sourceTree = "<group>"; };
@@ -543,7 +541,6 @@
 		37FF6B7316D37DEE009F0D8F /* ANMessagesForUserRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMessagesForUserRequest.m; sourceTree = "<group>"; };
 		37FF6B7516D38386009F0D8F /* ANRequestReturningMessageList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANRequestReturningMessageList.h; sourceTree = "<group>"; };
 		37FF6B7616D38386009F0D8F /* ANRequestReturningMessageList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANRequestReturningMessageList.m; sourceTree = "<group>"; };
-		700110C816C4C9EC00ECB894 /* PSCLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSCLoginController.h; path = ../PSCLoginController.h; sourceTree = "<group>"; };
 		700110C916C4CA6900ECB894 /* PSCLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCLoginController.m; sourceTree = "<group>"; };
 		700110CB16C4CAC300ECB894 /* PSCLogin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCLogin.xib; sourceTree = "<group>"; };
 		700110D916C4FD9300ECB894 /* login-input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-input@2x.png"; sourceTree = "<group>"; };
@@ -872,7 +869,7 @@
 				371D970416C067A2009BCDB1 /* avatar-mask.png */,
 				371D970516C067A2009BCDB1 /* avatar-mask@2x.png */,
 				371D970616C067A2009BCDB1 /* avatar-overlay.png */,
-				371D970F16C06CC4009BCDB1 /* avatar-overlay@2x.png */,
+				377E80E116F01B130014E330 /* avatar-overlay@2x.png */,
 				70CF28EF16E71454006ECBCF /* avatar-trans-fix.png */,
 				70CF28EE16E71454006ECBCF /* avatar-trans-fix@2x.png */,
 				3786030016C26D9D003256B9 /* cancel-button-pressed.png */,
@@ -980,7 +977,6 @@
 				70E909FA16C4B09500E91598 /* title-user.png */,
 				70E909FB16C4B09500E91598 /* title-user@2x.png */,
 				371D970E16C06CC4009BCDB1 /* avatar-overlay.png */,
-				371D970F16C06CC4009BCDB1 /* avatar-overlay@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1076,7 +1072,7 @@
 				37AD27C916280A2F008E58BF /* PSCNewPostController.h */,
 				37AD27CA16280A2F008E58BF /* PSCNewPostController.m */,
 				37AD27CB16280A2F008E58BF /* PSCNewPost.xib */,
-				700110C816C4C9EC00ECB894 /* PSCLoginController.h */,
+				377E80E316F01B5F0014E330 /* PSCLoginController.h */,
 				700110C916C4CA6900ECB894 /* PSCLoginController.m */,
 				700110CB16C4CAC300ECB894 /* PSCLogin.xib */,
 				37B5214916159CDE00941F0D /* PSCHUDWindow.h */,
@@ -1257,9 +1253,7 @@
 				371D970816C067A2009BCDB1 /* avatar-mask.png in Resources */,
 				371D970916C067A2009BCDB1 /* avatar-mask@2x.png in Resources */,
 				371D970A16C067A2009BCDB1 /* avatar-overlay.png in Resources */,
-				371D970B16C067A2009BCDB1 /* avatar-overlay@2x.png in Resources */,
-				371D971016C06CC4009BCDB1 /* avatar-overlay.png in Resources */,
-				371D971116C06CC4009BCDB1 /* avatar-overlay@2x.png in Resources */,
+				377E80E216F01B130014E330 /* avatar-overlay@2x.png in Resources */,
 				3738A92E16C0E20D0031F803 /* profile-bio.png in Resources */,
 				3738A92F16C0E20D0031F803 /* profile-bio@2x.png in Resources */,
 				3738A93016C0E20D0031F803 /* profile-following-add.png in Resources */,

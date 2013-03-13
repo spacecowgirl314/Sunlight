@@ -43,6 +43,10 @@
 		
 	}
 	
+	// also select the cell
+	/*NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:1];
+	[tableview selectRowIndexes:indexSet byExtendingSelection:NO];*/
+	
 	[super mouseDown:theEvent];
 }
 
