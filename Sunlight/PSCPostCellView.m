@@ -229,10 +229,10 @@
 			}
 			else {
 				NSLog(@"Starring was successful.");
-				[starButton setImage:[NSImage imageNamed:@"star-highlight"]];
-                [starButton setAlternateImage:[NSImage imageNamed:@"star-highlight-pressed"]];
-                [starButton setTitle:@"Starred"];
-				[starButton setTextColor:[NSColor colorWithDeviceRed:0.894 green:0.541 blue:0.082 alpha:1.0]];
+				[starButton setImage:[NSImage imageNamed:@"timeline-star-highlight"]];
+                [starButton setAlternateImage:[NSImage imageNamed:@"timeline-star-highlight-pressed"]];
+                //[starButton setTitle:@"Starred"];
+				//[starButton setTextColor:[NSColor colorWithDeviceRed:0.894 green:0.541 blue:0.082 alpha:1.0]];
 			}
 		}];
 	}
@@ -244,8 +244,9 @@
 			else {
 				NSLog(@"Unstarring was successful.");
 				[starButton setImage:[NSImage imageNamed:@"timeline-star"]];
-                [starButton setTitle:@"Star"];
-				[starButton setTextColor:[self defaultButtonColor]];
+				[starButton setAlternateImage:[NSImage imageNamed:@"timeline-star-pressed"]];
+                //[starButton setTitle:@"Star"];
+				//[starButton setTextColor:[self defaultButtonColor]];
 			}
 		}];
 	}
@@ -260,10 +261,10 @@
 			}
 			else {
 				NSLog(@"Reposting was successful.");
-				[repostButton setImage:[NSImage imageNamed:@"repost-highlight"]];
-                [repostButton setAlternateImage:[NSImage imageNamed:@"repost-highlight-pressed"]];
-                [repostButton setTitle:@"Reposted"];
-				[repostButton setTextColor:[NSColor colorWithDeviceRed:0.118 green:0.722 blue:0.106 alpha:1.0]];
+				[repostButton setImage:[NSImage imageNamed:@"timeline-repost-highlight"]];
+                [repostButton setAlternateImage:[NSImage imageNamed:@"timeline-repost-highlight-pressed"]];
+                //[repostButton setTitle:@"Reposted"];
+				//[repostButton setTextColor:[NSColor colorWithDeviceRed:0.118 green:0.722 blue:0.106 alpha:1.0]];
 			}
 		}];
 	}
@@ -275,8 +276,9 @@
 			else {
 				NSLog(@"Unreposting was successful.");
 				[repostButton setImage:[NSImage imageNamed:@"timeline-repost"]];
-                [repostButton setTitle:@"Repost"];
-				[repostButton setTextColor:[self defaultButtonColor]];
+				[starButton setAlternateImage:[NSImage imageNamed:@"timeline-repost-pressed"]];
+                //[repostButton setTitle:@"Repost"];
+				//[repostButton setTextColor:[self defaultButtonColor]];
 			}
 		}];
 	}
@@ -302,7 +304,7 @@
 		else {
 			NSLog(@"%@ was muted successfully.", [user username]);
 			//[muteButton setImage:[NSImage imageNamed:]];
-			[muteButton setTextColor:[self defaultButtonColor]];
+			//[muteButton setTextColor:[self defaultButtonColor]];
 		}
 	}];
 }
@@ -332,17 +334,19 @@
 }
 
 - (IBAction)addToReadingList:(id)sender {
-	ANEntity *link = post.entities.links[0];
-	NSURL *url = link.URL;
-	NSString *urlString = [url absoluteString];
-    NSString *source = [NSString stringWithFormat:@"tell application \"Safari\" to add reading list item \"%@\"", urlString];
-	
-    NSDictionary *errorDictionary;
-    NSAppleScript *script = [[NSAppleScript alloc] initWithSource:source];
-	
-    if ( ![script executeAndReturnError:&errorDictionary] ) {
-        NSLog(@"Error while saving to Safari Reading List: %@", errorDictionary);
-    }
+	for (ANEntity *link in post.entities.links)
+	{
+		NSURL *url = link.URL;
+		NSString *urlString = [url absoluteString];
+		NSString *source = [NSString stringWithFormat:@"tell application \"Safari\" to add reading list item \"%@\"", urlString];
+		
+		NSDictionary *errorDictionary;
+		NSAppleScript *script = [[NSAppleScript alloc] initWithSource:source];
+		
+		if ( ![script executeAndReturnError:&errorDictionary] ) {
+			NSLog(@"Error while saving to Safari Reading List: %@", errorDictionary);
+		}
+	}
 }
 
 @end
