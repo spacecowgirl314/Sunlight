@@ -71,7 +71,7 @@
 			if (!error) {
 				[followButton setImage:[NSImage imageNamed:@"profile-following-check"]];
 				[followButton setTitle:@" Following"];
-				[followButton setTextColor:[NSColor colorWithDeviceRed:0.161 green:0.376 blue:0.733 alpha:1]];
+				[followButton setTextColor:[NSColor colorWithDeviceRed:0.886 green:0.522 blue:0.051 alpha:1.0]];
 			}
 		}];
 	}
