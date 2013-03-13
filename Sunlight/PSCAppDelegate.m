@@ -46,15 +46,13 @@
 @synthesize breadcrumbView;
 @synthesize menu;
 
-- (void)handleURLEvent:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent
-{
-    NSURL *url = [NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
-    if([[PocketAPI sharedAPI] handleOpenURL:url]){
-        //return YES;
-    }else{
-        // if you handle your own custom url-schemes, do it here
-        //return NO;
-    }
+- (id)init {
+    // register for startup events
+	[[NSAppleEventManager sharedAppleEventManager] setEventHandler:self
+													   andSelector:@selector(receivedURL:withReplyEvent:)
+													 forEventClass:kInternetEventClass
+														andEventID:kAEGetURL];
+	return self;
 }
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification {
@@ -64,8 +62,6 @@
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
 	// keep the main window hidden until we know we've been logged in
 	[[self window] orderOut:nil];
-	// reigster url scheme. also must be in init to be called when launched
-    [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -103,11 +99,6 @@
 								}];
 	}
     [[self appTableView] setBackgroundColor:[NSColor colorWithDeviceRed:0.941 green:0.941 blue:0.941 alpha:1.0]];
-	// register for startup events
-	[[NSAppleEventManager sharedAppleEventManager] setEventHandler:self
-													   andSelector:@selector(receivedURL:withReplyEvent:)
-													 forEventClass:kInternetEventClass
-														andEventID:kAEGetURL];
 	self.window.trafficLightButtonsLeftMargin = 7.0;
     self.window.trafficLightButtonsTopMargin = 7.0;
     self.window.fullScreenButtonRightMargin = 7.0;
@@ -1328,9 +1319,6 @@
 - (void)authenticate {
 	[ANAuthenticator.sharedAuthenticator setClientID:@"KXWTJNJeyw5fGQDmfAAcecepf7tp6eEY"];
 	[ANAuthenticator.sharedAuthenticator setPasswordGrantSecret:@"kPtJeNSnfQgm4QqQcn7BfHWfeG8c5ZTH"];
-	//[ANAuthenticator.sharedAuthenticator setRedirectURL:[NSURL URLWithString:@"sunlight://api-key/"]];
-	/*NSURL *url = [ANAuthenticator.sharedAuthenticator URLToAuthorizeForScopes:@[ANScopeStream, ANScopeEmail, ANScopeWritePost, ANScopeFollow, ANScopeMessages]];
-	[[NSWorkspace sharedWorkspace] openURL:url];*/
 	if (!self.loginController) {
 		PSCLoginController *pL = [[PSCLoginController alloc] init];
 		self.loginController =  pL;
@@ -1342,19 +1330,17 @@
 	[[self window] orderOut:nil];
 	[self.loginController.window setLevel:NSPopUpMenuWindowLevel];
 	[NSApp runModalForWindow:self.loginController.window];
-	//[self.loginController showWindow:self];
 }
 
 - (void)receivedURL:(NSAppleEventDescriptor*)event withReplyEvent: (NSAppleEventDescriptor*)replyEvent
 {
-	NSString *url = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
-	NSRange tkIdRange = [url rangeOfString:@"#access_token="];
-	if (tkIdRange.location != NSNotFound) {
-		[PSCMemoryCache sharedMemory].authToken = [url substringFromIndex:NSMaxRange(tkIdRange)];
-		[self prepare];
-		//[statusItem setImage:[NSImage imageNamed:@"status_icon.png"]];
-		//[self checkToken];
-	}
+	NSURL *url = [NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
+    if([[PocketAPI sharedAPI] handleOpenURL:url]){
+        //return YES;
+    }else{
+        // if you handle your own custom url-schemes, do it here
+        //return NO;
+    }
 }
 
 - (void)windowDidResize:(NSNotification*)aNotification {
