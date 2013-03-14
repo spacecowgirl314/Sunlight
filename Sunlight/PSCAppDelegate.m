@@ -46,7 +46,8 @@
 @synthesize breadcrumbView;
 @synthesize menu;
 
-- (id)init {
+- (id)init
+{
     // register for startup events
 	[[NSAppleEventManager sharedAppleEventManager] setEventHandler:self
 													   andSelector:@selector(receivedURL:withReplyEvent:)
@@ -55,11 +56,13 @@
 	return self;
 }
 
-- (void)applicationWillBecomeActive:(NSNotification *)notification {
+- (void)applicationWillBecomeActive:(NSNotification *)notification
+{
 	//[[self window] setAlphaValue:0.0];
 }
 
-- (void)applicationWillFinishLaunching:(NSNotification *)notification {
+- (void)applicationWillFinishLaunching:(NSNotification *)notification
+{
 	// keep the main window hidden until we know we've been logged in
 	[[self window] orderOut:nil];
 }
@@ -197,7 +200,8 @@
 	[self popIntoCurrentStream];
 }
 
-- (PSCBreadcrumbItem *)item:(NSString *)title {
+- (PSCBreadcrumbItem *)item:(NSString *)title
+{
 	PSCBreadcrumbItem *item = [[PSCBreadcrumbItem alloc] init];
 	item.title = title;
 	return item;
@@ -339,7 +343,8 @@
 	[self switchToStars:sender];
 }
 
-- (IBAction)switchToProfileFromMenu:(id)sender {
+- (IBAction)switchToProfileFromMenu:(id)sender
+{
 	[[[buttonCollection buttons] objectAtIndex:3] selectButton];
 	[self switchToProfile:sender];
 }
@@ -360,7 +365,8 @@
 	[self getStreamScrollPosition];
 }
 
-- (IBAction)switchToMentions:(id)sender {
+- (IBAction)switchToMentions:(id)sender
+{
 	[self setStreamScrollPositionSwitching:YES];
 	NSLog(@"Switched to mentions.");
 	currentStream = PSCMentions;

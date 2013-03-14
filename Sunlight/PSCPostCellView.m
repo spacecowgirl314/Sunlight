@@ -358,6 +358,8 @@
 	[moreMenu popUpMenuPositioningItem:nil atLocation:moreButton.frame.origin inView:self];
 }
 
+#pragma mark - More Button Methods
+
 - (IBAction)addToReadingList:(id)sender
 {
 	for (ANEntity *link in post.entities.links)
@@ -418,6 +420,8 @@
 	}
 	return YES;
 }
+
+#pragma mark - NSMenuDelegate
 
 - (void)menuWillOpen:(NSMenu *)menu
 {
