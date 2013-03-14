@@ -1512,15 +1512,17 @@
 	id content = [postsArray objectAtIndex:row];
 	if ([content isKindOfClass:[ANUser class]]) {
 		// calculate for profile cell view
-		NSString *biography = [[content userDescription] text];
+		//NSString *biography = [[content userDescription] text];
+		ANUser *user = content;
+		NSAttributedString *biography = [self stylizeBioWithString:[[user userDescription] text] andEntities:[[user userDescription] entities]];
 		int customViewToTop = 143;
 		int biographyToTopOfCustomView = 43;
 		int heightOfBottomShadow = 3;
 		int padding = 10;
 		// detect nil biographies
 		if (biography) {
-			NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
-			float height = [biography heightForWidth:[[self window] frame].size.width-32-11 font:font];
+			//NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
+			float height = [biography heightForWidth:[[self window] frame].size.width-32-11]; //[biography heightForWidth:[[self window] frame].size.width-32-11 font:font];
 			return height+customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+padding;
 		}
 		else {
@@ -1531,9 +1533,13 @@
 		return 50;
 	}
 	if ([content isKindOfClass:[ANPost class]]) {
-        NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
-        float height = [[content text] heightForWidth:[[self window] frame].size.width-100 font:font]; // 61 was previously 70
-        int spaceToTop=15; // 15 was 18
+		ANPost *post = content;
+        //NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
+		NSAttributedString *status = [self stylizeStatusWithString:[post text] andEntities:[post entities]];
+		int distanceToLeftSuperview = 70;
+		int distanceToRightSuperview = 2;
+        float height = [status heightForWidth:[[self window] frame].size.width-distanceToLeftSuperview-distanceToRightSuperview]; // 61 was previously 70
+        int spaceToTop=18; // 15 was 18
         int padding=10;
         int minimumViewHeight = 105; // 118, actually 139 though //105 was previously 108
         int spaceToBottom=45; // 45 was previous 46
