@@ -24,3 +24,6 @@
 [submodule "Sunlight/Pocket-ObjC-SDK"]
 	path = Sunlight/Pocket-ObjC-SDK
 	url = git://github.com/Pocket/Pocket-ObjC-SDK.git
+[submodule "Sunlight/Sparkle"]
+	path = Sunlight/Sparkle
+	url = git://github.com/andymatuschak/Sparkle.git

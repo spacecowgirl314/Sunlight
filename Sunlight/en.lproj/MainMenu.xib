@@ -93,6 +93,24 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="941543195">
+									<reference key="NSMenu" ref="110575045"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="510107250">
+									<reference key="NSMenu" ref="110575045"/>
+									<string key="NSTitle">Check for Updates…</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="481834944">
 									<reference key="NSMenu" ref="110575045"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -1000,6 +1018,9 @@
 			<object class="NSCustomObject" id="976324537">
 				<string key="NSClassName">PSCAppDelegate</string>
 			</object>
+			<object class="NSCustomObject" id="1061867253">
+				<string key="NSClassName">SUUpdater</string>
+			</object>
 			<object class="NSCustomObject" id="755631768">
 				<string key="NSClassName">NSFontManager</string>
 			</object>
@@ -1822,6 +1843,14 @@
 					</object>
 					<int key="connectionID">680</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">checkForUpdates:</string>
+						<reference key="source" ref="1061867253"/>
+						<reference key="destination" ref="510107250"/>
+					</object>
+					<int key="connectionID">4805</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -2512,6 +2541,8 @@
 							<reference ref="1046388886"/>
 							<reference ref="1056857174"/>
 							<reference ref="342932134"/>
+							<reference ref="510107250"/>
+							<reference ref="941543195"/>
 						</array>
 						<reference key="parent" ref="694149608"/>
 					</object>
@@ -3666,6 +3697,21 @@
 						<reference key="object" ref="262131932"/>
 						<reference key="parent" ref="720053764"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4802</int>
+						<reference key="object" ref="1061867253"/>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4803</int>
+						<reference key="object" ref="510107250"/>
+						<reference key="parent" ref="110575045"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4804</int>
+						<reference key="object" ref="941543195"/>
+						<reference key="parent" ref="110575045"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3900,6 +3946,9 @@
 				<string key="4777.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4791.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4800.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="4802.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="4803.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="4804.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="485.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="490.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="491.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3938,7 +3987,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">4801</int>
+			<int key="maxID">4805</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3972,8 +4021,8 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="loadPreviousInStream:">id</string>
 						<string key="openReplyPost:">id</string>
-						<string key="poop:">id</string>
 						<string key="refreshStream:">id</string>
+						<string key="scrollPositionTestMethod:">id</string>
 						<string key="switchToMentions:">id</string>
 						<string key="switchToMentionsFromMenu:">id</string>
 						<string key="switchToMessages:">id</string>
@@ -3994,12 +4043,12 @@
 							<string key="name">openReplyPost:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="poop:">
-							<string key="name">poop:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="refreshStream:">
 							<string key="name">refreshStream:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="scrollPositionTestMethod:">
+							<string key="name">scrollPositionTestMethod:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="switchToMentions:">
@@ -4152,6 +4201,36 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/PSCTableView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SUUpdater</string>
+					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">checkForUpdates:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">checkForUpdates:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">checkForUpdates:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">delegate</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">delegate</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">delegate</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SUUpdater.h</string>
 					</object>
 				</object>
 			</array>
