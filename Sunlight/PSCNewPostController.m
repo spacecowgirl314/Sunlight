@@ -83,13 +83,11 @@
 	
 	NSColor *topColor = [NSColor colorWithDeviceRed:0.208 green:0.208 blue:0.208 alpha:1.0];
 	NSColor *bottomColor = [NSColor colorWithDeviceRed:0.094 green:0.094 blue:0.094 alpha:1.0];
-	[bottomGradientView setStartingColor:topColor];
-	[bottomGradientView setEndingColor:bottomColor];
+	[bottomGradientView setStartingColor:topColor endingColor:bottomColor];
 	
 	topColor = [NSColor colorWithDeviceRed:0.98 green:0.98 blue:0.98 alpha:1.0];
 	bottomColor = [NSColor colorWithDeviceRed:0.831 green:0.831 blue:0.831 alpha:1.0];
-	[topGradientView setStartingColor:topColor];
-	[topGradientView setEndingColor:bottomColor];
+	[topGradientView setStartingColor:topColor endingColor:bottomColor];
 	
 	/*topColor = [NSColor colorWithDeviceRed:0.435 green:0.635 blue:0.878 alpha:1.0];
 	bottomColor = [NSColor colorWithDeviceRed:0.141 green:0.357 blue:0.741 alpha:1.0];

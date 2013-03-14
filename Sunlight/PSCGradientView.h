@@ -11,15 +11,18 @@
 
 @interface PSCGradientView : NSView
 {
-	NSColor *startingColor;
-	NSColor *endingColor;
+	//NSColor *startingColor;
+	//NSColor *endingColor;
 	int angle;
 	NSPoint initialLocation;
+	NSGradient *gradient;
 }
 
 // Define the variables as properties
-@property(nonatomic, retain) NSColor *startingColor;
-@property(nonatomic, retain) NSColor *endingColor;
+//@property(nonatomic, retain) NSColor *startingColor;
+//@property(nonatomic, retain) NSColor *endingColor;
 @property(assign) int angle;
+
+- (void)setStartingColor:(NSColor *)startingColor endingColor:(NSColor*)endingColor;
 
 @end

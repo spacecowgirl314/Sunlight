@@ -119,11 +119,9 @@
 	 selector: @selector(windowDidResize:)
 	 name: NSWindowDidResizeNotification
 	 object: self.window];
-	[[self topShadow] setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f]];
-	[[self topShadow] setEndingColor:[NSColor clearColor]];
+	[[self topShadow] setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f] endingColor:[NSColor clearColor]];
     [[self topShadow] setAngle:270];
-	[[self breadcrumbShadow] setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f]];
-	[[self breadcrumbShadow] setEndingColor:[NSColor clearColor]];
+	[[self breadcrumbShadow] setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f] endingColor:[NSColor clearColor]];
     [[self breadcrumbShadow] setAngle:270];
 	[[self breadcrumbView] setDelegate:self];
 	// setup navigation controller

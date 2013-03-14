@@ -68,8 +68,7 @@
     
     NSColor *topColor = [NSColor colorWithDeviceRed:0.945 green:0.945 blue:0.945 alpha:1.0];
 	NSColor *bottomColor = [NSColor colorWithDeviceRed:0.867 green:0.867 blue:0.867 alpha:1.0];
-	[loginGradientView setStartingColor:topColor];
-	[loginGradientView setEndingColor:bottomColor];
+	[loginGradientView setStartingColor:topColor endingColor:bottomColor];
 	
 }
 

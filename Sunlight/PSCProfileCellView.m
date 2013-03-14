@@ -47,14 +47,11 @@
 
 - (void)awakeFromNib
 {
-	[bannerShadow setStartingColor:[NSColor clearColor]];
-	[bannerShadow setEndingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.75f]];
+	[bannerShadow setStartingColor:[NSColor clearColor] endingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.75f]];
     [bannerShadow setAngle:270];
-	[bottomShadow setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f]];
-	[bottomShadow setEndingColor:[NSColor clearColor]];
+	[bottomShadow setStartingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f] endingColor:[NSColor clearColor]];
     [bottomShadow setAngle:270];
-    [topShadow setStartingColor:[NSColor clearColor]];
-	[topShadow setEndingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f]];
+	[topShadow setStartingColor:[NSColor clearColor] endingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.20f]];
     [topShadow setAngle:270];
 	[followButton setTextColor:[self defaultButtonColor]];
     [isYou setHidden:YES];
