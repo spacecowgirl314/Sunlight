@@ -28,23 +28,10 @@
 //#import "ANEntity.h"
 
 @implementation PSCAppDelegate
-@synthesize postController;
-@synthesize loginController;
-@synthesize titleView;
-@synthesize streamButton;
-@synthesize mentionsButton;
-@synthesize starsButton;
-@synthesize profileButton;
-@synthesize messagesButton;
-@synthesize titleTextField;
-@synthesize appScrollView;
-@synthesize appTableView;
-@synthesize breadcrumbShadow;
-@synthesize replyPost;
-@synthesize topShadow;
-@synthesize window;
-@synthesize breadcrumbView;
-@synthesize menu;
+@synthesize postController, loginController;
+@synthesize titleView, appScrollView, appTableView, breadcrumbView, window;
+@synthesize streamButton, mentionsButton, starsButton, profileButton, messagesButton;
+@synthesize breadcrumbShadow, replyPost, topShadow, titleTextField, menu;
 
 - (id)init
 {
@@ -55,6 +42,8 @@
 														andEventID:kAEGetURL];
 	return self;
 }
+
+#pragma mark -
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification
 {
@@ -121,6 +110,7 @@
 	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
 		[[self appScrollView] stopLoading];
 	}];
+	// register the xibs for use in 
 	[[self appTableView] registerNib:[[NSNib alloc] initWithNibNamed:@"PSCPostCellView" bundle:nil] forIdentifier:@"PostCell"];
 	[[self appTableView] registerNib:[[NSNib alloc] initWithNibNamed:@"PSCProfileCellView" bundle:nil] forIdentifier:@"ProfileCell"];
 	[[self appTableView] registerNib:[[NSNib alloc] initWithNibNamed:@"PSCLoadMoreCellView" bundle:nil] forIdentifier:@"LoadMoreCell"];
@@ -184,6 +174,97 @@
 	return YES;
 }
 
+- (void)receivedURL:(NSAppleEventDescriptor*)event withReplyEvent: (NSAppleEventDescriptor*)replyEvent
+{
+	NSURL *url = [NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
+    if([[PocketAPI sharedAPI] handleOpenURL:url]){
+        //return YES;
+    }else{
+        // if you handle your own custom url-schemes, do it here
+        //return NO;
+    }
+}
+
+#pragma mark - Authentication
+
+- (void)authenticate
+{
+	[ANAuthenticator.sharedAuthenticator setClientID:@"KXWTJNJeyw5fGQDmfAAcecepf7tp6eEY"];
+	[ANAuthenticator.sharedAuthenticator setPasswordGrantSecret:@"kPtJeNSnfQgm4QqQcn7BfHWfeG8c5ZTH"];
+	if (!self.loginController) {
+		PSCLoginController *pL = [[PSCLoginController alloc] init];
+		self.loginController =  pL;
+		[self.loginController setSuccessCallback:^{
+			[self.window makeKeyAndOrderFront:self];
+			[self prepare];
+		}];
+	}
+	[[self window] orderOut:nil];
+	[self.loginController.window setLevel:NSPopUpMenuWindowLevel];
+	[NSApp runModalForWindow:self.loginController.window];
+}
+
+#pragma mark - Loading The Streams
+
+- (void)setCurrentUser
+{
+	// set current user
+	[ANSession.defaultSession userWithID:ANMeUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
+		if (error) {
+			return;
+		}
+		[[PSCMemoryCache sharedMemory] setCurrentUser:user];
+	}];
+}
+
+- (void)prepare
+{
+	ANSession.defaultSession.accessToken = [PSCMemoryCache sharedMemory].authToken;
+	currentStream = PSCMyStream;
+	// set up the current user for operations if not yet done
+	if (![[PSCMemoryCache sharedMemory] currentUser]) {
+		[self setCurrentUser];
+	}
+	// start window off by not being seen
+	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
+		[self reload];
+	}];
+	// Get the latest posts in the user's incoming post stream...
+	switch (currentStream)
+	{
+		case PSCMyStream:
+		{
+			[self performSelector:@selector(loadMyStream:) withObject:NO afterDelay:0.0];
+			//[self loadMyStream:YES];
+			break;
+		}
+		case PSCMentions:
+		{
+			[self performSelector:@selector(loadMentions:) withObject:NO afterDelay:0.0];
+			//[self loadMentions];
+			break;
+		}
+		case PSCStars:
+		{
+			[self performSelector:@selector(loadStars:) withObject:NO afterDelay:0.0];
+			//[self loadStars:NO];
+			break;
+		}
+		case PSCProfile:
+		{
+			[self performSelector:@selector(loadProfile:) withObject:NO afterDelay:0.0];
+			//[self loadProfile:NO];
+			break;
+		}
+		case PSCMessages:
+		{
+			[self performSelector:@selector(loadMessages:) withObject:NO afterDelay:0.0];
+			//[self loadMessages:NO];
+			break;
+		}
+	}
+}
+
 #pragma mark - Breadcrumbs
 
 - (void)breadcrumbView:(PSCBreadcrumbView *)view didTapItemAtIndex:(NSUInteger)index
@@ -207,7 +288,7 @@
 	return item;
 }
 
-#pragma mark - Miscellanious Methods
+#pragma mark - Scrolling Saving and Setting
 
 /* from
  https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/NSScrollViewGuide/Articles/Scrolling.html
@@ -225,11 +306,6 @@
     }
 	
     [[appScrollView documentView] scrollPoint:newScrollOrigin];
-}
-
-- (IBAction)poop:(id)sender
-{
-	[self scrollPosition];
 }
 
 - (NSPoint)scrollPosition
@@ -322,6 +398,11 @@
 	}
 }
 
+- (IBAction)scrollPositionTestMethod:(id)sender
+{
+	[self scrollPosition];
+}
+
 #pragma mark - Switching Streams
 
 // by keeping selectButton out of the original action we're keeping performance uniform
@@ -354,6 +435,8 @@
 	[[[buttonCollection buttons] objectAtIndex:4] selectButton];
 	[self switchToMessages:sender];
 }
+
+#pragma mark -
 
 - (IBAction)switchToStream:(id)sender
 {
@@ -403,6 +486,29 @@
 	[[[buttonCollection buttons] objectAtIndex:4] disableIndicator];
 	[self loadMessages:NO];
 	[self getStreamScrollPosition];
+}
+
+#pragma mark - Window Notifications and Notification Bar
+
+- (void)windowDidResize:(NSNotification*)aNotification
+{
+	for (int i = 0; i < [postsArray count]; i++) {
+		[self.appTableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndex:i]];
+	}
+	/*if ([postsArray[0] isKindOfClass:[ANUser class]]) {
+	 PSCProfileCellView *profileCellView = [self.appTableView viewAtColumn:0 row:0 makeIfNecessary:YES];
+	 NSRect frame = [[profileCellView bannerView] frame];
+	 //NSLog(@"image width:%f and height:%f", image.size.width, image.size.height);
+	 //[[profileCellView bannerView] setFrame:NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, image.size.height)];
+	 int height = ([[profileCellView bannerView] image].size.width/2 / window.frame.size.height) * window.frame.size.width;
+	 NSLog(@"height:%i", height);
+	 //[[profileCellView biographyView] setStringValue:@"This does in fact actually work."];
+	 NSRect proportionalRect = NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, height);
+	 [[profileCellView bannerView] setFrame:proportionalRect];
+	 //[[profileCellView bannerView] setFrame:NSZeroRect];
+	 //[[profileCellView bannerView] setImage:nil];
+	 NSLog(@"new Frame:%@", NSStringFromRect(proportionalRect));
+	 }*/
 }
 
 - (void)showErrorBarWithError:(NSError*)error
@@ -466,7 +572,7 @@
 	[errorLabel setFrame:NSMakeRect(errorLabel.frame.origin.x, errorLabel.frame.origin.y+errorLabel.frame.size.height, errorLabel.frame.size.width, errorLabel.frame.size.height)];
 	[view addSubview:imageView positioned:NSWindowBelow relativeTo:self.breadcrumbShadow];
 	[view addSubview:errorLabel positioned:NSWindowAbove relativeTo:imageView];
-	// TODO: insert reactive cocoa here that offsets any movement done by resizing the window vertically
+	// TODO: insert code here that offsets any movement done by resizing the window vertically
 	[NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setDuration:0.2f];
 	// move the views into view
@@ -490,47 +596,47 @@
 
 #pragma mark - Loading Streams
 
-- (void)loadConversation:(NSNotification*)notification
+- (IBAction)refreshStream:(id)sender
 {
-	ANPost *postWithReplies = [notification object];
-	[postWithReplies replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
-		if (error) {
-			[self showErrorBarWithError:error];
-			return;
-		}
-		[breadcrumbView pushItem:[self item:@"Conversation"]];
-		//currentStream = PSCConversation;
-		[titleTextField setStringValue:@"Conversation"];
-		PSCStream *stream = [PSCStream new];
-		[stream setPosts:posts];
-		[stream setReloadPosts:^{
-			[postWithReplies replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
-				if (error) {
-					[self showErrorBarWithError:error];
-					return;
-				}
-				postsArray = posts;
-				[[self appTableView] reloadData];
-				dispatch_async(dispatch_get_main_queue(), ^{
-					[[self appScrollView] stopLoading];
-				});
-			}];
-		}];
-		[navigationController pushStream:stream];
-		[self pushStreamWithPosts:posts];
-	}];
+	[self reload];
 }
 
-- (void)reloadStreamWithPosts:(NSMutableArray*)posts newSet:(NSIndexSet*)newSet deletedPosts:(NSArray*)deletedPosts
+- (void)reload
 {
-	// Inject Load More Cell View
-	[posts insertObject:[PSCLoadMore new] atIndex:posts.count];
-	for (NSIndexSet *theSet in deletedPosts) {
-		[[self appTableView] removeRowsAtIndexes:theSet withAnimation:NSTableViewAnimationSlideLeft];
+	if (navigationController.levels!=0) {
+		PSCStream *stream = [navigationController streamAtIndex:navigationController.levels-1];
+		stream.reloadPosts();
+		//[[self appScrollView] stopLoading];
+		return;
 	}
-	postsArray = posts;
-	// insert new rows:
-	[[self appTableView] insertRowsAtIndexes:newSet withAnimation:NSTableViewAnimationSlideDown];
+	switch (currentStream)
+	{
+		case PSCMyStream:
+		{
+			[self loadMyStream:YES];
+			break;
+		}
+		case PSCMentions:
+		{
+			[self loadMentions:YES];
+			break;
+		}
+		case PSCStars:
+		{
+			[self loadStars:YES];
+			break;
+		}
+		case PSCProfile:
+		{
+			[self loadProfile:YES];
+			break;
+		}
+		case PSCMessages:
+		{
+			[self loadMessages:YES];
+			break;
+		}
+	}
 }
 
 - (void)pushStreamWithPosts:(NSArray*)newPosts
@@ -577,6 +683,51 @@
 	range = NSMakeRange(0, [previousPosts count]);
 	theSet = [NSIndexSet indexSetWithIndexesInRange:range];
 	[[self appTableView] insertRowsAtIndexes:theSet withAnimation:NSTableViewAnimationSlideLeft];
+}
+
+- (void)reloadStreamWithPosts:(NSMutableArray*)posts newSet:(NSIndexSet*)newSet deletedPosts:(NSArray*)deletedPosts
+{
+	// Inject Load More Cell View
+	[posts insertObject:[PSCLoadMore new] atIndex:posts.count];
+	for (NSIndexSet *theSet in deletedPosts) {
+		[[self appTableView] removeRowsAtIndexes:theSet withAnimation:NSTableViewAnimationSlideLeft];
+	}
+	postsArray = posts;
+	// insert new rows:
+	[[self appTableView] insertRowsAtIndexes:newSet withAnimation:NSTableViewAnimationSlideDown];
+}
+
+#pragma mark -
+
+- (void)loadConversation:(NSNotification*)notification
+{
+	ANPost *postWithReplies = [notification object];
+	[postWithReplies replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
+		if (error) {
+			[self showErrorBarWithError:error];
+			return;
+		}
+		[breadcrumbView pushItem:[self item:@"Conversation"]];
+		//currentStream = PSCConversation;
+		[titleTextField setStringValue:@"Conversation"];
+		PSCStream *stream = [PSCStream new];
+		[stream setPosts:posts];
+		[stream setReloadPosts:^{
+			[postWithReplies replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
+				if (error) {
+					[self showErrorBarWithError:error];
+					return;
+				}
+				postsArray = posts;
+				[[self appTableView] reloadData];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[[self appScrollView] stopLoading];
+				});
+			}];
+		}];
+		[navigationController pushStream:stream];
+		[self pushStreamWithPosts:posts];
+	}];
 }
 
 - (void)loadHashtag:(NSNotification*)theNotification
@@ -750,11 +901,6 @@
 	}
 }
 
-- (void)popIntoMyStream
-{
-	[self loadMyStream:NO popping:YES];
-}
-
 - (void)loadMentions:(BOOL)reload
 {
 	[self loadMentions:reload popping:NO];
@@ -831,11 +977,6 @@
 	}
 }
 
-- (void)popIntoMentions
-{
-	[self loadMentions:NO popping:YES];
-}
-
 - (void)loadStars:(BOOL)reload
 {
 	[self loadStars:reload popping:NO];
@@ -910,11 +1051,6 @@
 	{
 		reloadPosts();
 	}
-}
-
-- (void)popIntoStars
-{
-	[self loadStars:NO popping:YES];
 }
 
 - (void)loadProfileFromNotification:(NSNotification*)notification
@@ -1070,11 +1206,6 @@
 	}
 }
 
-- (void)popIntoProfile
-{
-	[self loadProfile:NO withUsername:[[[PSCMemoryCache sharedMemory] currentUser] username] popping:YES];
-}
-
 - (void)loadMessages:(BOOL)reload
 {
 	[self loadMessages:reload popping:NO];
@@ -1127,6 +1258,28 @@
 	// do popping thing and reload thing here
 }
 
+#pragma mark -
+
+- (void)popIntoMyStream
+{
+	[self loadMyStream:NO popping:YES];
+}
+
+- (void)popIntoMentions
+{
+	[self loadMentions:NO popping:YES];
+}
+
+- (void)popIntoStars
+{
+	[self loadStars:NO popping:YES];
+}
+
+- (void)popIntoProfile
+{
+	[self loadProfile:NO withUsername:[[[PSCMemoryCache sharedMemory] currentUser] username] popping:YES];
+}
+
 - (void)popIntoMessages
 {
 	[self loadMessages:NO popping:YES];
@@ -1163,110 +1316,6 @@
 		}
 	}
 
-}
-
-#pragma mark - Preparations and setup stuff
-
-- (void)setCurrentUser
-{
-	// set current user
-	[ANSession.defaultSession userWithID:ANMeUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
-		if (error) {
-			return;
-		}
-		[[PSCMemoryCache sharedMemory] setCurrentUser:user];
-	}];
-}
-
-- (IBAction)refreshStream:(id)sender
-{
-	[self reload];
-}
-
-- (void)reload
-{
-	if (navigationController.levels!=0) {
-		PSCStream *stream = [navigationController streamAtIndex:navigationController.levels-1];
-		stream.reloadPosts();
-		//[[self appScrollView] stopLoading];
-		return;
-	}
-	switch (currentStream)
-	{
-		case PSCMyStream:
-		{
-			[self loadMyStream:YES];
-			break;
-		}
-		case PSCMentions:
-		{
-			[self loadMentions:YES];
-			break;
-		}
-		case PSCStars:
-		{
-			[self loadStars:YES];
-			break;
-		}
-		case PSCProfile:
-		{
-			[self loadProfile:YES];
-			break;
-		}
-		case PSCMessages:
-		{
-			[self loadMessages:YES];
-			break;
-		}
-	}
-}
-
-- (void)prepare
-{
-	ANSession.defaultSession.accessToken = [PSCMemoryCache sharedMemory].authToken;
-	currentStream = PSCMyStream;
-	// set up the current user for operations if not yet done
-	if (![[PSCMemoryCache sharedMemory] currentUser]) {
-		[self setCurrentUser];
-	}
-	// start window off by not being seen
-	[[self appScrollView] setRefreshBlock:^(EQSTRScrollView *scrollView) {
-		[self reload];
-	}];
-	// Get the latest posts in the user's incoming post stream...
-	switch (currentStream)
-	{
-		case PSCMyStream:
-		{
-			[self performSelector:@selector(loadMyStream:) withObject:NO afterDelay:0.0];
-			//[self loadMyStream:YES];
-			break;
-		}
-		case PSCMentions:
-		{
-			[self performSelector:@selector(loadMentions:) withObject:NO afterDelay:0.0];
-			//[self loadMentions];
-			break;
-		}
-		case PSCStars:
-		{
-			[self performSelector:@selector(loadStars:) withObject:NO afterDelay:0.0];
-			//[self loadStars:NO];
-			break;
-		}
-		case PSCProfile:
-		{
-			[self performSelector:@selector(loadProfile:) withObject:NO afterDelay:0.0];
-			//[self loadProfile:NO];
-			break;
-		}
-		case PSCMessages:
-		{
-			[self performSelector:@selector(loadMessages:) withObject:NO afterDelay:0.0];
-			//[self loadMessages:NO];
-			break;
-		}
-	}
 }
 
 #pragma mark - Posting
@@ -1379,58 +1428,7 @@
 	return !notification.isPresented;
 }
 
-#pragma mark - Authentication and URL handling
-
-- (void)authenticate
-{
-	[ANAuthenticator.sharedAuthenticator setClientID:@"KXWTJNJeyw5fGQDmfAAcecepf7tp6eEY"];
-	[ANAuthenticator.sharedAuthenticator setPasswordGrantSecret:@"kPtJeNSnfQgm4QqQcn7BfHWfeG8c5ZTH"];
-	if (!self.loginController) {
-		PSCLoginController *pL = [[PSCLoginController alloc] init];
-		self.loginController =  pL;
-		[self.loginController setSuccessCallback:^{
-			[self.window makeKeyAndOrderFront:self];
-			[self prepare];
-		}];
-	}
-	[[self window] orderOut:nil];
-	[self.loginController.window setLevel:NSPopUpMenuWindowLevel];
-	[NSApp runModalForWindow:self.loginController.window];
-}
-
-- (void)receivedURL:(NSAppleEventDescriptor*)event withReplyEvent: (NSAppleEventDescriptor*)replyEvent
-{
-	NSURL *url = [NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
-    if([[PocketAPI sharedAPI] handleOpenURL:url]){
-        //return YES;
-    }else{
-        // if you handle your own custom url-schemes, do it here
-        //return NO;
-    }
-}
-
-- (void)windowDidResize:(NSNotification*)aNotification
-{
-	for (int i = 0; i < [postsArray count]; i++) {
-		[self.appTableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndex:i]];
-	}
-	/*if ([postsArray[0] isKindOfClass:[ANUser class]]) {
-		PSCProfileCellView *profileCellView = [self.appTableView viewAtColumn:0 row:0 makeIfNecessary:YES];
-		NSRect frame = [[profileCellView bannerView] frame];
-		//NSLog(@"image width:%f and height:%f", image.size.width, image.size.height);
-		//[[profileCellView bannerView] setFrame:NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, image.size.height)];
-		int height = ([[profileCellView bannerView] image].size.width/2 / window.frame.size.height) * window.frame.size.width;
-		NSLog(@"height:%i", height);
-		//[[profileCellView biographyView] setStringValue:@"This does in fact actually work."];
-		NSRect proportionalRect = NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, height);
-		[[profileCellView bannerView] setFrame:proportionalRect];
-		//[[profileCellView bannerView] setFrame:NSZeroRect];
-		//[[profileCellView bannerView] setImage:nil];
-		NSLog(@"new Frame:%@", NSStringFromRect(proportionalRect));
-	}*/
-}
-
-#pragma mark - NSTableView Delegates
+#pragma mark - NSTableView Delegates and Configuration
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
 {
@@ -1474,13 +1472,89 @@
 	}
 }
 
+- (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
+	id content = [postsArray objectAtIndex:row];
+	if ([content isKindOfClass:[ANUser class]]) {
+		return [self configureProfileCellView:tableView user:content];
+	}
+	if ([content isKindOfClass:[ANPost class]]) {
+		return [self configurePostCellView:tableView post:content rowIndex:row];
+	}
+	if ([content isKindOfClass:[PSCLoadMore class]]) {
+		PSCLoadMoreCellView *result = [tableView makeViewWithIdentifier:@"LoadMoreCell" owner:nil];
+		return result;
+	}
+	// we should never reach this
+	return nil;
+}
+
+- (void)deselectRow:(NSInteger)rowIndex
+{
+	
+}
+
+- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex
+{
+    id content = [postsArray objectAtIndex:rowIndex];
+	if ([content isKindOfClass:[ANPost class]]) {
+		return YES;
+	}
+	else {
+		return NO;
+	}
+}
+
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
+{
+	//NSLog(@"row:%ld", row);
+	id content = [postsArray objectAtIndex:row];
+	if ([content isKindOfClass:[ANUser class]]) {
+		// calculate for profile cell view
+		NSString *biography = [[content userDescription] text];
+		int customViewToTop = 143;
+		int biographyToTopOfCustomView = 43;
+		int heightOfBottomShadow = 3;
+		int padding = 10;
+		// detect nil biographies
+		if (biography) {
+			NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
+			float height = [biography heightForWidth:[[self window] frame].size.width-32-11 font:font];
+			return height+customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+padding;
+		}
+		else {
+			return customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+(padding*2);
+		}
+	}
+	if ([content isKindOfClass:[PSCLoadMore class]]) {
+		return 50;
+	}
+	if ([content isKindOfClass:[ANPost class]]) {
+        NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
+        float height = [[content text] heightForWidth:[[self window] frame].size.width-100 font:font]; // 61 was previously 70
+        int spaceToTop=15; // 15 was 18
+        int padding=10;
+        int minimumViewHeight = 105; // 118, actually 139 though //105 was previously 108
+        int spaceToBottom=45; // 45 was previous 46
+        int extraRepostSpace = ([content repostOf]) ? 19 : 0;
+        
+        int viewHeight = height + spaceToTop + spaceToBottom + padding + extraRepostSpace;
+        minimumViewHeight = minimumViewHeight + extraRepostSpace;
+        
+        return MAX(viewHeight, minimumViewHeight);
+    }
+}
+
+#pragma mark -
+
 - (PSCProfileCellView*)configureProfileCellView:(NSTableView*)tableView user:(ANUser*)user
 {
 	PSCProfileCellView *profileCellView = [tableView makeViewWithIdentifier:@"ProfileCell" owner:nil];
 	// clear out the banner and avatar view every time we configure a new profile cell view
 	[[profileCellView bannerView] setImage:nil];
 	[[profileCellView avatarView] setImage:nil];
-	// TODO: then load them both cached
+	// Todo, Load both the cover image and bigger avatar cached
 	// send user to the cell
 	[profileCellView setUser:user];
 	// set name
@@ -1565,18 +1639,18 @@
 	[[result avatarView] setImage:nil];
 	
 	/*ANAnnotationSet *annotationSet = [post annotations];
-	for (ANAnnotation *annotation in [annotationSet all]) {
-		NSLog(@"annotation type:%@ for %@", annotation.type, post.text);
-		if ([[annotation type] isEqualToString:ANAnnotationTypeGeolocation]) {
-			CLLocation *location = [annotation geolocationValue];
-			CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-			[geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-				for (CLPlacemark *placemark in placemarks) {
-					NSLog(@"placemark found:%@", [placemark description]);
-				}
-			}];
-		}
-	}*/
+	 for (ANAnnotation *annotation in [annotationSet all]) {
+	 NSLog(@"annotation type:%@ for %@", annotation.type, post.text);
+	 if ([[annotation type] isEqualToString:ANAnnotationTypeGeolocation]) {
+	 CLLocation *location = [annotation geolocationValue];
+	 CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+	 [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+	 for (CLPlacemark *placemark in placemarks) {
+	 NSLog(@"placemark found:%@", [placemark description]);
+	 }
+	 }];
+	 }
+	 }*/
     
 	//ANPost *post = [postsArray objectAtIndex:row];
 	ANUser *user = [post user];
@@ -1653,8 +1727,8 @@
 				//[[result avatarView] setImage:maskedImage];
 			}
 			/*else {
-				[[result avatarView] setImage:nil];
-			}*/
+			 [[result avatarView] setImage:nil];
+			 }*/
 		}];
 	}
 	// set contents of post
@@ -1674,123 +1748,7 @@
 	return result;
 }
 
-- (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
-{
-    // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
-	id content = [postsArray objectAtIndex:row];
-	if ([content isKindOfClass:[ANUser class]]) {
-		return [self configureProfileCellView:tableView user:content];
-	}
-	if ([content isKindOfClass:[ANPost class]]) {
-		return [self configurePostCellView:tableView post:content rowIndex:row];
-	}
-	if ([content isKindOfClass:[PSCLoadMore class]]) {
-		PSCLoadMoreCellView *result = [tableView makeViewWithIdentifier:@"LoadMoreCell" owner:nil];
-		return result;
-	}
-	// we should never reach this
-	return nil;
-}
-
-- (void)deselectRow:(NSInteger)rowIndex
-{
-	
-}
-
-- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex
-{
-    id content = [postsArray objectAtIndex:rowIndex];
-	if ([content isKindOfClass:[ANPost class]]) {
-		return YES;
-	}
-	else {
-		return NO;
-	}
-}
-
-- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
-{
-	//NSLog(@"row:%ld", row);
-	id content = [postsArray objectAtIndex:row];
-	if ([content isKindOfClass:[ANUser class]]) {
-		// calculate for profile cell view
-		NSString *biography = [[content userDescription] text];
-		int customViewToTop = 143;
-		int biographyToTopOfCustomView = 43;
-		int heightOfBottomShadow = 3;
-		int padding = 10;
-		// detect nil biographies
-		if (biography) {
-			NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
-			float height = [biography heightForWidth:[[self window] frame].size.width-32-11 font:font];
-			return height+customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+padding;
-		}
-		else {
-			return customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+(padding*2);
-		}
-	}
-	if ([content isKindOfClass:[PSCLoadMore class]]) {
-		return 50;
-	}
-	if ([content isKindOfClass:[ANPost class]]) {
-        NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
-        float height = [[content text] heightForWidth:[[self window] frame].size.width-100 font:font]; // 61 was previously 70
-        int spaceToTop=15; // 15 was 18
-        int padding=10;
-        int minimumViewHeight = 105; // 118, actually 139 though //105 was previously 108
-        int spaceToBottom=45; // 45 was previous 46
-        int extraRepostSpace = ([content repostOf]) ? 19 : 0;
-        
-        int viewHeight = height + spaceToTop + spaceToBottom + padding + extraRepostSpace;
-        minimumViewHeight = minimumViewHeight + extraRepostSpace;
-        
-        return MAX(viewHeight, minimumViewHeight);
-    }
-}
-
-#pragma mark - Unused Stuff
-
-- (void)fadeOutWindow:(NSWindow*)window
-{
-	float alpha = 1.0;
-	[window setAlphaValue:alpha];
-	//[window makeKeyAndOrderFront:self];
-	for (int x = 0; x < 10; x++) {
-		alpha -= 0.1;
-		[window setAlphaValue:alpha];
-		[NSThread sleepForTimeInterval:0.020];
-	}
-}
-
-- (void)fadeInWindow:(NSWindow*)window
-{
-	float alpha = 0.0;
-	[window setAlphaValue:alpha];
-	[window makeKeyAndOrderFront:self];
-	for (int x = 0; x < 10; x++) {
-		alpha += 0.1;
-		[window setAlphaValue:alpha];
-		[NSThread sleepForTimeInterval:0.020];
-	}
-}
-
-- (void) hotkeyWithEvent:(NSEvent *)hkEvent
-{
-	[[self window] center];
-	if ([[self window] alphaValue]>0.0f) {
-		//[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
-		[self fadeOutWindow:[self window]];
-	}
-	else {
-		[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
-		[self fadeInWindow:[self window]];
-	}
-	//[_window orderFront:nil];
-	NSLog(@"%@",[NSString stringWithFormat:@"Firing -[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd)]);
-	NSLog(@"%@", [NSString stringWithFormat:@"Hotkey event: %@", hkEvent]);
-}
-
-#pragma mark - Styling Stuff
+#pragma mark - Styling
 
 - (NSShadow*)theShadow
 {
@@ -1841,7 +1799,7 @@
 								   nil];
 		[attributedStatusString addAttributes:linkAttr3 range:tag.range];
 	}
-		
+	
 	return attributedStatusString;
 }
 
@@ -1884,6 +1842,48 @@
 	}
 	
 	return attributedStatusString;
+}
+
+#pragma mark - Unused
+
+- (void)fadeOutWindow:(NSWindow*)window
+{
+	float alpha = 1.0;
+	[window setAlphaValue:alpha];
+	//[window makeKeyAndOrderFront:self];
+	for (int x = 0; x < 10; x++) {
+		alpha -= 0.1;
+		[window setAlphaValue:alpha];
+		[NSThread sleepForTimeInterval:0.020];
+	}
+}
+
+- (void)fadeInWindow:(NSWindow*)window
+{
+	float alpha = 0.0;
+	[window setAlphaValue:alpha];
+	[window makeKeyAndOrderFront:self];
+	for (int x = 0; x < 10; x++) {
+		alpha += 0.1;
+		[window setAlphaValue:alpha];
+		[NSThread sleepForTimeInterval:0.020];
+	}
+}
+
+- (void) hotkeyWithEvent:(NSEvent *)hkEvent
+{
+	[[self window] center];
+	if ([[self window] alphaValue]>0.0f) {
+		//[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+		[self fadeOutWindow:[self window]];
+	}
+	else {
+		[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+		[self fadeInWindow:[self window]];
+	}
+	//[_window orderFront:nil];
+	NSLog(@"%@",[NSString stringWithFormat:@"Firing -[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd)]);
+	NSLog(@"%@", [NSString stringWithFormat:@"Hotkey event: %@", hkEvent]);
 }
 
 @end
