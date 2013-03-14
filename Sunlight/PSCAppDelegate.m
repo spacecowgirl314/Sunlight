@@ -1113,7 +1113,7 @@
 							if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%lld", [user ID]] posts:posts]) {
 								//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
 							}
-							[breadcrumbView pushItem:[self item:[user username]]];
+							[breadcrumbView pushItem:[self item:[[NSString alloc] initWithFormat:@"@%@", username]]];
 							[titleTextField setStringValue:[user username]];
 						}
 						if(!posts) {
