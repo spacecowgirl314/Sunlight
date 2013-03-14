@@ -89,7 +89,6 @@
 		374AC7B616DF3FF300415826 /* PSCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 374AC7B516DF3FF300415826 /* PSCNavigationController.m */; };
 		374B859F16C323DE00E254D4 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 374B859D16C323DE00E254D4 /* arrow.png */; };
 		374B85A016C323DE00E254D4 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 374B859E16C323DE00E254D4 /* arrow@2x.png */; };
-		37570B4F1635E1AF00B1D9FE /* PSCRoundedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37570B4E1635E1AF00B1D9FE /* PSCRoundedImageView.m */; };
 		3759737316CF947300E6993D /* 151568__lukechalaudio__user-interface-generic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3759737216CF947300E6993D /* 151568__lukechalaudio__user-interface-generic.wav */; };
 		3759737516CFA2C700E6993D /* 171671__fins__success-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3759737416CFA2C700E6993D /* 171671__fins__success-1.wav */; };
 		3759737716CFA2CC00E6993D /* 171670__fins__success-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3759737616CFA2CC00E6993D /* 171670__fins__success-2.wav */; };
@@ -143,7 +142,6 @@
 		37B520A91615834B00941F0D /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B520A81615834B00941F0D /* DDHotKeyCenter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37B520AB1615837D00941F0D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B520AA1615837D00941F0D /* Carbon.framework */; };
 		37B520AD1615840100941F0D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B520AC1615840100941F0D /* QuartzCore.framework */; };
-		37B5214B16159CDE00941F0D /* PSCHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5214A16159CDE00941F0D /* PSCHUDWindow.m */; };
 		37B8EFDC16E6F2E800CE0990 /* NSAlert+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B8EFDB16E6F2E800CE0990 /* NSAlert+Blocks.m */; };
 		37E7F04D16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37EEA9C516BB7DC200E3C56E /* PSCSwipeableScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */; };
@@ -447,8 +445,6 @@
 		374AC7B516DF3FF300415826 /* PSCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCNavigationController.m; sourceTree = "<group>"; };
 		374B859D16C323DE00E254D4 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		374B859E16C323DE00E254D4 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
-		37570B4D1635E1AF00B1D9FE /* PSCRoundedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCRoundedImageView.h; sourceTree = "<group>"; };
-		37570B4E1635E1AF00B1D9FE /* PSCRoundedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCRoundedImageView.m; sourceTree = "<group>"; };
 		3759737216CF947300E6993D /* 151568__lukechalaudio__user-interface-generic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "151568__lukechalaudio__user-interface-generic.wav"; sourceTree = "<group>"; };
 		3759737416CFA2C700E6993D /* 171671__fins__success-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "171671__fins__success-1.wav"; sourceTree = "<group>"; };
 		3759737616CFA2CC00E6993D /* 171670__fins__success-2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "171670__fins__success-2.wav"; sourceTree = "<group>"; };
@@ -538,8 +534,6 @@
 		37B520A81615834B00941F0D /* DDHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDHotKeyCenter.m; path = DDHotKey/DDHotKeyCenter.m; sourceTree = "<group>"; };
 		37B520AA1615837D00941F0D /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		37B520AC1615840100941F0D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		37B5214916159CDE00941F0D /* PSCHUDWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCHUDWindow.h; sourceTree = "<group>"; };
-		37B5214A16159CDE00941F0D /* PSCHUDWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCHUDWindow.m; sourceTree = "<group>"; };
 		37B8EFDA16E6F2E800CE0990 /* NSAlert+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAlert+Blocks.h"; path = "NSAlert-Blocks/Tester/NSAlert+Blocks.h"; sourceTree = "<group>"; };
 		37B8EFDB16E6F2E800CE0990 /* NSAlert+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAlert+Blocks.m"; path = "NSAlert-Blocks/Tester/NSAlert+Blocks.m"; sourceTree = "<group>"; };
 		37E7F04B16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NS(Attributed)String+Geometrics.h"; sourceTree = "<group>"; };
@@ -906,6 +900,44 @@
 			path = "Pocket-ObjC-SDK/SDK";
 			sourceTree = "<group>";
 		};
+		3798E07C16F175D100D6F145 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				3733B8F2162678950098E6A1 /* PSCPostCellView.h */,
+				3733B8F3162678950098E6A1 /* PSCPostCellView.m */,
+				37240F0D16C396280002A64B /* PSCPostCellView.xib */,
+				3786043A16D6E25800F56553 /* PSCProfileCellView.h */,
+				3786043B16D6E25800F56553 /* PSCProfileCellView.m */,
+				3786043D16D70F6200F56553 /* PSCProfileCellView.xib */,
+				37A6F91816E07DB1002B3988 /* PSCLoadMoreCellView.h */,
+				37A6F91916E07DB1002B3988 /* PSCLoadMoreCellView.m */,
+				37A6F91616E07D98002B3988 /* PSCLoadMoreCellView.xib */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		3798E07D16F1762300D6F145 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				37AD27C916280A2F008E58BF /* PSCNewPostController.h */,
+				37AD27CA16280A2F008E58BF /* PSCNewPostController.m */,
+				37AD27CB16280A2F008E58BF /* PSCNewPost.xib */,
+				377E80E316F01B5F0014E330 /* PSCLoginController.h */,
+				700110C916C4CA6900ECB894 /* PSCLoginController.m */,
+				700110CB16C4CAC300ECB894 /* PSCLogin.xib */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		3798E07E16F1765D00D6F145 /* RegexKitLite */ = {
+			isa = PBXGroup;
+			children = (
+				378602E916C22254003256B9 /* RegexKitLite.h */,
+				378602EA16C22254003256B9 /* RegexKitLite.m */,
+			);
+			name = RegexKitLite;
+			sourceTree = "<group>";
+		};
 		379A8E6A16354843005F5540 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1056,10 +1088,12 @@
 				373E998F16E17837005B35A4 /* PSCColorableView.m */,
 				378602FD16C266F5003256B9 /* PSCGradientButton.h */,
 				378602FE16C266F5003256B9 /* PSCGradientButton.m */,
+				376A71DB16EF2628009A99D3 /* DSClickableURLTextField.h */,
+				376A71DC16EF2629009A99D3 /* DSClickableURLTextField.m */,
 				37A66335162AC33D00010161 /* NSScrollViewScrollKiller.h */,
 				37A66336162AC33D00010161 /* NSScrollViewScrollKiller.m */,
-				37570B4D1635E1AF00B1D9FE /* PSCRoundedImageView.h */,
-				37570B4E1635E1AF00B1D9FE /* PSCRoundedImageView.m */,
+				37EEA9C316BB7DC200E3C56E /* PSCSwipeableScrollView.h */,
+				37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */,
 			);
 			name = Subclasses;
 			sourceTree = "<group>";
@@ -1116,36 +1150,16 @@
 				3795FE671628C02F0091B6CD /* Sunlight.entitlements */,
 				37B5207416157DF500941F0D /* PSCAppDelegate.h */,
 				37B5207516157DF500941F0D /* PSCAppDelegate.m */,
-				3733B8F2162678950098E6A1 /* PSCPostCellView.h */,
-				3733B8F3162678950098E6A1 /* PSCPostCellView.m */,
-				37240F0D16C396280002A64B /* PSCPostCellView.xib */,
-				3786043A16D6E25800F56553 /* PSCProfileCellView.h */,
-				3786043B16D6E25800F56553 /* PSCProfileCellView.m */,
-				3786043D16D70F6200F56553 /* PSCProfileCellView.xib */,
-				37A6F91816E07DB1002B3988 /* PSCLoadMoreCellView.h */,
-				37A6F91916E07DB1002B3988 /* PSCLoadMoreCellView.m */,
-				37A6F91616E07D98002B3988 /* PSCLoadMoreCellView.xib */,
-				37EEA9C316BB7DC200E3C56E /* PSCSwipeableScrollView.h */,
-				37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */,
-				37AD27C916280A2F008E58BF /* PSCNewPostController.h */,
-				37AD27CA16280A2F008E58BF /* PSCNewPostController.m */,
-				37AD27CB16280A2F008E58BF /* PSCNewPost.xib */,
-				377E80E316F01B5F0014E330 /* PSCLoginController.h */,
-				700110C916C4CA6900ECB894 /* PSCLoginController.m */,
-				700110CB16C4CAC300ECB894 /* PSCLogin.xib */,
-				37B5214916159CDE00941F0D /* PSCHUDWindow.h */,
-				37B5214A16159CDE00941F0D /* PSCHUDWindow.m */,
-				378602E916C22254003256B9 /* RegexKitLite.h */,
-				378602EA16C22254003256B9 /* RegexKitLite.m */,
-				376A71DB16EF2628009A99D3 /* DSClickableURLTextField.h */,
-				376A71DC16EF2629009A99D3 /* DSClickableURLTextField.m */,
 				37B5207716157DF600941F0D /* MainMenu.xib */,
+				3798E07C16F175D100D6F145 /* Cells */,
+				3798E07D16F1762300D6F145 /* Controllers */,
 				37F1864716C4A96900E682E2 /* Orginal Objects */,
 				3765B1E9162AEA90000B3523 /* Categories */,
 				37A6633B162AC6A800010161 /* Subclasses */,
 				3798E06916F048E900D6F145 /* Pocket SDK */,
 				3733B9C71626A3780098E6A1 /* INAppStoreWindow */,
 				3730363916BA6EA500F69545 /* appnetkit */,
+				3798E07E16F1765D00D6F145 /* RegexKitLite */,
 				37B520A61615833700941F0D /* DDHotKey */,
 				37B5209A1615828800941F0D /* ScrollToRefresh */,
 				37B5206916157DF500941F0D /* Supporting Files */,
@@ -1479,13 +1493,11 @@
 				37B5209F1615828800941F0D /* EQSTRClipView.m in Sources */,
 				37B520A01615828800941F0D /* EQSTRScrollView.m in Sources */,
 				37B520A91615834B00941F0D /* DDHotKeyCenter.m in Sources */,
-				37B5214B16159CDE00941F0D /* PSCHUDWindow.m in Sources */,
 				3733B8F4162678950098E6A1 /* PSCPostCellView.m in Sources */,
 				3733B9F41626A3780098E6A1 /* INAppStoreWindow.m in Sources */,
 				37AD27CC16280A30008E58BF /* PSCNewPostController.m in Sources */,
 				37A66337162AC33D00010161 /* NSScrollViewScrollKiller.m in Sources */,
 				37A663E2162AE6E900010161 /* NSView+Fade.m in Sources */,
-				37570B4F1635E1AF00B1D9FE /* PSCRoundedImageView.m in Sources */,
 				37E7F04D16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m in Sources */,
 				373036BC16BA6EA500F69545 /* _ANIdentifiedResourceSet.m in Sources */,
 				373036BD16BA6EA500F69545 /* ANAccessTokenInformationRequest.m in Sources */,
