@@ -36,10 +36,13 @@
     // Drawing code here.
 }
 
-- (BOOL)wantsScrollEventsForSwipeTrackingOnAxis:(NSEventGestureAxis)axis {
-	return (axis == NSEventGestureAxisHorizontal) ? YES : NO; }
+- (BOOL)wantsScrollEventsForSwipeTrackingOnAxis:(NSEventGestureAxis)axis
+{
+	return (axis == NSEventGestureAxisHorizontal) ? YES : NO;
+}
 
-- (void)swipeWithEvent:(NSEvent *)event {
+- (void)swipeWithEvent:(NSEvent *)event
+{
 	int swipeColorValue;
 	const int SwipeLeftGreen = 0;
 	const int SwipeRightBlue = 1;

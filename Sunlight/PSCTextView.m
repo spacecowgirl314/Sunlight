@@ -12,7 +12,8 @@
 
 // We're only subclassing NSTextView so we can grab its mouse down event. Everything
 // else will be handled like normal
-- (void)mouseDown:(NSEvent *)theEvent {
+- (void)mouseDown:(NSEvent *)theEvent
+{
 	// Grab a usable NSPoint value for our mousedown event
 	NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	
@@ -50,7 +51,8 @@
 	[super mouseDown:theEvent];
 }
 
-- (NSDictionary *)linkTextAttributes {
+- (NSDictionary *)linkTextAttributes
+{
 	return [[NSDictionary alloc] initWithObjectsAndKeys:
 	 [NSCursor pointingHandCursor], NSCursorAttributeName,
 	 [NSColor colorWithDeviceRed:0.82 green:0.388 blue:0.031 alpha:1.0], NSForegroundColorAttributeName,

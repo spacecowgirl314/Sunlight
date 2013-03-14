@@ -14,7 +14,8 @@
 @synthesize authToken = _authToken;
 @synthesize currentUser;
 
-- (id)init {
+- (id)init
+{
 	if (self==[super init])
 	{
 		avatarImages = [NSMutableDictionary new];
@@ -61,7 +62,8 @@
     return newImage;
 }
 
-- (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage {
+- (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage
+{
 	
 	CGImageRef maskRef = [self nsImageToCGImageRef:maskImage];
 	
@@ -77,7 +79,8 @@
 	
 }
 
-- (void)setAuthToken:(NSString *)apiKey {
+- (void)setAuthToken:(NSString *)apiKey
+{
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	_authToken = apiKey;
 	if (apiKey) {
@@ -88,7 +91,8 @@
 	[defaults synchronize];
 }
 
-- (NSString*)authToken {
+- (NSString*)authToken
+{
 	if (!_authToken) {
 		_authToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"access_token"];
 		//NSLog(@"Read API Key %@", _authToken);
@@ -96,7 +100,8 @@
 	return _authToken;
 }
 
-- (ANPost*)doesNSArrayContainSameID:(ANResourceID)checkingID array:(NSArray*)checkingArray {
+- (ANPost*)doesNSArrayContainSameID:(ANResourceID)checkingID array:(NSArray*)checkingArray
+{
 	ANPost *resultPost = nil;
 	for (ANPost *post in checkingArray) {
 		if (post.ID == checkingID) {
@@ -111,17 +116,20 @@
  */
 
 // in this case we return only the delta indices and cache the posts in the memory for tab switching
-- (NSDictionary*)filterNewPostsForKey:(NSString*)key posts:(NSArray*)posts {
+- (NSDictionary*)filterNewPostsForKey:(NSString*)key posts:(NSArray*)posts
+{
 	return [self filterNewPostsForKey:key oldPosts:nil posts:posts];
 }
 
 // return the delta indices (new posts, deleted posts) and the appended filtered stream itself
-- (NSDictionary*)filterNewPosts:(NSArray*)newPosts withOldPosts:(NSArray*)oldPosts {
+- (NSDictionary*)filterNewPosts:(NSArray*)newPosts withOldPosts:(NSArray*)oldPosts
+{
 	return [self filterNewPostsForKey:nil oldPosts:oldPosts posts:newPosts];
 }
 
 // take both forwaded methods and behave differently for each
-- (NSDictionary*)filterNewPostsForKey:(NSString*)key oldPosts:(NSArray*)oldPosts posts:(NSArray*)posts {
+- (NSDictionary*)filterNewPostsForKey:(NSString*)key oldPosts:(NSArray*)oldPosts posts:(NSArray*)posts
+{
 	NSArray *currentArray;
 	// if the key isn't set we're being forwarded from newPosts withOldPosts
 	if (key!=nil) {

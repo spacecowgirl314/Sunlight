@@ -45,7 +45,8 @@
     return self;
 }
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
 	[bannerShadow setStartingColor:[NSColor clearColor]];
 	[bannerShadow setEndingColor:[NSColor colorWithDeviceWhite:0.0f alpha:0.75f]];
     [bannerShadow setAngle:270];
@@ -61,11 +62,13 @@
 	[self becomeFirstResponder];
 }
 
-- (NSColor*)defaultButtonColor {
+- (NSColor*)defaultButtonColor
+{
 	return [NSColor colorWithDeviceRed:0.643 green:0.643 blue:0.643 alpha:1.0];
 }
 
-- (IBAction)toggleFollow:(id)sender {
+- (IBAction)toggleFollow:(id)sender
+{
 	if (![user youFollow]) {
 		[user followWithCompletion:^(ANResponse *response, ANUser *user, NSError *error) {
 			if (!error) {

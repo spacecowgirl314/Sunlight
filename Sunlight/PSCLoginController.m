@@ -73,7 +73,8 @@
 	
 }
 
-- (IBAction)pressCancel:(id)sender {
+- (IBAction)pressCancel:(id)sender
+{
 	if (![PSCMemoryCache sharedMemory].authToken) {
 		[[NSApplication sharedApplication] terminate:self];
 	}

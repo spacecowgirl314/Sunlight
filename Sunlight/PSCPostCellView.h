@@ -10,7 +10,7 @@
 #import "AppNetKit.h"
 #import "PSCNewPostController.h"
 
-@interface PSCPostCellView : NSTableCellView {
+@interface PSCPostCellView : NSTableCellView <NSMenuDelegate> {
 	ANPost *post;
 	IBOutlet NSScrollView *postScrollView;
 	IBOutlet NSTextView *postView;

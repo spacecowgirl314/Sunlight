@@ -10,7 +10,8 @@
 
 @implementation PSCAvatarImageView
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
 	/*[self setAcceptsTouchEvents:YES];
 	[self becomeFirstResponder];*/
 }
@@ -30,7 +31,8 @@
 	return YES;
 }
 
-- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent {
+- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent 
+{
     return YES;
 }*/
 

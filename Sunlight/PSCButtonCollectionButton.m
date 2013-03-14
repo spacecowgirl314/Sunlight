@@ -33,7 +33,8 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
 	self = [super initWithCoder:aDecoder];
 	if (self) {
 		defaultButtonImage = self.image;
@@ -48,14 +49,16 @@
 	return self;
 }
 
-- (void)enableIndicator {
+- (void)enableIndicator
+{
 	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
 		[[indicatorImageView animator] setAlphaValue:1.0];
 	} completionHandler:^{
 	}];
 }
 
-- (void)disableIndicator {
+- (void)disableIndicator
+{
 	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
 		[[indicatorImageView animator] setAlphaValue:0.0];
 	} completionHandler:^{
@@ -63,7 +66,8 @@
 }
 
 // manual button selection
-- (void)selectButton {
+- (void)selectButton
+{
 	[self setImage:selectedButtonImage];
 	// remove the pressed state image
 	[self setAlternateImage:selectedButtonImage];
@@ -78,7 +82,8 @@
 	isEnabled = YES;
 }
 
-- (BOOL)sendAction:(SEL)theAction to:(id)theTarget {
+- (BOOL)sendAction:(SEL)theAction to:(id)theTarget
+{
 	if (!isEnabled) {
 		/*[self setImage:selectedButtonImage];
 		// remove the pressed state image

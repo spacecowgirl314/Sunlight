@@ -12,7 +12,8 @@
 @implementation PSCButtonCollection
 @synthesize buttons;
 
-- (id)initWithButtons:(NSArray*)_buttons {
+- (id)initWithButtons:(NSArray*)_buttons
+{
 	for (PSCButtonCollectionButton *button in _buttons) {
 		[button setButtonCollection:self];
 	}

@@ -15,7 +15,8 @@
 @synthesize endingColor;
 @synthesize angle;
 
-- (id)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(NSRect)frame
+{
 	self = [super initWithFrame:frame];
 	if (self) {
 		// Initialization code here.
@@ -28,7 +29,8 @@
 	return self;
 }
 
-- (void)drawRect:(NSRect)frame {
+- (void)drawRect:(NSRect)frame
+{
 	/*NSGraphicsContext *context = [NSGraphicsContext currentContext];
 	[context saveGraphicsState];
 	if (endingColor == nil || [startingColor isEqual:endingColor]) {

@@ -15,7 +15,8 @@
 @synthesize endingColor;
 @synthesize angle;
 
-- (id)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(NSRect)frame
+{
 	self = [super initWithFrame:frame];
 	if (self) {
 		// Initialization code here.
@@ -29,7 +30,8 @@
 }
 
 // from http://stackoverflow.com/a/4564630/1000339
--(void)mouseDown:(NSEvent *)theEvent {
+-(void)mouseDown:(NSEvent *)theEvent
+{
     NSRect  windowFrame = [[self window] frame];
 	
     initialLocation = [NSEvent mouseLocation];
@@ -38,7 +40,8 @@
     initialLocation.y -= windowFrame.origin.y;
 }
 
-- (void)mouseDragged:(NSEvent *)theEvent {
+- (void)mouseDragged:(NSEvent *)theEvent
+{
     NSPoint currentLocation;
     NSPoint newOrigin;
 	
@@ -58,7 +61,8 @@
     [[self window] setFrameOrigin:newOrigin];
 }
 
-- (void)drawRect:(NSRect)rect {
+- (void)drawRect:(NSRect)rect
+{
 	if (endingColor == nil || [startingColor isEqual:endingColor]) {
 		// Fill view with a standard background color
 		[startingColor set];

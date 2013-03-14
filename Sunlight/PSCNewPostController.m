@@ -99,7 +99,8 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSControlTextDidChangeNotification object:postTextField];
 }
 
-- (IBAction)pressCancel:(id)sender {
+- (IBAction)pressCancel:(id)sender
+{
 	[postTextField setStringValue:@""];
 	[[self window] close];
 }
@@ -145,7 +146,8 @@
 	[charactersLeftLabel setIntegerValue:count];
 }
 
-- (IBAction)post:(id)sender {
+- (IBAction)post:(id)sender
+{
 	if (replyPost==nil) {
 		ANDraft *newDraft = [ANDraft new];
 		[newDraft setText:[postTextField stringValue]];
@@ -179,7 +181,8 @@
 	}
 }
 
-- (void)draftReply:(ANPost*)post {
+- (void)draftReply:(ANPost*)post
+{
 	replyPost = [post draftReplyToAllExceptUser:[[PSCMemoryCache sharedMemory] currentUser]];
 	[postTextField setStringValue:[replyPost text]];
 	// adjust character count

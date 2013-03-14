@@ -197,12 +197,19 @@
 	[self popIntoCurrentStream];
 }
 
+- (PSCBreadcrumbItem *)item:(NSString *)title {
+	PSCBreadcrumbItem *item = [[PSCBreadcrumbItem alloc] init];
+	item.title = title;
+	return item;
+}
+
 #pragma mark - Miscellanious Methods
 
 /* from
  https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/NSScrollViewGuide/Articles/Scrolling.html
  */
-- (void)scrollToTop {
+- (void)scrollToTop
+{
 	NSPoint newScrollOrigin;
 	
     // assume that the scrollview is an existing variable
@@ -216,22 +223,26 @@
     [[appScrollView documentView] scrollPoint:newScrollOrigin];
 }
 
-- (IBAction)poop:(id)sender {
+- (IBAction)poop:(id)sender
+{
 	[self scrollPosition];
 }
 
-- (NSPoint)scrollPosition {
+- (NSPoint)scrollPosition
+{
 	NSPoint point = NSPointFromCGPoint(appScrollView.contentView.bounds.origin);
 	NSLog(@"point.y: %f", point.y);
 	return point; //NSPointFromCGPoint(appScrollView.contentView.bounds.origin);
 }
 
-- (void)setScrollPosition:(NSPoint)origin {
+- (void)setScrollPosition:(NSPoint)origin
+{
 	NSLog(@"setting y position:%f", origin.y);
 	[[appScrollView documentView] scrollPoint:origin];
 }
 
-- (void)getStreamScrollPosition {
+- (void)getStreamScrollPosition
+{
 	switch (currentStream) {
 		case PSCMyStream:
 		{
@@ -261,11 +272,13 @@
 	}
 }
 
-- (void)setStreamScrollPosition {
+- (void)setStreamScrollPosition
+{
 	[self setStreamScrollPositionSwitching:NO];
 }
 
-- (void)setStreamScrollPositionSwitching:(BOOL)isSwitching {
+- (void)setStreamScrollPositionSwitching:(BOOL)isSwitching
+{
 	//NSLog(@"level:%d",[navigationController levels]);
 	// prevent the stream scroll position being set when we are navigating unless we are at the stream level
 	if (isSwitching) {
@@ -308,17 +321,20 @@
 #pragma mark - Switching Streams
 
 // by keeping selectButton out of the original action we're keeping performance uniform
-- (IBAction)switchToMyStreamFromMenu:(id)sender {
+- (IBAction)switchToMyStreamFromMenu:(id)sender
+{
 	[[[buttonCollection buttons] objectAtIndex:0] selectButton];
 	[self switchToStream:sender];
 }
 
-- (IBAction)switchToMentionsFromMenu:(id)sender {
+- (IBAction)switchToMentionsFromMenu:(id)sender
+{
 	[[[buttonCollection buttons] objectAtIndex:1] selectButton];
 	[self switchToMentions:sender];
 }
 
-- (IBAction)switchToStarsFromMenu:(id)sender {
+- (IBAction)switchToStarsFromMenu:(id)sender
+{
 	[[[buttonCollection buttons] objectAtIndex:2] selectButton];
 	[self switchToStars:sender];
 }
@@ -328,12 +344,14 @@
 	[self switchToProfile:sender];
 }
 
-- (IBAction)switchToMessagesFromMenu:(id)sender {
+- (IBAction)switchToMessagesFromMenu:(id)sender
+{
 	[[[buttonCollection buttons] objectAtIndex:4] selectButton];
 	[self switchToMessages:sender];
 }
 
-- (IBAction)switchToStream:(id)sender {
+- (IBAction)switchToStream:(id)sender
+{
 	[self setStreamScrollPositionSwitching:YES];
 	NSLog(@"Switched to stream.");
 	currentStream = PSCMyStream;
@@ -351,7 +369,8 @@
 	[self getStreamScrollPosition];
 }
 
-- (IBAction)switchToStars:(id)sender {
+- (IBAction)switchToStars:(id)sender
+{
 	[self setStreamScrollPositionSwitching:YES];
 	NSLog(@"Switched to stars.");
 	currentStream = PSCStars;
@@ -360,7 +379,8 @@
 	[self getStreamScrollPosition];
 }
 
-- (IBAction)switchToProfile:(id)sender {
+- (IBAction)switchToProfile:(id)sender
+{
 	[self setStreamScrollPositionSwitching:YES];
 	NSLog(@"Switched to profile.");
 	currentStream = PSCProfile;
@@ -369,7 +389,8 @@
 	[self getStreamScrollPosition];
 }
 
-- (IBAction)switchToMessages:(id)sender {
+- (IBAction)switchToMessages:(id)sender
+{
 	[self setStreamScrollPositionSwitching:YES];
 	NSLog(@"Switched to messages.");
 	currentStream = PSCMessages;
@@ -378,7 +399,8 @@
 	[self getStreamScrollPosition];
 }
 
-- (void)showErrorBarWithError:(NSError*)error {
+- (void)showErrorBarWithError:(NSError*)error
+{
 	// prevent resizing. this keeps the user from seeing my poorly formed layout code (ie. moving bar)
 	[self.window setResizeIncrements:NSMakeSize(MAXFLOAT, MAXFLOAT)];
 	NSString *errorMessage;
@@ -462,13 +484,8 @@
 
 #pragma mark - Loading Streams
 
-- (PSCBreadcrumbItem *)item:(NSString *)title {
-	PSCBreadcrumbItem *item = [[PSCBreadcrumbItem alloc] init];
-	item.title = title;
-	return item;
-}
-
-- (void)loadConversation:(NSNotification*)notification {
+- (void)loadConversation:(NSNotification*)notification
+{
 	ANPost *postWithReplies = [notification object];
 	[postWithReplies replyPostsWithCompletion:^(ANResponse *response, NSArray *posts, NSError *error) {
 		if (error) {
@@ -498,7 +515,8 @@
 	}];
 }
 
-- (void)reloadStreamWithPosts:(NSMutableArray*)posts newSet:(NSIndexSet*)newSet deletedPosts:(NSArray*)deletedPosts {
+- (void)reloadStreamWithPosts:(NSMutableArray*)posts newSet:(NSIndexSet*)newSet deletedPosts:(NSArray*)deletedPosts
+{
 	// Inject Load More Cell View
 	[posts insertObject:[PSCLoadMore new] atIndex:posts.count];
 	for (NSIndexSet *theSet in deletedPosts) {
@@ -535,7 +553,6 @@
 
 - (void)popStreamWithPosts:(NSArray*)previousPosts
 {
-	
 	// retrieve the scroll position for a stream in the navigation controller
 	if (navigationController.levels!=0) {
 		NSLog(@"index for retrieve scroll position:%d",[navigationController levels]-1);
@@ -556,7 +573,8 @@
 	[[self appTableView] insertRowsAtIndexes:theSet withAnimation:NSTableViewAnimationSlideLeft];
 }
 
-- (void)loadHashtag:(NSNotification*)theNotification {
+- (void)loadHashtag:(NSNotification*)theNotification
+{
 	// setup copy view
 	NSString *tag = [[theNotification object] substringFromIndex:1];
 	NSLog(@"tag:%@", tag);
@@ -606,7 +624,8 @@
 	});
 }
 
-- (void)loadPreviousInStream:(NSNotification*)notification {
+- (void)loadPreviousInStream:(NSNotification*)notification
+{
 	// -2 instead of -1 because we're skipping the PSCLoadMore item
 	ANPost *lastPost = [postsArray objectAtIndex:postsArray.count-2];
 	[ANSession.defaultSession postsInStreamBetweenID:ANUnspecifiedPostID andID:lastPost.ID completion:^(ANResponse *response, NSArray *posts, NSError *error) {
@@ -620,11 +639,13 @@
 	}];
 }
 
-- (void)loadMyStream:(BOOL)reload {
+- (void)loadMyStream:(BOOL)reload
+{
 	[self loadMyStream:reload popping:NO];
 }
 
-- (void)loadMyStream:(BOOL)reload popping:(BOOL)isPopping {
+- (void)loadMyStream:(BOOL)reload popping:(BOOL)isPopping
+{
 	NSArray *streamPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
@@ -723,15 +744,18 @@
 	}
 }
 
-- (void)popIntoMyStream {
+- (void)popIntoMyStream
+{
 	[self loadMyStream:NO popping:YES];
 }
 
-- (void)loadMentions:(BOOL)reload {
+- (void)loadMentions:(BOOL)reload
+{
 	[self loadMentions:reload popping:NO];
 }
 
-- (void)loadMentions:(BOOL)reload popping:(BOOL)isPopping {
+- (void)loadMentions:(BOOL)reload popping:(BOOL)isPopping
+{
 	NSArray *mentionsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
@@ -801,15 +825,18 @@
 	}
 }
 
-- (void)popIntoMentions {
+- (void)popIntoMentions
+{
 	[self loadMentions:NO popping:YES];
 }
 
-- (void)loadStars:(BOOL)reload {
+- (void)loadStars:(BOOL)reload
+{
 	[self loadStars:reload popping:NO];
 }
 
-- (void)loadStars:(BOOL)reload popping:(BOOL)isPopping {
+- (void)loadStars:(BOOL)reload popping:(BOOL)isPopping
+{
 	NSArray *starsPosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
@@ -879,11 +906,13 @@
 	}
 }
 
-- (void)popIntoStars {
+- (void)popIntoStars
+{
 	[self loadStars:NO popping:YES];
 }
 
-- (void)loadProfileFromNotification:(NSNotification*)notification {
+- (void)loadProfileFromNotification:(NSNotification*)notification
+{
 	NSString *username = [notification object];
 	NSRange isRange = [username rangeOfString:@"@" options:NSCaseInsensitiveSearch];
 	if(isRange.location == 0) {
@@ -893,11 +922,13 @@
 	[self loadProfile:YES withUsername:username popping:NO];
 }
 
-- (void)loadProfile:(BOOL)reload {
+- (void)loadProfile:(BOOL)reload
+{
 	[self loadProfile:reload withUsername:[[[PSCMemoryCache sharedMemory] currentUser] username] popping:NO];
 }
 
-- (void)loadProfile:(BOOL)reload withUsername:(NSString*)username popping:(BOOL)isPopping {
+- (void)loadProfile:(BOOL)reload withUsername:(NSString*)username popping:(BOOL)isPopping
+{
 	NSArray *profilePosts = [[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]];
     NSShadow * shadow = [[NSShadow alloc] init];
     [shadow setShadowBlurRadius:5.0];
@@ -1033,15 +1064,18 @@
 	}
 }
 
-- (void)popIntoProfile {
+- (void)popIntoProfile
+{
 	[self loadProfile:NO withUsername:[[[PSCMemoryCache sharedMemory] currentUser] username] popping:YES];
 }
 
-- (void)loadMessages:(BOOL)reload {
+- (void)loadMessages:(BOOL)reload
+{
 	[self loadMessages:reload popping:NO];
 }
 
-- (void)loadMessages:(BOOL)reload popping:(BOOL)isPopping {
+- (void)loadMessages:(BOOL)reload popping:(BOOL)isPopping
+{
 	postsArray = nil;
 	[[self appTableView] reloadData];
 	// API docs here http://developers.app.net/docs/basics/messaging/
@@ -1087,11 +1121,13 @@
 	// do popping thing and reload thing here
 }
 
-- (void)popIntoMessages {
+- (void)popIntoMessages
+{
 	[self loadMessages:NO popping:YES];
 }
 
-- (void)popIntoCurrentStream {
+- (void)popIntoCurrentStream
+{
 	switch (currentStream)
 	{
 		case PSCMyStream:
@@ -1125,7 +1161,8 @@
 
 #pragma mark - Preparations and setup stuff
 
-- (void)setCurrentUser {
+- (void)setCurrentUser
+{
 	// set current user
 	[ANSession.defaultSession userWithID:ANMeUserID completion:^(ANResponse *response, ANUser *user, NSError *error) {
 		if (error) {
@@ -1135,11 +1172,13 @@
 	}];
 }
 
-- (IBAction)refreshStream:(id)sender {
+- (IBAction)refreshStream:(id)sender
+{
 	[self reload];
 }
 
-- (void)reload {
+- (void)reload
+{
 	if (navigationController.levels!=0) {
 		PSCStream *stream = [navigationController streamAtIndex:navigationController.levels-1];
 		stream.reloadPosts();
@@ -1176,7 +1215,8 @@
 	}
 }
 
-- (void)prepare {
+- (void)prepare
+{
 	ANSession.defaultSession.accessToken = [PSCMemoryCache sharedMemory].authToken;
 	currentStream = PSCMyStream;
 	// set up the current user for operations if not yet done
@@ -1225,7 +1265,8 @@
 
 #pragma mark - Posting
 
-- (IBAction)openNewPost:(id)sender {
+- (IBAction)openNewPost:(id)sender
+{
 	if (!self.postController) {
 		PSCNewPostController *pC = [[PSCNewPostController alloc] init];
 		self.postController =  pC;
@@ -1234,7 +1275,8 @@
 	//[self.postController processResults:[questionField stringValue]];
 }
 
-- (IBAction)openReplyPost:(id)sender {
+- (IBAction)openReplyPost:(id)sender
+{
 	NSUInteger selectedRow = appTableView.selectedRow;
 	// selectedRow is -1 if no row is selected
 	if (selectedRow!=-1) {
@@ -1250,7 +1292,8 @@
 
 #pragma mark - Mentions Notifications
 
-- (void)checkForMentions {
+- (void)checkForMentions
+{
 	[ANSession.defaultSession postsMentioningUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse *response, NSArray *posts, NSError *error) {
 		// don't continue if there was an error
 		if (error) {
@@ -1274,7 +1317,8 @@
 	}];
 }
 
-- (BOOL)random {
+- (BOOL)random
+{
 	int tmp = (arc4random() % 30)+1;
     if(tmp % 5 == 0)
         return YES;
@@ -1331,7 +1375,8 @@
 
 #pragma mark - Authentication and URL handling
 
-- (void)authenticate {
+- (void)authenticate
+{
 	[ANAuthenticator.sharedAuthenticator setClientID:@"KXWTJNJeyw5fGQDmfAAcecepf7tp6eEY"];
 	[ANAuthenticator.sharedAuthenticator setPasswordGrantSecret:@"kPtJeNSnfQgm4QqQcn7BfHWfeG8c5ZTH"];
 	if (!self.loginController) {
@@ -1358,7 +1403,8 @@
     }
 }
 
-- (void)windowDidResize:(NSNotification*)aNotification {
+- (void)windowDidResize:(NSNotification*)aNotification
+{
 	for (int i = 0; i < [postsArray count]; i++) {
 		[self.appTableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndex:i]];
 	}
@@ -1380,7 +1426,8 @@
 
 #pragma mark - NSTableView Delegates
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
+{
 	return [postsArray count];
 }
 
@@ -1410,7 +1457,8 @@
     return CGSizeMake(size.width*scale, size.height*scale);
 }
 
-- (void)carouselFix:(NSImageView*)imageView image:(NSImage*)image tableView:(NSTableView*)tableView rowIndex:(NSInteger)rowIndex {
+- (void)carouselFix:(NSImageView*)imageView image:(NSImage*)image tableView:(NSTableView*)tableView rowIndex:(NSInteger)rowIndex
+{
 	NSRange visibleRows = [tableView rowsInRect:[tableView visibleRect]];
 	if (NSLocationInRange(rowIndex, visibleRows)) {
 		[imageView setImage:image];
@@ -1620,7 +1668,8 @@
 	return result;
 }
 
-- (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+- (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
 	id content = [postsArray objectAtIndex:row];
 	if ([content isKindOfClass:[ANUser class]]) {
@@ -1637,11 +1686,13 @@
 	return nil;
 }
 
-- (void)deselectRow:(NSInteger)rowIndex {
+- (void)deselectRow:(NSInteger)rowIndex
+{
 	
 }
 
-- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex {
+- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex
+{
     id content = [postsArray objectAtIndex:rowIndex];
 	if ([content isKindOfClass:[ANPost class]]) {
 		return YES;
@@ -1651,7 +1702,8 @@
 	}
 }
 
-- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
+{
 	//NSLog(@"row:%ld", row);
 	id content = [postsArray objectAtIndex:row];
 	if ([content isKindOfClass:[ANUser class]]) {
@@ -1690,9 +1742,10 @@
     }
 }
 
-#pragma mark -
+#pragma mark - Unused Stuff
 
-- (void)fadeOutWindow:(NSWindow*)window{
+- (void)fadeOutWindow:(NSWindow*)window
+{
 	float alpha = 1.0;
 	[window setAlphaValue:alpha];
 	//[window makeKeyAndOrderFront:self];
@@ -1703,7 +1756,8 @@
 	}
 }
 
-- (void)fadeInWindow:(NSWindow*)window{
+- (void)fadeInWindow:(NSWindow*)window
+{
 	float alpha = 0.0;
 	[window setAlphaValue:alpha];
 	[window makeKeyAndOrderFront:self];
@@ -1714,7 +1768,8 @@
 	}
 }
 
-- (void) hotkeyWithEvent:(NSEvent *)hkEvent {
+- (void) hotkeyWithEvent:(NSEvent *)hkEvent
+{
 	[[self window] center];
 	if ([[self window] alphaValue]>0.0f) {
 		//[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
@@ -1729,7 +1784,10 @@
 	NSLog(@"%@", [NSString stringWithFormat:@"Hotkey event: %@", hkEvent]);
 }
 
-- (NSShadow*)theShadow {
+#pragma mark - Styling Stuff
+
+- (NSShadow*)theShadow
+{
 	NSShadow *textShadow = [[NSShadow alloc] init];
 	[textShadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:.8]];
 	[textShadow setShadowBlurRadius:0];
@@ -1738,10 +1796,11 @@
 }
 
 /*
- Mike Rundle has info on manual parsing.
+ Mike Rundle has info on manual parsing. We stopped using that. We use ADN's entities.
  http://flyosity.com/mac-os-x/clickable-tweet-links-hashtags-usernames-in-a-custom-nstextview.php
  */
--(NSAttributedString*)stylizeStatusWithString:(NSString*)string andEntities:(ANEntitySet*)entities {
+-(NSAttributedString*)stylizeStatusWithString:(NSString*)string andEntities:(ANEntitySet*)entities
+{
 	// Building up our attributed string
 	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:string];
 	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13.0f],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.251 green:0.251 blue:0.251 alpha:1.0]} range:NSMakeRange(0, [string length])];
@@ -1780,7 +1839,8 @@
 	return attributedStatusString;
 }
 
--(NSAttributedString*)stylizeBioWithString:(NSString*)string andEntities:(ANEntitySet*)entities {
+-(NSAttributedString*)stylizeBioWithString:(NSString*)string andEntities:(ANEntitySet*)entities
+{
 	// Building up our attributed string
 	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:string];
 	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica" size:13.0f],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.531 green:0.531 blue:0.531 alpha:1.0]} range:NSMakeRange(0, [string length])];

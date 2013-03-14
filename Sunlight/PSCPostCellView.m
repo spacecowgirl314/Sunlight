@@ -29,7 +29,8 @@
 @synthesize repostedUserButton;
 @synthesize deleteButton;
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
 	//[self updateTrackingArea];
 	//[self becomeFirstResponder];
 	//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResize) name:NSViewFrameDidChangeNotification object:self];
@@ -56,7 +57,8 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"Profile" object:[[post user] username]];
 }
 
-/*- (BOOL)wantsScrollEventsForSwipeTrackingOnAxis:(NSEventGestureAxis)axis {
+/*- (BOOL)wantsScrollEventsForSwipeTrackingOnAxis:(NSEventGestureAxis)axis 
+ {
 	return (axis == NSEventGestureAxisHorizontal) ? YES : NO; }*/
 
 // semi-working swipe detection, needs to filter out scrolling up and down
@@ -92,26 +94,31 @@
     [super scrollWheel:event];
 }*/
 
-- (void)beginGestureWithEvent:(NSEvent *)event {
+- (void)beginGestureWithEvent:(NSEvent *)event
+{
     NSLog(@"Gesture detected!");
 }
 
-- (void)endGestureWithEvent:(NSEvent *)event {
+- (void)endGestureWithEvent:(NSEvent *)event
+{
     NSLog(@"Gesture end detected!");
 }
 
-- (void)mouseDown:(NSEvent *)theEvent {
+- (void)mouseDown:(NSEvent *)theEvent
+{
     NSLog(@"mouseDown event detected!");
 	[super mouseDown:theEvent];
 }
 
 
-- (NSColor*)defaultButtonColor {
+- (NSColor*)defaultButtonColor
+{
 	return [NSColor colorWithDeviceRed:0.643 green:0.643 blue:0.643 alpha:1.0];
 }
 
 // Necessary for when the view is resized
-/*-(void)updateTrackingArea {
+/*-(void)updateTrackingArea 
+ {
 	// Allow for controls to disappear when mouse isn't in window.
 	if (trackingArea!=nil) {
 		[self removeTrackingArea:trackingArea];
@@ -131,12 +138,14 @@
 	[self addTrackingArea: trackingArea];
 }*/
 
-/*- (void)didResize {
+/*- (void)didResize 
+ {
 	//NSLog(@"Resizing...");
 	[self updateTrackingArea];
 }*/
 
-/*- (void) mouseEntered:(NSEvent*)theEvent {
+/*- (void) mouseEntered:(NSEvent*)theEvent 
+ {
     // Mouse entered tracking area.
 	//NSLog(@"<%p>%s:", self, __PRETTY_FUNCTION__);
 	if([fadeTimer isValid])
@@ -149,7 +158,8 @@
 	} repeats:NO];
 }
 
-- (void) mouseExited:(NSEvent*)theEvent {
+- (void) mouseExited:(NSEvent*)theEvent 
+ {
     // Mouse exited tracking area.
 	//NSLog(@"<%p>%s:", self, __PRETTY_FUNCTION__);
 	if([fadeTimer isValid])
@@ -188,8 +198,8 @@
     return imageRef;
 }
 
-- (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage {
-	
+- (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage
+{
 	CGImageRef maskRef = [self nsImageToCGImageRef:maskImage];
 	
 	CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
@@ -201,10 +211,10 @@
 	
 	CGImageRef masked = CGImageCreateWithMask([self nsImageToCGImageRef:image], mask);
 	return [self imageFromCGImageRef:masked];
-	
 }
 
-- (IBAction)openReplyPost:(id)sender {
+- (IBAction)openReplyPost:(id)sender
+{
 	if (!self.postController) {
 		PSCNewPostController *pC = [[PSCNewPostController alloc] init];
 		self.postController =  pC;
@@ -223,7 +233,8 @@
 	}];*/
 }
 
-- (IBAction)starPost:(id)sender {
+- (IBAction)starPost:(id)sender
+{
 	if (![post youStarred]) {
 		[post starWithCompletion:^(ANResponse *response, ANPost *starredPost, NSError *error) {
 			if (!starredPost) {
@@ -254,7 +265,8 @@
 	}
 }
 
-- (IBAction)repostPost:(id)sender {
+- (IBAction)repostPost:(id)sender
+{
 	// keep in mind posts that have been starred but haven't been reloaded for the post status
 	if (![post youReposted]) {
 		[post repostWithCompletion:^(ANResponse *response, ANPost *repostPost, NSError *error) {
@@ -286,8 +298,8 @@
 	}
 }
 
-- (IBAction)deletePost:(id)sender {
-    
+- (IBAction)deletePost:(id)sender
+{
 	[post deleteWithCompletion:^(ANResponse *response, ANPost *deletedPost, NSError *error) {
 		if (!deletedPost) {
 			NSLog(@"There was an error deleting the post.");
@@ -298,7 +310,8 @@
 	}];
 }
 
-- (IBAction)muteUser:(id)sender {
+- (IBAction)muteUser:(id)sender
+{
 	[ANSession.defaultSession muteUserWithID:[[post user] ID] completion:^(ANResponse *response, ANUser *user, NSError *error) {
 		if (!user) {
 			NSLog(@"There was an error muting the user.");
@@ -311,35 +324,42 @@
 	}];
 }
 
-- (IBAction)openConversation:(id)sender {
+- (IBAction)openConversation:(id)sender
+{
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"Conversation" object:self.post];
 }
 
-- (IBAction)openUser:(id)sender {
+- (IBAction)openUser:(id)sender
+{
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"Profile" object:self.post.user.username];
 }
 
-- (void)drawRect:(NSRect)dirtyRect {
+- (void)drawRect:(NSRect)dirtyRect
+{
 	[[NSColor colorWithDeviceRed:0.965 green:0.965 blue:0.965 alpha:1.0] set]; // Sets current drawing color.
 	NSRectFill(self.bounds);
 }
 
-- (void)hideRepost {
+- (void)hideRepost
+{
 	[[self repostImageView] setHidden:YES];
 	[[self repostedUserButton] setHidden:YES];
 }
 
-- (void)showRepost {
+- (void)showRepost
+{
 	[[self repostImageView] setHidden:NO];
 	[[self repostedUserButton] setHidden:NO];
 	[[self repostedUserButton] addCursorRect:[[self repostedUserButton] bounds] cursor:[NSCursor pointingHandCursor]];
 }
 
-- (IBAction)openMore:(id)sender {
+- (IBAction)openMore:(id)sender
+{
 	[moreMenu popUpMenuPositioningItem:nil atLocation:moreButton.frame.origin inView:self];
 }
 
-- (IBAction)addToReadingList:(id)sender {
+- (IBAction)addToReadingList:(id)sender
+{
 	for (ANEntity *link in post.entities.links)
 	{
 		NSURL *url = link.URL;
@@ -358,7 +378,8 @@
 	}
 }
 
-- (IBAction)addToPocket:(id)sender {
+- (IBAction)addToPocket:(id)sender
+{
 	for (ANEntity *link in post.entities.links)
 	{
 		[[PocketAPI sharedAPI] saveURL:link.URL handler: ^(PocketAPI *API, NSURL *URL, NSError *error){
@@ -374,12 +395,14 @@
 	}
 }
 
-- (IBAction)copyContents:(id)sender {
+- (IBAction)copyContents:(id)sender
+{
 	[[NSPasteboard generalPasteboard] clearContents];
 	[[NSPasteboard generalPasteboard] setString:post.text forType:NSPasteboardTypeString];
 }
 
-- (IBAction)copyLink:(id)sender {
+- (IBAction)copyLink:(id)sender
+{
 	[[NSPasteboard generalPasteboard] clearContents];
 	[[NSPasteboard generalPasteboard] setString:[post.canonicalURL absoluteString] forType:NSPasteboardTypeString];
 }
