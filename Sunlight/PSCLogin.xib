@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12C3006</string>
+		<string key="IBDocument.SystemVersion">12C60</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
@@ -390,7 +390,7 @@
 					<object class="NSButton" id="173511001">
 						<reference key="NSNextResponder" ref="737150457"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{5, 7}, {15, 16}}</string>
+						<string key="NSFrame">{{7, 7}, {15, 16}}</string>
 						<reference key="NSSuperview" ref="737150457"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -407,7 +407,7 @@
 							<int key="NSButtonFlags2">130</int>
 							<object class="NSCustomResource" key="NSNormalImage">
 								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">timeline-delete</string>
+								<string key="NSResourceName">login-close</string>
 							</object>
 							<string key="NSAlternateContents"/>
 							<string type="base64-UTF8" key="NSKeyEquivalent">Gw</string>
@@ -1025,7 +1025,7 @@
 						<int key="objectID">67</int>
 						<reference key="object" ref="737150457"/>
 						<array class="NSMutableArray" key="children">
-							<object class="IBNSLayoutConstraint" id="727719655">
+							<object class="IBNSLayoutConstraint" id="255286470">
 								<reference key="firstItem" ref="173511001"/>
 								<int key="firstAttribute">5</int>
 								<int key="relation">0</int>
@@ -1033,12 +1033,12 @@
 								<int key="secondAttribute">5</int>
 								<float key="multiplier">1</float>
 								<object class="IBLayoutConstant" key="constant">
-									<double key="value">5</double>
+									<double key="value">7</double>
 								</object>
 								<float key="priority">1000</float>
 								<reference key="containingView" ref="737150457"/>
-								<int key="scoringType">9</int>
-								<float key="scoringTypeFloat">40</float>
+								<int key="scoringType">3</int>
+								<float key="scoringTypeFloat">9</float>
 								<int key="contentType">3</int>
 							</object>
 							<object class="IBNSLayoutConstraint" id="165793166">
@@ -1077,11 +1077,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">71</int>
 						<reference key="object" ref="165793166"/>
-						<reference key="parent" ref="737150457"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">78</int>
-						<reference key="object" ref="727719655"/>
 						<reference key="parent" ref="737150457"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1448,6 +1443,11 @@
 						<reference key="object" ref="688695883"/>
 						<reference key="parent" ref="200883395"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">411</int>
+						<reference key="object" ref="255286470"/>
+						<reference key="parent" ref="737150457"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1559,16 +1559,16 @@
 				<string key="406.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="407.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="409.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="411.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array class="NSMutableArray" key="67.IBNSViewMetadataConstraints">
 					<reference ref="165793166"/>
-					<reference ref="727719655"/>
+					<reference ref="255286470"/>
 				</array>
 				<string key="67.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="69.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="69.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="70.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="71.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="78.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<object class="NSMutableDictionary" key="87.IBAttributePlaceholdersKey">
 					<string key="NS.key.0">AccessibilityDescription</string>
 					<object class="IBAccessibilityAttribute" key="NS.object.0">
@@ -1590,7 +1590,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">410</int>
+			<int key="maxID">411</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1684,10 +1684,10 @@
 			<string key="Sunlight">{512, 512}</string>
 			<string key="login-cancel">{72, 33}</string>
 			<string key="login-cancel-pressed">{72, 33}</string>
+			<string key="login-close">{15, 16}</string>
 			<string key="login-input">{240, 38}</string>
 			<string key="login-submit">{72, 33}</string>
 			<string key="login-submit-pressed">{72, 33}</string>
-			<string key="timeline-delete">{15, 16}</string>
 		</dictionary>
 		<bool key="IBDocument.UseAutolayout">YES</bool>
 	</data>
