@@ -99,7 +99,7 @@
 									[[NSApplication sharedApplication] terminate:self];
 								}];
 	}
-    [[self appTableView] setBackgroundColor:[NSColor colorWithDeviceRed:0.941 green:0.941 blue:0.941 alpha:1.0]];
+    [[self appTableView] setBackgroundColor:[NSColor colorWithDeviceRed:0.965 green:0.965 blue:0.965 alpha:1.0]];
 	self.window.trafficLightButtonsLeftMargin = 7.0;
     self.window.trafficLightButtonsTopMargin = 7.0;
     self.window.fullScreenButtonRightMargin = 7.0;
@@ -1675,23 +1675,19 @@
 		return 50;
 	}
 	if ([content isKindOfClass:[ANPost class]]) {
-		NSFont *font = [NSFont fontWithName:@"Helvetica Neue" size:13.0f];
-		float height = [[content text] heightForWidth:[[self window] frame].size.width-61-2 font:font]; // 61 was previously 70
-		int spaceToTop=15; // 15 was 18
-		int padding=10;
-		int minimumViewHeight = 105; // 118, actually 139 though //105 was previously 108
-		int spaceToBottom=47; // 45 was previous 46
-		int extraRepostSpace = ([content repostOf]) ? 19 : 0;
-		if (height+spaceToTop+spaceToBottom<minimumViewHeight)
-		{
-			return minimumViewHeight+extraRepostSpace;
-		}
-		else {
-			return height+spaceToTop+spaceToBottom+padding+extraRepostSpace;
-		}
-	}
-	// we should never reach this
-	return 1;
+        NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
+        float height = [[content text] heightForWidth:[[self window] frame].size.width-100 font:font]; // 61 was previously 70
+        int spaceToTop=15; // 15 was 18
+        int padding=10;
+        int minimumViewHeight = 105; // 118, actually 139 though //105 was previously 108
+        int spaceToBottom=45; // 45 was previous 46
+        int extraRepostSpace = ([content repostOf]) ? 19 : 0;
+        
+        int viewHeight = height + spaceToTop + spaceToBottom + padding + extraRepostSpace;
+        minimumViewHeight = minimumViewHeight + extraRepostSpace;
+        
+        return MAX(viewHeight, minimumViewHeight);
+    }
 }
 
 #pragma mark -

@@ -21,7 +21,7 @@
 		// Initialization code here.
 		//[self setStartingColor:[NSColor blueColor]];
 		//[self setEndingColor:[NSColor greenColor]];
-		[self setStartingColor:[NSColor colorWithDeviceRed:0.941 green:0.941 blue:0.941 alpha:1.0]];
+		[self setStartingColor:[NSColor colorWithDeviceRed:0.965 green:0.965 blue:0.965 alpha:1.0]];
 		[self setEndingColor:[NSColor colorWithDeviceRed:0.894 green:0.894 blue:0.894 alpha:1.0]];
 		[self setAngle:270];
 	}

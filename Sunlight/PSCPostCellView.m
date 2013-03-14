@@ -320,7 +320,7 @@
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
-	[[NSColor colorWithDeviceRed:0.941 green:0.941 blue:0.941 alpha:1.0] set]; // Sets current drawing color.
+	[[NSColor colorWithDeviceRed:0.965 green:0.965 blue:0.965 alpha:1.0] set]; // Sets current drawing color.
 	NSRectFill(self.bounds);
 }
 

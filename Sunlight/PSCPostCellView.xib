@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12C3006</string>
+		<string key="IBDocument.SystemVersion">12C60</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
@@ -646,7 +646,7 @@
 							</object>
 							<object class="NSCustomResource" key="NSAlternateImage">
 								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">timeline-more-pressed</string>
+								<string key="NSResourceName">timeline-more-highlight</string>
 							</object>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -3211,7 +3211,7 @@
 			<string key="timeline-delete">{36, 28}</string>
 			<string key="timeline-delete-pressed">{36, 28}</string>
 			<string key="timeline-more">{36, 28}</string>
-			<string key="timeline-more-pressed">{36, 28}</string>
+			<string key="timeline-more-highlight">{36, 28}</string>
 			<string key="timeline-reply">{36, 28}</string>
 			<string key="timeline-reply-pressed">{36, 28}</string>
 			<string key="timeline-repost">{36, 28}</string>
