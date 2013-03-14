@@ -419,4 +419,14 @@
 	return YES;
 }
 
+- (void)menuWillOpen:(NSMenu *)menu
+{
+	moreButton.alternateImage = [NSImage imageNamed:@"timeline-more-highlight"];
+}
+
+- (void)menuDidClose:(NSMenu *)menu
+{
+	moreButton.alternateImage = [NSImage imageNamed:@"timeline-more-pressed"];
+}
+
 @end
