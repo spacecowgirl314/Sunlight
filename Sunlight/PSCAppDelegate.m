@@ -66,6 +66,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
 	// Setup Pocket API
 	[[PocketAPI sharedAPI] setConsumerKey:@"12374-26052e4b51af78877e3cb733"];
 	/*[[PocketAPI sharedAPI] loginWithHandler:^(PocketAPI *api, NSError *error) {
@@ -1361,6 +1362,20 @@
 	for (int i = 0; i < [postsArray count]; i++) {
 		[self.appTableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndex:i]];
 	}
+	if ([postsArray[0] isKindOfClass:[ANUser class]]) {
+		PSCProfileCellView *profileCellView = [self.appTableView viewAtColumn:0 row:0 makeIfNecessary:YES];
+		NSRect frame = [[profileCellView bannerView] frame];
+		//NSLog(@"image width:%f and height:%f", image.size.width, image.size.height);
+		//[[profileCellView bannerView] setFrame:NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, image.size.height)];
+		int height = ([[profileCellView bannerView] image].size.width/2 / window.frame.size.height) * window.frame.size.width;
+		NSLog(@"height:%i", height);
+		[[profileCellView biographyView] setStringValue:@"POOP"];
+		NSRect proportionalRect = NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, height);
+		[[profileCellView bannerView] setFrame:proportionalRect];
+		//[[profileCellView bannerView] setFrame:NSZeroRect];
+		//[[profileCellView bannerView] setImage:nil];
+		NSLog(@"new Frame:%@", NSStringFromRect(proportionalRect));
+	}
 }
 
 #pragma mark - NSTableView Delegates
@@ -1474,11 +1489,12 @@
 		}
 	}];
 	// set banner
-	[[user coverImage] imageAtSize:[self convertSizeToScale:profileCellView.bannerView.frame.size scale:window.backingScaleFactor] completion:^(NSImage *image, NSError *error) {
+	[[user coverImage] imageAtSize:[self convertSizeToScale:NSMakeSize(360, 100) /*profileCellView.bannerView.frame.size*/ scale:window.backingScaleFactor] completion:^(NSImage *image, NSError *error) {
 		if (!error) {
 			[[profileCellView bannerView] setImage:image];
-			NSRect frame = [[profileCellView bannerView] frame];
-			[[profileCellView bannerView] setFrame:NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, image.size.height)];
+			//NSRect frame = [[profileCellView bannerView] frame];
+			NSLog(@"image width:%f and height:%f", image.size.width, image.size.height);
+			//[[profileCellView bannerView] setFrame:NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, image.size.height)];
 		}
 		else {
 			[[profileCellView bannerView] setImage:nil];
