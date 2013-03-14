@@ -938,12 +938,32 @@
 			name = RegexKitLite;
 			sourceTree = "<group>";
 		};
-		379A8E6A16354843005F5540 /* Images */ = {
+		3798E07F16F176E200D6F145 /* Submodules */ = {
+			isa = PBXGroup;
+			children = (
+				3798E06916F048E900D6F145 /* Pocket SDK */,
+				3733B9C71626A3780098E6A1 /* INAppStoreWindow */,
+				3730363916BA6EA500F69545 /* appnetkit */,
+				3798E07E16F1765D00D6F145 /* RegexKitLite */,
+				37B520A61615833700941F0D /* DDHotKey */,
+				37B5209A1615828800941F0D /* ScrollToRefresh */,
+			);
+			name = Submodules;
+			sourceTree = "<group>";
+		};
+		3798E08016F176FB00D6F145 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
 				3759737216CF947300E6993D /* 151568__lukechalaudio__user-interface-generic.wav */,
 				3759737616CFA2CC00E6993D /* 171670__fins__success-2.wav */,
 				3759737416CFA2C700E6993D /* 171671__fins__success-1.wav */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		379A8E6A16354843005F5540 /* Images */ = {
+			isa = PBXGroup;
+			children = (
 				374B859D16C323DE00E254D4 /* arrow.png */,
 				374B859E16C323DE00E254D4 /* arrow@2x.png */,
 				70AAA92E16DF332100CB3E05 /* avatar-click.png */,
@@ -1156,12 +1176,7 @@
 				37F1864716C4A96900E682E2 /* Orginal Objects */,
 				3765B1E9162AEA90000B3523 /* Categories */,
 				37A6633B162AC6A800010161 /* Subclasses */,
-				3798E06916F048E900D6F145 /* Pocket SDK */,
-				3733B9C71626A3780098E6A1 /* INAppStoreWindow */,
-				3730363916BA6EA500F69545 /* appnetkit */,
-				3798E07E16F1765D00D6F145 /* RegexKitLite */,
-				37B520A61615833700941F0D /* DDHotKey */,
-				37B5209A1615828800941F0D /* ScrollToRefresh */,
+				3798E07F16F176E200D6F145 /* Submodules */,
 				37B5206916157DF500941F0D /* Supporting Files */,
 			);
 			path = Sunlight;
@@ -1176,6 +1191,7 @@
 				37B5206E16157DF500941F0D /* main.m */,
 				37B5207016157DF500941F0D /* Sunlight-Prefix.pch */,
 				37B5207116157DF500941F0D /* Credits.rtf */,
+				3798E08016F176FB00D6F145 /* Sounds */,
 				379A8E6A16354843005F5540 /* Images */,
 			);
 			name = "Supporting Files";

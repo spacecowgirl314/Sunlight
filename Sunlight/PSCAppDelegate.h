@@ -70,6 +70,6 @@ typedef enum {
 - (IBAction)refreshStream:(id)sender;
 
 // test stuff
-- (IBAction)poop:(id)sender;
+- (IBAction)scrollPositionTestMethod:(id)sender;
 
 @end
