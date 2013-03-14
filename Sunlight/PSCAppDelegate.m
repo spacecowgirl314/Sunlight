@@ -1791,7 +1791,7 @@
 	for (ANEntity *mention in [entities mentions]) {
 		// Add custom attribute of UsernameMatch to indicate where our usernames are found
 		NSDictionary *linkAttr2 = [[NSDictionary alloc] initWithObjectsAndKeys:
-								   [NSColor colorWithDeviceRed:0.82 green:0.388 blue:0.031 alpha:1.0], NSForegroundColorAttributeName,
+								   [NSColor colorWithDeviceRed:0.91 green:0.278 blue:0.082 alpha:1.0], NSForegroundColorAttributeName,
 								   [NSCursor pointingHandCursor], NSCursorAttributeName,
 								   mention.text, @"UsernameMatch",
 								   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
@@ -1832,7 +1832,7 @@
 	for (ANEntity *mention in [entities mentions]) {
 		// Add custom attribute of UsernameMatch to indicate where our usernames are found
 		NSDictionary *linkAttr2 = [[NSDictionary alloc] initWithObjectsAndKeys:
-								   [NSColor colorWithDeviceRed:0.82 green:0.388 blue:0.031 alpha:1.0], NSForegroundColorAttributeName,
+								   [NSColor colorWithDeviceRed:0.91 green:0.278 blue:0.082 alpha:1.0], NSForegroundColorAttributeName,
 								   [NSCursor pointingHandCursor], NSCursorAttributeName,
 								   mention.text, @"UsernameMatch",
 								   [NSFont fontWithName:@"Helvetica" size:13], NSFontAttributeName,
