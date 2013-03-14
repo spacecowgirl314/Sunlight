@@ -493,20 +493,20 @@
 	for (int i = 0; i < [postsArray count]; i++) {
 		[self.appTableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndex:i]];
 	}
-	/*if ([postsArray[0] isKindOfClass:[ANUser class]]) {
-	 PSCProfileCellView *profileCellView = [self.appTableView viewAtColumn:0 row:0 makeIfNecessary:YES];
-	 NSRect frame = [[profileCellView bannerView] frame];
-	 //NSLog(@"image width:%f and height:%f", image.size.width, image.size.height);
-	 //[[profileCellView bannerView] setFrame:NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, image.size.height)];
-	 int height = ([[profileCellView bannerView] image].size.width/2 / window.frame.size.height) * window.frame.size.width;
-	 NSLog(@"height:%i", height);
-	 //[[profileCellView biographyView] setStringValue:@"This does in fact actually work."];
-	 NSRect proportionalRect = NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, height);
-	 [[profileCellView bannerView] setFrame:proportionalRect];
-	 //[[profileCellView bannerView] setFrame:NSZeroRect];
-	 //[[profileCellView bannerView] setImage:nil];
-	 NSLog(@"new Frame:%@", NSStringFromRect(proportionalRect));
-	 }*/
+	if ([postsArray[0] isKindOfClass:[ANUser class]]) {
+		PSCProfileCellView *profileCellView = [self.appTableView viewAtColumn:0 row:0 makeIfNecessary:YES];
+		NSRect frame = [[profileCellView bannerView] frame];
+		//NSLog(@"image width:%f and height:%f", image.size.width, image.size.height);
+		//[[profileCellView bannerView] setFrame:NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, image.size.height)];
+		int height = ([[profileCellView bannerView] image].size.width/2 / window.frame.size.height) * window.frame.size.width;
+		NSLog(@"height:%i", height);
+		//[[profileCellView biographyView] setStringValue:@"This does in fact actually work."];
+		NSRect proportionalRect = NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, height);
+		[[profileCellView bannerView] setFrame:proportionalRect];
+		//[[profileCellView bannerView] setFrame:NSZeroRect];
+		//[[profileCellView bannerView] setImage:nil];
+		NSLog(@"new Frame:%@", NSStringFromRect(proportionalRect));
+	 }
 }
 
 - (void)showErrorBarWithError:(NSError*)error

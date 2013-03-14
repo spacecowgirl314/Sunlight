@@ -91,7 +91,6 @@
 						<string key="NSFrameSize">{360, 3}</string>
 						<reference key="NSSuperview" ref="1059019460"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSClassName">PSCGradientView</string>
 					</object>
@@ -201,7 +200,7 @@
 							<object class="NSTextField" id="164091825">
 								<reference key="NSNextResponder" ref="1037366972"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{236, 215}, {117, 17}}</string>
+								<string key="NSFrame">{{227, 214}, {126, 18}}</string>
 								<reference key="NSSuperview" ref="1037366972"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="696280407"/>
@@ -211,11 +210,7 @@
 									<int key="NSCellFlags">68157504</int>
 									<int key="NSCellFlags2">71304192</int>
 									<string key="NSContents">Not Following You</string>
-									<object class="NSFont" key="NSSupport">
-										<string key="NSName">Helvetica-Bold</string>
-										<double key="NSSize">13</double>
-										<int key="NSfFlags">16</int>
-									</object>
+									<reference key="NSSupport" ref="169969092"/>
 									<string key="NSCellIdentifier">_NS:1535</string>
 									<reference key="NSControlView" ref="164091825"/>
 									<reference key="NSBackgroundColor" ref="455427870"/>
@@ -552,7 +547,7 @@
 							<int key="NSCellFlags2">33554432</int>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<int key="NSAlign">0</int>
-							<int key="NSScale">1</int>
+							<int key="NSScale">3</int>
 							<int key="NSStyle">0</int>
 							<bool key="NSAnimates">NO</bool>
 						</object>
