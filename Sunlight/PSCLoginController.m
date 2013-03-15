@@ -112,6 +112,7 @@ static float vigourOfShake = 0.05f;
 	NSArray *whitelist = @[@"codinguru",
 						@"bradyv",
 						@"jwisser",
+                        @"sulgi",
 						@"preshit",
 						@"dalton",
 						@"aah",
