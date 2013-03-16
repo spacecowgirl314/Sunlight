@@ -26,6 +26,7 @@
 #import "NSAlert+Blocks.h"
 #import "PocketAPI.h"
 #import "PSCHoverButton.h"
+#import "PSCPreferencesController.h"
 //#import "ANEntity.h"
 
 @implementation PSCAppDelegate
@@ -591,6 +592,11 @@
 		[imageView removeFromSuperview];
 		[errorLabel removeFromSuperview];
 	} repeats:NO];
+}
+
+- (IBAction)openPreferences:(id)sender
+{
+	[[PSCPreferencesController sharedPrefsWindowController] showWindow:nil];
 }
 
 #pragma mark - Loading Streams
