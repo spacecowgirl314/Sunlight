@@ -42,10 +42,10 @@
 
 - (void)setupToolbar
 {
-	[self addView:generalPreferences label:@"General"];
-	[self addView:accountsPreferences label:@"Accounts"];
-	[self addView:servicesPreferences label:@"Services"];
-	[self addView:notificationsPreferences label:@"Notifications"];
+	[self addView:generalPreferences label:@"General" image:[NSImage imageNamed:@"NSPreferencesGeneral"]];
+	[self addView:accountsPreferences label:@"Accounts" image:[NSImage imageNamed:@"NSUser"]];
+	[self addView:servicesPreferences label:@"Services" image:[NSImage imageNamed:@"NSUserAccounts"]];
+	[self addView:notificationsPreferences label:@"Notifications" image:[NSImage imageNamed:@"NSAdvanced"]];
 }
 
 @end
