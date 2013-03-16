@@ -1808,7 +1808,11 @@
 			if (!error) {
 				NSImage *maskedImage = [[PSCMemoryCache sharedMemory] maskImage:image withMask:[NSImage imageNamed:@"avatar-mask"]];
 				[[PSCMemoryCache sharedMemory].avatarImages setValue:maskedImage forKey:[user username]];
-				[self carouselFix:[result avatarView] image:maskedImage tableView:tableView rowIndex:rowIndex];
+				PSCPostCellView *postCell = [self.appTableView viewAtColumn:0 row:rowIndex makeIfNecessary:NO];
+				if (postCell) {
+					[[postCell avatarView] setImage:maskedImage];
+				}
+				//[self carouselFix:[result avatarView] image:maskedImage tableView:tableView rowIndex:rowIndex];
 				//[[result avatarView] setImage:maskedImage];
 			}
 			/*else {
