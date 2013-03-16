@@ -39,6 +39,11 @@
 	[repostButton setTextColor:[self defaultButtonColor]];
 	[starButton setTextColor:[self defaultButtonColor]];
     [deleteButton setTextColor:[self defaultButtonColor]];
+    
+    [postView setSelectedTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [NSColor colorWithDeviceRed:0.961 green:0.965 blue:0.863 alpha:1.0], NSBackgroundColorAttributeName,
+      nil]];
 }
 
 - (IBAction)viewRepostUser:(id)sender
