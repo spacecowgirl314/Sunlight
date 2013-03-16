@@ -29,6 +29,9 @@
 @synthesize repostedUserButton;
 @synthesize deleteButton;
 @synthesize avatarHoverButton;
+@synthesize twoFingersTouches;
+
+#define kSwipeMinimumLength 0.25
 
 - (void)awakeFromNib
 {
@@ -63,52 +66,103 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"Profile" object:[[post user] username]];
 }
 
-/*- (BOOL)wantsScrollEventsForSwipeTrackingOnAxis:(NSEventGestureAxis)axis 
- {
-	return (axis == NSEventGestureAxisHorizontal) ? YES : NO; }*/
+#pragma mark - Swiping
 
-// semi-working swipe detection, needs to filter out scrolling up and down
-/*- (void)scrollWheel:(NSEvent *)event
+- (void)goBack:(id)sender
 {
-	if([event phase] == NSEventPhaseBegan)
-	{
-		scrollDeltaX = [event deltaX];
-		//NSLog(@"x delta:%f", scrollDeltaX);
-		scrollDeltaY = [event deltaY];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"PopTopBreadcrumbItem" object:nil];
+}
+
+- (void)goForward:(id)sender
+{
+	// make sure there is a conversation
+	if ([post numberOfReplies]>0 || [post replyTo]) {
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"Conversation" object:self.post];
 	}
-    if([event phase] == NSEventPhaseEnded)
-    {
-		
-		CGFloat x = scrollDeltaX; //[event deltaX];
-		CGFloat y = scrollDeltaY; //[event deltaY];
-		//NSLog(@"x delta:%f, y delta:%f", x, y);
-		if (x != 0) {
-			// filter out scrolling up and down
-			if (y < 0.45 || y < -0.45) {
-				// now make sure we're swiping right
-				if (x > 0) {
-					// make sure there is a conversation
-					if ([post numberOfReplies]>0 || [post replyTo]) {
-						[[NSNotificationCenter defaultCenter] postNotificationName:@"Conversation" object:self.post];
-					}
-				}
-				//swipeColorValue = (x < 0)  ? SwipeLeft : SwipeRight;
-			}
-		}
-		
+}
+
+- (void)swipeWithEvent:(NSEvent *)event {
+    NSLog(@"Swipe With Event");
+    CGFloat x = [event deltaX];
+    //CGFloat y = [event deltaY];
+	
+    if (x != 0) {
+        (x > 0) ? [self goBack:self] : [self goForward:self];
     }
-    [super scrollWheel:event];
-}*/
+}
 
 - (void)beginGestureWithEvent:(NSEvent *)event
 {
-    NSLog(@"Gesture detected!");
+	NSLog(@"Gesture detected!");
+    /*if (![self recognizeTwoFingerGestures])
+        return;*/
+	
+    NSSet *touches = [event touchesMatchingPhase:NSTouchPhaseAny inView:nil];
+	
+    self.twoFingersTouches = [[NSMutableDictionary alloc] init];
+	
+    for (NSTouch *touch in touches) {
+        [twoFingersTouches setObject:touch forKey:touch.identity];
+    }
 }
 
 - (void)endGestureWithEvent:(NSEvent *)event
 {
-    NSLog(@"Gesture end detected!");
+	NSLog(@"Gesture end detected!");
+    if (!twoFingersTouches) return;
+	
+    NSSet *touches = [event touchesMatchingPhase:NSTouchPhaseAny inView:nil];
+	
+    // release twoFingersTouches early
+    NSMutableDictionary *beginTouches = [twoFingersTouches copy];
+    self.twoFingersTouches = nil;
+	
+    NSMutableArray *magnitudes = [[NSMutableArray alloc] init];
+	
+    for (NSTouch *touch in touches)
+    {
+        NSTouch *beginTouch = [beginTouches objectForKey:touch.identity];
+		
+        if (!beginTouch) continue;
+		
+        float magnitude = touch.normalizedPosition.x - beginTouch.normalizedPosition.x;
+        [magnitudes addObject:[NSNumber numberWithFloat:magnitude]];
+    }
+	
+    // Need at least two points
+    if ([magnitudes count] < 2) return;
+	
+    float sum = 0;
+	
+    for (NSNumber *magnitude in magnitudes)
+        sum += [magnitude floatValue];
+	
+    // Handle natural direction in Lion
+    BOOL naturalDirectionEnabled = [[[NSUserDefaults standardUserDefaults] valueForKey:@"com.apple.swipescrolldirection"] boolValue];
+	
+    if (naturalDirectionEnabled)
+        sum *= -1;
+	
+    // See if absolute sum is long enough to be considered a complete gesture
+    float absoluteSum = fabsf(sum);
+	
+    if (absoluteSum < kSwipeMinimumLength) return;
+	
+    // Handle the actual swipe
+    if (sum > 0)
+    {
+        [self goForward:self];
+		NSLog(@"Go forward");
+    } else
+    {
+		NSLog(@"Go back");
+        [self goBack:self];
+    }
+	
+	
 }
+
+#pragma mark -
 
 - (void)mouseDown:(NSEvent *)theEvent
 {

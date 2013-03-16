@@ -48,6 +48,7 @@
 @property IBOutlet NSButton *deleteButton;
 @property (retain, nonatomic) PSCNewPostController *postController;
 @property IBOutlet PSCHoverButton *avatarHoverButton;
+@property NSMutableDictionary *twoFingersTouches;
 
 - (IBAction)openReplyPost:(id)sender;
 - (IBAction)starPost:(id)sender;

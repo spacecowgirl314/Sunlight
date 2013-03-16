@@ -140,6 +140,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadConversation:) name:@"Conversation" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProfileFromNotification:) name:@"Profile" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPreviousInStream:) name:@"LoadMore" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popTopBreadcrumbItem:) name:@"PopTopBreadcrumbItem" object:nil];
     
 	// Register
 	//[self addOutput:@"Attempting to register hotkey for example 1"];
@@ -266,6 +267,19 @@
 }
 
 #pragma mark - Breadcrumbs
+
+- (void)popTopBreadcrumbItem:(NSNotification*)notification
+{
+	if (breadcrumbView.items.count!=0) {
+		if (breadcrumbView.items.count==1) {
+			[self breadcrumbViewDidTapStartButton:breadcrumbView];
+		}
+		else {
+			[breadcrumbView popItem:[[breadcrumbView items] objectAtIndex:breadcrumbView.items.count-1]];
+			[self breadcrumbView:breadcrumbView didTapItemAtIndex:breadcrumbView.items.count-1];
+		}
+	}
+}
 
 - (void)breadcrumbView:(PSCBreadcrumbView *)view didTapItemAtIndex:(NSUInteger)index
 {
@@ -1533,17 +1547,6 @@
     return CGSizeMake(size.width*scale, size.height*scale);
 }
 
-- (void)carouselFix:(NSImageView*)imageView image:(NSImage*)image tableView:(NSTableView*)tableView rowIndex:(NSInteger)rowIndex
-{
-	NSRange visibleRows = [tableView rowsInRect:[tableView visibleRect]];
-	if (NSLocationInRange(rowIndex, visibleRows)) {
-		[imageView setImage:image];
-	}
-	else {
-		NSLog(@"Prevented carouselling");
-	}
-}
-
 - (id)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     // In IB, the TableColumn's identifier is set to "Automatic". The ATTableCellView's is also set to "Automatic". IB then keeps the two in sync, and we don't have to worry about setting the identifier.
@@ -1812,8 +1815,6 @@
 				if (postCell) {
 					[[postCell avatarView] setImage:maskedImage];
 				}
-				//[self carouselFix:[result avatarView] image:maskedImage tableView:tableView rowIndex:rowIndex];
-				//[[result avatarView] setImage:maskedImage];
 			}
 			/*else {
 			 [[result avatarView] setImage:nil];

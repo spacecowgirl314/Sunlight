@@ -28,6 +28,7 @@
 @property IBOutlet NSTextField *isYou;
 @property IBOutlet PSCColorableView *bioView;
 @property ANUser *user;
+@property NSMutableDictionary *twoFingersTouches;
 
 - (NSColor*)defaultButtonColor;
 

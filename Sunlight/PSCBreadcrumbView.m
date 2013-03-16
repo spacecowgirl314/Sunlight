@@ -257,7 +257,14 @@ layer.shadowColor = kShadowColor
 {
 	NSMutableArray *mutableCopy = [_items mutableCopy];
 	// iterate backwards until we reach the item being removed
-	for (NSUInteger i=mutableCopy.count-1; i>[mutableCopy indexOfObject:item]; i--)
+	//NSLog(@"i=%li; i>%li; i--", mutableCopy.count-1, (unsigned long)[mutableCopy indexOfObject:item]);
+	NSUInteger i;
+	for (i=mutableCopy.count-1; i>[mutableCopy indexOfObject:item]; i--)
+	{
+		[mutableCopy removeObjectAtIndex:i];
+	}
+	// if it's only the top object remove it
+	if (i==[mutableCopy indexOfObject:item])
 	{
 		[mutableCopy removeObjectAtIndex:i];
 	}

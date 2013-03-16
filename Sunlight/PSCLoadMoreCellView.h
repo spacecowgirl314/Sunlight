@@ -10,4 +10,6 @@
 
 @interface PSCLoadMoreCellView : NSTableCellView
 
+@property NSMutableDictionary *twoFingersTouches;
+
 @end
