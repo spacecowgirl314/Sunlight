@@ -28,6 +28,7 @@
 @synthesize repostImageView;
 @synthesize repostedUserButton;
 @synthesize deleteButton;
+@synthesize avatarHoverButton;
 
 - (void)awakeFromNib
 {

@@ -145,6 +145,7 @@
 		37B520AB1615837D00941F0D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B520AA1615837D00941F0D /* Carbon.framework */; };
 		37B520AD1615840100941F0D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B520AC1615840100941F0D /* QuartzCore.framework */; };
 		37B8EFDC16E6F2E800CE0990 /* NSAlert+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B8EFDB16E6F2E800CE0990 /* NSAlert+Blocks.m */; };
+		37DF6A5616F433D3005D28DB /* PSCHoverButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DF6A5516F433D3005D28DB /* PSCHoverButton.m */; };
 		37E7F04D16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37EEA9C516BB7DC200E3C56E /* PSCSwipeableScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA9C416BB7DC200E3C56E /* PSCSwipeableScrollView.m */; };
 		37F1864616C4A8D500E682E2 /* PSCButtonCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F1864516C4A8D500E682E2 /* PSCButtonCollection.m */; };
@@ -649,6 +650,8 @@
 		37B520AC1615840100941F0D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		37B8EFDA16E6F2E800CE0990 /* NSAlert+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAlert+Blocks.h"; path = "NSAlert-Blocks/Tester/NSAlert+Blocks.h"; sourceTree = "<group>"; };
 		37B8EFDB16E6F2E800CE0990 /* NSAlert+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAlert+Blocks.m"; path = "NSAlert-Blocks/Tester/NSAlert+Blocks.m"; sourceTree = "<group>"; };
+		37DF6A5416F433D3005D28DB /* PSCHoverButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCHoverButton.h; sourceTree = "<group>"; };
+		37DF6A5516F433D3005D28DB /* PSCHoverButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCHoverButton.m; sourceTree = "<group>"; };
 		37E7F04B16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NS(Attributed)String+Geometrics.h"; sourceTree = "<group>"; };
 		37E7F04C16BA5C690081E2E8 /* NS(Attributed)String+Geometrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NS(Attributed)String+Geometrics.m"; sourceTree = "<group>"; };
 		37EEA9C316BB7DC200E3C56E /* PSCSwipeableScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCSwipeableScrollView.h; sourceTree = "<group>"; };
@@ -1299,6 +1302,8 @@
 			children = (
 				37F1864816C4A9BF00E682E2 /* PSCButtonCollectionButton.h */,
 				37F1864916C4A9BF00E682E2 /* PSCButtonCollectionButton.m */,
+				37DF6A5416F433D3005D28DB /* PSCHoverButton.h */,
+				37DF6A5516F433D3005D28DB /* PSCHoverButton.m */,
 				3786043F16D773E600F56553 /* PSCAvatarImageView.h */,
 				3786044016D773E600F56553 /* PSCAvatarImageView.m */,
 				378602EE16C22C57003256B9 /* PSCTextView.h */,
@@ -2011,6 +2016,7 @@
 				3798E07516F048E900D6F145 /* PocketAPILogin.m in Sources */,
 				3798E07616F048E900D6F145 /* PocketAPIOperation.m in Sources */,
 				3798E07716F048E900D6F145 /* SFHFKeychainUtils.m in Sources */,
+				37DF6A5616F433D3005D28DB /* PSCHoverButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

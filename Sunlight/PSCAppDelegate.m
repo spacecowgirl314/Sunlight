@@ -25,6 +25,7 @@
 #import "NSDictionary+Compression.h"
 #import "NSAlert+Blocks.h"
 #import "PocketAPI.h"
+#import "PSCHoverButton.h"
 //#import "ANEntity.h"
 
 @implementation PSCAppDelegate
@@ -1714,6 +1715,7 @@
 	// clear out the old image first. prevent temporary flickering due to no caching
 	[[[result avatarView] window] makeFirstResponder:[result avatarView]];
 	[[result avatarView] setImage:nil];
+	[[result avatarHoverButton] clear];
 	
 	/*ANAnnotationSet *annotationSet = [post annotations];
 	 for (ANAnnotation *annotation in [annotationSet all]) {

@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "AppNetKit.h"
 #import "PSCNewPostController.h"
+#import "PSCHoverButton.h"
 
 @interface PSCPostCellView : NSTableCellView <NSMenuDelegate> {
 	ANPost *post;
@@ -46,6 +47,7 @@
 @property IBOutlet NSButton *repostedUserButton;
 @property IBOutlet NSButton *deleteButton;
 @property (retain, nonatomic) PSCNewPostController *postController;
+@property IBOutlet PSCHoverButton *avatarHoverButton;
 
 - (IBAction)openReplyPost:(id)sender;
 - (IBAction)starPost:(id)sender;
