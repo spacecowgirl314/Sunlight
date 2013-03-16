@@ -30,3 +30,6 @@
 [submodule "Sunlight/DBPrefsWindowController"]
 	path = Sunlight/DBPrefsWindowController
 	url = git://github.com/kgn/DBPrefsWindowController.git
+[submodule "Sunlight/cloudapp"]
+	path = Sunlight/cloudapp
+	url = git://github.com/cloudapp/objective-c.git

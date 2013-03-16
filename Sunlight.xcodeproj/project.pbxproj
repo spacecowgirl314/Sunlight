@@ -94,6 +94,7 @@
 		3759737716CFA2CC00E6993D /* 171670__fins__success-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3759737616CFA2CC00E6993D /* 171670__fins__success-2.wav */; };
 		376A71DD16EF2629009A99D3 /* DSClickableURLTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 376A71DC16EF2629009A99D3 /* DSClickableURLTextField.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		376A71E016EF28AD009A99D3 /* PSCTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 376A71DF16EF28AD009A99D3 /* PSCTableView.m */; };
+		377BEA8916F4847100D93FE0 /* libCloud.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 377BEA8316F4846700D93FE0 /* libCloud.a */; };
 		377E80E216F01B130014E330 /* avatar-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 377E80E116F01B130014E330 /* avatar-overlay@2x.png */; };
 		3781509516C0EA4D0015956E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3781508F16C0EA4D0015956E /* Localizable.strings */; };
 		3781509616C0EA4D0015956E /* Localizable_full.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3781509116C0EA4D0015956E /* Localizable_full.strings */; };
@@ -344,6 +345,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		377BEA8216F4846700D93FE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 377BEA7E16F4846600D93FE0 /* Cloud.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4B1AB184130B69B900BD6A95;
+			remoteInfo = Cloud;
+		};
 		3798E08F16F1B27B00D6F145 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3798E08716F1B27A00D6F145 /* Sparkle.xcodeproj */;
@@ -568,6 +576,7 @@
 		376A71DC16EF2629009A99D3 /* DSClickableURLTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSClickableURLTextField.m; sourceTree = "<group>"; };
 		376A71DE16EF28AD009A99D3 /* PSCTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCTableView.h; sourceTree = "<group>"; };
 		376A71DF16EF28AD009A99D3 /* PSCTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCTableView.m; sourceTree = "<group>"; };
+		377BEA7E16F4846600D93FE0 /* Cloud.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Cloud.xcodeproj; path = Sunlight/cloudapp/Source/libCloud/Cloud.xcodeproj; sourceTree = "<group>"; };
 		377E80E116F01B130014E330 /* avatar-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-overlay@2x.png"; sourceTree = "<group>"; };
 		377E80E316F01B5F0014E330 /* PSCLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCLoginController.h; sourceTree = "<group>"; };
 		3781509016C0EA4D0015956E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -865,6 +874,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				377BEA8916F4847100D93FE0 /* libCloud.a in Frameworks */,
 				370B822B16E497C0004A105E /* libz.dylib in Frameworks */,
 				378602ED16C225BD003256B9 /* libicucore.dylib in Frameworks */,
 				3798E09916F1B28B00D6F145 /* Sparkle.framework in Frameworks */,
@@ -1067,6 +1077,14 @@
 				37A663E1162AE6E800010161 /* NSView+Fade.m */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		377BEA7F16F4846600D93FE0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				377BEA8316F4846700D93FE0 /* libCloud.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		3781508E16C0EA4D0015956E /* SEHumanizedTime */ = {
@@ -1360,6 +1378,7 @@
 		37B5206116157DF500941F0D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				377BEA7E16F4846600D93FE0 /* Cloud.xcodeproj */,
 				3798E08716F1B27A00D6F145 /* Sparkle.xcodeproj */,
 				370B822A16E497C0004A105E /* libz.dylib */,
 				378602EC16C225BD003256B9 /* libicucore.dylib */,
@@ -1633,6 +1652,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 377BEA7F16F4846600D93FE0 /* Products */;
+					ProjectRef = 377BEA7E16F4846600D93FE0 /* Cloud.xcodeproj */;
+				},
+				{
 					ProductGroup = 3798E08816F1B27A00D6F145 /* Products */;
 					ProjectRef = 3798E08716F1B27A00D6F145 /* Sparkle.xcodeproj */;
 				},
@@ -1646,6 +1669,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		377BEA8316F4846700D93FE0 /* libCloud.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCloud.a;
+			remoteRef = 377BEA8216F4846700D93FE0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		3798E09016F1B27B00D6F145 /* Sparkle.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
