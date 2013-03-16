@@ -2220,6 +2220,7 @@
 				);
 				INFOPLIST_FILE = "Sunlight/Sunlight-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Sunlight/cloudapp/Source/libCloud/Cloud/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2238,6 +2239,7 @@
 				);
 				INFOPLIST_FILE = "Sunlight/Sunlight-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Sunlight/cloudapp/Source/libCloud/Cloud/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -8,7 +8,7 @@
 
 #import "PSCNewPostController.h"
 #import "PSCMemoryCache.h"
-#import "cloudapp/Source/libCloud/Cloud/Cloud.h"
+#import "Cloud.h"
 
 @interface PSCNewPostController ()
 

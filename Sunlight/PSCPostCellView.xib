@@ -676,10 +676,6 @@
 							<reference key="NSControlView" ref="977451297"/>
 							<int key="NSButtonFlags">138690560</int>
 							<int key="NSButtonFlags2">130</int>
-							<object class="NSCustomResource" key="NSAlternateImage">
-								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">avatar-click</string>
-							</object>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">200</int>
@@ -734,6 +730,7 @@
 						<string key="NSFrameSize">{360, 5}</string>
 						<reference key="NSSuperview" ref="606671869"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSImageCell" key="NSCell" id="1069214118">
@@ -3274,7 +3271,6 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NSMenuCheckmark">{11, 11}</string>
 			<string key="NSMenuMixedState">{10, 3}</string>
-			<string key="avatar-click">{70, 71}</string>
 			<string key="avatar-overlay">{70, 71}</string>
 			<string key="avatar-trans-fix">{70, 70}</string>
 			<string key="divide-line">{700, 1}</string>

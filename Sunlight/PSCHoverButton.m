@@ -37,7 +37,8 @@
 
 - (void)mouseEntered:(NSEvent *)theEvent
 {
-	self.image = self.alternateImage;
+	self.image = [NSImage imageNamed:@"avatar-click"];
+	self.alternateImage = [NSImage imageNamed:@"avatar-click-pressed"];
 }
 
 - (void)mouseExited:(NSEvent *)theEvent
