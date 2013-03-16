@@ -1158,7 +1158,7 @@
 							deltaIndices = [[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile] posts:posts profile:YES];
 							// do we have new posts?
 							if ([deltaIndices objectForKey:@"newPosts"]) {
-								[[[buttonCollection buttons] objectAtIndex:0] enableIndicator];
+								[[[buttonCollection buttons] objectAtIndex:3] enableIndicator];
 								//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
 							}
 							[titleTextField setStringValue:@"My Profile"];
