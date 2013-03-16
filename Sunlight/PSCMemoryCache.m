@@ -115,20 +115,26 @@
  this could should take the new posts response and filter out posts we already have with the exception of deleted posts
  */
 
+// special method for loading profiles that shifts everything by one for the profile view cell
+- (NSDictionary*)filterNewPostsForKey:(NSString *)key posts:(NSArray *)posts profile:(BOOL)isProfile
+{
+	return [self filterNewPostsForKey:key oldPosts:nil posts:posts profile:isProfile];
+}
+
 // in this case we return only the delta indices and cache the posts in the memory for tab switching
 - (NSDictionary*)filterNewPostsForKey:(NSString*)key posts:(NSArray*)posts
 {
-	return [self filterNewPostsForKey:key oldPosts:nil posts:posts];
+	return [self filterNewPostsForKey:key oldPosts:nil posts:posts profile:NO];
 }
 
 // return the delta indices (new posts, deleted posts) and the appended filtered stream itself
 - (NSDictionary*)filterNewPosts:(NSArray*)newPosts withOldPosts:(NSArray*)oldPosts
 {
-	return [self filterNewPostsForKey:nil oldPosts:oldPosts posts:newPosts];
+	return [self filterNewPostsForKey:nil oldPosts:oldPosts posts:newPosts profile:NO];
 }
 
 // take both forwaded methods and behave differently for each
-- (NSDictionary*)filterNewPostsForKey:(NSString*)key oldPosts:(NSArray*)oldPosts posts:(NSArray*)posts
+- (NSDictionary*)filterNewPostsForKey:(NSString*)key oldPosts:(NSArray*)oldPosts posts:(NSArray*)posts profile:(BOOL)isProfile
 {
 	NSArray *currentArray;
 	// if the key isn't set we're being forwarded from newPosts withOldPosts
@@ -152,8 +158,13 @@
 			// check for a post that was there and then was deleted
 			// since in theory we should never see deleted posts enter the stream then we can predict that if they are matching and the new one is deleted then it was deleted after we reloaded
 			if ([matchingPost isDeleted]) {
-				// Add the index of each deleted item to the delta indices array.
-				[deletedPosts addObject:[NSIndexSet indexSetWithIndex:[filterResults indexOfObject:matchingPost]]];
+				// Add the index of each deleted item to the delta indices array. +1 if we're filtering the profile stream
+				if (isProfile) {
+					[deletedPosts addObject:[NSIndexSet indexSetWithIndex:[filterResults indexOfObject:matchingPost]+1]];
+				}
+				else {
+					[deletedPosts addObject:[NSIndexSet indexSetWithIndex:[filterResults indexOfObject:matchingPost]]];
+				}
 				// remove the newly deleted post from the filter
 				[filterResults removeObject:matchingPost];
 			}
@@ -174,9 +185,19 @@
 	for (int i=0; i<newPosts.count; i++) {
 		[filterResults insertObject:[newPosts objectAtIndex:i] atIndex:i];
 	}
-	// created the newPosts index set
-	NSRange range = NSMakeRange(0, [newPosts count]);
-	NSIndexSet *newSet = [NSIndexSet indexSetWithIndexesInRange:range];
+	NSRange range;
+	NSIndexSet *newSet;
+	// special shifting for the profile stream to account for the profile cell view
+	if (isProfile) {
+		// created the newPosts index set
+		range = NSMakeRange(1, [newPosts count]);
+		newSet = [NSIndexSet indexSetWithIndexesInRange:range];
+	}
+	else {
+		// created the newPosts index set
+		range = NSMakeRange(0, [newPosts count]);
+		newSet = [NSIndexSet indexSetWithIndexesInRange:range];
+	}
 	
 	// handle the stream caching
 	if (key!=nil) {

@@ -22,5 +22,7 @@
 + (instancetype)sharedMemory;
 - (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage;
 - (NSDictionary*)filterNewPostsForKey:(NSString*)key posts:(NSArray*)posts;
+- (NSDictionary*)filterNewPostsForKey:(NSString *)key posts:(NSArray *)posts profile:(BOOL)isProfile;
+- (NSDictionary*)filterNewPosts:(NSArray*)newPosts withOldPosts:(NSArray*)oldPosts;
 
 @end

@@ -836,7 +836,7 @@
 					isFirstTime=YES;
 				}
 				NSDictionary *deltaIndices = [[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream] posts:posts];
-				// simulatenously check for new posts in the stream and filter them
+				// do we have new posts?
 				if ([deltaIndices objectForKey:@"newPosts"]) {
 					[[[buttonCollection buttons] objectAtIndex:0] enableIndicator];
 					[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
@@ -934,15 +934,35 @@
 					});
 					return;
 				}
-				// save posts to memory
-				if (currentStream==PSCMentions) {
+				BOOL isFirstTime = NO;
+				if ([[[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]] count]==0) {
+					isFirstTime=YES;
+				}
+				// filter posts
+				NSDictionary *deltaIndices = [[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions] posts:posts];
+				// do we have new posts
+				if ([deltaIndices objectForKey:@"newPosts"]) {
+					[[[buttonCollection buttons] objectAtIndex:1] enableIndicator];
+					//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
+				}
+				if (currentStream==PSCMentions && navigationController.levels==0) {
 					[titleTextField setStringValue:@"Mentions"];
 					[breadcrumbView clear];
 					[navigationController clear];
 					[breadcrumbView setStartTitle:@"Mentions"];
-					[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]];
-					postsArray = posts;
-					[[self appTableView] reloadData];
+					NSMutableArray *cachedPostsMemory = [[[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCMentions]] mutableCopy];
+					// detect if we have any posts already.
+					if (isFirstTime) {
+						// Inject Load More Cell View
+						[cachedPostsMemory insertObject:[PSCLoadMore new] atIndex:cachedPostsMemory.count];
+						postsArray = cachedPostsMemory;
+						[[self appTableView] reloadData];
+					}
+					else {
+						if ([deltaIndices objectForKey:@"newPosts"]) {
+							[self reloadStreamWithPosts:cachedPostsMemory newSet:[deltaIndices objectForKey:@"newPosts"] deletedPosts:[deltaIndices objectForKey:@"deletedPosts"]];
+						}
+					}
 					dispatch_async(dispatch_get_main_queue(), ^{
 						[[self appScrollView] stopLoading];
 					});
@@ -956,12 +976,15 @@
 			[breadcrumbView clear];
 			[navigationController clear];
 			[breadcrumbView setStartTitle:@"Mentions"];
+			// Inject Load More Cell View
+			NSMutableArray *profileInjection = [mentionsPosts mutableCopy];
+			[profileInjection insertObject:[PSCLoadMore new] atIndex:mentionsPosts.count];
 			if (isPopping) {
 				//[self scrollToTop];
-				[self popStreamWithPosts:mentionsPosts];
+				[self popStreamWithPosts:profileInjection];
 			}
 			else {
-				postsArray = mentionsPosts;
+				postsArray = profileInjection;
 				[[self appTableView] reloadData];
 			}
 		}
@@ -1010,15 +1033,36 @@
 					});
 					return;
 				}
+				BOOL isFirstTime = NO;
+				if ([[[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]] count]==0) {
+					isFirstTime=YES;
+				}
+				NSDictionary *deltaIndices = [[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCStars] posts:posts];
+				// do we have new posts?
+				if ([deltaIndices objectForKey:@"newPosts"]) {
+					[[[buttonCollection buttons] objectAtIndex:2] enableIndicator];
+					//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
+				}
 				// save posts to memory
-				if (currentStream==PSCStars) {
+				if (currentStream==PSCStars && navigationController.levels==0) {
 					[titleTextField setStringValue:@"Starred"];
 					[breadcrumbView clear];
 					[navigationController clear];
 					[breadcrumbView setStartTitle:@"Starred"];
-					[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:posts forKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]];
-					postsArray = posts;
-					[[self appTableView] reloadData];
+					// grab deleted sets and new post set and animate
+					NSMutableArray *cachedPostsMemory = [[[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCStars]] mutableCopy];
+					// detect if we have any posts already.
+					if (isFirstTime) {
+						// Inject Load More Cell View
+						[cachedPostsMemory insertObject:[PSCLoadMore new] atIndex:cachedPostsMemory.count];
+						postsArray = cachedPostsMemory;
+						[[self appTableView] reloadData];
+					}
+					else {
+						if ([deltaIndices objectForKey:@"newPosts"]) {
+							[self reloadStreamWithPosts:cachedPostsMemory newSet:[deltaIndices objectForKey:@"newPosts"] deletedPosts:[deltaIndices objectForKey:@"deletedPosts"]];
+						}
+					}
 					dispatch_async(dispatch_get_main_queue(), ^{
 						[[self appScrollView] stopLoading];
 					});
@@ -1032,12 +1076,15 @@
 			[breadcrumbView clear];
 			[navigationController clear];
 			[breadcrumbView setStartTitle:@"Starred"];
+			// Inject Load More Cell View
+			NSMutableArray *profileInjection = [starsPosts mutableCopy];
+			[profileInjection insertObject:[PSCLoadMore new] atIndex:starsPosts.count];
 			if (isPopping) {
 				//[self scrollToTop];
-				[self popStreamWithPosts:starsPosts];
+				[self popStreamWithPosts:profileInjection];
 			}
 			else {
-				postsArray = starsPosts;
+				postsArray = profileInjection;
 				[[self appTableView] reloadData];
 			}
 		}
@@ -1099,9 +1146,18 @@
 							[self showErrorBarWithError:error];
 							return;
 						}
-						// set title
+						// initialize variables for my profile reloading
+						BOOL isFirstTime = NO;
+						NSDictionary *deltaIndices;
+						// filter posts and get delta indices for my profile
 						if ([user ID]==[[[PSCMemoryCache sharedMemory] currentUser] ID] && currentStream==PSCProfile) {
-							if ([[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile] posts:posts]) {
+							if ([[[[PSCMemoryCache sharedMemory] streamsDictionary] objectForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile]] count]==0) {
+								isFirstTime=YES;
+							}
+							deltaIndices = [[PSCMemoryCache sharedMemory] filterNewPostsForKey:[[NSString alloc] initWithFormat:@"%d", PSCProfile] posts:posts profile:YES];
+							// do we have new posts?
+							if ([deltaIndices objectForKey:@"newPosts"]) {
+								[[[buttonCollection buttons] objectAtIndex:0] enableIndicator];
 								//[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
 							}
 							[titleTextField setStringValue:@"My Profile"];
@@ -1139,9 +1195,18 @@
 						[profileInjection insertObject:user atIndex:0];
 						
 						if ([user ID]==[[[PSCMemoryCache sharedMemory] currentUser] ID] && currentStream==PSCProfile) {
-							postsArray = profileInjection;
-							//postsArray = posts;
-							[[self appTableView] reloadData];
+							// detect if we have any posts already.
+							if (isFirstTime) {
+								// Inject Load More Cell View
+								[profileInjection insertObject:[PSCLoadMore new] atIndex:profileInjection.count];
+								postsArray = profileInjection;
+								[[self appTableView] reloadData];
+							}
+							else {
+								if ([deltaIndices objectForKey:@"newPosts"]) {
+									[self reloadStreamWithPosts:profileInjection newSet:[deltaIndices objectForKey:@"newPosts"] deletedPosts:[deltaIndices objectForKey:@"deletedPosts"]];
+								}
+							}
 						}
 						else {
 							// we're pushing a profile to the navigation controller
@@ -1184,6 +1249,8 @@
 			// Inject Profile Cell View
 			NSMutableArray *profileInjection = [profilePosts mutableCopy];
 			[profileInjection insertObject:[[PSCMemoryCache sharedMemory] currentUser] atIndex:0];
+			// Inject Load More Cell View
+			[profileInjection insertObject:[PSCLoadMore new] atIndex:profileInjection.count];
 			if (isPopping) {
 				//[self scrollToTop];
 				[self popStreamWithPosts:profileInjection];
