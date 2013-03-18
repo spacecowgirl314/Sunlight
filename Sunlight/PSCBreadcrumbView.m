@@ -261,6 +261,7 @@ layer.shadowColor = kShadowColor
 	{
 		[mutableCopy removeObjectAtIndex:i];
 	}
+	[self setItems:mutableCopy];
 }
 
 - (void)popTopItem
