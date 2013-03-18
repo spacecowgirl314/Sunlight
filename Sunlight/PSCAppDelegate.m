@@ -275,7 +275,7 @@
 			[self breadcrumbViewDidTapStartButton:breadcrumbView];
 		}
 		else {
-			[breadcrumbView popItem:[[breadcrumbView items] objectAtIndex:breadcrumbView.items.count-1]];
+			[breadcrumbView popTopItem];
 			[self breadcrumbView:breadcrumbView didTapItemAtIndex:breadcrumbView.items.count-1];
 		}
 	}
