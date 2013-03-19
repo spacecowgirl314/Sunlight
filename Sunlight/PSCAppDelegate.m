@@ -1601,7 +1601,7 @@
 			return height+customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+padding;
 		}
 		else {
-			return customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+(padding*2);
+			return customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow-padding;
 		}
 	}
 	if ([content isKindOfClass:[PSCLoadMore class]]) {
