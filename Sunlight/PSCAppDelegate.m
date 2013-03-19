@@ -1589,14 +1589,14 @@
 		// calculate for profile cell view
 		ANUser *user = content;
 		NSString *biography = [[user userDescription] text];
-		NSAttributedString *attributedBiography = [self stylizeBioWithString:biography andEntities:[[user userDescription] entities]];
 		int customViewToTop = 143;
 		int biographyToTopOfCustomView = 43;
 		int heightOfBottomShadow = 3;
 		int padding = 10;
 		// detect nil biographies
-		if (biography) {
+		if ([biography length]!=0) {
 			//NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
+			NSAttributedString *attributedBiography = [self stylizeBioWithString:biography andEntities:[[user userDescription] entities]];
 			float height = [attributedBiography heightForWidth:[[self window] frame].size.width-32-11]; //[biography heightForWidth:[[self window] frame].size.width-32-11 font:font];
 			return height+customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+padding;
 		}
@@ -1654,7 +1654,7 @@
 	ANUserDescription *userDescription = [user userDescription];
 	
 	// set biography and protect from derps who don't have any biography set
-	if ([userDescription text]) {
+	if ([[userDescription text] length]!=0) {
 		[[profileCellView biographyView] setAttributedStringValue:[self stylizeBioWithString:[userDescription text] andEntities:[userDescription entities]]]; //[[user userDescription] text]];
 		for (ANEntity *entity in [[userDescription entities] all]) {
 			NSLog(@"type:%@", entity.text);
