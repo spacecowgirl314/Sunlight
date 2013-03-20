@@ -424,14 +424,12 @@
 
 - (void)enableHighlight
 {
-	[bottomGradient setHidden:YES];
 	[topGradient setHidden:NO];
 }
 
 - (void)disableHightlight
 {
 	[topGradient setHidden:YES];
-	[bottomGradient setHidden:NO];
 }
 
 #pragma mark - More Button Methods
