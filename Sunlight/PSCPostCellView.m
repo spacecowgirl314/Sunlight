@@ -77,15 +77,15 @@
 
 - (void)goBack:(id)sender
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"PopTopBreadcrumbItem" object:nil];
-}
-
-- (void)goForward:(id)sender
-{
 	// make sure there is a conversation
 	if ([post numberOfReplies]>0 || [post replyTo]) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"Conversation" object:self.post];
 	}
+}
+
+- (void)goForward:(id)sender
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"PopTopBreadcrumbItem" object:nil];
 }
 
 - (void)swipeWithEvent:(NSEvent *)event {
