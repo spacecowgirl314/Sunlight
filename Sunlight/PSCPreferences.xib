@@ -134,7 +134,6 @@
 						<string key="NSFrame">{{156, 17}, {100, 26}}</string>
 						<reference key="NSSuperview" ref="162904456"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="830685834">
@@ -171,9 +170,9 @@
 										<string key="NSAction">_popUpItemAction:</string>
 										<reference key="NSTarget" ref="830685834"/>
 									</object>
-									<object class="NSMenuItem" id="90136814">
+									<object class="NSMenuItem" id="847936282">
 										<reference key="NSMenu" ref="628473962"/>
-										<string key="NSTitle">None</string>
+										<string key="NSTitle">Mentions</string>
 										<string key="NSKeyEquiv"/>
 										<int key="NSKeyEquivModMask">1048576</int>
 										<int key="NSMnemonicLoc">2147483647</int>
@@ -182,9 +181,9 @@
 										<string key="NSAction">_popUpItemAction:</string>
 										<reference key="NSTarget" ref="830685834"/>
 									</object>
-									<object class="NSMenuItem" id="847936282">
+									<object class="NSMenuItem" id="90136814">
 										<reference key="NSMenu" ref="628473962"/>
-										<string key="NSTitle">Mentions</string>
+										<string key="NSTitle">None</string>
 										<string key="NSKeyEquiv"/>
 										<int key="NSKeyEquivModMask">1048576</int>
 										<int key="NSMnemonicLoc">2147483647</int>
@@ -835,7 +834,7 @@
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="NSClassName">NSView</string>
 			</object>
-			<object class="NSUserDefaultsController" id="215335639">
+			<object class="NSUserDefaultsController" id="460965959">
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 		</array>
@@ -877,10 +876,10 @@
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">selectedIndex: values.fontSize</string>
 						<reference key="source" ref="638042626"/>
-						<reference key="destination" ref="215335639"/>
+						<reference key="destination" ref="460965959"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="638042626"/>
-							<reference key="NSDestination" ref="215335639"/>
+							<reference key="NSDestination" ref="460965959"/>
 							<string key="NSLabel">selectedIndex: values.fontSize</string>
 							<string key="NSBinding">selectedIndex</string>
 							<string key="NSKeyPath">values.fontSize</string>
@@ -893,10 +892,10 @@
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">selectedIndex: values.refreshTime</string>
 						<reference key="source" ref="516801955"/>
-						<reference key="destination" ref="215335639"/>
+						<reference key="destination" ref="460965959"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="516801955"/>
-							<reference key="NSDestination" ref="215335639"/>
+							<reference key="NSDestination" ref="460965959"/>
 							<string key="NSLabel">selectedIndex: values.refreshTime</string>
 							<string key="NSBinding">selectedIndex</string>
 							<string key="NSKeyPath">values.refreshTime</string>
@@ -909,10 +908,10 @@
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">selectedIndex: values.soundMode</string>
 						<reference key="source" ref="830685834"/>
-						<reference key="destination" ref="215335639"/>
+						<reference key="destination" ref="460965959"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="830685834"/>
-							<reference key="NSDestination" ref="215335639"/>
+							<reference key="NSDestination" ref="460965959"/>
 							<string key="NSLabel">selectedIndex: values.soundMode</string>
 							<string key="NSBinding">selectedIndex</string>
 							<string key="NSKeyPath">values.soundMode</string>
@@ -2302,7 +2301,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">281</int>
-						<reference key="object" ref="215335639"/>
+						<reference key="object" ref="460965959"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</array>

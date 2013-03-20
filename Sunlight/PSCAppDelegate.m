@@ -1696,7 +1696,7 @@
 		if ([biography length]!=0) {
 			//NSFont *font = [NSFont fontWithName:@"Helvetica" size:13.0f];
 			NSAttributedString *attributedBiography = [self stylizeBioWithString:biography andEntities:[[user userDescription] entities]];
-			float height = [attributedBiography heightForWidth:[[self window] frame].size.width-32-11]; //[biography heightForWidth:[[self window] frame].size.width-32-11 font:font];
+			float height = [attributedBiography heightForWidth:[[self window] frame].size.width-10-11]; //[biography heightForWidth:[[self window] frame].size.width-32-11 font:font];
 			return height+customViewToTop+biographyToTopOfCustomView+heightOfBottomShadow+padding;
 		}
 		else {
