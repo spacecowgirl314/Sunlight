@@ -1860,6 +1860,13 @@
 	[[result avatarView] setImage:nil];
 	[[result avatarHoverButton] clear];
 	[result disableHightlight];
+	// if we're the top cell disable the shadow
+	if (rowIndex==0) {
+		[[result topShadow] setHidden:YES];
+	}
+	else {
+		[[result topShadow] setHidden:NO];
+	}
 	
 	/*ANAnnotationSet *annotationSet = [post annotations];
 	 for (ANAnnotation *annotation in [annotationSet all]) {

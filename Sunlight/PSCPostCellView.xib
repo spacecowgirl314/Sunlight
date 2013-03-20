@@ -232,7 +232,7 @@
 										<string key="NSFrameSize">{288, 72}</string>
 										<reference key="NSSuperview" ref="41427505"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="399140173"/>
+										<reference key="NSNextKeyView" ref="1042207625"/>
 										<string key="NSReuseIdentifierKey">_NS:13</string>
 										<object class="NSTextContainer" key="NSTextContainer" id="317913247">
 											<object class="NSLayoutManager" key="NSLayoutManager">
@@ -369,7 +369,7 @@
 						<string key="NSFrame">{{70, 39}, {288, 72}}</string>
 						<reference key="NSSuperview" ref="606671869"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1042207625"/>
+						<reference key="NSNextKeyView" ref="41427505"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="NSsFlags">133120</int>
 						<reference key="NSVScroller" ref="1042207625"/>
@@ -477,7 +477,6 @@
 						<string key="NSFrame">{{334, 8}, {19, 15}}</string>
 						<reference key="NSSuperview" ref="606671869"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="806309843">
@@ -1101,6 +1100,14 @@
 						<reference key="destination" ref="525209338"/>
 					</object>
 					<int key="connectionID">1219</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">topShadow</string>
+						<reference key="source" ref="606671869"/>
+						<reference key="destination" ref="5146389"/>
+					</object>
+					<int key="connectionID">1256</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -3176,7 +3183,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1255</int>
+			<int key="maxID">1256</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3308,13 +3315,14 @@
 						<string key="muteButton">NSButton</string>
 						<string key="postCreationField">NSTextField</string>
 						<string key="postScrollView">NSScrollView</string>
-						<string key="postView">NSTextView</string>
+						<string key="postView">PSCTextView</string>
 						<string key="replyButton">NSButton</string>
 						<string key="repostButton">NSButton</string>
 						<string key="repostImageView">NSImageView</string>
 						<string key="repostedUserButton">NSButton</string>
 						<string key="starButton">NSButton</string>
 						<string key="topGradient">PSCGradientView</string>
+						<string key="topShadow">NSImageView</string>
 						<string key="userField">NSTextField</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -3360,7 +3368,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="postView">
 							<string key="name">postView</string>
-							<string key="candidateClassName">NSTextView</string>
+							<string key="candidateClassName">PSCTextView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="replyButton">
 							<string key="name">replyButton</string>
@@ -3385,6 +3393,10 @@
 						<object class="IBToOneOutletInfo" key="topGradient">
 							<string key="name">topGradient</string>
 							<string key="candidateClassName">PSCGradientView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="topShadow">
+							<string key="name">topShadow</string>
+							<string key="candidateClassName">NSImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="userField">
 							<string key="name">userField</string>

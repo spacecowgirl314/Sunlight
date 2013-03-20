@@ -32,6 +32,7 @@
 @synthesize twoFingersTouches;
 @synthesize topGradient;
 @synthesize bottomGradient;
+@synthesize topShadow;
 
 #define kSwipeMinimumLength 0.25
 
