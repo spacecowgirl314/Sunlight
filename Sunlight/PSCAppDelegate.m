@@ -1670,6 +1670,10 @@
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
+	// if we were selected and now we aren't bail on this
+	if ([appTableView selectedRow]==-1) {
+		return;
+	}
 	// old row
 	id content = [postsArray objectAtIndex:previouslySelectedRow];
 	if ([content isKindOfClass:[ANPost class]]) {

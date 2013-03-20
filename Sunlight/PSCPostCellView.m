@@ -181,7 +181,6 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SelectRowForPost" object:post];
 }
 
-
 - (NSColor*)defaultButtonColor
 {
 	return [NSColor colorWithDeviceRed:0.643 green:0.643 blue:0.643 alpha:1.0];
