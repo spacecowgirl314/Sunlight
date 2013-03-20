@@ -9,6 +9,7 @@
 #import "PSCTextView.h"
 
 @implementation PSCTextView
+@synthesize delegate;
 
 // We're only subclassing NSTextView so we can grab its mouse down event. Everything
 // else will be handled like normal
@@ -47,6 +48,7 @@
 	// also select the cell
 	/*NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:1];
 	[tableview selectRowIndexes:indexSet byExtendingSelection:NO];*/
+	[[self delegate] textViewMouseDown];
 	
 	[super mouseDown:theEvent];
 }

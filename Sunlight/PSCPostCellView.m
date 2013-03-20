@@ -45,6 +45,8 @@
 	[repostButton setTextColor:[self defaultButtonColor]];
 	[starButton setTextColor:[self defaultButtonColor]];
     [deleteButton setTextColor:[self defaultButtonColor]];
+	
+	[postView setDelegate:self];
     
     [postView setSelectedTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys:
@@ -172,6 +174,11 @@
 {
     NSLog(@"mouseDown event detected!");
 	[super mouseDown:theEvent];
+}
+
+- (void)textViewMouseDown
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"SelectRowForPost" object:post];
 }
 
 

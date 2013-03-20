@@ -141,6 +141,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProfileFromNotification:) name:@"Profile" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPreviousInStream:) name:@"LoadMore" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popTopBreadcrumbItem:) name:@"PopTopBreadcrumbItem" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectRowForPost:) name:@"SelectRowForPost" object:nil];
 	// Setup KVO for Preferences
 	[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
 															  forKeyPath:@"values.fontSize"
@@ -913,6 +914,9 @@
 		NSRange range = NSMakeRange(postsArray.count-1, [posts count]);
 		NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
 		[stream insertObjects:posts atIndexes:indexSet];
+		// cache the previous posts so that they aren't discarded when switching tabs
+		// TODO: filter out PSCMore objects.
+		//[[[PSCMemoryCache sharedMemory] streamsDictionary] setObject:postsArray forKey:[[NSString alloc] initWithFormat:@"%d", PSCMyStream]];
 		postsArray = stream;
 		[[self appTableView] reloadData];
 	}];
@@ -1691,7 +1695,14 @@
 	else {
 		return NO;
 	}
-	
+}
+
+- (void)selectRowForPost:(NSNotification*)notification
+{
+	ANPost *post = [notification object];
+	NSUInteger indexOfPost = [postsArray indexOfObject:post];
+	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:indexOfPost];
+	[appTableView selectRowIndexes:indexSet byExtendingSelection:NO];
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
@@ -1838,6 +1849,7 @@
 	[[[result avatarView] window] makeFirstResponder:[result avatarView]];
 	[[result avatarView] setImage:nil];
 	[[result avatarHoverButton] clear];
+	[result disableHightlight];
 	
 	/*ANAnnotationSet *annotationSet = [post annotations];
 	 for (ANAnnotation *annotation in [annotationSet all]) {

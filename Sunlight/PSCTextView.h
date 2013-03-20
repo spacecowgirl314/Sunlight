@@ -8,6 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+@protocol PSCTextViewDelegate
+
+- (void)textViewMouseDown;
+
+@end
+
 @interface PSCTextView : NSTextView
+
+@property id <PSCTextViewDelegate> delegate;
 
 @end

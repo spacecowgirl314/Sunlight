@@ -10,11 +10,12 @@
 #import "AppNetKit.h"
 #import "PSCNewPostController.h"
 #import "PSCHoverButton.h"
+#import "PSCTextView.h"
 
-@interface PSCPostCellView : NSTableCellView <NSMenuDelegate> {
+@interface PSCPostCellView : NSTableCellView <NSMenuDelegate, PSCTextViewDelegate> {
 	ANPost *post;
 	IBOutlet NSScrollView *postScrollView;
-	IBOutlet NSTextView *postView;
+	IBOutlet PSCTextView *postView;
 	IBOutlet NSTextField *userField;
 	IBOutlet NSTextField *postCreationField;
 	IBOutlet NSImageView *avatarView;
@@ -34,7 +35,7 @@
 
 @property ANPost *post;
 @property IBOutlet NSScrollView *postScrollView;
-@property IBOutlet NSTextView *postView;
+@property IBOutlet PSCTextView *postView;
 @property IBOutlet NSTextField *userField;
 @property IBOutlet NSTextField *postCreationField;
 @property IBOutlet NSImageView *avatarView;
