@@ -177,8 +177,10 @@
 	[self checkForMentions];
 	mentionsTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(checkForMentions) userInfo:nil repeats:YES];
 	[self createStreamTimerWithRefreshInterval:[self preferredRefreshInterval]];
+	
+	//[appTableView setBackgroundColor:[NSColor colorWithPatternImage:[NSImage imageNamed:@"towel"]]];
     
-    [window center];
+    //[window center];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
@@ -1861,12 +1863,12 @@
 	[[result avatarHoverButton] clear];
 	[result disableHightlight];
 	// if we're the top cell disable the shadow
-	if (rowIndex==0) {
+	/*if (rowIndex==0) {
 		[[result topShadow] setHidden:YES];
 	}
 	else {
 		[[result topShadow] setHidden:NO];
-	}
+	}*/
 	
 	/*ANAnnotationSet *annotationSet = [post annotations];
 	 for (ANAnnotation *annotation in [annotationSet all]) {
@@ -1885,7 +1887,6 @@
 	//ANPost *post = [postsArray objectAtIndex:row];
 	ANUser *user = [post user];
 	if ([post repostOf]) {
-		//NSLog(@"this is a repost");
 		ANUser *userReposting = user;
 		user = [[post repostOf] user];
 		//post = [post repostOf];
@@ -1894,10 +1895,27 @@
 		NSMutableAttributedString *repostedByAttributedString = [[NSMutableAttributedString alloc] initWithString:repostByString attributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13], NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.500 green:0.500 blue:0.500 alpha:1.0], @"UsernameMatch":[userReposting username]}];
 		[repostedByAttributedString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue Medium" size:13], NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.302 green:0.302 blue:0.302 alpha:1.0]} range:[repostByString rangeOfString:[userReposting name]]];
 		[[result repostedUserButton] setAttributedTitle:repostedByAttributedString];
+		// set contents of post
+		if (![post isDeleted]) {
+			[[[result postView] textStorage] setAttributedString:[self stylizeStatusWithString:[[post repostOf] text] andEntities:[[post repostOf] entities]]];
+			[[result postView] setEditable:NO];
+		}
+		else {
+			// this should never show, instead it's going to be animated out
+			[[result postView] setString:@"[Post deleted]"];
+		}
 	}
 	else {
-		//NSLog(@"this is not a repost");
 		[result hideRepost];
+		// set contents of post
+		if (![post isDeleted]) {
+			[[[result postView] textStorage] setAttributedString:[self stylizeStatusWithString:[post text] andEntities:[post entities]]];
+			[[result postView] setEditable:NO];
+		}
+		else {
+			// this should never show, instead it's going to be animated out
+			[[result postView] setString:@"[Post deleted]"];
+		}
 	}
 	
 	if ([[post user] ID]==[[[PSCMemoryCache sharedMemory] currentUser] ID]) {
@@ -1962,20 +1980,6 @@
 			 [[result avatarView] setImage:nil];
 			 }*/
 		}];
-	}
-	// set contents of post
-	if (![post isDeleted]) {
-		[[[result postView] textStorage] setAttributedString:[self stylizeStatusWithString:[post text] andEntities:[post entities]]];
-		[[result postView] setEditable:NO];
-		// set height of the post text view
-		NSFont *font = [NSFont fontWithName:@"Helvetica Neue Bold" size:13.0f];
-		float height = [[post text] heightForWidth:[[self window] frame].size.width font:font];
-		//NSLog(@"text height:%f", height);
-		result.postScrollView.frame = CGRectMake(result.postView.frame.origin.x, result.postView.frame.origin.y, result.postView.frame.size.width, height);
-	}
-	else {
-		// this should never show, instead it's going to be animated out
-		[[result postView] setString:@"[Post deleted]"];
 	}
 	return result;
 }
