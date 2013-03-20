@@ -35,6 +35,8 @@ typedef enum {
 	ANResourceID profileUserID;
 	PSCNavigationController *navigationController;
 	NSMutableDictionary *streamScrollPositions;
+	NSTimer *mentionsTimer;
+	NSTimer *streamTimer;
 }
 
 @property (assign) IBOutlet INAppStoreWindow *window;

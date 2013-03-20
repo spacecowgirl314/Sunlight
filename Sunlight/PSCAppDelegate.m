@@ -141,6 +141,19 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProfileFromNotification:) name:@"Profile" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPreviousInStream:) name:@"LoadMore" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popTopBreadcrumbItem:) name:@"PopTopBreadcrumbItem" object:nil];
+	// Setup KVO for Preferences
+	[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
+															  forKeyPath:@"values.fontSize"
+																 options:NSKeyValueObservingOptionNew
+																 context:NULL];
+	[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
+															  forKeyPath:@"values.refreshTime"
+																 options:NSKeyValueObservingOptionNew
+																 context:NULL];
+	[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
+															  forKeyPath:@"values.soundMode"
+																 options:NSKeyValueObservingOptionNew
+																 context:NULL];
     
 	// Register
 	//[self addOutput:@"Attempting to register hotkey for example 1"];
@@ -161,10 +174,8 @@
 	}
 	// check and then setup notifications
 	[self checkForMentions];
-	NSTimer *mentionsTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(checkForMentions) userInfo:nil repeats:YES];
-	[NSTimer scheduledTimerWithTimeInterval:60*3 block:^{
-		[self loadMyStream:YES];
-	} repeats:YES];
+	mentionsTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(checkForMentions) userInfo:nil repeats:YES];
+	[self createStreamTimerWithRefreshInterval:[self preferredRefreshInterval]];
     
     [window center];
 }
@@ -184,6 +195,18 @@
         // if you handle your own custom url-schemes, do it here
         //return NO;
     }
+}
+
+#pragma mark - Preparation
+
+- (void)createStreamTimerWithRefreshInterval:(NSTimeInterval)refreshInterval
+{
+	[streamTimer invalidate];
+	streamTimer = [NSTimer scheduledTimerWithTimeInterval:refreshInterval block:^{
+		NSLog(@"refreshing stream");
+		[self loadMyStream:YES];
+		//[streamTimer fire];
+	} repeats:YES];
 }
 
 #pragma mark - Authentication
@@ -613,6 +636,86 @@
 	[[PSCPreferencesController sharedPrefsWindowController] showWindow:nil];
 }
 
+#pragma mark - Preferences
+
+-(void)observeValueForKeyPath:(NSString *)keyPath
+					 ofObject:(id)object
+					   change:(NSDictionary *)change
+					  context:(void *)context
+{
+    NSLog(@"KVO: %@ changed property %@ to value %@", object, keyPath, change);
+	NSString *newKeyPath = [keyPath stringByReplacingOccurrencesOfString:@"values." withString:@""];
+	if ([newKeyPath isEqualToString:@"fontSize"]) {
+		[appTableView reloadData];
+	}
+	if ([newKeyPath isEqualToString:@"refreshTime"]) {
+		[self createStreamTimerWithRefreshInterval:[self preferredRefreshInterval]];
+	}
+	if ([newKeyPath isEqualToString:@"soundMode"]) {
+		// Nothing is needed here. We check to see what the preference is before playing the sound.
+	}
+	NSLog(@"key:%@", newKeyPath);
+	id index = [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:newKeyPath];
+	NSLog(@"index: %@", index);
+}
+
+#pragma mark -
+
+- (float)preferredFontSize
+{
+	// Get font preferences
+	NSNumber *fontSizeIndexNumber = [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:@"fontSize"];
+	float fontSize;
+	switch ([fontSizeIndexNumber integerValue]) {
+		case 0:
+			fontSize = 12.0f;
+			break;
+		case 1:
+			fontSize = 13.0f;
+			break;
+		case 2:
+			fontSize = 14.0f;
+			break;
+		default:
+			fontSize = 12.0f;
+			break;
+	}
+	return fontSize;
+}
+
+- (NSTimeInterval)preferredRefreshInterval
+{
+	// Get font preferences
+	NSNumber *refreshTimeIndexNumber = [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:@"refreshTime"];
+	NSTimeInterval refreshInterval;
+	switch ([refreshTimeIndexNumber integerValue]) {
+		case 0:
+			refreshInterval = 1*60;
+			break;
+		case 1:
+			refreshInterval = 2*60;
+			break;
+		case 2:
+			refreshInterval = 3*60;
+			break;
+		case 3:
+			refreshInterval = 4*60;
+		case 4:
+			refreshInterval = 5*60;
+		case 5:
+			refreshInterval = 0;
+		default:
+			refreshInterval = 3;
+			break;
+	}
+	return refreshInterval;
+}
+
+/*- (void)filterSoundBasedOnPreferences:(NSSound*)sound
+{
+	if ([sound name] isEqualToString:@"") {
+}*/
+
 #pragma mark - Loading Streams
 
 - (IBAction)refreshStream:(id)sender
@@ -837,7 +940,6 @@
 		if (![[PSCMemoryCache sharedMemory] currentUser]) {
 			[self setCurrentUser];
 		}
-		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
 			[ANSession.defaultSession postsInStreamWithCompletion:^(ANResponse * response, NSArray * posts, NSError * error) {
@@ -942,7 +1044,6 @@
 		if (![[PSCMemoryCache sharedMemory] currentUser]) {
 			[self setCurrentUser];
 		}
-		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
 			[ANSession.defaultSession postsMentioningUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse *response, NSArray *posts, NSError *error) {
@@ -1041,7 +1142,6 @@
 		if (![[PSCMemoryCache sharedMemory] currentUser]) {
 			[self setCurrentUser];
 		}
-		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
 			[ANSession.defaultSession postsStarredByUserWithID:ANMeUserID betweenID:nil andID:nil completion:^(ANResponse * response, NSArray * posts, NSError * error) {
@@ -1152,7 +1252,6 @@
 		if (![[PSCMemoryCache sharedMemory] currentUser]) {
 			[self setCurrentUser];
 		}
-		[[[self appScrollView] verticalScroller] setFloatValue:1.0];
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 		dispatch_async(queue,^{
 			// Get the latest posts in the user's incoming post stream...
@@ -1857,7 +1956,7 @@
 {
 	// Building up our attributed string
 	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:string];
-	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13.0f],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.251 green:0.251 blue:0.251 alpha:1.0]} range:NSMakeRange(0, [string length])];
+	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:[self preferredFontSize]],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.251 green:0.251 blue:0.251 alpha:1.0]} range:NSMakeRange(0, [string length])];
 	[attributedStatusString addAttribute:NSShadowAttributeName value:[self theShadow] range:NSMakeRange(0, [string length])];
 	
 	for (ANEntity *link in [entities links]) {
@@ -1874,7 +1973,7 @@
 								   [NSColor colorWithDeviceRed:0.91 green:0.278 blue:0.082 alpha:1.0], NSForegroundColorAttributeName,
 								   [NSCursor pointingHandCursor], NSCursorAttributeName,
 								   mention.text, @"UsernameMatch",
-								   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
+								   [NSFont fontWithName:@"Helvetica Neue Regular" size:[self preferredFontSize]], NSFontAttributeName,
 								   nil];
 		[attributedStatusString addAttributes:linkAttr2 range:mention.range];
 	}
@@ -1885,7 +1984,7 @@
 								   [NSColor colorWithDeviceRed:0.639 green:0.639 blue:0.639 alpha:1.0], NSForegroundColorAttributeName,
 								   [NSCursor pointingHandCursor], NSCursorAttributeName,
 								   tag.text, @"HashtagMatch",
-								   [NSFont fontWithName:@"Helvetica Neue Regular" size:13], NSFontAttributeName,
+								   [NSFont fontWithName:@"Helvetica Neue Regular" size:[self preferredFontSize]], NSFontAttributeName,
 								   nil];
 		[attributedStatusString addAttributes:linkAttr3 range:tag.range];
 	}
@@ -1897,7 +1996,7 @@
 {
 	// Building up our attributed string
 	NSMutableAttributedString *attributedStatusString = [[NSMutableAttributedString alloc] initWithString:string];
-	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica" size:13.0f],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.531 green:0.531 blue:0.531 alpha:1.0]} range:NSMakeRange(0, [string length])];
+	[attributedStatusString addAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica" size:[self preferredFontSize]],NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.531 green:0.531 blue:0.531 alpha:1.0]} range:NSMakeRange(0, [string length])];
 	//[attributedStatusString addAttribute:NSShadowAttributeName value:[self theShadow] range:NSMakeRange(0, [string length])];
 	
 	for (ANEntity *link in [entities links]) {
@@ -1915,7 +2014,7 @@
 								   [NSColor colorWithDeviceRed:0.91 green:0.278 blue:0.082 alpha:1.0], NSForegroundColorAttributeName,
 								   [NSCursor pointingHandCursor], NSCursorAttributeName,
 								   mention.text, @"UsernameMatch",
-								   [NSFont fontWithName:@"Helvetica" size:13], NSFontAttributeName,
+								   [NSFont fontWithName:@"Helvetica" size:[self preferredFontSize]], NSFontAttributeName,
 								   nil];
 		[attributedStatusString addAttributes:linkAttr2 range:mention.range];
 	}
@@ -1926,7 +2025,7 @@
 								   [NSColor colorWithDeviceRed:0.639 green:0.639 blue:0.639 alpha:1.0], NSForegroundColorAttributeName,
 								   [NSCursor pointingHandCursor], NSCursorAttributeName,
 								   tag.text, @"HashtagMatch",
-								   [NSFont fontWithName:@"Helvetica" size:13], NSFontAttributeName,
+								   [NSFont fontWithName:@"Helvetica" size:[self preferredFontSize]], NSFontAttributeName,
 								   nil];
 		[attributedStatusString addAttributes:linkAttr3 range:tag.range];
 	}
