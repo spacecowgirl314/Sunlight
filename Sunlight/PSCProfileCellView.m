@@ -96,12 +96,12 @@
 
 - (void)goBack:(id)sender
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"PopTopBreadcrumbItem" object:nil];
+	
 }
 
 - (void)goForward:(id)sender
 {
-	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"PopTopBreadcrumbItem" object:nil];
 }
 
 - (void)swipeWithEvent:(NSEvent *)event {
