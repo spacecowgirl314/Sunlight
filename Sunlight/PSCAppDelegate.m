@@ -1546,6 +1546,16 @@
 	}
 }
 
+- (IBAction)repostPost:(id)sender
+{
+	NSUInteger selectedRow = appTableView.selectedRow;
+	// selectedRow is -1 if no row is selected
+	if (selectedRow!=-1) {
+		PSCPostCellView *postCellView = [appTableView viewAtColumn:0 row:selectedRow makeIfNecessary:NO];
+		[postCellView repostPost:nil];
+	}
+}
+
 #pragma mark - Mentions Notifications
 
 - (void)checkForMentions

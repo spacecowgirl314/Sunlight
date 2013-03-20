@@ -220,6 +220,16 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="39632375">
+									<reference key="NSMenu" ref="720053764"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="262131932">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Reply</string>
@@ -229,7 +239,16 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="914171473">
+								<object class="NSMenuItem" id="315760793">
+									<reference key="NSMenu" ref="720053764"/>
+									<string key="NSTitle">Repost</string>
+									<string key="NSKeyEquiv">r</string>
+									<int key="NSKeyEquivModMask">524288</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="211409925">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Star</string>
 									<string key="NSKeyEquiv">s</string>
@@ -1856,9 +1875,17 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">starPost:</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="914171473"/>
+						<reference key="destination" ref="211409925"/>
 					</object>
 					<int key="connectionID">4808</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">repostPost:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="315760793"/>
+					</object>
+					<int key="connectionID">4811</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2244,7 +2271,9 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="705341025"/>
 							<reference ref="262131932"/>
-							<reference ref="914171473"/>
+							<reference ref="211409925"/>
+							<reference ref="39632375"/>
+							<reference ref="315760793"/>
 						</array>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -3748,7 +3777,17 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">4807</int>
-						<reference key="object" ref="914171473"/>
+						<reference key="object" ref="211409925"/>
+						<reference key="parent" ref="720053764"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4809</int>
+						<reference key="object" ref="39632375"/>
+						<reference key="parent" ref="720053764"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4810</int>
+						<reference key="object" ref="315760793"/>
 						<reference key="parent" ref="720053764"/>
 					</object>
 				</array>
@@ -3989,6 +4028,8 @@
 				<string key="4803.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4804.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4807.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="4809.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="4810.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="485.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="490.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="491.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4027,7 +4068,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">4808</int>
+			<int key="maxID">4811</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4064,6 +4105,7 @@
 						<string key="openPreferences:">id</string>
 						<string key="openReplyPost:">id</string>
 						<string key="refreshStream:">id</string>
+						<string key="repostPost:">id</string>
 						<string key="scrollPositionTestMethod:">id</string>
 						<string key="starPost:">id</string>
 						<string key="switchToMentions:">id</string>
@@ -4096,6 +4138,10 @@
 						</object>
 						<object class="IBActionInfo" key="refreshStream:">
 							<string key="name">refreshStream:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="repostPost:">
+							<string key="name">repostPost:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="scrollPositionTestMethod:">

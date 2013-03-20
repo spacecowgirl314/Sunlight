@@ -73,6 +73,7 @@ typedef enum {
 - (IBAction)refreshStream:(id)sender;
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)starPost:(id)sender;
+- (IBAction)repostPost:(id)sender;
 
 // test stuff
 - (IBAction)scrollPositionTestMethod:(id)sender;
