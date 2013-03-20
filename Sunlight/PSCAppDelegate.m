@@ -1881,7 +1881,7 @@
 		//NSLog(@"this is a repost");
 		ANUser *userReposting = user;
 		user = [[post repostOf] user];
-		post = [post repostOf];
+		//post = [post repostOf];
 		[result showRepost];
 		NSString *repostByString = [[NSString alloc] initWithFormat:@"Reposted by %@", [userReposting name]];
 		NSMutableAttributedString *repostedByAttributedString = [[NSMutableAttributedString alloc] initWithString:repostByString attributes:@{NSFontAttributeName:[NSFont fontWithName:@"Helvetica Neue" size:13], NSForegroundColorAttributeName:[NSColor colorWithDeviceRed:0.500 green:0.500 blue:0.500 alpha:1.0], @"UsernameMatch":[userReposting username]}];
