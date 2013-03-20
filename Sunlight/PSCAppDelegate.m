@@ -1672,13 +1672,18 @@
 {
 	// if we were selected and now we aren't bail on this
 	if ([appTableView selectedRow]==-1) {
+		previouslySelectedRow=-1;
 		return;
 	}
-	// old row
-	id content = [postsArray objectAtIndex:previouslySelectedRow];
-	if ([content isKindOfClass:[ANPost class]]) {
-		PSCPostCellView *postCellView = [appTableView viewAtColumn:0 row:previouslySelectedRow makeIfNecessary:NO];
-		[postCellView disableHightlight];
+	id content;
+	// if we were previously unselected there is obviously nothing to unselect
+	if (previouslySelectedRow!=-1) {
+		// old row
+		content = [postsArray objectAtIndex:previouslySelectedRow];
+		if ([content isKindOfClass:[ANPost class]]) {
+			PSCPostCellView *postCellView = [appTableView viewAtColumn:0 row:previouslySelectedRow makeIfNecessary:NO];
+			[postCellView disableHightlight];
+		}
 	}
 	int rowIndex = (int)[appTableView selectedRow];
 	previouslySelectedRow = rowIndex;
@@ -1705,6 +1710,7 @@
 {
 	ANPost *post = [notification object];
 	NSUInteger indexOfPost = [postsArray indexOfObject:post];
+	NSLog(@"index:%li", indexOfPost);
 	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:indexOfPost];
 	[appTableView selectRowIndexes:indexSet byExtendingSelection:NO];
 }
