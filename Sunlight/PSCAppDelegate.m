@@ -1664,9 +1664,22 @@
 	return nil;
 }
 
-- (void)deselectRow:(NSInteger)rowIndex
+- (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-	
+	// old row
+	id content = [postsArray objectAtIndex:previouslySelectedRow];
+	if ([content isKindOfClass:[ANPost class]]) {
+		PSCPostCellView *postCellView = [appTableView viewAtColumn:0 row:previouslySelectedRow makeIfNecessary:NO];
+		[postCellView disableHightlight];
+	}
+	int rowIndex = (int)[appTableView selectedRow];
+	previouslySelectedRow = rowIndex;
+	//NSLog(@"new rowIndex:%i", rowIndex);
+	content = [postsArray objectAtIndex:rowIndex];
+	if ([content isKindOfClass:[ANPost class]]) {
+		PSCPostCellView *postCellView = [appTableView viewAtColumn:0 row:rowIndex makeIfNecessary:YES];
+		[postCellView enableHighlight];
+	}
 }
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex
@@ -1678,6 +1691,7 @@
 	else {
 		return NO;
 	}
+	
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row

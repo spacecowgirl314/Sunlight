@@ -37,6 +37,7 @@ typedef enum {
 	NSMutableDictionary *streamScrollPositions;
 	NSTimer *mentionsTimer;
 	NSTimer *streamTimer;
+	int previouslySelectedRow;
 }
 
 @property (assign) IBOutlet INAppStoreWindow *window;

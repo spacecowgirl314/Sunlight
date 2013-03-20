@@ -49,6 +49,8 @@
 @property (retain, nonatomic) PSCNewPostController *postController;
 @property IBOutlet PSCHoverButton *avatarHoverButton;
 @property NSMutableDictionary *twoFingersTouches;
+@property IBOutlet PSCGradientView *topGradient;
+@property IBOutlet PSCGradientView *bottomGradient;
 
 - (IBAction)openReplyPost:(id)sender;
 - (IBAction)starPost:(id)sender;
@@ -67,5 +69,7 @@
 - (NSColor*)defaultButtonColor;
 - (void)hideRepost;
 - (void)showRepost;
+- (void)enableHighlight;
+- (void)disableHightlight;
 
 @end
