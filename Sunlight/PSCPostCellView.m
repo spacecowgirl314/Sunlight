@@ -70,7 +70,13 @@
 
 - (IBAction)viewUser:(id)sender
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"Profile" object:[[post user] username]];
+	// go to the original poster if the post is a repost
+	if ([post repostOf]) {
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"Profile" object:[[[post repostOf] user] username]];
+	}
+	else {
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"Profile" object:[[post user] username]];
+	}
 }
 
 #pragma mark - Swiping
