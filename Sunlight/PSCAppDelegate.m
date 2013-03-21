@@ -673,9 +673,9 @@
 	if ([newKeyPath isEqualToString:@"soundMode"]) {
 		// Nothing is needed here. We check to see what the preference is before playing the sound.
 	}
-	NSLog(@"key:%@", newKeyPath);
-	id index = [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:newKeyPath];
-	NSLog(@"index: %@", index);
+	//NSLog(@"key:%@", newKeyPath);
+	//id index = [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:newKeyPath];
+	//NSLog(@"index: %@", index);
 }
 
 #pragma mark -
@@ -730,10 +730,19 @@
 	return refreshInterval;
 }
 
-/*- (void)filterSoundBasedOnPreferences:(NSSound*)sound
+- (BOOL)isNotificationSoundEnabled
 {
-	if ([sound name] isEqualToString:@"") {
-}*/
+	// Get sound preferences
+	NSNumber *soundModeIndexNumber = [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:@"soundMode"];
+	return [soundModeIndexNumber integerValue]!=2;
+}
+
+- (BOOL)areAllSoundsEnabled
+{
+	// Get sound preferences
+	NSNumber *soundModeIndexNumber = [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:@"soundMode"];
+	return [soundModeIndexNumber integerValue]==0;
+}
 
 #pragma mark - Loading Streams
 
@@ -984,7 +993,10 @@
 				// do we have new posts?
 				if ([deltaIndices objectForKey:@"newPosts"]) {
 					[[[buttonCollection buttons] objectAtIndex:0] enableIndicator];
-					[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
+					if ([self areAllSoundsEnabled])
+					{
+						[[NSSound soundNamed:@"151568__lukechalaudio__user-interface-generic.wav"] play];
+					}
 				}
 				// retrieve filtered posts from memory only if we are in the stream view
 				if (currentStream==PSCMyStream && navigationController.levels==0) {
@@ -1616,7 +1628,9 @@
 	NSNumber *postID = [NSNumber numberWithLongLong:mention.ID];
 	notification.userInfo = @{@"postID":postID};
 	notification.hasActionButton = YES;
-	notification.soundName = [self random] ? @"171671__fins__success-1.wav" : @"171670__fins__success-2.wav";
+	if ([self isNotificationSoundEnabled]) {
+		notification.soundName = [self random] ? @"171671__fins__success-1.wav" : @"171670__fins__success-2.wav";
+	}
 	[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 	[[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
 }
