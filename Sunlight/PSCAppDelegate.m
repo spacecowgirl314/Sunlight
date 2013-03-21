@@ -2005,7 +2005,14 @@
 		[[result conversationButton] setHidden:NO];
 	}
 	else {
-		[[result conversationButton] setHidden:YES];
+		if ([post repostOf]) {
+			if ([[post repostOf] numberOfReplies]>0 || [[post repostOf] replyTo]) {
+				[[result conversationButton] setHidden:NO];
+			}
+		}
+		else {
+			[[result conversationButton] setHidden:YES];
+		}
 	}
 	// set creation date
 	NSString *postCreationString = [[post createdAt] stringWithHumanizedTimeDifference:NSDateHumanizedSuffixNone withFullString:NO];
