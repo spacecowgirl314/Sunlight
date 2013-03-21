@@ -51,8 +51,9 @@
 @property IBOutlet PSCHoverButton *avatarHoverButton;
 @property NSMutableDictionary *twoFingersTouches;
 @property IBOutlet PSCGradientView *topGradient;
+@property IBOutlet PSCGradientView *topShadow;
 @property IBOutlet PSCGradientView *bottomGradient;
-@property IBOutlet NSImageView *topShadow;
+@property IBOutlet PSCGradientView *bottomShadow;
 
 - (IBAction)openReplyPost:(id)sender;
 - (IBAction)starPost:(id)sender;

@@ -33,6 +33,7 @@
 @synthesize topGradient;
 @synthesize bottomGradient;
 @synthesize topShadow;
+@synthesize bottomShadow;
 
 #define kSwipeMinimumLength 0.25
 
@@ -54,7 +55,11 @@
       [NSColor colorWithDeviceRed:0.961 green:0.965 blue:0.863 alpha:1.0], NSBackgroundColorAttributeName,
       nil]];
 	
-	[topGradient setStartingColor:[NSColor colorWithDeviceRed:0.894 green:0.894 blue:0.894 alpha:1.0] endingColor:[NSColor colorWithDeviceRed:0.965 green:0.965 blue:0.965 alpha:1.0]];
+	[topGradient setStartingColor:[NSColor colorWithDeviceRed:0.894 green:0.894 blue:0.894 alpha:1.0] endingColor:[NSColor colorWithDeviceRed:0.894 green:0.894 blue:0.894 alpha:1.0]];
+    
+    [topShadow setStartingColor:[NSColor colorWithDeviceRed:0.8 green:0.8 blue:0.8 alpha:1.0] endingColor:[NSColor colorWithDeviceRed:0.894 green:0.894 blue:0.894 alpha:1.0]];
+    
+    [bottomShadow setStartingColor:[NSColor colorWithDeviceRed:0.894 green:0.894 blue:0.894 alpha:1.0] endingColor:[NSColor colorWithDeviceRed:0.784 green:0.784 blue:0.784 alpha:0.8]];
 }
 
 - (IBAction)viewRepostUser:(id)sender
@@ -438,11 +443,17 @@
 - (void)enableHighlight
 {
 	[topGradient setHidden:NO];
+    [topShadow setHidden:NO];
+    [bottomShadow setHidden:NO];
+    [bottomGradient setHidden:YES];
 }
 
 - (void)disableHightlight
 {
 	[topGradient setHidden:YES];
+    [topShadow setHidden:YES];
+    [bottomShadow setHidden:YES];
+    [bottomGradient setHidden:NO];
 }
 
 #pragma mark - More Button Methods
