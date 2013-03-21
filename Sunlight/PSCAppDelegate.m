@@ -42,6 +42,8 @@
 													   andSelector:@selector(receivedURL:withReplyEvent:)
 													 forEventClass:kInternetEventClass
 														andEventID:kAEGetURL];
+	// setup defaults for preferences
+	[self setupDefaults];
 	return self;
 }
 
@@ -60,7 +62,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
+	//[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
 	// Setup Pocket API
 	[[PocketAPI sharedAPI] setConsumerKey:@"12374-26052e4b51af78877e3cb733"];
 	/*[[PocketAPI sharedAPI] loginWithHandler:^(PocketAPI *api, NSError *error) {
@@ -74,7 +76,7 @@
 	streamScrollPositions = [NSMutableDictionary new];
 	// Expiration code
 	NSDate *now = [NSDate date];
-	NSDate *expireDate = [NSDate dateWithNaturalLanguageString:@"April 1, 2013"];
+	NSDate *expireDate = [NSDate dateWithNaturalLanguageString:@"April 15, 2013"];
 	if ([now compare:expireDate] == NSOrderedDescending) {
 		[menu setAutoenablesItems:NO];
 		for (NSMenuItem *item in [menu itemArray]) {
@@ -210,6 +212,20 @@
 		[self loadMyStream:YES];
 		//[streamTimer fire];
 	} repeats:YES];
+}
+
+- (void)setupDefaults
+{
+	NSString *userDefaultsValuesPath;
+    NSDictionary *userDefaultsValuesDict;
+	
+    // load the default values for the user defaults
+    userDefaultsValuesPath=[[NSBundle mainBundle] pathForResource:@"UserDefaults"
+														   ofType:@"plist"];
+    userDefaultsValuesDict=[NSDictionary dictionaryWithContentsOfFile:userDefaultsValuesPath];
+	
+    // set them in the standard user defaults
+    [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsValuesDict];
 }
 
 #pragma mark - Authentication

@@ -146,6 +146,7 @@
 		37B520AB1615837D00941F0D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B520AA1615837D00941F0D /* Carbon.framework */; };
 		37B520AD1615840100941F0D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B520AC1615840100941F0D /* QuartzCore.framework */; };
 		37B8EFDC16E6F2E800CE0990 /* NSAlert+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B8EFDB16E6F2E800CE0990 /* NSAlert+Blocks.m */; };
+		37DB81AD16FA854800BDCB1A /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37DB81AC16FA854800BDCB1A /* UserDefaults.plist */; };
 		37DF6A5616F433D3005D28DB /* PSCHoverButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DF6A5516F433D3005D28DB /* PSCHoverButton.m */; };
 		37DF6A5F16F43F6F005D28DB /* DBPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DF6A5E16F43F6F005D28DB /* DBPrefsWindowController.m */; };
 		37DF6A6816F44087005D28DB /* PSCPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DF6A6616F44087005D28DB /* PSCPreferencesController.m */; };
@@ -672,6 +673,7 @@
 		37B520AC1615840100941F0D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		37B8EFDA16E6F2E800CE0990 /* NSAlert+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAlert+Blocks.h"; path = "NSAlert-Blocks/Tester/NSAlert+Blocks.h"; sourceTree = "<group>"; };
 		37B8EFDB16E6F2E800CE0990 /* NSAlert+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAlert+Blocks.m"; path = "NSAlert-Blocks/Tester/NSAlert+Blocks.m"; sourceTree = "<group>"; };
+		37DB81AC16FA854800BDCB1A /* UserDefaults.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = UserDefaults.plist; sourceTree = "<group>"; };
 		37DF6A5416F433D3005D28DB /* PSCHoverButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCHoverButton.h; sourceTree = "<group>"; };
 		37DF6A5516F433D3005D28DB /* PSCHoverButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCHoverButton.m; sourceTree = "<group>"; };
 		37DF6A5D16F43F6F005D28DB /* DBPrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBPrefsWindowController.h; path = Sunlight/DBPrefsWindowController/Source/DBPrefsWindowController.h; sourceTree = SOURCE_ROOT; };
@@ -1455,6 +1457,7 @@
 		37B5206916157DF500941F0D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				37DB81AC16FA854800BDCB1A /* UserDefaults.plist */,
 				37AD27BF1627F59F008E58BF /* Sunlight.iconset */,
 				37B5206A16157DF500941F0D /* Sunlight-Info.plist */,
 				37B5206B16157DF500941F0D /* InfoPlist.strings */,
@@ -1969,6 +1972,7 @@
 				7078D37A16F4FF9A00ECEBFF /* prefs-general.png in Resources */,
 				7078D37B16F4FF9A00ECEBFF /* prefs-accounts@2x.png in Resources */,
 				7078D37C16F4FF9A00ECEBFF /* prefs-accounts.png in Resources */,
+				37DB81AD16FA854800BDCB1A /* UserDefaults.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
