@@ -33,3 +33,6 @@
 [submodule "Sunlight/cloudapp"]
 	path = Sunlight/cloudapp
 	url = git://github.com/cloudapp/objective-c.git
+[submodule "Sunlight/InstapaperKit"]
+	path = Sunlight/InstapaperKit
+	url = https://github.com/matthiasplappert/InstapaperKit

@@ -48,4 +48,25 @@
 	[self addView:notificationsPreferences label:@"Notifications" image:[NSImage imageNamed:@"prefs-notifications"]];
 }
 
+-(void)observeValueForKeyPath:(NSString *)keyPath
+					 ofObject:(id)object
+					   change:(NSDictionary *)change
+					  context:(void *)context
+{
+    NSLog(@"KVO: %@ changed property %@ to value %@", object, keyPath, change);
+	NSString *newKeyPath = [keyPath stringByReplacingOccurrencesOfString:@"values." withString:@""];
+	if ([newKeyPath isEqualToString:@"readLaterService"]) {
+		// Get font preferences
+		NSNumber *readLaterServiceIndexNumber = [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:@"readLaterService"];
+		switch ([readLaterServiceIndexNumber integerValue]) {
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+		}
+	}
+}
+
 @end

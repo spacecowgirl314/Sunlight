@@ -495,6 +495,18 @@
 	}
 }
 
+- (IBAction)addToInstapaper:(id)sender
+{
+	// Assuming that your class has an instance variable _engine
+	IKEngine *engine = [[IKEngine alloc] initWithDelegate:self];
+	engine.OAuthToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"InstapaperOAuthToken"];
+    engine.OAuthTokenSecret = [[NSUserDefaults standardUserDefaults] stringForKey:@"InstapaperOAuthTokenSecret"];;
+	for (ANEntity *link in post.entities.links)
+	{
+		[engine addBookmarkWithURL:link.URL userInfo:nil];
+	}
+}
+
 - (IBAction)copyContents:(id)sender
 {
 	[[NSPasteboard generalPasteboard] clearContents];
@@ -529,6 +541,20 @@
 - (void)menuDidClose:(NSMenu *)menu
 {
 	moreButton.alternateImage = [NSImage imageNamed:@"timeline-more-pressed"];
+}
+
+#pragma mark - InstpaperKit Delegate
+
+- (void)engine:(IKEngine *)engine connection:(IKURLConnection *)connection didAddBookmark:(IKBookmark *)bookmark
+{
+	// the URL was saved successfully
+}
+
+- (void)engine:(IKEngine *)engine didFailConnection:(IKURLConnection *)connection error:(NSError *)error
+{
+	// there was an issue connecting to Instapaper
+	// present some UI to notify if necessary
+	NSLog(@"Error while saving to Instapaper: %@", [error description]);
 }
 
 @end

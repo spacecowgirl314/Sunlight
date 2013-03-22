@@ -15,4 +15,6 @@
 @property IBOutlet NSView *servicesPreferences;
 @property IBOutlet NSView *notificationsPreferences;
 
+- (IBAction)openSharedDialog:(id)sender;
+
 @end

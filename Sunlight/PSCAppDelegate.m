@@ -27,7 +27,7 @@
 #import "PocketAPI.h"
 #import "PSCHoverButton.h"
 #import "PSCPreferencesController.h"
-//#import "ANEntity.h"
+#import "InstapaperKit.h"
 
 @implementation PSCAppDelegate
 @synthesize postController, loginController;
@@ -65,6 +65,8 @@
 	//[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
 	// Setup Pocket API
 	[[PocketAPI sharedAPI] setConsumerKey:@"12374-26052e4b51af78877e3cb733"];
+	[IKEngine setOAuthConsumerKey:@"D9MYrGMUFoCE8rxjIuPGxCMlmIm4ixdEC3FfaKeTCMfpfJSEZV"
+				andConsumerSecret:@"szzbQTYkePe7Vqp4vRkNELXIALhyGYVecwJVazqgNdTUKF39kz"];
 	/*[[PocketAPI sharedAPI] loginWithHandler:^(PocketAPI *api, NSError *error) {
 		if (!error) {
 			NSLog(@"Pocket logged in successfully");
@@ -2005,6 +2007,7 @@
 		[[result conversationButton] setHidden:NO];
 	}
 	else {
+		// detect if the post is a repost and then check for replies again
 		if ([post repostOf]) {
 			if ([[post repostOf] numberOfReplies]>0 || [[post repostOf] replyTo]) {
 				[[result conversationButton] setHidden:NO];

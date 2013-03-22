@@ -11,8 +11,9 @@
 #import "PSCNewPostController.h"
 #import "PSCHoverButton.h"
 #import "PSCTextView.h"
+#import "InstapaperKit.h"
 
-@interface PSCPostCellView : NSTableCellView <NSMenuDelegate, PSCTextViewDelegate> {
+@interface PSCPostCellView : NSTableCellView <NSMenuDelegate, PSCTextViewDelegate, IKEngineDelegate> {
 	ANPost *post;
 	IBOutlet NSScrollView *postScrollView;
 	IBOutlet PSCTextView *postView;
@@ -67,6 +68,7 @@
 - (IBAction)openMore:(id)sender;
 - (IBAction)addToReadingList:(id)sender;
 - (IBAction)addToPocket:(id)sender;
+- (IBAction)addToInstapaper:(id)sender;
 - (IBAction)copyContents:(id)sender;
 - (IBAction)copyLink:(id)sender;
 - (NSColor*)defaultButtonColor;

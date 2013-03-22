@@ -16,6 +16,16 @@
 		371D970A16C067A2009BCDB1 /* avatar-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 371D970616C067A2009BCDB1 /* avatar-overlay.png */; };
 		37240F0C16C389CB0002A64B /* PSCThumbnailKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 37240F0B16C389CB0002A64B /* PSCThumbnailKit.m */; };
 		37240F0E16C396280002A64B /* PSCPostCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37240F0D16C396280002A64B /* PSCPostCellView.xib */; };
+		372C863416FC098B00DB3399 /* IKBookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C861B16FC098B00DB3399 /* IKBookmark.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		372C863516FC098B00DB3399 /* IKConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C861D16FC098B00DB3399 /* IKConstants.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		372C863616FC098B00DB3399 /* IKDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C861F16FC098B00DB3399 /* IKDeserializer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		372C863716FC098B00DB3399 /* IKEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C862116FC098B00DB3399 /* IKEngine.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		372C863816FC098B00DB3399 /* IKFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C862316FC098B00DB3399 /* IKFolder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		372C863916FC098B00DB3399 /* IKURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C862616FC098B00DB3399 /* IKURLConnection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		372C863A16FC098B00DB3399 /* IKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C862816FC098B00DB3399 /* IKUser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		372C863C16FC098B00DB3399 /* NSString+IKEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C862D16FC098B00DB3399 /* NSString+IKEncoding.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		372C863D16FC098B00DB3399 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C863116FC098B00DB3399 /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		372C864416FC0E7700DB3399 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C864116FC0E7700DB3399 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		372C890D16CB850D00EE84EC /* NSTimer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C890C16CB850D00EE84EC /* NSTimer+Blocks.m */; };
 		373036BC16BA6EA500F69545 /* _ANIdentifiedResourceSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3730363B16BA6EA500F69545 /* _ANIdentifiedResourceSet.m */; };
 		373036BD16BA6EA500F69545 /* ANAccessTokenInformationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3730363D16BA6EA500F69545 /* ANAccessTokenInformationRequest.m */; };
@@ -435,6 +445,28 @@
 		37240F0A16C389CB0002A64B /* PSCThumbnailKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCThumbnailKit.h; sourceTree = "<group>"; };
 		37240F0B16C389CB0002A64B /* PSCThumbnailKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCThumbnailKit.m; sourceTree = "<group>"; };
 		37240F0D16C396280002A64B /* PSCPostCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCPostCellView.xib; sourceTree = "<group>"; };
+		372C861A16FC098B00DB3399 /* IKBookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKBookmark.h; sourceTree = "<group>"; };
+		372C861B16FC098B00DB3399 /* IKBookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKBookmark.m; sourceTree = "<group>"; };
+		372C861C16FC098B00DB3399 /* IKConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKConstants.h; sourceTree = "<group>"; };
+		372C861D16FC098B00DB3399 /* IKConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKConstants.m; sourceTree = "<group>"; };
+		372C861E16FC098B00DB3399 /* IKDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKDeserializer.h; sourceTree = "<group>"; };
+		372C861F16FC098B00DB3399 /* IKDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKDeserializer.m; sourceTree = "<group>"; };
+		372C862016FC098B00DB3399 /* IKEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKEngine.h; sourceTree = "<group>"; };
+		372C862116FC098B00DB3399 /* IKEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKEngine.m; sourceTree = "<group>"; };
+		372C862216FC098B00DB3399 /* IKFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKFolder.h; sourceTree = "<group>"; };
+		372C862316FC098B00DB3399 /* IKFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKFolder.m; sourceTree = "<group>"; };
+		372C862416FC098B00DB3399 /* IKURLConnection+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IKURLConnection+Private.h"; sourceTree = "<group>"; };
+		372C862516FC098B00DB3399 /* IKURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKURLConnection.h; sourceTree = "<group>"; };
+		372C862616FC098B00DB3399 /* IKURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKURLConnection.m; sourceTree = "<group>"; };
+		372C862716FC098B00DB3399 /* IKUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKUser.h; sourceTree = "<group>"; };
+		372C862816FC098B00DB3399 /* IKUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKUser.m; sourceTree = "<group>"; };
+		372C862B16FC098B00DB3399 /* InstapaperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstapaperKit.h; sourceTree = "<group>"; };
+		372C862C16FC098B00DB3399 /* NSString+IKEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+IKEncoding.h"; sourceTree = "<group>"; };
+		372C862D16FC098B00DB3399 /* NSString+IKEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+IKEncoding.m"; sourceTree = "<group>"; };
+		372C863016FC098B00DB3399 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		372C863116FC098B00DB3399 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		372C864016FC0E7700DB3399 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		372C864116FC0E7700DB3399 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		372C890B16CB850D00EE84EC /* NSTimer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Blocks.h"; sourceTree = "<group>"; };
 		372C890C16CB850D00EE84EC /* NSTimer+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Blocks.m"; sourceTree = "<group>"; };
 		3730363A16BA6EA500F69545 /* _ANIdentifiedResourceSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ANIdentifiedResourceSet.h; sourceTree = "<group>"; };
@@ -931,6 +963,60 @@
 			path = Godzippa/Godzippa;
 			sourceTree = "<group>";
 		};
+		372C861716FC098B00DB3399 /* InstapaperKit */ = {
+			isa = PBXGroup;
+			children = (
+				372C861A16FC098B00DB3399 /* IKBookmark.h */,
+				372C861B16FC098B00DB3399 /* IKBookmark.m */,
+				372C861C16FC098B00DB3399 /* IKConstants.h */,
+				372C861D16FC098B00DB3399 /* IKConstants.m */,
+				372C861E16FC098B00DB3399 /* IKDeserializer.h */,
+				372C861F16FC098B00DB3399 /* IKDeserializer.m */,
+				372C862016FC098B00DB3399 /* IKEngine.h */,
+				372C862116FC098B00DB3399 /* IKEngine.m */,
+				372C862216FC098B00DB3399 /* IKFolder.h */,
+				372C862316FC098B00DB3399 /* IKFolder.m */,
+				372C862416FC098B00DB3399 /* IKURLConnection+Private.h */,
+				372C862516FC098B00DB3399 /* IKURLConnection.h */,
+				372C862616FC098B00DB3399 /* IKURLConnection.m */,
+				372C862716FC098B00DB3399 /* IKUser.h */,
+				372C862816FC098B00DB3399 /* IKUser.m */,
+				372C862B16FC098B00DB3399 /* InstapaperKit.h */,
+				372C862C16FC098B00DB3399 /* NSString+IKEncoding.h */,
+				372C862D16FC098B00DB3399 /* NSString+IKEncoding.m */,
+				372C862E16FC098B00DB3399 /* Third Party */,
+			);
+			name = InstapaperKit;
+			path = InstapaperKit/InstapaperKit;
+			sourceTree = "<group>";
+		};
+		372C862E16FC098B00DB3399 /* Third Party */ = {
+			isa = PBXGroup;
+			children = (
+				372C862F16FC098B00DB3399 /* Base64 */,
+				372C863E16FC0E7700DB3399 /* JSONKit */,
+			);
+			path = "Third Party";
+			sourceTree = "<group>";
+		};
+		372C862F16FC098B00DB3399 /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				372C863016FC098B00DB3399 /* NSData+Base64.h */,
+				372C863116FC098B00DB3399 /* NSData+Base64.m */,
+			);
+			path = Base64;
+			sourceTree = "<group>";
+		};
+		372C863E16FC0E7700DB3399 /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				372C864016FC0E7700DB3399 /* JSONKit.h */,
+				372C864116FC0E7700DB3399 /* JSONKit.m */,
+			);
+			path = JSONKit;
+			sourceTree = "<group>";
+		};
 		3730363916BA6EA500F69545 /* appnetkit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1183,6 +1269,7 @@
 		3798E07F16F176E200D6F145 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				372C861716FC098B00DB3399 /* InstapaperKit */,
 				37DF6A5C16F43F5F005D28DB /* DBPrefsWindowController */,
 				3798E06916F048E900D6F145 /* Pocket SDK */,
 				3733B9C71626A3780098E6A1 /* INAppStoreWindow */,
@@ -2116,6 +2203,16 @@
 				37DF6A5616F433D3005D28DB /* PSCHoverButton.m in Sources */,
 				37DF6A5F16F43F6F005D28DB /* DBPrefsWindowController.m in Sources */,
 				37DF6A6816F44087005D28DB /* PSCPreferencesController.m in Sources */,
+				372C863416FC098B00DB3399 /* IKBookmark.m in Sources */,
+				372C863516FC098B00DB3399 /* IKConstants.m in Sources */,
+				372C863616FC098B00DB3399 /* IKDeserializer.m in Sources */,
+				372C863716FC098B00DB3399 /* IKEngine.m in Sources */,
+				372C863816FC098B00DB3399 /* IKFolder.m in Sources */,
+				372C863916FC098B00DB3399 /* IKURLConnection.m in Sources */,
+				372C863A16FC098B00DB3399 /* IKUser.m in Sources */,
+				372C863C16FC098B00DB3399 /* NSString+IKEncoding.m in Sources */,
+				372C863D16FC098B00DB3399 /* NSData+Base64.m in Sources */,
+				372C864416FC0E7700DB3399 /* JSONKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
