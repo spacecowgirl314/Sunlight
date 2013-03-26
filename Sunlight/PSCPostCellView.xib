@@ -203,7 +203,7 @@
 										<string key="NSFrameSize">{288, 72}</string>
 										<reference key="NSSuperview" ref="41427505"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="1042207625"/>
+										<reference key="NSNextKeyView" ref="525209338"/>
 										<string key="NSReuseIdentifierKey">_NS:13</string>
 										<object class="NSTextContainer" key="NSTextContainer" id="317913247">
 											<object class="NSLayoutManager" key="NSLayoutManager">
@@ -340,7 +340,7 @@
 						<string key="NSFrame">{{70, 39}, {288, 72}}</string>
 						<reference key="NSSuperview" ref="606671869"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="41427505"/>
+						<reference key="NSNextKeyView" ref="1042207625"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="NSsFlags">133120</int>
 						<reference key="NSVScroller" ref="1042207625"/>
@@ -448,6 +448,7 @@
 						<string key="NSFrame">{{334, 8}, {19, 15}}</string>
 						<reference key="NSSuperview" ref="606671869"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="806309843">
@@ -705,7 +706,7 @@
 						<reference key="NSSuperview" ref="606671869"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="960916579"/>
-						<double key="NSViewAlphaValue">0.40000000000000002</double>
+						<double key="NSViewAlphaValue">0.45000000000000001</double>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSOffsets">{0, 0}</string>
 						<object class="NSTextFieldCell" key="NSTitleCell">
@@ -736,7 +737,7 @@
 						<reference key="NSSuperview" ref="606671869"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="200096390"/>
-						<double key="NSViewAlphaValue">0.19999999999999998</double>
+						<double key="NSViewAlphaValue">0.070000000000000007</double>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSOffsets">{0, 0}</string>
 						<object class="NSTextFieldCell" key="NSTitleCell">
