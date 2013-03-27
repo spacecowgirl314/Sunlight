@@ -67,14 +67,6 @@
 	[[PocketAPI sharedAPI] setConsumerKey:@"12374-26052e4b51af78877e3cb733"];
 	[IKEngine setOAuthConsumerKey:@"D9MYrGMUFoCE8rxjIuPGxCMlmIm4ixdEC3FfaKeTCMfpfJSEZV"
 				andConsumerSecret:@"szzbQTYkePe7Vqp4vRkNELXIALhyGYVecwJVazqgNdTUKF39kz"];
-	/*[[PocketAPI sharedAPI] loginWithHandler:^(PocketAPI *api, NSError *error) {
-		if (!error) {
-			NSLog(@"Pocket logged in successfully");
-		}
-		else {
-			NSLog(@"Pocket login failed.");
-		}
-	}];*/
 	streamScrollPositions = [NSMutableDictionary new];
 	// Expiration code
 	NSDate *now = [NSDate date];

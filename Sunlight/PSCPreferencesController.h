@@ -7,14 +7,23 @@
 //
 
 #import "DBPrefsWindowController.h"
+#import "InstapaperKit.h"
 
-@interface PSCPreferencesController : DBPrefsWindowController
+typedef enum {
+	PSCShareServiceReadingList,
+	PSCShareServicePocket,
+	PSCShareServiceInstapaper
+} PSCShareService;
+
+@interface PSCPreferencesController : DBPrefsWindowController <IKEngineDelegate>
 
 @property IBOutlet NSView *generalPreferences;
 @property IBOutlet NSView *accountsPreferences;
 @property IBOutlet NSView *servicesPreferences;
 @property IBOutlet NSView *notificationsPreferences;
-
-- (IBAction)openSharedDialog:(id)sender;
+@property IBOutlet NSWindow *loginWindow;
+@property IBOutlet NSTextField *loginTextLabel;
+@property IBOutlet NSTextField *usernameTextField;
+@property IBOutlet NSTextField *passwordTextField;
 
 @end
