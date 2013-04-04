@@ -22,8 +22,10 @@ typedef enum {
 @property IBOutlet NSView *servicesPreferences;
 @property IBOutlet NSView *notificationsPreferences;
 @property IBOutlet NSWindow *loginWindow;
+@property IBOutlet NSWindow *loggedInWindow;
 @property IBOutlet NSTextField *loginTextLabel;
 @property IBOutlet NSTextField *usernameTextField;
 @property IBOutlet NSTextField *passwordTextField;
+@property IBOutlet NSTextField *serviceLabel;
 
 @end

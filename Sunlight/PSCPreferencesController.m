@@ -19,9 +19,11 @@
 @synthesize servicesPreferences;
 @synthesize notificationsPreferences;
 @synthesize loginWindow;
+@synthesize loggedInWindow;
 @synthesize loginTextLabel;
 @synthesize usernameTextField;
 @synthesize passwordTextField;
+@synthesize serviceLabel;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -64,22 +66,25 @@
 	switch (readLater) {
 		case 0:
 			break;
-		case 1:
-			[self setupLoginSheet];
-			[NSApp beginSheet: loginWindow
-			   modalForWindow: self.window
-				modalDelegate: self
-			   didEndSelector: nil //@selector(saveSheetDidEnd:returnCode:contextInfo:)
-				  contextInfo: NULL];
-			/*[[PocketAPI sharedAPI] loginWithHandler:^(PocketAPI *api, NSError *error) {
-			 if (!error) {
-			 NSLog(@"Pocket logged in successfully");
-			 }
-			 else {
-			 NSLog(@"Pocket login failed.");
-			 }
-			 }];*/
+		case 1: {
+			if ([[PocketAPI sharedAPI] isLoggedIn]) {
+				[self setupLoggedInSheet];
+				[NSApp beginSheet: loggedInWindow
+				   modalForWindow: self.window
+					modalDelegate: self
+				   didEndSelector: nil //@selector(saveSheetDidEnd:returnCode:contextInfo:)
+					  contextInfo: NULL];
+			}
+			else {
+				[self setupLoginSheet];
+				[NSApp beginSheet: loginWindow
+				   modalForWindow: self.window
+					modalDelegate: self
+				   didEndSelector: nil //@selector(saveSheetDidEnd:returnCode:contextInfo:)
+					  contextInfo: NULL];
+			}
 			break;
+		}
 		case 2:
 			[self setupLoginSheet];
 			[NSApp beginSheet: loginWindow
@@ -109,6 +114,22 @@
 			case 2:
 				break;
 		}
+	}
+}
+
+#pragma mark - Logged In Sheet
+
+- (void)setupLoggedInSheet
+{
+	switch ([self currentService]) {
+		case PSCShareServiceReadingList:
+			break;
+		case PSCShareServiceInstapaper:
+			[serviceLabel setStringValue:@"Instapaper"];
+			break;
+		case PSCShareServicePocket:
+			[serviceLabel setStringValue:@"Pocket"];
+			break;
 	}
 }
 
@@ -145,6 +166,12 @@
 {
 	[loginWindow close];
 	[NSApp endSheet:loginWindow returnCode:NSCancelButton];
+}
+
+- (IBAction)closeLoggedInSheet:(id)sender
+{
+	[loggedInWindow close];
+	[NSApp endSheet:loggedInWindow returnCode:NSCancelButton];
 }
 
 - (IBAction)submitLoginInformation:(id)sender
