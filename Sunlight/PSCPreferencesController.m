@@ -24,6 +24,7 @@
 @synthesize usernameTextField;
 @synthesize passwordTextField;
 @synthesize serviceLabel;
+@synthesize loggedInLabel;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -76,6 +77,39 @@
 					  contextInfo: NULL];
 			}
 			else {
+				/*[self setupLoginSheet];
+				[NSApp beginSheet: loginWindow
+				   modalForWindow: self.window
+					modalDelegate: self
+				   didEndSelector: nil //@selector(saveSheetDidEnd:returnCode:contextInfo:)
+					  contextInfo: NULL];*/
+				[[PocketAPI sharedAPI] loginWithHandler: ^(PocketAPI *API, NSError *error){
+					if (error != nil)
+					{
+						// There was an error when authorizing the user. The most common error is that the user denied access to your application.
+						// The error object will contain a human readable error message that you should display to the user
+						// Ex: Show an UIAlertView with the message from error.localizedDescription
+						[popUpButton selectItemAtIndex:0];
+					}
+					else
+					{
+						// The user logged in successfully, your app can now make requests.
+						// [API username] will return the logged-in user’s username and API.loggedIn will == YES
+					}
+				}];
+			}
+			break;
+		}
+		case 2:
+			if ([[NSUserDefaults standardUserDefaults] objectForKey:@"InstapaperOAuthTokenSecret"]) {
+				[self setupLoggedInSheet];
+				[NSApp beginSheet: loggedInWindow
+				   modalForWindow: self.window
+					modalDelegate: self
+				   didEndSelector: nil //@selector(saveSheetDidEnd:returnCode:contextInfo:)
+					  contextInfo: NULL];
+			}
+			else {
 				[self setupLoginSheet];
 				[NSApp beginSheet: loginWindow
 				   modalForWindow: self.window
@@ -84,8 +118,34 @@
 					  contextInfo: NULL];
 			}
 			break;
+	}
+}
+
+- (IBAction)changeAccount:(id)sender
+{
+	switch ([self currentService]) {
+		case PSCShareServicePocket: {
+			[[PocketAPI sharedAPI] logout];
+			[[PocketAPI sharedAPI] loginWithHandler: ^(PocketAPI *API, NSError *error){
+				if (error != nil)
+				{
+					// There was an error when authorizing the user. The most common error is that the user denied access to your application.
+					// The error object will contain a human readable error message that you should display to the user
+					// Ex: Show an UIAlertView with the message from error.localizedDescription
+					
+					// fail silently?
+				}
+				else
+				{
+					// The user logged in successfully, your app can now make requests.
+					// [API username] will return the logged-in user’s username and API.loggedIn will == YES
+				}
+			}];
+			break;
 		}
-		case 2:
+		default: {
+			[loggedInWindow close];
+			[NSApp endSheet:loggedInWindow returnCode:NSCancelButton];
 			[self setupLoginSheet];
 			[NSApp beginSheet: loginWindow
 			   modalForWindow: self.window
@@ -93,6 +153,7 @@
 			   didEndSelector: nil //@selector(saveSheetDidEnd:returnCode:contextInfo:)
 				  contextInfo: NULL];
 			break;
+		}
 	}
 }
 
@@ -124,12 +185,19 @@
 	switch ([self currentService]) {
 		case PSCShareServiceReadingList:
 			break;
-		case PSCShareServiceInstapaper:
+		case PSCShareServiceInstapaper: {
 			[serviceLabel setStringValue:@"Instapaper"];
+			IKEngine *engine = [[IKEngine alloc] initWithDelegate:self];
+			engine.OAuthToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"InstapaperOAuthToken"];
+			engine.OAuthTokenSecret = [[NSUserDefaults standardUserDefaults] stringForKey:@"InstapaperOAuthTokenSecret"];
+			[engine verifyCredentialsWithUserInfo:nil];
 			break;
-		case PSCShareServicePocket:
+		}
+		case PSCShareServicePocket: {
 			[serviceLabel setStringValue:@"Pocket"];
+			[loggedInLabel setStringValue:[[NSString alloc] initWithFormat:@"You are logged in as \"%@\".", [[PocketAPI sharedAPI] username]]];
 			break;
+		}
 	}
 }
 
@@ -206,6 +274,11 @@
 - (void)engine:(IKEngine *)engine didFailConnection:(IKURLConnection *)connection error:(NSError *)error
 {
 	NSLog(@"Instapaper login failed");
+}
+
+- (void)engine:(IKEngine *)engine connection:(IKURLConnection *)connection didVerifyCredentialsForUser:(IKUser *)user
+{
+	[loggedInLabel setStringValue:[[NSString alloc] initWithFormat:@"You are logged in as \"%@\".", [user username]]];
 }
 
 @end

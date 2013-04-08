@@ -27,5 +27,6 @@ typedef enum {
 @property IBOutlet NSTextField *usernameTextField;
 @property IBOutlet NSTextField *passwordTextField;
 @property IBOutlet NSTextField *serviceLabel;
+@property IBOutlet NSTextField *loggedInLabel;
 
 @end

@@ -1075,7 +1075,6 @@
 							<string key="NSFrame">{{21, 35}, {152, 17}}</string>
 							<reference key="NSSuperview" ref="36869387"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="927734762">
@@ -1289,6 +1288,22 @@
 						<reference key="destination" ref="198229776"/>
 					</object>
 					<int key="connectionID">549</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">loggedInLabel</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="202440635"/>
+					</object>
+					<int key="connectionID">550</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeAccount:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="869532952"/>
+					</object>
+					<int key="connectionID">551</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3712,7 +3727,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">549</int>
+			<int key="maxID">551</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3735,9 +3750,39 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">PSCPreferencesController</string>
 					<string key="superclassName">DBPrefsWindowController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="changeAccount:">id</string>
+						<string key="changeReadLater:">id</string>
+						<string key="closeLoggedInSheet:">id</string>
+						<string key="closeLoginSheet:">id</string>
+						<string key="submitLoginInformation:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="changeAccount:">
+							<string key="name">changeAccount:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeReadLater:">
+							<string key="name">changeReadLater:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="closeLoggedInSheet:">
+							<string key="name">closeLoggedInSheet:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="closeLoginSheet:">
+							<string key="name">closeLoginSheet:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="submitLoginInformation:">
+							<string key="name">submitLoginInformation:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="accountsPreferences">NSView</string>
 						<string key="generalPreferences">NSView</string>
+						<string key="loggedInLabel">NSTextField</string>
 						<string key="loggedInWindow">NSWindow</string>
 						<string key="loginTextLabel">NSTextField</string>
 						<string key="loginWindow">NSWindow</string>
@@ -3755,6 +3800,10 @@
 						<object class="IBToOneOutletInfo" key="generalPreferences">
 							<string key="name">generalPreferences</string>
 							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="loggedInLabel">
+							<string key="name">loggedInLabel</string>
+							<string key="candidateClassName">NSTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="loggedInWindow">
 							<string key="name">loggedInWindow</string>
