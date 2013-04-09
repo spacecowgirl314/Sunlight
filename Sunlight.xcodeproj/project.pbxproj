@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37006C2C1713BCED00C2E8D5 /* PSCAttachmentTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C2B1713BCED00C2E8D5 /* PSCAttachmentTextView.m */; };
 		370B822016E46E16004A105E /* PSCStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B821F16E46E16004A105E /* PSCStream.m */; };
 		370B822316E494C6004A105E /* NSDictionary+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B822216E494C6004A105E /* NSDictionary+Compression.m */; };
 		370B822916E496D1004A105E /* NSData+Godzippa.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B822816E496D1004A105E /* NSData+Godzippa.m */; };
@@ -431,6 +432,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		37006C2A1713BCED00C2E8D5 /* PSCAttachmentTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCAttachmentTextView.h; sourceTree = "<group>"; };
+		37006C2B1713BCED00C2E8D5 /* PSCAttachmentTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCAttachmentTextView.m; sourceTree = "<group>"; };
 		370B821E16E46E16004A105E /* PSCStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCStream.h; sourceTree = "<group>"; };
 		370B821F16E46E16004A105E /* PSCStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCStream.m; sourceTree = "<group>"; };
 		370B822116E494C6004A105E /* NSDictionary+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Compression.h"; sourceTree = "<group>"; };
@@ -953,6 +956,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		37006C2017138AA900C2E8D5 /* Read Later Services */ = {
+			isa = PBXGroup;
+			children = (
+				3798E06916F048E900D6F145 /* Pocket SDK */,
+				372C861716FC098B00DB3399 /* InstapaperKit */,
+			);
+			name = "Read Later Services";
+			sourceTree = "<group>";
+		};
 		370B822616E496D1004A105E /* Godzippa */ = {
 			isa = PBXGroup;
 			children = (
@@ -1269,9 +1281,8 @@
 		3798E07F16F176E200D6F145 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
-				372C861716FC098B00DB3399 /* InstapaperKit */,
+				37006C2017138AA900C2E8D5 /* Read Later Services */,
 				37DF6A5C16F43F5F005D28DB /* DBPrefsWindowController */,
-				3798E06916F048E900D6F145 /* Pocket SDK */,
 				3733B9C71626A3780098E6A1 /* INAppStoreWindow */,
 				3730363916BA6EA500F69545 /* appnetkit */,
 				3798E07E16F1765D00D6F145 /* RegexKitLite */,
@@ -1455,6 +1466,8 @@
 				37DF6A5516F433D3005D28DB /* PSCHoverButton.m */,
 				3786043F16D773E600F56553 /* PSCAvatarImageView.h */,
 				3786044016D773E600F56553 /* PSCAvatarImageView.m */,
+				37006C2A1713BCED00C2E8D5 /* PSCAttachmentTextView.h */,
+				37006C2B1713BCED00C2E8D5 /* PSCAttachmentTextView.m */,
 				378602EE16C22C57003256B9 /* PSCTextView.h */,
 				378602EF16C22C58003256B9 /* PSCTextView.m */,
 				376A71DE16EF28AD009A99D3 /* PSCTableView.h */,
@@ -2213,6 +2226,7 @@
 				372C863C16FC098B00DB3399 /* NSString+IKEncoding.m in Sources */,
 				372C863D16FC098B00DB3399 /* NSData+Base64.m in Sources */,
 				372C864416FC0E7700DB3399 /* JSONKit.m in Sources */,
+				37006C2C1713BCED00C2E8D5 /* PSCAttachmentTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

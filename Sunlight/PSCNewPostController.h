@@ -12,8 +12,9 @@
 #import "PSCGradientView.h"
 #import "PSCGradientButton.h"
 
-@interface PSCNewPostController: NSWindowController <NSTextFieldDelegate> {
+@interface PSCNewPostController: NSWindowController <NSTextDelegate> {
 	IBOutlet NSTextField *postTextField;
+	IBOutlet NSTextView *postTextView;
 	IBOutlet NSTextField *charactersLeftLabel;
 	IBOutlet NSButton *postButton;
 	IBOutlet NSButton *cancelButton;
@@ -24,6 +25,7 @@
 }
 
 @property IBOutlet NSTextField *postTextField;
+@property IBOutlet NSTextView *postTextView;
 @property IBOutlet NSTextField *charactersLeftLabel;
 @property IBOutlet NSButton *postButton;
 @property IBOutlet NSButton *cancelButton;

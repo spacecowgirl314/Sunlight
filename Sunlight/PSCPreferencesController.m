@@ -126,6 +126,7 @@
 	switch ([self currentService]) {
 		case PSCShareServicePocket: {
 			[[PocketAPI sharedAPI] logout];
+			[[NSUserDefaults standardUserDefaults] synchronize];
 			[[PocketAPI sharedAPI] loginWithHandler: ^(PocketAPI *API, NSError *error){
 				if (error != nil)
 				{

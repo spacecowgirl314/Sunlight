@@ -20,6 +20,7 @@
 @synthesize topGradientView, cancelButton;
 @synthesize avatarView;
 @synthesize titleView;
+@synthesize postTextView;
 
 -(id)init
 {
@@ -40,8 +41,6 @@
     window.inactiveTitleBarStartColor = [NSColor colorWithDeviceRed:0.98 green:0.98 blue:0.98 alpha:1.0];
     window.inactiveTitleBarEndColor = [NSColor colorWithDeviceRed:0.98 green:0.98 blue:0.98 alpha:1.0];
     window.showsBaselineSeparator = NO;
-	
-	[postTextField setDelegate:self];
     
     [window center];
 	
@@ -95,12 +94,13 @@
 	[postButton setStartingColor:topColor];
 	[postButton setEndingColor:bottomColor];*/
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSControlTextDidChangeNotification object:postTextField];
+	//[postTextView setDelegate:self];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:nil];
 }
 
 - (IBAction)pressCancel:(id)sender
 {
-	[postTextField setStringValue:@""];
+	[postTextView setString:@""];
 	[[self window] close];
 }
 
@@ -127,12 +127,13 @@
     return result;
 }
 
-// This is called every time we type in postTextField
+// This is called every time we type in postTextView
 - (void)textDidChange:(NSNotification *)aNotification
 {
 	//NSLog(@"controlTextDidChange");
 	// Set character count to character count label
-	NSString *string = [postTextField stringValue];
+	[postTextView setFont:[NSFont fontWithName:@"Helvetica Neue" size:13]];
+	NSString *string = [postTextView string];
 	NSInteger count = 256-[string length];
 	// Beep if we went over count
 	if (count<0) {
@@ -149,7 +150,7 @@
 {
 	if (replyPost==nil) {
 		ANDraft *newDraft = [ANDraft new];
-		[newDraft setText:[postTextField stringValue]];
+		[newDraft setText:[postTextView string]];
 		[newDraft createPostViaSession:ANSession.defaultSession completion:^(ANResponse * response, ANPost * post, NSError * error) {
 			if(!post) {
 				NSLog(@"There was an error posting.");
@@ -157,14 +158,14 @@
 			}
 			else {
 				NSLog(@"Post succeeded!");
-				[postTextField setStringValue:@""];
+				[postTextView setString:@""];
 				[self close];
 			}
 		}];
 	}
 	else {
 		// And post it.
-		[replyPost setText:[postTextField stringValue]];
+		[replyPost setText:[postTextView string]];
 		[replyPost createPostViaSession:ANSession.defaultSession completion:^(ANResponse * response, ANPost * post, NSError * error) {
 			if(!post) {
 				NSLog(@"There was an error posting the reply.");
@@ -183,7 +184,7 @@
 - (void)draftReply:(ANPost*)post
 {
 	replyPost = [post draftReplyToAllExceptUser:[[PSCMemoryCache sharedMemory] currentUser]];
-	[postTextField setStringValue:[replyPost text]];
+	[postTextView setString:[replyPost text]];
 	// adjust character count
 	[self textDidChange:nil];
 }
