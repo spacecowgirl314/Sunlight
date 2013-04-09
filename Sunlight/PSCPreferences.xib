@@ -138,6 +138,7 @@
 						<string key="NSFrame">{{156, 17}, {100, 26}}</string>
 						<reference key="NSSuperview" ref="162904456"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="830685834">
@@ -401,6 +402,7 @@
 						<string key="NSFrame">{{50, 82}, {320, 17}}</string>
 						<reference key="NSSuperview" ref="690921409"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="59477511">
@@ -433,6 +435,7 @@
 						<string key="NSFrame">{{156, 17}, {100, 26}}</string>
 						<reference key="NSSuperview" ref="558046192"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="524748423">
@@ -523,7 +526,6 @@
 								<string key="NSKeyEquiv"/>
 								<int key="NSKeyEquivModMask">1048576</int>
 								<int key="NSMnemonicLoc">2147483647</int>
-								<int key="NSState">1</int>
 								<reference key="NSOnImage" ref="1069441859"/>
 								<reference key="NSMixedImage" ref="514827590"/>
 								<string key="NSAction">_popUpItemAction:</string>
@@ -539,6 +541,7 @@
 										<string key="NSKeyEquiv"/>
 										<int key="NSKeyEquivModMask">1048576</int>
 										<int key="NSMnemonicLoc">2147483647</int>
+										<int key="NSState">1</int>
 										<reference key="NSOnImage" ref="1069441859"/>
 										<reference key="NSMixedImage" ref="514827590"/>
 										<string key="NSAction">_popUpItemAction:</string>
@@ -952,6 +955,7 @@
 							<string key="NSFrame">{{144, 9}, {55, 19}}</string>
 							<reference key="NSSuperview" ref="409157897"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="614740649">
@@ -1075,6 +1079,7 @@
 							<string key="NSFrame">{{21, 35}, {152, 17}}</string>
 							<reference key="NSSuperview" ref="36869387"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="869532952"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="927734762">
@@ -1095,6 +1100,7 @@
 							<string key="NSFrame">{{241, 8}, {87, 19}}</string>
 							<reference key="NSSuperview" ref="36869387"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="853907559">
@@ -1368,6 +1374,38 @@
 						</object>
 					</object>
 					<int key="connectionID">358</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">selectedIndex: values.uploadService</string>
+						<reference key="source" ref="353465043"/>
+						<reference key="destination" ref="460965959"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="353465043"/>
+							<reference key="NSDestination" ref="460965959"/>
+							<string key="NSLabel">selectedIndex: values.uploadService</string>
+							<string key="NSBinding">selectedIndex</string>
+							<string key="NSKeyPath">values.uploadService</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">553</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">selectedIndex: values.uploadService</string>
+						<reference key="source" ref="524748423"/>
+						<reference key="destination" ref="460965959"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="524748423"/>
+							<reference key="NSDestination" ref="460965959"/>
+							<string key="NSLabel">selectedIndex: values.uploadService</string>
+							<string key="NSBinding">selectedIndex</string>
+							<string key="NSKeyPath">values.uploadService</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">554</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3727,7 +3765,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">551</int>
+			<int key="maxID">554</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3750,35 +3788,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">PSCPreferencesController</string>
 					<string key="superclassName">DBPrefsWindowController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="changeAccount:">id</string>
-						<string key="changeReadLater:">id</string>
-						<string key="closeLoggedInSheet:">id</string>
-						<string key="closeLoginSheet:">id</string>
-						<string key="submitLoginInformation:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="changeAccount:">
-							<string key="name">changeAccount:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeReadLater:">
-							<string key="name">changeReadLater:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="closeLoggedInSheet:">
-							<string key="name">closeLoggedInSheet:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="closeLoginSheet:">
-							<string key="name">closeLoginSheet:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="submitLoginInformation:">
-							<string key="name">submitLoginInformation:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="accountsPreferences">NSView</string>
 						<string key="generalPreferences">NSView</string>

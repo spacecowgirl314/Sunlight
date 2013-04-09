@@ -8,6 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		37006C2C1713BCED00C2E8D5 /* PSCAttachmentTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C2B1713BCED00C2E8D5 /* PSCAttachmentTextView.m */; };
+		37006C2F1713C85500C2E8D5 /* PSCUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C2E1713C85500C2E8D5 /* PSCUploader.m */; };
+		37006C5D1713CC7B00C2E8D5 /* DKAppCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C331713CC7B00C2E8D5 /* DKAppCredentials.m */; };
+		37006C5E1713CC7B00C2E8D5 /* DKAuthUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C351713CC7B00C2E8D5 /* DKAuthUtils.m */; };
+		37006C5F1713CC7B00C2E8D5 /* DKUserCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C371713CC7B00C2E8D5 /* DKUserCredentials.m */; };
+		37006C601713CC7B00C2E8D5 /* DKOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C391713CC7B00C2E8D5 /* DKOperation.m */; };
+		37006C611713CC7B00C2E8D5 /* DKService+OpsWithDefaultCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C3B1713CC7B00C2E8D5 /* DKService+OpsWithDefaultCredentials.m */; };
+		37006C621713CC7B00C2E8D5 /* DKService.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C3D1713CC7B00C2E8D5 /* DKService.m */; };
+		37006C631713CC7B00C2E8D5 /* DKTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C3F1713CC7B00C2E8D5 /* DKTypes.m */; };
+		37006C641713CC7B00C2E8D5 /* DKAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C431713CC7B00C2E8D5 /* DKAccount.m */; };
+		37006C651713CC7B00C2E8D5 /* DKDrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C451713CC7B00C2E8D5 /* DKDrop.m */; };
+		37006C661713CC7B00C2E8D5 /* DKDropCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C471713CC7B00C2E8D5 /* DKDropCreation.m */; };
+		37006C671713CC7B00C2E8D5 /* DKDropStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C491713CC7B00C2E8D5 /* DKDropStub.m */; };
+		37006C681713CC7B00C2E8D5 /* DKListFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C4B1713CC7B00C2E8D5 /* DKListFilter.m */; };
+		37006C691713CC7B00C2E8D5 /* DKJsonAccountParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C4E1713CC7B00C2E8D5 /* DKJsonAccountParser.m */; };
+		37006C6A1713CC7B00C2E8D5 /* DKJsonDropCreationParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C501713CC7B00C2E8D5 /* DKJsonDropCreationParser.m */; };
+		37006C6B1713CC7B00C2E8D5 /* DKJsonDropListParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C521713CC7B00C2E8D5 /* DKJsonDropListParser.m */; };
+		37006C6C1713CC7B00C2E8D5 /* DKJsonDropParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C541713CC7B00C2E8D5 /* DKJsonDropParser.m */; };
+		37006C6D1713CC7B00C2E8D5 /* DKJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C561713CC7B00C2E8D5 /* DKJsonParser.m */; };
+		37006C6E1713CC7B00C2E8D5 /* DKFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C5A1713CC7B00C2E8D5 /* DKFunctions.m */; };
+		37006C6F1713CC7B00C2E8D5 /* DKService+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C5C1713CC7B00C2E8D5 /* DKService+Validations.m */; };
+		37006D081713CFC500C2E8D5 /* libBBHTTP.OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37006D071713CFC500C2E8D5 /* libBBHTTP.OSX.a */; };
 		370B822016E46E16004A105E /* PSCStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B821F16E46E16004A105E /* PSCStream.m */; };
 		370B822316E494C6004A105E /* NSDictionary+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B822216E494C6004A105E /* NSDictionary+Compression.m */; };
 		370B822916E496D1004A105E /* NSData+Godzippa.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B822816E496D1004A105E /* NSData+Godzippa.m */; };
@@ -434,6 +455,50 @@
 /* Begin PBXFileReference section */
 		37006C2A1713BCED00C2E8D5 /* PSCAttachmentTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCAttachmentTextView.h; sourceTree = "<group>"; };
 		37006C2B1713BCED00C2E8D5 /* PSCAttachmentTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCAttachmentTextView.m; sourceTree = "<group>"; };
+		37006C2D1713C85500C2E8D5 /* PSCUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCUploader.h; sourceTree = "<group>"; };
+		37006C2E1713C85500C2E8D5 /* PSCUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCUploader.m; sourceTree = "<group>"; };
+		37006C321713CC7B00C2E8D5 /* DKAppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAppCredentials.h; sourceTree = "<group>"; };
+		37006C331713CC7B00C2E8D5 /* DKAppCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAppCredentials.m; sourceTree = "<group>"; };
+		37006C341713CC7B00C2E8D5 /* DKAuthUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAuthUtils.h; sourceTree = "<group>"; };
+		37006C351713CC7B00C2E8D5 /* DKAuthUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAuthUtils.m; sourceTree = "<group>"; };
+		37006C361713CC7B00C2E8D5 /* DKUserCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKUserCredentials.h; sourceTree = "<group>"; };
+		37006C371713CC7B00C2E8D5 /* DKUserCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKUserCredentials.m; sourceTree = "<group>"; };
+		37006C381713CC7B00C2E8D5 /* DKOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKOperation.h; sourceTree = "<group>"; };
+		37006C391713CC7B00C2E8D5 /* DKOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKOperation.m; sourceTree = "<group>"; };
+		37006C3A1713CC7B00C2E8D5 /* DKService+OpsWithDefaultCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DKService+OpsWithDefaultCredentials.h"; sourceTree = "<group>"; };
+		37006C3B1713CC7B00C2E8D5 /* DKService+OpsWithDefaultCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DKService+OpsWithDefaultCredentials.m"; sourceTree = "<group>"; };
+		37006C3C1713CC7B00C2E8D5 /* DKService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKService.h; sourceTree = "<group>"; };
+		37006C3D1713CC7B00C2E8D5 /* DKService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKService.m; sourceTree = "<group>"; };
+		37006C3E1713CC7B00C2E8D5 /* DKTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKTypes.h; sourceTree = "<group>"; };
+		37006C3F1713CC7B00C2E8D5 /* DKTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTypes.m; sourceTree = "<group>"; };
+		37006C401713CC7B00C2E8D5 /* DroplrKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DroplrKit.h; sourceTree = "<group>"; };
+		37006C421713CC7B00C2E8D5 /* DKAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAccount.h; sourceTree = "<group>"; };
+		37006C431713CC7B00C2E8D5 /* DKAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAccount.m; sourceTree = "<group>"; };
+		37006C441713CC7B00C2E8D5 /* DKDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDrop.h; sourceTree = "<group>"; };
+		37006C451713CC7B00C2E8D5 /* DKDrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDrop.m; sourceTree = "<group>"; };
+		37006C461713CC7B00C2E8D5 /* DKDropCreation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDropCreation.h; sourceTree = "<group>"; };
+		37006C471713CC7B00C2E8D5 /* DKDropCreation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDropCreation.m; sourceTree = "<group>"; };
+		37006C481713CC7B00C2E8D5 /* DKDropStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDropStub.h; sourceTree = "<group>"; };
+		37006C491713CC7B00C2E8D5 /* DKDropStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDropStub.m; sourceTree = "<group>"; };
+		37006C4A1713CC7B00C2E8D5 /* DKListFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKListFilter.h; sourceTree = "<group>"; };
+		37006C4B1713CC7B00C2E8D5 /* DKListFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKListFilter.m; sourceTree = "<group>"; };
+		37006C4D1713CC7B00C2E8D5 /* DKJsonAccountParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKJsonAccountParser.h; sourceTree = "<group>"; };
+		37006C4E1713CC7B00C2E8D5 /* DKJsonAccountParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKJsonAccountParser.m; sourceTree = "<group>"; };
+		37006C4F1713CC7B00C2E8D5 /* DKJsonDropCreationParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKJsonDropCreationParser.h; sourceTree = "<group>"; };
+		37006C501713CC7B00C2E8D5 /* DKJsonDropCreationParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKJsonDropCreationParser.m; sourceTree = "<group>"; };
+		37006C511713CC7B00C2E8D5 /* DKJsonDropListParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKJsonDropListParser.h; sourceTree = "<group>"; };
+		37006C521713CC7B00C2E8D5 /* DKJsonDropListParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKJsonDropListParser.m; sourceTree = "<group>"; };
+		37006C531713CC7B00C2E8D5 /* DKJsonDropParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKJsonDropParser.h; sourceTree = "<group>"; };
+		37006C541713CC7B00C2E8D5 /* DKJsonDropParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKJsonDropParser.m; sourceTree = "<group>"; };
+		37006C551713CC7B00C2E8D5 /* DKJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKJsonParser.h; sourceTree = "<group>"; };
+		37006C561713CC7B00C2E8D5 /* DKJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKJsonParser.m; sourceTree = "<group>"; };
+		37006C571713CC7B00C2E8D5 /* DKResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKResponseParser.h; sourceTree = "<group>"; };
+		37006C591713CC7B00C2E8D5 /* DKFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKFunctions.h; sourceTree = "<group>"; };
+		37006C5A1713CC7B00C2E8D5 /* DKFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKFunctions.m; sourceTree = "<group>"; };
+		37006C5B1713CC7B00C2E8D5 /* DKService+Validations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DKService+Validations.h"; sourceTree = "<group>"; };
+		37006C5C1713CC7B00C2E8D5 /* DKService+Validations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DKService+Validations.m"; sourceTree = "<group>"; };
+		37006CD21713CF7000C2E8D5 /* BBHTTP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BBHTTP.xcodeproj; path = Sunlight/Droplr/External/BBHTTP/Project/BBHTTP.xcodeproj; sourceTree = "<group>"; };
+		37006D071713CFC500C2E8D5 /* libBBHTTP.OSX.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libBBHTTP.OSX.a; path = Sunlight/Droplr/External/BBHTTP/Project/build/Release/libBBHTTP.OSX.a; sourceTree = "<group>"; };
 		370B821E16E46E16004A105E /* PSCStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCStream.h; sourceTree = "<group>"; };
 		370B821F16E46E16004A105E /* PSCStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCStream.m; sourceTree = "<group>"; };
 		370B822116E494C6004A105E /* NSDictionary+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Compression.h"; sourceTree = "<group>"; };
@@ -931,6 +996,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37006D081713CFC500C2E8D5 /* libBBHTTP.OSX.a in Frameworks */,
 				377BEA8916F4847100D93FE0 /* libCloud.a in Frameworks */,
 				370B822B16E497C0004A105E /* libz.dylib in Frameworks */,
 				378602ED16C225BD003256B9 /* libicucore.dylib in Frameworks */,
@@ -963,6 +1029,86 @@
 				372C861716FC098B00DB3399 /* InstapaperKit */,
 			);
 			name = "Read Later Services";
+			sourceTree = "<group>";
+		};
+		37006C301713CC7B00C2E8D5 /* DroplrKit */ = {
+			isa = PBXGroup;
+			children = (
+				37006C311713CC7B00C2E8D5 /* Auth */,
+				37006C381713CC7B00C2E8D5 /* DKOperation.h */,
+				37006C391713CC7B00C2E8D5 /* DKOperation.m */,
+				37006C3A1713CC7B00C2E8D5 /* DKService+OpsWithDefaultCredentials.h */,
+				37006C3B1713CC7B00C2E8D5 /* DKService+OpsWithDefaultCredentials.m */,
+				37006C3C1713CC7B00C2E8D5 /* DKService.h */,
+				37006C3D1713CC7B00C2E8D5 /* DKService.m */,
+				37006C3E1713CC7B00C2E8D5 /* DKTypes.h */,
+				37006C3F1713CC7B00C2E8D5 /* DKTypes.m */,
+				37006C401713CC7B00C2E8D5 /* DroplrKit.h */,
+				37006C411713CC7B00C2E8D5 /* Model */,
+				37006C4C1713CC7B00C2E8D5 /* Parsing */,
+				37006C581713CC7B00C2E8D5 /* Util */,
+			);
+			name = DroplrKit;
+			path = Droplr/DroplrKit;
+			sourceTree = "<group>";
+		};
+		37006C311713CC7B00C2E8D5 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				37006C321713CC7B00C2E8D5 /* DKAppCredentials.h */,
+				37006C331713CC7B00C2E8D5 /* DKAppCredentials.m */,
+				37006C341713CC7B00C2E8D5 /* DKAuthUtils.h */,
+				37006C351713CC7B00C2E8D5 /* DKAuthUtils.m */,
+				37006C361713CC7B00C2E8D5 /* DKUserCredentials.h */,
+				37006C371713CC7B00C2E8D5 /* DKUserCredentials.m */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		37006C411713CC7B00C2E8D5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				37006C421713CC7B00C2E8D5 /* DKAccount.h */,
+				37006C431713CC7B00C2E8D5 /* DKAccount.m */,
+				37006C441713CC7B00C2E8D5 /* DKDrop.h */,
+				37006C451713CC7B00C2E8D5 /* DKDrop.m */,
+				37006C461713CC7B00C2E8D5 /* DKDropCreation.h */,
+				37006C471713CC7B00C2E8D5 /* DKDropCreation.m */,
+				37006C481713CC7B00C2E8D5 /* DKDropStub.h */,
+				37006C491713CC7B00C2E8D5 /* DKDropStub.m */,
+				37006C4A1713CC7B00C2E8D5 /* DKListFilter.h */,
+				37006C4B1713CC7B00C2E8D5 /* DKListFilter.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		37006C4C1713CC7B00C2E8D5 /* Parsing */ = {
+			isa = PBXGroup;
+			children = (
+				37006C4D1713CC7B00C2E8D5 /* DKJsonAccountParser.h */,
+				37006C4E1713CC7B00C2E8D5 /* DKJsonAccountParser.m */,
+				37006C4F1713CC7B00C2E8D5 /* DKJsonDropCreationParser.h */,
+				37006C501713CC7B00C2E8D5 /* DKJsonDropCreationParser.m */,
+				37006C511713CC7B00C2E8D5 /* DKJsonDropListParser.h */,
+				37006C521713CC7B00C2E8D5 /* DKJsonDropListParser.m */,
+				37006C531713CC7B00C2E8D5 /* DKJsonDropParser.h */,
+				37006C541713CC7B00C2E8D5 /* DKJsonDropParser.m */,
+				37006C551713CC7B00C2E8D5 /* DKJsonParser.h */,
+				37006C561713CC7B00C2E8D5 /* DKJsonParser.m */,
+				37006C571713CC7B00C2E8D5 /* DKResponseParser.h */,
+			);
+			path = Parsing;
+			sourceTree = "<group>";
+		};
+		37006C581713CC7B00C2E8D5 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				37006C591713CC7B00C2E8D5 /* DKFunctions.h */,
+				37006C5A1713CC7B00C2E8D5 /* DKFunctions.m */,
+				37006C5B1713CC7B00C2E8D5 /* DKService+Validations.h */,
+				37006C5C1713CC7B00C2E8D5 /* DKService+Validations.m */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		370B822616E496D1004A105E /* Godzippa */ = {
@@ -1288,6 +1434,7 @@
 				3798E07E16F1765D00D6F145 /* RegexKitLite */,
 				37B520A61615833700941F0D /* DDHotKey */,
 				37B5209A1615828800941F0D /* ScrollToRefresh */,
+				37006C301713CC7B00C2E8D5 /* DroplrKit */,
 			);
 			name = Submodules;
 			sourceTree = "<group>";
@@ -1510,8 +1657,10 @@
 		37B5206116157DF500941F0D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				37006CD21713CF7000C2E8D5 /* BBHTTP.xcodeproj */,
 				377BEA7E16F4846600D93FE0 /* Cloud.xcodeproj */,
 				3798E08716F1B27A00D6F145 /* Sparkle.xcodeproj */,
+				37006D071713CFC500C2E8D5 /* libBBHTTP.OSX.a */,
 				370B822A16E497C0004A105E /* libz.dylib */,
 				378602EC16C225BD003256B9 /* libicucore.dylib */,
 				3798E07816F0496500D6F145 /* Security.framework */,
@@ -1623,6 +1772,8 @@
 		37F1864716C4A96900E682E2 /* Orginal Objects */ = {
 			isa = PBXGroup;
 			children = (
+				37006C2D1713C85500C2E8D5 /* PSCUploader.h */,
+				37006C2E1713C85500C2E8D5 /* PSCUploader.m */,
 				37240F0A16C389CB0002A64B /* PSCThumbnailKit.h */,
 				37240F0B16C389CB0002A64B /* PSCThumbnailKit.m */,
 				3786031016C27CD1003256B9 /* PSCMemoryCache.h */,
@@ -2227,6 +2378,26 @@
 				372C863D16FC098B00DB3399 /* NSData+Base64.m in Sources */,
 				372C864416FC0E7700DB3399 /* JSONKit.m in Sources */,
 				37006C2C1713BCED00C2E8D5 /* PSCAttachmentTextView.m in Sources */,
+				37006C2F1713C85500C2E8D5 /* PSCUploader.m in Sources */,
+				37006C5D1713CC7B00C2E8D5 /* DKAppCredentials.m in Sources */,
+				37006C5E1713CC7B00C2E8D5 /* DKAuthUtils.m in Sources */,
+				37006C5F1713CC7B00C2E8D5 /* DKUserCredentials.m in Sources */,
+				37006C601713CC7B00C2E8D5 /* DKOperation.m in Sources */,
+				37006C611713CC7B00C2E8D5 /* DKService+OpsWithDefaultCredentials.m in Sources */,
+				37006C621713CC7B00C2E8D5 /* DKService.m in Sources */,
+				37006C631713CC7B00C2E8D5 /* DKTypes.m in Sources */,
+				37006C641713CC7B00C2E8D5 /* DKAccount.m in Sources */,
+				37006C651713CC7B00C2E8D5 /* DKDrop.m in Sources */,
+				37006C661713CC7B00C2E8D5 /* DKDropCreation.m in Sources */,
+				37006C671713CC7B00C2E8D5 /* DKDropStub.m in Sources */,
+				37006C681713CC7B00C2E8D5 /* DKListFilter.m in Sources */,
+				37006C691713CC7B00C2E8D5 /* DKJsonAccountParser.m in Sources */,
+				37006C6A1713CC7B00C2E8D5 /* DKJsonDropCreationParser.m in Sources */,
+				37006C6B1713CC7B00C2E8D5 /* DKJsonDropListParser.m in Sources */,
+				37006C6C1713CC7B00C2E8D5 /* DKJsonDropParser.m in Sources */,
+				37006C6D1713CC7B00C2E8D5 /* DKJsonParser.m in Sources */,
+				37006C6E1713CC7B00C2E8D5 /* DKFunctions.m in Sources */,
+				37006C6F1713CC7B00C2E8D5 /* DKService+Validations.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2366,8 +2537,13 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sunlight/Sunlight-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Sunlight/Droplr/External/BBHTTP/External/libcurl.iOS\"",
+					"\"$(SRCROOT)/Sunlight/Droplr/External/BBHTTP/External/libcurl.OSX\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Sunlight/cloudapp/Source/libCloud/Cloud/**";
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Sunlight/cloudapp/Source/libCloud/Cloud/** $(PROJECT_DIR)/Sunlight/Droplr/External/BBHTTP/BBHTTP/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2385,8 +2561,13 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sunlight/Sunlight-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Sunlight/Droplr/External/BBHTTP/External/libcurl.iOS\"",
+					"\"$(SRCROOT)/Sunlight/Droplr/External/BBHTTP/External/libcurl.OSX\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Sunlight/cloudapp/Source/libCloud/Cloud/**";
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Sunlight/cloudapp/Source/libCloud/Cloud/** $(PROJECT_DIR)/Sunlight/Droplr/External/BBHTTP/BBHTTP/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

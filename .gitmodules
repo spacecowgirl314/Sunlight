@@ -36,3 +36,6 @@
 [submodule "Sunlight/InstapaperKit"]
 	path = Sunlight/InstapaperKit
 	url = https://github.com/matthiasplappert/InstapaperKit
+[submodule "Sunlight/Droplr"]
+	path = Sunlight/Droplr
+	url = https://github.com/Droplr/api-objc.git

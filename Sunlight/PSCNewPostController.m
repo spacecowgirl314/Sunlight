@@ -8,7 +8,7 @@
 
 #import "PSCNewPostController.h"
 #import "PSCMemoryCache.h"
-#import "Cloud.h"
+#import "PSCUploader.h"
 
 @interface PSCNewPostController ()
 
@@ -187,14 +187,6 @@
 	[postTextView setString:[replyPost text]];
 	// adjust character count
 	[self textDidChange:nil];
-}
-
-- (IBAction)attachFile:(id)sender
-{
-	CLAPIEngine *cloudEngine = [[CLAPIEngine alloc] initWithDelegate:self];
-	[cloudEngine setEmail:@""];
-	[cloudEngine setPassword:@""];
-	[cloudEngine uploadFileWithName:nil fileData:nil userInfo:nil];
 }
 
 @end
