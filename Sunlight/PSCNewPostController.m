@@ -101,6 +101,7 @@
 - (IBAction)pressCancel:(id)sender
 {
 	[postTextView setString:@""];
+	[charactersLeftLabel setIntegerValue:256];
 	[[self window] close];
 }
 
@@ -158,6 +159,7 @@
 			}
 			else {
 				NSLog(@"Post succeeded!");
+				[charactersLeftLabel setIntegerValue:256];
 				[postTextView setString:@""];
 				[self close];
 			}
@@ -174,6 +176,7 @@
 			else {
 				// reset the reply post and close upon success
 				NSLog(@"Reply succeeded!");
+				[charactersLeftLabel setIntegerValue:256];
 				replyPost = nil;
 				[self close];
 			}

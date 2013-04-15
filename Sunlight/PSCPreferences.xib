@@ -520,12 +520,13 @@
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">400</int>
 							<int key="NSPeriodicInterval">75</int>
-							<object class="NSMenuItem" key="NSMenuItem" id="942424956">
+							<object class="NSMenuItem" key="NSMenuItem" id="973058500">
 								<reference key="NSMenu" ref="1002840873"/>
-								<string key="NSTitle">Droplr</string>
+								<string key="NSTitle">App.net</string>
 								<string key="NSKeyEquiv"/>
 								<int key="NSKeyEquivModMask">1048576</int>
 								<int key="NSMnemonicLoc">2147483647</int>
+								<int key="NSState">1</int>
 								<reference key="NSOnImage" ref="1069441859"/>
 								<reference key="NSMixedImage" ref="514827590"/>
 								<string key="NSAction">_popUpItemAction:</string>
@@ -535,18 +536,7 @@
 							<object class="NSMenu" key="NSMenu" id="1002840873">
 								<string key="NSTitle">OtherViews</string>
 								<array class="NSMutableArray" key="NSMenuItems">
-									<object class="NSMenuItem" id="973058500">
-										<reference key="NSMenu" ref="1002840873"/>
-										<string key="NSTitle">App.net</string>
-										<string key="NSKeyEquiv"/>
-										<int key="NSKeyEquivModMask">1048576</int>
-										<int key="NSMnemonicLoc">2147483647</int>
-										<int key="NSState">1</int>
-										<reference key="NSOnImage" ref="1069441859"/>
-										<reference key="NSMixedImage" ref="514827590"/>
-										<string key="NSAction">_popUpItemAction:</string>
-										<reference key="NSTarget" ref="353465043"/>
-									</object>
+									<reference ref="973058500"/>
 									<object class="NSMenuItem" id="979871096">
 										<reference key="NSMenu" ref="1002840873"/>
 										<string key="NSTitle">Cloud</string>
@@ -558,7 +548,17 @@
 										<string key="NSAction">_popUpItemAction:</string>
 										<reference key="NSTarget" ref="353465043"/>
 									</object>
-									<reference ref="942424956"/>
+									<object class="NSMenuItem" id="942424956">
+										<reference key="NSMenu" ref="1002840873"/>
+										<string key="NSTitle">Droplr</string>
+										<string key="NSKeyEquiv"/>
+										<int key="NSKeyEquivModMask">1048576</int>
+										<int key="NSMnemonicLoc">2147483647</int>
+										<reference key="NSOnImage" ref="1069441859"/>
+										<reference key="NSMixedImage" ref="514827590"/>
+										<string key="NSAction">_popUpItemAction:</string>
+										<reference key="NSTarget" ref="353465043"/>
+									</object>
 								</array>
 								<reference key="NSMenuFont" ref="719858022"/>
 							</object>
@@ -713,7 +713,7 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="945108939">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="422898663">
@@ -721,6 +721,8 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{60, 23}, {215, 18}}</string>
 						<reference key="NSSuperview" ref="945108939"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="718761291">
@@ -751,6 +753,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{60, 47}, {316, 18}}</string>
 						<reference key="NSSuperview" ref="945108939"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="422898663"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -777,6 +780,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{60, 71}, {305, 18}}</string>
 						<reference key="NSSuperview" ref="945108939"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="388167071"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -803,6 +807,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{60, 95}, {220, 18}}</string>
 						<reference key="NSSuperview" ref="945108939"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1026208697"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -829,6 +834,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{60, 119}, {217, 18}}</string>
 						<reference key="NSSuperview" ref="945108939"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="120154739"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -852,6 +858,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{421, 155}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="732250128"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="NSClassName">NSView</string>
@@ -1310,6 +1318,14 @@
 						<reference key="destination" ref="869532952"/>
 					</object>
 					<int key="connectionID">551</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeUpload:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="219427909"/>
+					</object>
+					<int key="connectionID">555</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3765,7 +3781,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">554</int>
+			<int key="maxID">555</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3788,6 +3804,40 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">PSCPreferencesController</string>
 					<string key="superclassName">DBPrefsWindowController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="changeAccount:">id</string>
+						<string key="changeReadLater:">id</string>
+						<string key="changeUpload:">id</string>
+						<string key="closeLoggedInSheet:">id</string>
+						<string key="closeLoginSheet:">id</string>
+						<string key="submitLoginInformation:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="changeAccount:">
+							<string key="name">changeAccount:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeReadLater:">
+							<string key="name">changeReadLater:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeUpload:">
+							<string key="name">changeUpload:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="closeLoggedInSheet:">
+							<string key="name">closeLoggedInSheet:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="closeLoginSheet:">
+							<string key="name">closeLoginSheet:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="submitLoginInformation:">
+							<string key="name">submitLoginInformation:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="accountsPreferences">NSView</string>
 						<string key="generalPreferences">NSView</string>

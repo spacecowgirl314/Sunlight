@@ -70,7 +70,7 @@
 	streamScrollPositions = [NSMutableDictionary new];
 	// Expiration code
 	NSDate *now = [NSDate date];
-	NSDate *expireDate = [NSDate dateWithNaturalLanguageString:@"April 15, 2013"];
+	NSDate *expireDate = [NSDate dateWithNaturalLanguageString:@"May 1, 2013"];
 	if ([now compare:expireDate] == NSOrderedDescending) {
 		[menu setAutoenablesItems:NO];
 		for (NSMenuItem *item in [menu itemArray]) {

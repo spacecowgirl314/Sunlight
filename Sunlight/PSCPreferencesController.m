@@ -63,8 +63,8 @@
 - (IBAction)changeReadLater:(id)sender
 {
 	NSPopUpButton *popUpButton = sender;
-	NSInteger readLater = [popUpButton indexOfSelectedItem];
-	switch (readLater) {
+	//NSInteger readLater = [popUpButton indexOfSelectedItem];
+	switch ([readLater currentService]) {
 		case 0:
 			break;
 		case 1: {
@@ -121,10 +121,30 @@
 	}
 }
 
+- (IBAction)changeUpload:(id)sender
+{
+	NSPopUpButton *popUpButton = sender;
+	PSCUploadService uploadService = (int)[popUpButton indexOfSelectedItem];
+	switch (uploadService) {
+		case PSCUploadServiceCloud:
+		{
+			[self setupLoginSheet];
+			[NSApp beginSheet: loginWindow
+			   modalForWindow: self.window
+				modalDelegate: self
+			   didEndSelector: nil //@selector(saveSheetDidEnd:returnCode:contextInfo:)
+				  contextInfo: NULL];
+			break;
+		}
+		default:
+			break;
+	}
+}
+
 - (IBAction)changeAccount:(id)sender
 {
-	switch ([self currentService]) {
-		case PSCShareServicePocket: {
+	switch ([readLater currentService]) {
+		case PSCReadLaterServicePocket: {
 			[[PocketAPI sharedAPI] logout];
 			[[NSUserDefaults standardUserDefaults] synchronize];
 			[[PocketAPI sharedAPI] loginWithHandler: ^(PocketAPI *API, NSError *error){
@@ -183,10 +203,10 @@
 
 - (void)setupLoggedInSheet
 {
-	switch ([self currentService]) {
-		case PSCShareServiceReadingList:
+	switch ([readLater currentService]) {
+		case PSCReadLaterServiceReadingList:
 			break;
-		case PSCShareServiceInstapaper: {
+		case PSCReadLaterServiceInstapaper: {
 			[serviceLabel setStringValue:@"Instapaper"];
 			IKEngine *engine = [[IKEngine alloc] initWithDelegate:self];
 			engine.OAuthToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"InstapaperOAuthToken"];
@@ -194,7 +214,7 @@
 			[engine verifyCredentialsWithUserInfo:nil];
 			break;
 		}
-		case PSCShareServicePocket: {
+		case PSCReadLaterServicePocket: {
 			[serviceLabel setStringValue:@"Pocket"];
 			[loggedInLabel setStringValue:[[NSString alloc] initWithFormat:@"You are logged in as \"%@\".", [[PocketAPI sharedAPI] username]]];
 			break;
@@ -203,20 +223,6 @@
 }
 
 #pragma mark - Login Sheet
-
-- (PSCShareService)currentService
-{
-	NSNumber *readLaterServiceIndexNumber = [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:@"readLaterService"];
-	switch ([readLaterServiceIndexNumber integerValue]) {
-		case 1:
-			return PSCShareServicePocket;
-			break;
-		case 2:
-			return PSCShareServiceInstapaper;
-			break;
-	}
-	return PSCShareServiceReadingList;
-}
 
 - (void)setupLoginSheet
 {
@@ -245,10 +251,15 @@
 
 - (IBAction)submitLoginInformation:(id)sender
 {
-	if ([self currentService]==PSCShareServiceInstapaper) {
+	if ([readLater currentService]==PSCReadLaterServiceInstapaper) {
 		// Assuming that your class has an instance variable _engine
 		IKEngine *engine = [[IKEngine alloc] initWithDelegate:self];
 		[engine authTokenForUsername:[usernameTextField stringValue] password:[passwordTextField stringValue] userInfo:nil];
+	}
+	if (YES)
+	{
+		[[NSUserDefaultsController sharedUserDefaultsController] setString:[usernameTextField stringValue] forKey:@"cloudEmail"];
+		[[NSUserDefaultsController sharedUserDefaultsController] setString:[passwordTextField stringValue] forKey:@"cloudPassword"];
 	}
 	//[loginWindow close];
 	//[NSApp endSheet:loginWindow returnCode:NSOKButton];

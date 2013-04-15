@@ -121,6 +121,7 @@
 		374AC7B616DF3FF300415826 /* PSCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 374AC7B516DF3FF300415826 /* PSCNavigationController.m */; };
 		374B859F16C323DE00E254D4 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 374B859D16C323DE00E254D4 /* arrow.png */; };
 		374B85A016C323DE00E254D4 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 374B859E16C323DE00E254D4 /* arrow@2x.png */; };
+		374F70E61718D77D0052E1C7 /* PSCReadLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 374F70E51718D77D0052E1C7 /* PSCReadLater.m */; };
 		3759737316CF947300E6993D /* 151568__lukechalaudio__user-interface-generic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3759737216CF947300E6993D /* 151568__lukechalaudio__user-interface-generic.wav */; };
 		3759737516CFA2C700E6993D /* 171671__fins__success-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3759737416CFA2C700E6993D /* 171671__fins__success-1.wav */; };
 		3759737716CFA2CC00E6993D /* 171670__fins__success-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3759737616CFA2CC00E6993D /* 171670__fins__success-2.wav */; };
@@ -437,6 +438,34 @@
 			remoteGlobalIDString = 37B5205D16157DF500941F0D;
 			remoteInfo = Sunlight;
 		};
+		37F61E4C1714C1A400A2B085 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37006CD21713CF7000C2E8D5 /* BBHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 15F5ADC016D97C180051FC4A;
+			remoteInfo = BBHTTP.iOS;
+		};
+		37F61E4E1714C1A400A2B085 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37006CD21713CF7000C2E8D5 /* BBHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 15F5ADD316D97C9E0051FC4A;
+			remoteInfo = BBHTTP.OSX;
+		};
+		37F61E501714C1A400A2B085 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37006CD21713CF7000C2E8D5 /* BBHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 15F5AE3B16D9D3BD0051FC4A;
+			remoteInfo = "OSX Sample";
+		};
+		37F61E521714C1A400A2B085 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37006CD21713CF7000C2E8D5 /* BBHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 15F5AE5B16D9D3D30051FC4A;
+			remoteInfo = "iOS Sample";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -498,7 +527,7 @@
 		37006C5B1713CC7B00C2E8D5 /* DKService+Validations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DKService+Validations.h"; sourceTree = "<group>"; };
 		37006C5C1713CC7B00C2E8D5 /* DKService+Validations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DKService+Validations.m"; sourceTree = "<group>"; };
 		37006CD21713CF7000C2E8D5 /* BBHTTP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BBHTTP.xcodeproj; path = Sunlight/Droplr/External/BBHTTP/Project/BBHTTP.xcodeproj; sourceTree = "<group>"; };
-		37006D071713CFC500C2E8D5 /* libBBHTTP.OSX.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libBBHTTP.OSX.a; path = Sunlight/Droplr/External/BBHTTP/Project/build/Release/libBBHTTP.OSX.a; sourceTree = "<group>"; };
+		37006D071713CFC500C2E8D5 /* libBBHTTP.OSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBBHTTP.OSX.a; path = Sunlight/Droplr/External/BBHTTP/Project/build/Release/libBBHTTP.OSX.a; sourceTree = "<group>"; };
 		370B821E16E46E16004A105E /* PSCStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCStream.h; sourceTree = "<group>"; };
 		370B821F16E46E16004A105E /* PSCStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCStream.m; sourceTree = "<group>"; };
 		370B822116E494C6004A105E /* NSDictionary+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Compression.h"; sourceTree = "<group>"; };
@@ -680,6 +709,8 @@
 		374AC7B516DF3FF300415826 /* PSCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCNavigationController.m; sourceTree = "<group>"; };
 		374B859D16C323DE00E254D4 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		374B859E16C323DE00E254D4 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
+		374F70E41718D77D0052E1C7 /* PSCReadLater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCReadLater.h; sourceTree = "<group>"; };
+		374F70E51718D77D0052E1C7 /* PSCReadLater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCReadLater.m; sourceTree = "<group>"; };
 		3759737216CF947300E6993D /* 151568__lukechalaudio__user-interface-generic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "151568__lukechalaudio__user-interface-generic.wav"; sourceTree = "<group>"; };
 		3759737416CFA2C700E6993D /* 171671__fins__success-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "171671__fins__success-1.wav"; sourceTree = "<group>"; };
 		3759737616CFA2CC00E6993D /* 171670__fins__success-2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "171670__fins__success-2.wav"; sourceTree = "<group>"; };
@@ -1774,6 +1805,8 @@
 			children = (
 				37006C2D1713C85500C2E8D5 /* PSCUploader.h */,
 				37006C2E1713C85500C2E8D5 /* PSCUploader.m */,
+				374F70E41718D77D0052E1C7 /* PSCReadLater.h */,
+				374F70E51718D77D0052E1C7 /* PSCReadLater.m */,
 				37240F0A16C389CB0002A64B /* PSCThumbnailKit.h */,
 				37240F0B16C389CB0002A64B /* PSCThumbnailKit.m */,
 				3786031016C27CD1003256B9 /* PSCMemoryCache.h */,
@@ -1790,6 +1823,17 @@
 				37A6F91C16E085D0002B3988 /* PSCLoadMore.m */,
 			);
 			name = "Orginal Objects";
+			sourceTree = "<group>";
+		};
+		37F61E461714C1A400A2B085 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				37F61E4D1714C1A400A2B085 /* libBBHTTP.iOS.a */,
+				37F61E4F1714C1A400A2B085 /* libBBHTTP.OSX.a */,
+				37F61E511714C1A400A2B085 /* OSX Sample.app */,
+				37F61E531714C1A400A2B085 /* iOS Sample.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		705420F716F17E1F00460F3D /* Spinner Animation */ = {
@@ -1936,6 +1980,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 37F61E461714C1A400A2B085 /* Products */;
+					ProjectRef = 37006CD21713CF7000C2E8D5 /* BBHTTP.xcodeproj */;
+				},
+				{
 					ProductGroup = 377BEA7F16F4846600D93FE0 /* Products */;
 					ProjectRef = 377BEA7E16F4846600D93FE0 /* Cloud.xcodeproj */;
 				},
@@ -1993,6 +2041,34 @@
 			fileType = wrapper.application;
 			path = finish_installation.app;
 			remoteRef = 3798E09716F1B27B00D6F145 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		37F61E4D1714C1A400A2B085 /* libBBHTTP.iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBBHTTP.iOS.a;
+			remoteRef = 37F61E4C1714C1A400A2B085 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		37F61E4F1714C1A400A2B085 /* libBBHTTP.OSX.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBBHTTP.OSX.a;
+			remoteRef = 37F61E4E1714C1A400A2B085 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		37F61E511714C1A400A2B085 /* OSX Sample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "OSX Sample.app";
+			remoteRef = 37F61E501714C1A400A2B085 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		37F61E531714C1A400A2B085 /* iOS Sample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "iOS Sample.app";
+			remoteRef = 37F61E521714C1A400A2B085 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2398,6 +2474,7 @@
 				37006C6D1713CC7B00C2E8D5 /* DKJsonParser.m in Sources */,
 				37006C6E1713CC7B00C2E8D5 /* DKFunctions.m in Sources */,
 				37006C6F1713CC7B00C2E8D5 /* DKService+Validations.m in Sources */,
+				374F70E61718D77D0052E1C7 /* PSCReadLater.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

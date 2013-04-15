@@ -24,6 +24,21 @@
 	return PSCUploadServiceADN;
 }
 
+- (BOOL)isCurrentServiceLoggedIn
+{
+	switch ([self currentService]) {
+		case PSCUploadServiceCloud: {
+			CLAPIEngine *cloudEngine = [[CLAPIEngine alloc] initWithDelegate:self];
+			[cloudEngine setEmail:[[[NSUserDefaultsController sharedUserDefaultsController] values] stringForKey:@"cloudEmail"]];
+			[cloudEngine setPassword:@"cloudPassword"];
+			NSLog(@"%@ info", [cloudEngine getAccountInformationWithUserInfo:nil]);
+		}
+		default:
+			break;
+	}
+	return NO;
+}
+
 - (void)uploadData:(NSData*)data withFileName:(NSString*)fileName
 {
 	switch ([self currentService]) {
@@ -38,8 +53,8 @@
 		}
 		case PSCUploadServiceDroplr: {
 			// Setup the app credentials
-			DKAppCredentials* app = [DKAppCredentials credentialsWithPublicKey:@"yourPublicKey"
-																 andPrivateKey:@"yourPrivateKey"];
+			DKAppCredentials* app = [DKAppCredentials credentialsWithPublicKey:@"25e34b078ec3175918b41d6166ab56c8079d69a1"
+																 andPrivateKey:@"fcbb1b70aadcbaff134f8d4918a9b0201a622ea6"];
 			
 			// Create the user agent identifier
 			NSString* userAgent = [[NSString alloc] initWithFormat:@"Sunlight/%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];

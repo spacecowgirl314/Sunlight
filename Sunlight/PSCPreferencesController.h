@@ -8,14 +8,14 @@
 
 #import "DBPrefsWindowController.h"
 #import "InstapaperKit.h"
-
-typedef enum {
-	PSCShareServiceReadingList,
-	PSCShareServicePocket,
-	PSCShareServiceInstapaper
-} PSCShareService;
+#import "PSCUploader.h"
+#import "PSCReadLater.h"
 
 @interface PSCPreferencesController : DBPrefsWindowController <IKEngineDelegate>
+{
+	PSCUploader *uploader;
+	PSCReadLater *readLater;
+}
 
 @property IBOutlet NSView *generalPreferences;
 @property IBOutlet NSView *accountsPreferences;
