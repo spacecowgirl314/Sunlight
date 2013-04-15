@@ -35,6 +35,8 @@
 																  forKeyPath:@"values.readLaterService"
 																	 options:NSKeyValueObservingOptionNew
 																	 context:NULL];
+		readLater = [PSCReadLater new];
+		uploader = [PSCUploader new];
     }
     
     return self;
@@ -62,12 +64,13 @@
 
 - (IBAction)changeReadLater:(id)sender
 {
+	return;
 	NSPopUpButton *popUpButton = sender;
 	//NSInteger readLater = [popUpButton indexOfSelectedItem];
 	switch ([readLater currentService]) {
-		case 0:
+		case PSCReadLaterServiceReadingList:
 			break;
-		case 1: {
+		case PSCReadLaterServicePocket: {
 			if ([[PocketAPI sharedAPI] isLoggedIn]) {
 				[self setupLoggedInSheet];
 				[NSApp beginSheet: loggedInWindow
@@ -100,7 +103,7 @@
 			}
 			break;
 		}
-		case 2:
+		case PSCReadLaterServiceInstapaper:
 			if ([[NSUserDefaults standardUserDefaults] objectForKey:@"InstapaperOAuthTokenSecret"]) {
 				[self setupLoggedInSheet];
 				[NSApp beginSheet: loggedInWindow
@@ -123,6 +126,7 @@
 
 - (IBAction)changeUpload:(id)sender
 {
+	return;
 	NSPopUpButton *popUpButton = sender;
 	PSCUploadService uploadService = (int)[popUpButton indexOfSelectedItem];
 	switch (uploadService) {
