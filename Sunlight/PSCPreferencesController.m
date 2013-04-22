@@ -64,7 +64,6 @@
 
 - (IBAction)changeReadLater:(id)sender
 {
-	return;
 	NSPopUpButton *popUpButton = sender;
 	//NSInteger readLater = [popUpButton indexOfSelectedItem];
 	switch ([readLater currentService]) {
@@ -126,7 +125,6 @@
 
 - (IBAction)changeUpload:(id)sender
 {
-	return;
 	NSPopUpButton *popUpButton = sender;
 	PSCUploadService uploadService = (int)[popUpButton indexOfSelectedItem];
 	switch (uploadService) {
