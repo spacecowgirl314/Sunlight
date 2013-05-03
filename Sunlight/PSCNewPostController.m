@@ -44,6 +44,9 @@
     
     [window center];
 	
+	[postTextView setDelegate:self];
+	uploader = [PSCUploader new];
+	
 	return self;
 }
 
@@ -190,6 +193,14 @@
 	[postTextView setString:[replyPost text]];
 	// adjust character count
 	[self textDidChange:nil];
+}
+
+- (void)processDraggedFile:(NSString *)fileName data:(NSData *)data
+{
+	[uploader uploadData:data withFileName:fileName completion:^(NSError *error, NSString *uploadString) {
+		NSLog(@"Hi there!");
+		[postTextView insertText:uploadString];
+	}];
 }
 
 @end

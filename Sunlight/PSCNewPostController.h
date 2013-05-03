@@ -11,21 +11,24 @@
 #import "AppNetKit.h"
 #import "PSCGradientView.h"
 #import "PSCGradientButton.h"
+#import "PSCAttachmentTextView.h"
+#import "PSCUploader.h"
 
-@interface PSCNewPostController: NSWindowController <NSTextDelegate> {
+@interface PSCNewPostController: NSWindowController <NSTextDelegate, PSCAttachmentTextViewDelegate> {
 	IBOutlet NSTextField *postTextField;
-	IBOutlet NSTextView *postTextView;
+	IBOutlet PSCAttachmentTextView *postTextView;
 	IBOutlet NSTextField *charactersLeftLabel;
 	IBOutlet NSButton *postButton;
 	IBOutlet NSButton *cancelButton;
 	IBOutlet PSCGradientView *bottomGradientView;
 	IBOutlet PSCGradientView *topGradientView;
 	IBOutlet NSImageView *avatarView;
+	PSCUploader *uploader;
 	ANDraft *replyPost;
 }
 
 @property IBOutlet NSTextField *postTextField;
-@property IBOutlet NSTextView *postTextView;
+@property IBOutlet PSCAttachmentTextView *postTextView;
 @property IBOutlet NSTextField *charactersLeftLabel;
 @property IBOutlet NSButton *postButton;
 @property IBOutlet NSButton *cancelButton;

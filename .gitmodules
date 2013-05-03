@@ -39,3 +39,6 @@
 [submodule "Sunlight/Droplr"]
 	path = Sunlight/Droplr
 	url = https://github.com/Droplr/api-objc.git
+[submodule "Sunlight/MagicKit"]
+	path = Sunlight/MagicKit
+	url = git://github.com/aidansteele/MagicKit.git

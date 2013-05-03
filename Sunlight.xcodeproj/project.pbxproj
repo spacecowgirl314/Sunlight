@@ -29,6 +29,9 @@
 		37006C6E1713CC7B00C2E8D5 /* DKFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C5A1713CC7B00C2E8D5 /* DKFunctions.m */; };
 		37006C6F1713CC7B00C2E8D5 /* DKService+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C5C1713CC7B00C2E8D5 /* DKService+Validations.m */; };
 		37006D081713CFC500C2E8D5 /* libBBHTTP.OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37006D071713CFC500C2E8D5 /* libBBHTTP.OSX.a */; };
+		3703832817335FF200B0DCC2 /* MagicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3703831E17335FE800B0DCC2 /* MagicKit.framework */; };
+		370383291733608F00B0DCC2 /* MagicKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3703831E17335FE800B0DCC2 /* MagicKit.framework */; };
+		3703833017336AF500B0DCC2 /* INWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3703832F17336AF500B0DCC2 /* INWindowButton.m */; };
 		370B822016E46E16004A105E /* PSCStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B821F16E46E16004A105E /* PSCStream.m */; };
 		370B822316E494C6004A105E /* NSDictionary+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B822216E494C6004A105E /* NSDictionary+Compression.m */; };
 		370B822916E496D1004A105E /* NSData+Godzippa.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B822816E496D1004A105E /* NSData+Godzippa.m */; };
@@ -389,6 +392,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3703831D17335FE800B0DCC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3703831217335FE700B0DCC2 /* MagicKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = MagicKit;
+		};
+		3703831F17335FE800B0DCC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3703831217335FE700B0DCC2 /* MagicKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DDC92A8412618AE90012DE28;
+			remoteInfo = "MagicKit-iOS";
+		};
+		3703832117335FE800B0DCC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3703831217335FE700B0DCC2 /* MagicKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DDC92C0512619C1E0012DE28;
+			remoteInfo = MagicKitTest;
+		};
 		377BEA8216F4846700D93FE0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 377BEA7E16F4846600D93FE0 /* Cloud.xcodeproj */;
@@ -475,6 +499,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				370383291733608F00B0DCC2 /* MagicKit.framework in CopyFiles */,
 				3798E09A16F1B29500D6F145 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,6 +553,9 @@
 		37006C5C1713CC7B00C2E8D5 /* DKService+Validations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DKService+Validations.m"; sourceTree = "<group>"; };
 		37006CD21713CF7000C2E8D5 /* BBHTTP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BBHTTP.xcodeproj; path = Sunlight/Droplr/External/BBHTTP/Project/BBHTTP.xcodeproj; sourceTree = "<group>"; };
 		37006D071713CFC500C2E8D5 /* libBBHTTP.OSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBBHTTP.OSX.a; path = Sunlight/Droplr/External/BBHTTP/Project/build/Release/libBBHTTP.OSX.a; sourceTree = "<group>"; };
+		3703831217335FE700B0DCC2 /* MagicKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MagicKit.xcodeproj; path = Sunlight/MagicKit/MagicKit.xcodeproj; sourceTree = "<group>"; };
+		3703832E17336AF500B0DCC2 /* INWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INWindowButton.h; sourceTree = "<group>"; };
+		3703832F17336AF500B0DCC2 /* INWindowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INWindowButton.m; sourceTree = "<group>"; };
 		370B821E16E46E16004A105E /* PSCStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCStream.h; sourceTree = "<group>"; };
 		370B821F16E46E16004A105E /* PSCStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCStream.m; sourceTree = "<group>"; };
 		370B822116E494C6004A105E /* NSDictionary+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Compression.h"; sourceTree = "<group>"; };
@@ -1027,6 +1055,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3703832817335FF200B0DCC2 /* MagicKit.framework in Frameworks */,
 				37006D081713CFC500C2E8D5 /* libBBHTTP.OSX.a in Frameworks */,
 				377BEA8916F4847100D93FE0 /* libCloud.a in Frameworks */,
 				370B822B16E497C0004A105E /* libz.dylib in Frameworks */,
@@ -1140,6 +1169,16 @@
 				37006C5C1713CC7B00C2E8D5 /* DKService+Validations.m */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		3703831317335FE700B0DCC2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3703831E17335FE800B0DCC2 /* MagicKit.framework */,
+				3703832017335FE800B0DCC2 /* libMagicKit-iOS.a */,
+				3703832217335FE800B0DCC2 /* MagicKitTest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		370B822616E496D1004A105E /* Godzippa */ = {
@@ -1351,6 +1390,8 @@
 			children = (
 				3733B9C91626A3780098E6A1 /* INAppStoreWindow.h */,
 				3733B9CA1626A3780098E6A1 /* INAppStoreWindow.m */,
+				3703832E17336AF500B0DCC2 /* INWindowButton.h */,
+				3703832F17336AF500B0DCC2 /* INWindowButton.m */,
 			);
 			path = INAppStoreWindow;
 			sourceTree = "<group>";
@@ -1688,6 +1729,7 @@
 		37B5206116157DF500941F0D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3703831217335FE700B0DCC2 /* MagicKit.xcodeproj */,
 				37006CD21713CF7000C2E8D5 /* BBHTTP.xcodeproj */,
 				377BEA7E16F4846600D93FE0 /* Cloud.xcodeproj */,
 				3798E08716F1B27A00D6F145 /* Sparkle.xcodeproj */,
@@ -1988,6 +2030,10 @@
 					ProjectRef = 377BEA7E16F4846600D93FE0 /* Cloud.xcodeproj */;
 				},
 				{
+					ProductGroup = 3703831317335FE700B0DCC2 /* Products */;
+					ProjectRef = 3703831217335FE700B0DCC2 /* MagicKit.xcodeproj */;
+				},
+				{
 					ProductGroup = 3798E08816F1B27A00D6F145 /* Products */;
 					ProjectRef = 3798E08716F1B27A00D6F145 /* Sparkle.xcodeproj */;
 				},
@@ -2001,6 +2047,27 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		3703831E17335FE800B0DCC2 /* MagicKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MagicKit.framework;
+			remoteRef = 3703831D17335FE800B0DCC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3703832017335FE800B0DCC2 /* libMagicKit-iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libMagicKit-iOS.a";
+			remoteRef = 3703831F17335FE800B0DCC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3703832217335FE800B0DCC2 /* MagicKitTest */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = MagicKitTest;
+			remoteRef = 3703832117335FE800B0DCC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		377BEA8316F4846700D93FE0 /* libCloud.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2475,6 +2542,7 @@
 				37006C6E1713CC7B00C2E8D5 /* DKFunctions.m in Sources */,
 				37006C6F1713CC7B00C2E8D5 /* DKService+Validations.m in Sources */,
 				374F70E61718D77D0052E1C7 /* PSCReadLater.m in Sources */,
+				3703833017336AF500B0DCC2 /* INWindowButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

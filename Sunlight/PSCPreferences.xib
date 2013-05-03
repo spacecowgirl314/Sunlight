@@ -138,7 +138,6 @@
 						<string key="NSFrame">{{156, 17}, {100, 26}}</string>
 						<reference key="NSSuperview" ref="162904456"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="830685834">
@@ -402,7 +401,6 @@
 						<string key="NSFrame">{{50, 82}, {320, 17}}</string>
 						<reference key="NSSuperview" ref="690921409"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="59477511">
@@ -435,7 +433,6 @@
 						<string key="NSFrame">{{156, 17}, {100, 26}}</string>
 						<reference key="NSSuperview" ref="558046192"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="524748423">
@@ -562,7 +559,7 @@
 								</array>
 								<reference key="NSMenuFont" ref="719858022"/>
 							</object>
-							<int key="NSSelectedIndex">2</int>
+							<int key="NSSelectedIndex">-1</int>
 							<int key="NSPreferredEdge">1</int>
 							<bool key="NSUsesItemFromMenu">YES</bool>
 							<bool key="NSAltersState">YES</bool>
@@ -633,7 +630,6 @@
 								</array>
 								<reference key="NSMenuFont" ref="719858022"/>
 							</object>
-							<int key="NSSelectedIndex">-1</int>
 							<int key="NSPreferredEdge">1</int>
 							<bool key="NSUsesItemFromMenu">YES</bool>
 							<bool key="NSAltersState">YES</bool>
@@ -722,7 +718,6 @@
 						<string key="NSFrame">{{60, 23}, {215, 18}}</string>
 						<reference key="NSSuperview" ref="945108939"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="718761291">
@@ -963,7 +958,6 @@
 							<string key="NSFrame">{{144, 9}, {55, 19}}</string>
 							<reference key="NSSuperview" ref="409157897"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="614740649">
@@ -1108,7 +1102,6 @@
 							<string key="NSFrame">{{241, 8}, {87, 19}}</string>
 							<reference key="NSSuperview" ref="36869387"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="853907559">
@@ -3804,40 +3797,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">PSCPreferencesController</string>
 					<string key="superclassName">DBPrefsWindowController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="changeAccount:">id</string>
-						<string key="changeReadLater:">id</string>
-						<string key="changeUpload:">id</string>
-						<string key="closeLoggedInSheet:">id</string>
-						<string key="closeLoginSheet:">id</string>
-						<string key="submitLoginInformation:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="changeAccount:">
-							<string key="name">changeAccount:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeReadLater:">
-							<string key="name">changeReadLater:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeUpload:">
-							<string key="name">changeUpload:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="closeLoggedInSheet:">
-							<string key="name">closeLoggedInSheet:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="closeLoginSheet:">
-							<string key="name">closeLoginSheet:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="submitLoginInformation:">
-							<string key="name">submitLoginInformation:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="accountsPreferences">NSView</string>
 						<string key="generalPreferences">NSView</string>

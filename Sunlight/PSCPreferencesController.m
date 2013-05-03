@@ -112,7 +112,7 @@
 					  contextInfo: NULL];
 			}
 			else {
-				[self setupLoginSheet];
+				[self setupLoginSheet:YES];
 				[NSApp beginSheet: loginWindow
 				   modalForWindow: self.window
 					modalDelegate: self
@@ -130,13 +130,22 @@
 	switch (uploadService) {
 		case PSCUploadServiceCloud:
 		{
-			[self setupLoginSheet];
+			[self setupLoginSheet:NO];
 			[NSApp beginSheet: loginWindow
 			   modalForWindow: self.window
 				modalDelegate: self
 			   didEndSelector: nil //@selector(saveSheetDidEnd:returnCode:contextInfo:)
 				  contextInfo: NULL];
 			break;
+		}
+		case PSCUploadServiceDroplr:
+		{
+			[self setupLoginSheet:NO];
+			[NSApp beginSheet: loginWindow
+			   modalForWindow: self.window
+				modalDelegate: self
+			   didEndSelector: nil //@selector(saveSheetDidEnd:returnCode:contextInfo:)
+				  contextInfo: NULL];
 		}
 		default:
 			break;
@@ -169,7 +178,7 @@
 		default: {
 			[loggedInWindow close];
 			[NSApp endSheet:loggedInWindow returnCode:NSCancelButton];
-			[self setupLoginSheet];
+			[self setupLoginSheet:YES];
 			[NSApp beginSheet: loginWindow
 			   modalForWindow: self.window
 				modalDelegate: self
@@ -226,16 +235,30 @@
 
 #pragma mark - Login Sheet
 
-- (void)setupLoginSheet
+- (void)setupLoginSheet:(BOOL)isReadLater
 {
-	NSNumber *readLaterServiceIndexNumber = [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:@"readLaterService"];
-	switch ([readLaterServiceIndexNumber integerValue]) {
-		case 1:
-			[loginTextLabel setStringValue:@"Log into Pocket"];
-			break;
-		case 2:
-			[loginTextLabel setStringValue:@"Log into Instapaper"];
-			break;
+	if (isReadLater) {
+		switch ([readLater currentService]) {
+			case PSCReadLaterServiceReadingList:
+			case PSCReadLaterServicePocket:
+				[loginTextLabel setStringValue:@"Log into Pocket"];
+				break;
+			case PSCReadLaterServiceInstapaper:
+				[loginTextLabel setStringValue:@"Log into Instapaper"];
+				break;
+		}
+	}
+	else {
+		switch ([uploader currentService]) {
+			case PSCUploadServiceCloud:
+				[loginTextLabel setStringValue:@"Log into Cloud"];
+				break;
+			case PSCUploadServiceDroplr:
+				[loginTextLabel setStringValue:@"Log into Droplr"];
+				break;
+			default:
+				break;
+		}
 	}
 }
 
@@ -253,18 +276,24 @@
 
 - (IBAction)submitLoginInformation:(id)sender
 {
+	// need a way to determine whether we submitted for read later or uploader
 	if ([readLater currentService]==PSCReadLaterServiceInstapaper) {
 		// Assuming that your class has an instance variable _engine
 		IKEngine *engine = [[IKEngine alloc] initWithDelegate:self];
 		[engine authTokenForUsername:[usernameTextField stringValue] password:[passwordTextField stringValue] userInfo:nil];
 	}
-	if (YES)
+	if ([uploader currentService]==PSCUploadServiceCloud)
 	{
-		[[NSUserDefaultsController sharedUserDefaultsController] setString:[usernameTextField stringValue] forKey:@"cloudEmail"];
-		[[NSUserDefaultsController sharedUserDefaultsController] setString:[passwordTextField stringValue] forKey:@"cloudPassword"];
+		[[NSUserDefaults standardUserDefaults] setObject:[usernameTextField stringValue] forKey:@"cloudEmail"];
+		[[NSUserDefaults standardUserDefaults] setObject:[passwordTextField stringValue] forKey:@"cloudPassword"];
 	}
-	//[loginWindow close];
-	//[NSApp endSheet:loginWindow returnCode:NSOKButton];
+	if ([uploader currentService]==PSCUploadServiceDroplr)
+	{
+		[[NSUserDefaults standardUserDefaults] setObject:[usernameTextField stringValue] forKey:@"droplrEmail"];
+		[[NSUserDefaults standardUserDefaults] setObject:DKHashPassword([passwordTextField stringValue]) forKey:@"droplrPassword"];
+	}
+	[loginWindow close];
+	[NSApp endSheet:loginWindow returnCode:NSOKButton];
 }
 
 #pragma IKEngine Delegate

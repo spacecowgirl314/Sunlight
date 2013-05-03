@@ -180,7 +180,6 @@
 							<string key="NSFrame">{{222, 10}, {70, 31}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="35933090">
@@ -277,7 +276,7 @@
 											<string key="NSFrameSize">{230, 74}</string>
 											<reference key="NSSuperview" ref="18603628"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="772462610"/>
+											<reference key="NSNextKeyView" ref="864690559"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<object class="NSTextContainer" key="NSTextContainer" id="538069067">
 												<object class="NSLayoutManager" key="NSLayoutManager">
@@ -298,7 +297,7 @@
 												<int key="NSTCFlags">1</int>
 											</object>
 											<object class="NSTextViewSharedData" key="NSSharedData">
-												<int key="NSFlags">16920167</int>
+												<int key="NSFlags">84029031</int>
 												<int key="NSTextCheckingTypes">0</int>
 												<nil key="NSMarkedAttributes"/>
 												<object class="NSColor" key="NSBackgroundColor">
@@ -404,7 +403,7 @@
 							<string key="NSFrame">{{70, 51}, {230, 74}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="864690559"/>
+							<reference key="NSNextKeyView" ref="18603628"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133136</int>
 							<reference key="NSVScroller" ref="772462610"/>
@@ -1452,15 +1451,10 @@
 					<string key="className">PSCNewPostController</string>
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="attachFile:">id</string>
 						<string key="post:">id</string>
 						<string key="pressCancel:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="attachFile:">
-							<string key="name">attachFile:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="post:">
 							<string key="name">post:</string>
 							<string key="candidateClassName">id</string>
@@ -1477,7 +1471,7 @@
 						<string key="charactersLeftLabel">NSTextField</string>
 						<string key="postButton">NSButton</string>
 						<string key="postTextField">NSTextField</string>
-						<string key="postTextView">NSTextView</string>
+						<string key="postTextView">PSCAttachmentTextView</string>
 						<string key="titleView">NSView</string>
 						<string key="topGradientView">PSCGradientView</string>
 					</dictionary>
@@ -1508,7 +1502,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="postTextView">
 							<string key="name">postTextView</string>
-							<string key="candidateClassName">NSTextView</string>
+							<string key="candidateClassName">PSCAttachmentTextView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="titleView">
 							<string key="name">titleView</string>

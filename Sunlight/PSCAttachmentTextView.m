@@ -9,6 +9,7 @@
 #import "PSCAttachmentTextView.h"
 
 @implementation PSCAttachmentTextView
+@synthesize delegate;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -42,11 +43,17 @@
 	return NSDragOperationCopy;
 }
 
-- (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender  {
+- (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender
+{
     return YES;
 }
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender
+{	
+	return YES;
+}
+
+- (void)concludeDragOperation:(id<NSDraggingInfo>)sender
 {
 	NSPasteboard *pasteboard = [sender draggingPasteboard];
 	NSData *data = [pasteboard dataForType:NSFilenamesPboardType];
@@ -56,12 +63,7 @@
 	NSString *fileName = [fileURL lastPathComponent];
 	NSLog(@"Attached %@", fileName);
 	
-	return YES;
-}
-
-- (void)concludeDragOperation:(id<NSDraggingInfo>)sender
-{
-	
+	[[self delegate] processDraggedFile:fileName data:data];
 }
 
 - (void)updateDraggingItemsForDrag:(id<NSDraggingInfo>)sender

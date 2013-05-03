@@ -8,6 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+@protocol PSCAttachmentTextViewDelegate <NSObject>
+
+- (void)processDraggedFile:(NSString*)fileName data:(NSData*)data;
+
+@end
+
 @interface PSCAttachmentTextView : NSTextView
+
+@property id <PSCAttachmentTextViewDelegate> delegate;
 
 @end

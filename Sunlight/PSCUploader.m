@@ -7,6 +7,7 @@
 //
 
 #import "PSCUploader.h"
+#import <MagicKit/MagicKit.h>
 
 @implementation PSCUploader
 
@@ -29,8 +30,8 @@
 	switch ([self currentService]) {
 		case PSCUploadServiceCloud: {
 			CLAPIEngine *cloudEngine = [[CLAPIEngine alloc] initWithDelegate:self];
-			[cloudEngine setEmail:[[[NSUserDefaultsController sharedUserDefaultsController] values] stringForKey:@"cloudEmail"]];
-			[cloudEngine setPassword:@"cloudPassword"];
+			[cloudEngine setEmail:[[NSUserDefaults standardUserDefaults] stringForKey:@"cloudEmail"]];
+			[cloudEngine setPassword:[[NSUserDefaults standardUserDefaults] stringForKey:@"cloudPassword"]];
 			NSLog(@"%@ info", [cloudEngine getAccountInformationWithUserInfo:nil]);
 		}
 		default:
@@ -39,16 +40,17 @@
 	return NO;
 }
 
-- (void)uploadData:(NSData*)data withFileName:(NSString*)fileName
+- (void)uploadData:(NSData*)data withFileName:(NSString*)fileName completion:(PSCUploadCompletion)_completion
 {
+	completion = _completion;
 	switch ([self currentService]) {
 		case PSCUploadServiceADN:
 			break;
 		case PSCUploadServiceCloud: {
 			CLAPIEngine *cloudEngine = [[CLAPIEngine alloc] initWithDelegate:self];
-			[cloudEngine setEmail:@""];
-			[cloudEngine setPassword:@""];
-			[cloudEngine uploadFileWithName:fileName fileData:data userInfo:nil];
+			[cloudEngine setEmail:[[NSUserDefaults standardUserDefaults] stringForKey:@"cloudEmail"]];
+			[cloudEngine setPassword:[[NSUserDefaults standardUserDefaults] stringForKey:@"cloudPassword"]];
+			[cloudEngine uploadFileWithName:fileName fileData:data userInfo:@"Uploads are awesome!"];
 			break;
 		}
 		case PSCUploadServiceDroplr: {
@@ -63,17 +65,46 @@
 			DKService* service = [[DKService alloc] initWithUserAgent:userAgent andAppCredentials:app];
 			
 			// Setting up a user
-			DKUserCredentials* user = [DKUserCredentials credentialsWithEmail:@"user@email.com"
-															andHashedPassword:@"SHA1HashedPassword"];
+			DKUserCredentials* user = [DKUserCredentials credentialsWithEmail:[[NSUserDefaults standardUserDefaults] stringForKey:@"droplrEmail"]
+															andHashedPassword:[[NSUserDefaults standardUserDefaults] stringForKey:@"droplrPassword"]];
 			
 			// This ensures that all operations will use these credentials
 			// You can also specify credentials on a per-request basis
 			service.userCredentials = user;
 			
-			[service uploadData:data withType:nil andFilename:fileName];
+			GEMagicResult *magicResult = [GEMagicKit magicForData:data];
+			
+			DKOperation *operation = [service uploadData:data withType:[magicResult mimeType] andFilename:fileName];
+			operation.uploadProgressBlock = ^(NSUInteger current, NSUInteger total) {
+				// Like all other callbacks, this one is also
+				// guaranteed to be called on the main thread
+				NSLog(@"Transferred %@ of %@", DKPrettySize(current), DKPrettySize(total));
+			};
+			[operation execute:^(DKDropCreation* drop) {
+				completion(nil, [drop shortlink]);
+			} failure:^(NSError *error) {
+				completion(error, nil);
+			}];
 			break;
 		}
 	}
+}
+
+#pragma mark - Service Completion Delegates
+
+- (void)fileUploadDidSucceedWithResultingItem:(CLWebItem *)item connectionIdentifier:(NSString *)connectionIdentifier userInfo:(id)userInfo
+{
+	// URL, contentURL, or remoteURL
+	completion(nil, [[item URL] absoluteString]);
+}
+
+#pragma mark - Service Progress Delegates
+
+#pragma mark - Service Failure Delegates
+
+- (void)requestDidFailWithError:(NSError *)error connectionIdentifier:(NSString *)connectionIdentifier userInfo:(id)userInfo
+{
+	completion(error, nil);
 }
 
 @end
