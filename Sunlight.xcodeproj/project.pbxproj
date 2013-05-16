@@ -28,10 +28,10 @@
 		37006C6D1713CC7B00C2E8D5 /* DKJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C561713CC7B00C2E8D5 /* DKJsonParser.m */; };
 		37006C6E1713CC7B00C2E8D5 /* DKFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C5A1713CC7B00C2E8D5 /* DKFunctions.m */; };
 		37006C6F1713CC7B00C2E8D5 /* DKService+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = 37006C5C1713CC7B00C2E8D5 /* DKService+Validations.m */; };
-		37006D081713CFC500C2E8D5 /* libBBHTTP.OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37006D071713CFC500C2E8D5 /* libBBHTTP.OSX.a */; };
 		3703832817335FF200B0DCC2 /* MagicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3703831E17335FE800B0DCC2 /* MagicKit.framework */; };
 		370383291733608F00B0DCC2 /* MagicKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3703831E17335FE800B0DCC2 /* MagicKit.framework */; };
 		3703833017336AF500B0DCC2 /* INWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3703832F17336AF500B0DCC2 /* INWindowButton.m */; };
+		370383441733881500B0DCC2 /* libBBHTTP.OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F61E4F1714C1A400A2B085 /* libBBHTTP.OSX.a */; };
 		370B822016E46E16004A105E /* PSCStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B821F16E46E16004A105E /* PSCStream.m */; };
 		370B822316E494C6004A105E /* NSDictionary+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B822216E494C6004A105E /* NSDictionary+Compression.m */; };
 		370B822916E496D1004A105E /* NSData+Godzippa.m in Sources */ = {isa = PBXBuildFile; fileRef = 370B822816E496D1004A105E /* NSData+Godzippa.m */; };
@@ -552,7 +552,6 @@
 		37006C5B1713CC7B00C2E8D5 /* DKService+Validations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DKService+Validations.h"; sourceTree = "<group>"; };
 		37006C5C1713CC7B00C2E8D5 /* DKService+Validations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DKService+Validations.m"; sourceTree = "<group>"; };
 		37006CD21713CF7000C2E8D5 /* BBHTTP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BBHTTP.xcodeproj; path = Sunlight/Droplr/External/BBHTTP/Project/BBHTTP.xcodeproj; sourceTree = "<group>"; };
-		37006D071713CFC500C2E8D5 /* libBBHTTP.OSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBBHTTP.OSX.a; path = Sunlight/Droplr/External/BBHTTP/Project/build/Release/libBBHTTP.OSX.a; sourceTree = "<group>"; };
 		3703831217335FE700B0DCC2 /* MagicKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MagicKit.xcodeproj; path = Sunlight/MagicKit/MagicKit.xcodeproj; sourceTree = "<group>"; };
 		3703832E17336AF500B0DCC2 /* INWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INWindowButton.h; sourceTree = "<group>"; };
 		3703832F17336AF500B0DCC2 /* INWindowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INWindowButton.m; sourceTree = "<group>"; };
@@ -1056,8 +1055,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3703832817335FF200B0DCC2 /* MagicKit.framework in Frameworks */,
-				37006D081713CFC500C2E8D5 /* libBBHTTP.OSX.a in Frameworks */,
 				377BEA8916F4847100D93FE0 /* libCloud.a in Frameworks */,
+				370383441733881500B0DCC2 /* libBBHTTP.OSX.a in Frameworks */,
 				370B822B16E497C0004A105E /* libz.dylib in Frameworks */,
 				378602ED16C225BD003256B9 /* libicucore.dylib in Frameworks */,
 				3798E09916F1B28B00D6F145 /* Sparkle.framework in Frameworks */,
@@ -1733,7 +1732,6 @@
 				37006CD21713CF7000C2E8D5 /* BBHTTP.xcodeproj */,
 				377BEA7E16F4846600D93FE0 /* Cloud.xcodeproj */,
 				3798E08716F1B27A00D6F145 /* Sparkle.xcodeproj */,
-				37006D071713CFC500C2E8D5 /* libBBHTTP.OSX.a */,
 				370B822A16E497C0004A105E /* libz.dylib */,
 				378602EC16C225BD003256B9 /* libicucore.dylib */,
 				3798E07816F0496500D6F145 /* Security.framework */,
