@@ -4,8 +4,6 @@
 [submodule "Sunlight/INAppStoreWindow"]
 	path = Sunlight/INAppStoreWindow
 	url = git://github.com/indragiek/INAppStoreWindow.git
-	path = Sunlight/AutoHyperlinks.framework
-	url = git://github.com/ByteProject/AutoHyperlinks.framework.git
 [submodule "Sunlight/appnetkit"]
 	path = Sunlight/appnetkit
 	url = https://github.com/PhantomSunCreative/appnetkit.git
