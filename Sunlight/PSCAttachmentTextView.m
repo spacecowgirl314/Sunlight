@@ -49,21 +49,30 @@
 }
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender
-{	
-	return YES;
-}
-
-- (void)concludeDragOperation:(id<NSDraggingInfo>)sender
 {
 	NSPasteboard *pasteboard = [sender draggingPasteboard];
-	NSData *data = [pasteboard dataForType:NSFilenamesPboardType];
+	//NSArray *items = [pasteboard pasteboardItems];
+	
+	//NSData *data = [pasteboard dataForType:NSFileContentsPboardType];
+	NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLFromPasteboard:pasteboard]];
 	NSLog(@"%ld bytes long", data.length);
 	
 	NSURL *fileURL=[NSURL URLFromPasteboard:pasteboard];
 	NSString *fileName = [fileURL lastPathComponent];
 	NSLog(@"Attached %@", fileName);
 	
+	//NSLog(@"data:%@", [NSString stringWithCString:[data bytes] encoding:NSUTF8StringEncoding]);
+	//NSLog(@"data description:%@",[data description]);
+	//NSFileWrapper *fileContents = [pasteboard readFileWrapper];
+	//NSLog(@"filename:%@", [fileContents filename]);
+	
 	[[self delegate] processDraggedFile:fileName data:data];
+	return YES;
+}
+
+- (void)concludeDragOperation:(id<NSDraggingInfo>)sender
+{
+	
 }
 
 - (void)updateDraggingItemsForDrag:(id<NSDraggingInfo>)sender

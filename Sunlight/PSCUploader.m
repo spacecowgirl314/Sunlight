@@ -50,7 +50,7 @@
 			CLAPIEngine *cloudEngine = [[CLAPIEngine alloc] initWithDelegate:self];
 			[cloudEngine setEmail:[[NSUserDefaults standardUserDefaults] stringForKey:@"cloudEmail"]];
 			[cloudEngine setPassword:[[NSUserDefaults standardUserDefaults] stringForKey:@"cloudPassword"]];
-			[cloudEngine uploadFileWithName:fileName fileData:data userInfo:@"Uploads are awesome!"];
+			[cloudEngine uploadFileWithName:fileName fileData:data userInfo:nil];
 			break;
 		}
 		case PSCUploadServiceDroplr: {
@@ -63,6 +63,7 @@
 			
 			// Create the service instance
 			DKService* service = [[DKService alloc] initWithUserAgent:userAgent andAppCredentials:app];
+			//service.endpoint = kDKServiceProductionServerEndpoint;
 			
 			// Setting up a user
 			DKUserCredentials* user = [DKUserCredentials credentialsWithEmail:[[NSUserDefaults standardUserDefaults] stringForKey:@"droplrEmail"]

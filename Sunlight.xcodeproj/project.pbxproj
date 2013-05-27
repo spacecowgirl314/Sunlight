@@ -166,6 +166,7 @@
 		37AD27C01627F59F008E58BF /* Sunlight.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 37AD27BF1627F59F008E58BF /* Sunlight.iconset */; };
 		37AD27CC16280A30008E58BF /* PSCNewPostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AD27CA16280A2F008E58BF /* PSCNewPostController.m */; };
 		37AD27CD16280A30008E58BF /* PSCNewPost.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37AD27CB16280A2F008E58BF /* PSCNewPost.xib */; };
+		37ADCC811754205A00BE30F6 /* libcurl.OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37ADCC801754205A00BE30F6 /* libcurl.OSX.a */; };
 		37B5206316157DF500941F0D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B5206216157DF500941F0D /* Cocoa.framework */; };
 		37B5206D16157DF500941F0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B5206B16157DF500941F0D /* InfoPlist.strings */; };
 		37B5206F16157DF500941F0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B5206E16157DF500941F0D /* main.m */; };
@@ -802,6 +803,7 @@
 		37AD27C916280A2F008E58BF /* PSCNewPostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCNewPostController.h; sourceTree = "<group>"; };
 		37AD27CA16280A2F008E58BF /* PSCNewPostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCNewPostController.m; sourceTree = "<group>"; };
 		37AD27CB16280A2F008E58BF /* PSCNewPost.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCNewPost.xib; sourceTree = "<group>"; };
+		37ADCC801754205A00BE30F6 /* libcurl.OSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.OSX.a; path = Sunlight/Droplr/External/BBHTTP/External/libcurl.OSX/libcurl.OSX.a; sourceTree = "<group>"; };
 		37B5205E16157DF500941F0D /* Sunlight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sunlight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B5206216157DF500941F0D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		37B5206516157DF500941F0D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -1057,6 +1059,7 @@
 				3703832817335FF200B0DCC2 /* MagicKit.framework in Frameworks */,
 				377BEA8916F4847100D93FE0 /* libCloud.a in Frameworks */,
 				370383441733881500B0DCC2 /* libBBHTTP.OSX.a in Frameworks */,
+				37ADCC811754205A00BE30F6 /* libcurl.OSX.a in Frameworks */,
 				370B822B16E497C0004A105E /* libz.dylib in Frameworks */,
 				378602ED16C225BD003256B9 /* libicucore.dylib in Frameworks */,
 				3798E09916F1B28B00D6F145 /* Sparkle.framework in Frameworks */,
@@ -1734,6 +1737,7 @@
 				3798E08716F1B27A00D6F145 /* Sparkle.xcodeproj */,
 				370B822A16E497C0004A105E /* libz.dylib */,
 				378602EC16C225BD003256B9 /* libicucore.dylib */,
+				37ADCC801754205A00BE30F6 /* libcurl.OSX.a */,
 				3798E07816F0496500D6F145 /* Security.framework */,
 				37A6633C162AD8F600010161 /* CoreLocation.framework */,
 				37AD27B91627A8D4008E58BF /* Quartz.framework */,
@@ -2685,6 +2689,7 @@
 					"\"$(SRCROOT)/Sunlight/Droplr/External/BBHTTP/External/libcurl.iOS\"",
 					"\"$(SRCROOT)/Sunlight/Droplr/External/BBHTTP/External/libcurl.OSX\"",
 				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Sunlight/cloudapp/Source/libCloud/Cloud/** $(PROJECT_DIR)/Sunlight/Droplr/External/BBHTTP/BBHTTP/**";
 				WRAPPER_EXTENSION = app;
@@ -2709,6 +2714,7 @@
 					"\"$(SRCROOT)/Sunlight/Droplr/External/BBHTTP/External/libcurl.iOS\"",
 					"\"$(SRCROOT)/Sunlight/Droplr/External/BBHTTP/External/libcurl.OSX\"",
 				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Sunlight/cloudapp/Source/libCloud/Cloud/** $(PROJECT_DIR)/Sunlight/Droplr/External/BBHTTP/BBHTTP/**";
 				WRAPPER_EXTENSION = app;
