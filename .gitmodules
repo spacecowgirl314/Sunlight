@@ -8,13 +8,13 @@
 	url = git://github.com/ByteProject/AutoHyperlinks.framework.git
 [submodule "Sunlight/appnetkit"]
 	path = Sunlight/appnetkit
-	url = git@github.com:PhantomSunCreative/appnetkit.git
+	url = https://github.com/PhantomSunCreative/appnetkit.git
 [submodule "Sunlight/SEHumanizedTimeDiff"]
 	path = Sunlight/SEHumanizedTimeDiff
 	url = git://github.com/sarperdag/SEHumanizedTimeDiff.git
 [submodule "Sunlight/ScrollToRefresh"]
 	path = Sunlight/ScrollToRefresh
-	url = git@github.com:PhantomSunCreative/ScrollToRefresh.git
+	url = https://github.com/PhantomSunCreative/ScrollToRefresh.git
 [submodule "Sunlight/Godzippa"]
 	path = Sunlight/Godzippa
 	url = git://github.com/mattt/Godzippa.git
@@ -41,4 +41,4 @@
 	url = https://github.com/Droplr/api-objc.git
 [submodule "Sunlight/MagicKit"]
 	path = Sunlight/MagicKit
-	url = git://github.com/aidansteele/MagicKit.git
+	url = https://github.com/PhantomSunCreative/MagicKit.git
